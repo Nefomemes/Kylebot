@@ -41,13 +41,16 @@ module.exports = {
         if(Object.isObject(options) && options.type && options.type === "module"){
             const commandModules = require("../configs/cmd-list.json").content.filter(function(command){
                  return command.name.toLowerCase() === commandName.toLowerCase() || command.aliases.map(aliases => aliases.toLowerCase()).includes(commandName.toLowerCase());
-                if(!commandModules.length){
+            })
+                      if(!commandModules.length){
                     return;
                 } else if(commandModules.length > 1){
-                    
                     return ;
                 }
-            })
+                return commandModules[0];
+        } else if(Object.isObject(options) && options.type && options.type === "command" && options.client){
+            return options.client.get(commandName);
         }
+        return;
     }
 }
