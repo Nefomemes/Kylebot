@@ -1,0 +1,32 @@
+{
+  "name": "nefobot",
+  "version": "1.0.0",
+  "description": "A random Discord bot.",
+  "main": "index.js",
+  "engines": {
+    "node": "12.x"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Nefomemes#3927",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/opus": "^0.3.2",
+    "@vitalets/google-translate-api": "^3.0.0",
+    "algorithmia": "^0.3.10",
+    "canvas": "^2.6.1",
+    "discord.js": "^12.2.0",
+    "express": "^4.17.1",
+    "figlet": "^1.4.0",
+    "file-type": "^14.6.2",
+    "html-parser": "^0.11.0",
+    "image-size": "^0.8.3",
+    "imagesize": "^1.0.0",
+    "node-fetch": "^2.6.0",
+    "probe-image-size": "^5.0.0",
+    "xml2js": "^0.4.23",
+    "ytdl-core": "^3.1.1"
+  }
+}

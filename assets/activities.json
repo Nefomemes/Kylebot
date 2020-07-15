@@ -1,0 +1,53 @@
+{
+    "type":"activityList",
+    "content":[
+    {
+        "type":"PLAYING",
+        "content":"Realism Gun Game"
+    }, 
+    {
+        "type":"PLAYING",
+        "content":"Bomb Plant Moshpit"
+    },
+    {
+        "type":"PLAYING",
+        "content":"Ground War in Downtown"
+    },
+    {
+        "type":"PLAYING",
+        "content":"BR Stimulus Trios"
+    },
+    {
+        "type":"LISTENING",
+        "content":"Modern Warfare Main Theme by Sarah Schachner"
+    },
+    {
+        "type":"LISTENING",
+        "content":"Piccadilly Circus by Sarah Schachner"
+    },
+    {
+        "type":"LISTENING",
+        "content":"Clean House by Sarah Schachner"
+    },
+    {
+        "type":"LISTENING", 
+        "content":"Never Gonna Give You Up by Rick Astley"
+    },
+    {
+        "type":"WATCHING",
+        "content":"the gas moving in"
+    },
+    {
+        "type":"STREAMING",
+        "content":"Warzone with the lads"
+    },
+    {
+        "type":"PLAYING",
+        "content":"Gunfight Tournaments 2v2"
+    },
+    {
+        "type":"PLAYING",
+        "content":"Dirty Old Houseboat 24/7"
+    }
+]
+}
