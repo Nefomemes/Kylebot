@@ -3,9 +3,9 @@ const probe = require("probe-image-size");
 const fs = require("fs");
 const Discord = require("discord.js");
 const prefix = process.env.PREFIX;
-const commandList = require("./assets/cmd-list.json");
+const commandList = require("./assets/config/cmd-list.json");
 const Canvas = require("canvas");
-const funfact = require("./assets/funfact.json").content;
+const funfact = require("./assets/config/funfact.json").content;
 const figlet = require("figlet");
 const translate = require("@vitalets/google-translate-api");
 const cooldowns = new Discord.Collection();
@@ -21,7 +21,7 @@ const client = new Discord.Client({
     ]
   }
 });
-const activities = require("./assets/activities.json").content;
+const activities = require("./assets/confing/activities.json").content;
 const xml2js = require("xml2js");
 const querystring = require("querystring");
 const fetch = require("node-fetch");
@@ -64,58 +64,18 @@ setInterval(() => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Gaz is closing in. PORT ${ PORT }`);
+    require("req-handler.js").execute({app: app})
 });
-app.get("/commands", (req, res) => {
-res.send(require("./assets/cmd-list.json"))
-})
-app.get("/badwords", (req, res) => {
-res.send(require("./assets/badwords.json"))
-})
 
 app.get("*", (req, res) => {
   res.send("200 - OK");
 });
 
-function customSplit(str, maxLength){
-  if(str.length <= maxLength)  return str;
-  var parts = str.match(new RegExp(".{1," + maxLength + "}","g"));
-  return parts;
-}
-function arrayRemove(arr, value) {
-  return arr.filter(function(ele) {
-    return ele=value;
-  });
-}
-function trim(string, max) {
-  if (string.length <= max) return string;
-  return `${string.slice(0, max - 3)}...`;
-}
-function getRandomFunfact(){
-  return funfact[Math.floor(Math.random() * funfact.length)]
-}
-function getMemberFromMention(mention, message) {
-  if (!mention) return;
-
-  if (mention.startsWith("<@") && mention.endsWith(">")) {
-    mention = mention.slice(2, -1);
-
-    if (mention.startsWith("!")) {
-      mention = mention.slice(1);
-    }
-
-    return message.guild.members.cache.get(mention);
-  }
-}
-function getChannelFromMention(mention, message) {
-  if (!mention) return;
-
-  if (mention.startsWith("<#") && mention.endsWith(">")) {
-    mention = mention.slice(2, -1);
 
 
-    return message.guild.channels.cache.get(mention);
-  }
-}
+
+
+
 client.once("ready", () => {
   let activity = activities[Math.floor(Math.random() * activities.length)];
   console.log("Gaz is inbound!");
@@ -283,7 +243,6 @@ author.send(verb_warnings).catch(error => {
      customSplit: customSplit,
      getChannelFromMention: getChannelFromMention
    }
-
 
   try {
     command.execute(imports); 

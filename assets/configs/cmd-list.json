@@ -97,22 +97,7 @@
     "guild":false,
     "args":false
     
-},
-{
-    "name":"bug",
-    "type":"command",
-    "category": "Bot",
-    "description":
-      "File a bug report. You will still need to submit it to the support server.",
-    "cooldown": 30,
-    "usage": "nefo!bug",
-    "example": "nefo!bug",
-    "explanation": "The bot will guide you troughout the process.",
-    "disabled":true,
-    "guild":false,
-    "args":false
-},
-{
+},{
     "name":"channel",
     "type":"command",
     "category": "Server Information",
