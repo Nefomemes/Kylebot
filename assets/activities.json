@@ -3,20 +3,9 @@
     "content":[
     {
         "type":"PLAYING",
-        "content":"Realism Gun Game"
-    }, 
-    {
-        "type":"PLAYING",
-        "content":"Bomb Plant Moshpit"
+        "content":"Realism Ground War in Downtown"
     },
-    {
-        "type":"PLAYING",
-        "content":"Ground War in Downtown"
-    },
-    {
-        "type":"PLAYING",
-        "content":"BR Stimulus Trios"
-    },
+    
     {
         "type":"LISTENING",
         "content":"Modern Warfare Main Theme by Sarah Schachner"
@@ -47,7 +36,11 @@
     },
     {
         "type":"PLAYING",
-        "content":"Dirty Old Houseboat 24/7"
+        "content":"Cheshire Park and Shoot House 24/7"
+    }, 
+    {
+        "type":"PLAYING",
+        "content":"Team Deathmatch and Kill Confirmed Remix"
     }
 ]
 }
