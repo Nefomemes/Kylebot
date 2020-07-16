@@ -1,3 +1,12 @@
+process.on("unhandledRejection", function(reason, promise) {
+  console.error("Unhandled rejection", { reason: reason, promise: promise });
+});
+
+process.on("uncaughtException", err => {
+  console.error("There was an uncaught error", err);
+  process.exit(1); //mandatory (as per the Node docs)
+});
+
 var imagesize = require('imagesize');
 const probe = require("probe-image-size");
 const fs = require("fs");
@@ -65,7 +74,7 @@ setInterval(() => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Gaz is closing in. PORT ${ PORT }`);
-    require("./req-handler.js").execute({app: app}).catch(error => console.error(error))
+    require("./req-handler.js").execute({app: app})
 });
 
 
@@ -88,13 +97,8 @@ client.on("ready", () => {
     built_ins.freshActivity(client);
 }, 150000); 
 })
-process.on("unhandledRejection", function(reason, promise) {
-  console.error("Unhandled rejection", { reason: reason, promise: promise });
-});
-
-process.on("uncaughtException", err => {
-  console.error("There was an uncaught error", err);
-  process.exit(1); //mandatory (as per the Node docs)
+client.on("error", (err)=> {
+    console.err(err);
 });
 
 for (const file of commandFiles) {
