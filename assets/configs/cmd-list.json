@@ -93,7 +93,7 @@
     "usage": ["nefo!botinfo"],
     "example":["nefo!botinfo"],
     "aliases": ["stats", "ping", "latency", "uptime", "invite"],
-    "disabled":false,   
+    "disabled":true,   
     "guild":false,
     "args":false
     
@@ -147,7 +147,7 @@
     "usage": "nefo!morse <text>",
     "apiUsed": ["vierofernando"],
     "cooldown": 15,
-    "disabled": false,
+    "disabled": true,
     "args":true
 },
 {
@@ -156,14 +156,15 @@
     "category": "Insiders",
     "description": "Evaluate a code.",
     "usage": "nefo!eval <code>",
-    "args":true
+    "args":true,
+    "disabled":true
 },
 {
     "name":"happy",
     "category": "GIFs",
     "description": "Use this whenever you are happy.",
     "usage": "nefo!happy [reason]",
-    "disabled": false,
+    "disabled": true,
     "type":"command",
     "args":false
 },
@@ -175,7 +176,8 @@
     "usage": "nefo!help [command-or-page-number]",
     "example": ["nefo!help 1", "nefo!help nuke"],
     "aliases": ["commands"],
-    "explanation": "When no arguments are given, it will send the main help page."
+    "explanation": "When no arguments are given, it will send the main help page.",
+    "disabled":true
 },
 {
     "type":"command",
@@ -187,7 +189,8 @@
     "guild":true,
     "permissions":["KICK_MEMBERS"],
     "disabled":true,
-    "bot_permissions":["KICK_MEMBERS"]
+    "bot_permissions":["KICK_MEMBERS"],
+    
 },
 {
     "name":"kill",
@@ -195,7 +198,7 @@
     "type":"command",
     "description": "Kill an enemy.",
     "usage": "nefo!kill <members> reason",
-    "disabled":false,
+    "disabled":true,
     "explanation":
       "No ID accepted. Member mentions only. You can give the reason after all the mention mumbo jumbo ends.",
     "example": "nefo!kill @Vladimir Makarov#8573 this is for Soap"
@@ -203,7 +206,7 @@
 {
     "name":"noanime",
     "type":"command",
-    "disabled":false,
+    "disabled":true,
     "category":"Mematic",
     "description":"S nami bog. Remember- no anime.",
     "usage":"nefo!noanime <member> | <reasons> | <penalty>",
@@ -261,7 +264,8 @@
       "Get a random report of UFO sightings. This does not confirm the existence of UFOs however.",
     "usage": "nefo!randomufo",
     "cooldown": 15,
-    "disabled":false
+    "disabled":true,
+    
 },
 {
     "name":"resize",
@@ -282,7 +286,7 @@
     "description":"F",
     "usage":"nefo!respect <member> [reason]",
     "example":"nefo!respect @Dead Bot#8493 Down.",
-    "disabled":false,
+    "disabled":true
     "cooldown": 7,
     "args":true
 },
@@ -309,7 +313,7 @@
 "explanation": "None",
 "example": "nefo!search Never Gonna Give You Up",
 "cooldown": 5,
-"disabled":false,
+"disabled":true,
 "args":true
 },
 {
@@ -328,7 +332,7 @@
     "description":"Presentate your opinions as Spiderman!",
     "usage":"spiderpres [opinion]",
     "cooldown": 10,
-    "disabled":false,
+    "disabled":true,
     "type":"command"
 },
 {
@@ -337,7 +341,7 @@
     "description":"Audit the message rate of a channel.",
     "usage":"speedaudit [channel]",
     "cooldown":15,
-    "disabled":false,
+    "disabled":true,
     "type":"command"
 },
 {
@@ -348,7 +352,8 @@
     "usage": "nefo!urbandefine <word>",
     "example": "nefo!urbandefine Rick Roll",
     "cooldown": 30,
-    "type":"command"
+    "type":"command",
+    "disabled":true
 },
 {
     "name": "wttr",
@@ -357,7 +362,8 @@
     "usage": "nefo!wttr <api>",
     "example": "nefo!wttr Old Zealand",
     "cooldown": 10,
-    "type":"command"
+    "type":"command",
+    "disabled":true
 },
 {
     "name":"server",
@@ -366,12 +372,13 @@
       "Get the information of a server by it's ID. If no arguments given, it will return with the information of the server the command is executed.",
     "guild": true,
     "type":"command",
-    "disabled":false
+    "disabled":true
 },
 {
 "cooldown":7,
 "type":"command",
-"name":"steamuser"
+"name":"steamuser",
+"disabled":true
 },
 {
     "category": "Misc",
@@ -386,7 +393,8 @@
     ],
     "cooldown": 7,
     "name":"supreme",
-    "type":"command"
+    "type":"command",
+    "disabled":true
 }
 ]
 }

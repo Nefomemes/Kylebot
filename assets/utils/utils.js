@@ -52,5 +52,11 @@ module.exports = {
             return options.client.get(commandName);
         }
         return;
+    },
+    freshActivity: (client) => {
+        activities = require("../configs/activities.json").content;
+          let activity = activities[Math.floor(Math.random() * activities.length)];
+ 
+  return client.user.setActivity(activity.content + ` | ${process.env.PREFIX}help`, {type: activity.type}).catch(error => console.error(error));
     }
 }

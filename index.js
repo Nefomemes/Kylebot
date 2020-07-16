@@ -5,11 +5,12 @@ const Discord = require("discord.js");
 const prefix = process.env.PREFIX;
 const commandList = require("./assets/config/cmd-list.json");
 const Canvas = require("canvas");
-const funfact = require("./assets/config/funfact.json").content;
+const built_ins = require("./assets/utils/utils.js");
 const figlet = require("figlet");
 const translate = require("@vitalets/google-translate-api");
+
 const cooldowns = new Discord.Collection();
-const badwords = require("./assets/badwords.json").contents;
+const badwords = require("./assets/configs/badwords.json").contents;
 const client = new Discord.Client({
   partials: ["REACTION", "MESSAGE"],
   ws: {
@@ -21,7 +22,7 @@ const client = new Discord.Client({
     ]
   }
 });
-const activities = require("./assets/confing/activities.json").content;
+
 const xml2js = require("xml2js");
 const querystring = require("querystring");
 const fetch = require("node-fetch");
@@ -67,9 +68,9 @@ app.listen(PORT, () => {
     require("req-handler.js").execute({app: app})
 });
 
-app.get("*", (req, res) => {
-  res.send("200 - OK");
-});
+
+require("req-handler.js").execute({app: app}).catch(error => console.error(error))
+
 
 
 
@@ -77,16 +78,14 @@ app.get("*", (req, res) => {
 
 
 client.once("ready", () => {
-  let activity = activities[Math.floor(Math.random() * activities.length)];
+  
   console.log("Gaz is inbound!");
-  client.user.setActivity(activity.content + ` | ${process.env.PREFIX}help`, {type: activity.type});
+    built_ins.freshActivity(client);
   
 });
 client.on("ready", () => {
   setInterval(() => {
-    let activity = activities[Math.floor(Math.random() * activities.length)];
-    client.user.setActivity(activity.content + ` | ${process.env.PREFIX}help`, {type: activity.type});
-
+    built_ins.freshActivity(client);
 }, 150000); 
 })
 process.on("unhandledRejection", function(reason, promise) {
@@ -105,29 +104,7 @@ for (const file of commandFiles) {
 }
 
 client.on("message", async message => {
-if(message.channel.id === "729223426233073726" && message.author.bot === true) return message.delete().catch(error => {});
-  if (message.author.bot) return;
-  if(message.channel.id === "729222873058770986") {
-    message.delete().catch(error => {});}
- 
-  var words = message.content.split("[").join(" ").split("]").join(" ").split("||").join(" ").split("`").join(" ").split("```").join(" ").split("__").join(" ").split(".").join(" ").split(",").join(" ").split(" ");
-  
-  var violates = words.filter(function(value, index, arr){ return badwords.includes(value.toLowerCase())   });
-  violates = violates.filter(function(value, index, arr){ return value !== "classic"  });
-  if(!message.content.startsWith("mw!noanime") &&message.guild && message.guild.id !== "380289224043266048" && violates.length && message.guild.members.cache.get("665419057075585025") && message.guild.members.cache.get("665419057075585025").hasPermission("MANAGE_MESSAGES")){
-  const verb_warnings = new Discord.MessageEmbed()
-  .setColor("#7289da")
-  .setTitle("Content Deletion")
-  .setAuthor(message.guild.name + " Moderation System", message.guild.iconURL({format: "png", dynamic: true}))
-  .setDescription(trim("Our content moderation system have flagged one of your message contains badword(s). Issued content: ```" + message.content + "```" + `${violates.length} badwords found:\`\`\`` + violates.join("\n") + "``` \n This wont affect you at all (except the message you sent.) until we have implemented database to the bot.", 2000))
-  .setFooter(`Prefix: ${process.env.PREFIX} | ` + getRandomFunfact(), "https://cdn.discordapp.com/avatars/675840311599300650/82ada90d0daf322dcea7bbbff92bee90.png?width=406&height=406")  
-const author = message.author;
-
-message.delete()
-author.send(verb_warnings).catch(error => {
-
-})
-}
+if(message.author.bot) return;
   /*if (message.guild) {
 		let prefixUsed;
 
@@ -138,8 +115,9 @@ author.send(verb_warnings).catch(error => {
 			const guildPrefix = await prefixes.get(message.guild.id);
 			if (message.content.startsWith(guildPrefix)) prefixUsed = guildPrefix;
 		}*/
-
-  if (!message.content.startsWith(prefix)) return;
+require("filter.js").execute({message: message, Discord: Discord, client: client, built_ins: built_ins})
+if(!message.startsWith(prefix))return;
+  
 
   var args = message.content.slice(prefix.length).split(/ +/);
   const commandName = args.shift().toLowerCase();
@@ -228,20 +206,18 @@ author.send(verb_warnings).catch(error => {
      args: args,
      client: client,
      Discord: Discord,
-     trim: trim,
-     getMemberFromMention: getMemberFromMention,
+
      timestamps: timestamps,
-     customSplit: customSplit,
      probe: probe,
      figlet: figlet,
      translate: translate,
      got: got,
-     arrayRemove: arrayRemove,
+
      Canvas: Canvas,
      querystring: querystring,
      fetch: fetch,
-     customSplit: customSplit,
-     getChannelFromMention: getChannelFromMention
+ 
+
    }
 
   try {
