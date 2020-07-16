@@ -27,6 +27,7 @@
     "imagesize": "^1.0.0",
     "node-fetch": "^2.6.0",
     "probe-image-size": "^5.0.0",
+    "underscore": "^1.10.2",
     "xml2js": "^0.4.23",
     "ytdl-core": "^3.1.1"
   }

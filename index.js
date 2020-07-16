@@ -8,7 +8,7 @@ const Canvas = require("canvas");
 const built_ins = require("./assets/utils/utils.js");
 const figlet = require("figlet");
 const translate = require("@vitalets/google-translate-api");
-
+const _ = require('underscore');
 const cooldowns = new Discord.Collection();
 const badwords = require("./assets/configs/badwords.json").contents;
 const client = new Discord.Client({
@@ -65,11 +65,11 @@ setInterval(() => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Gaz is closing in. PORT ${ PORT }`);
-    require("req-handler.js").execute({app: app})
+    require("./req-handler.js").execute({app: app}).catch(error => console.error(error))
 });
 
 
-require("req-handler.js").execute({app: app}).catch(error => console.error(error))
+
 
 
 
@@ -115,7 +115,7 @@ if(message.author.bot) return;
 			const guildPrefix = await prefixes.get(message.guild.id);
 			if (message.content.startsWith(guildPrefix)) prefixUsed = guildPrefix;
 		}*/
-require("filter.js").execute({message: message, Discord: Discord, client: client, built_ins: built_ins})
+require("./filter.js").execute({message: message, Discord: Discord, client: client, built_ins: built_ins})
 if(!message.startsWith(prefix))return;
   
 
@@ -123,17 +123,8 @@ if(!message.startsWith(prefix))return;
   const commandName = args.shift().toLowerCase();
   if(!commandName)return;
  
-    var commandModule = commandList.content.filter(function(value, index, arr){ return value.name === commandName || value.aliases && value.aliases.includes(commandName)});
-    if(!commandModule.length) return;
-  
-    if(commandModule.length > 1) return message.channel.send("It seems there is multiple instances of that command in the command list module. Please file a bug report and submit it to the support server.");
-    commandModule = commandModule[0];
-  
-  
-   
-  
-
-  
+    var commandModule = built_ins.getCommand(CommandName, {type: "module"});
+  if(!commandModule) return;
     if(commandModule.disabled && commandModule.disabled === true) return message.channel.send("Sorry, that command is currently disabled.")
   
   
@@ -162,12 +153,11 @@ if(!message.startsWith(prefix))return;
   
     if(!message.guild && commandModule.guild && commandModule.guild === true || !message.guild && commandModule.permissions &&commandModule.permissions || !message.guild && commandModule.bot_permissions && commandModule.bot_permissions || !message.guild && commandModule.webhooks) return message.channel.send("That command is not available in DM!")
   
-    const command = client.commands.get(commandModule.name);
+    const command = built_ins.getCommand(commandModule.name, {type: "command", client: client});
     
-    if (!command || !commandName) return message.channel.send( `**\`${commandName}\`** is not a valid command!`);
+    if (!command) return message.channel.send( `**\`${commandName}\`** is not a valid command!`);
     
-    if(commandModule.guild && commandModule.guild === true && message.channel.type === "dm") return message.channel.send("Sorry, that command is a guild only thing.");
- 
+
 
   if (!cooldowns.has(command.name)) {
     cooldowns.set(command.name, new Discord.Collection());
@@ -212,7 +202,7 @@ if(!message.startsWith(prefix))return;
      figlet: figlet,
      translate: translate,
      got: got,
-
+    _:_,
      Canvas: Canvas,
      querystring: querystring,
      fetch: fetch,

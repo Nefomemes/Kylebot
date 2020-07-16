@@ -9,11 +9,11 @@ module.exports = {
         
         
         var embed = new imports.Discord.MessageEmbed()
-        .setColor(process.env.BG_COLOR)
+        .setColor(require("../assets/configs/color.json").content.BG_COLOR)
         .setTitle("Kyle - Debug Page")
-        .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({format:"png", dynamic: true}), "https://nefomemes.herokuapp.com/kylebot")
+        .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({format:"png", dynamic: true}), process.env.WEBSITE)
         .setTimestamp()
-        .setFooter(`Prefix: ${process.env.PREFIX} | ${imports.getRandomFunfact()}`, imports.client.user.displayAvatarURL({format:"png", dynamic: true}));
+        .setFooter(`Prefix: ${process.env.PREFIX} | ${imports.built_ins.getRandomFunfact()}`, imports.client.user.displayAvatarURL({format:"png", dynamic: true}));
         
         async function evaluate(code){
             return await eval(code)
