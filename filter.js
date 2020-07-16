@@ -23,5 +23,5 @@ author.send(verb_warnings).catch(error => {
 
 
 
-    }
+}}
 }
