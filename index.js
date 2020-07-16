@@ -101,6 +101,10 @@ client.on("error", (err)=> {
     console.err(err);
 });
 
+
+
+
+
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
 
