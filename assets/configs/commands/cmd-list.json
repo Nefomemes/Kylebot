@@ -341,7 +341,7 @@
 "type":"command",
 "name":"steamuser",
 "disabled":true
-},
+}
 
 ]
 }
