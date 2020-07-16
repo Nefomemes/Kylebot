@@ -124,7 +124,7 @@ if(message.author.bot) return;
 			if (message.content.startsWith(guildPrefix)) prefixUsed = guildPrefix;
 		}*/
 require("./filter.js").execute({message: message, Discord: Discord, client: client, built_ins: built_ins})
-if(!message.startsWith(prefix))return;
+if(!message.content.startsWith(prefix))return;
   
 
   var args = message.content.slice(prefix.length).split(/ +/);
