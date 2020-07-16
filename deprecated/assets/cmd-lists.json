@@ -1,0 +1,62 @@
+[
+    {
+    "name":"randomufo",
+    "category":"Misc Commands",
+    "type":"command",
+    "description":
+      "Get a random report of UFO sightings. This does not confirm the existence of UFOs however.",
+    "usage": "nefo!randomufo",
+    "cooldown": 15,
+    "disabled":true,
+    
+},
+{
+    "category": "Misc",
+    "description": "Create a Supreme logo.",
+    "usage": "nefo!supreme [style] <name>",
+    "explanation":
+      "The default of the style is the light / red one and there is two style, light and dark.",
+    "example": [
+      "nefo!supreme --dark Indomie",
+      "nefo!supreme --light Indomie",
+      "nefo!supreme Indomie"
+    ],
+    "cooldown": 7,
+    "name":"supreme",
+    "type":"command",
+    "disabled":true
+},
+    {"name":"blogger",
+    "type":"command",
+    "category": "Misc Commands",
+    "description": "Get the information of a certain Blogger blog. Supports both blog ID and URL.",
+    "usage": "nefo!blogger <blog-id-or-url>",
+    "example": ["nefo!blogger https://nefomemes.blogspot.com/", "nefo!blogger 3128271419964513992"],
+    "disabled": true,
+    "cooldown": 15,
+    "args":true
+
+},
+{
+    "name":"play",
+    "category": "Music",
+    "type":"command",
+    "description": "Play a music from anywhere.",
+    "usage": "nefo!play <link>",
+    "explanation": "None",
+    "example": "nefo!play Never Gonna Give You Up",
+    "cooldown": 30,
+    "disabled":true
+},
+{
+    "name":"country",
+    "type":"Misc Commands",
+    "category": "Information",
+    "description":
+      "Get the information of a country",
+    "usage": "country <country>",
+    "disabled": true,
+    "cooldown": 15,
+    "args":true
+}
+]
