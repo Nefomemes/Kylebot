@@ -159,8 +159,7 @@
     "example": ["nefo!help 1", "nefo!help nuke"],
     "aliases": ["commands"],
     "explanation": "When no arguments are given, it will send the main help page.",
-    "disabled":true
-},
+    "disabled":false},
 {
     "type":"command",
     "name":"kick",

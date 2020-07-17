@@ -36,11 +36,11 @@ module.exports = {
     return message.guild.channels.cache.get(mention); 
     },
     getCommand: (commandName, options) => {
-        type = type || "module";
+        
 
-        if(Object.isObject(options) && options.type && options.type === "module"){
-            const commandModules = require("../configs/cmd-list.json").content.filter(function(command){
-                 return command.name.toLowerCase() === commandName.toLowerCase() || command.aliases.map(aliases => aliases.toLowerCase()).includes(commandName.toLowerCase());
+        if(options.constructor = Object && options.type && options.type === "module"){
+            const commandModules = require("../configs/commands/cmd-list.json").content.filter(function(command){
+                 return command.name && command.name.toLowerCase() === commandname.toLowerCase() ||command.aliases && command.aliases.includes(commandName.toLowerCase())
             })
                       if(!commandModules.length){
                     return;
@@ -48,8 +48,8 @@ module.exports = {
                     return ;
                 }
                 return commandModules[0];
-        } else if(Object.isObject(options) && options.type && options.type === "command" && options.client){
-            return options.client.get(commandName);
+        } else if(options.constructor = Object && options.type && options.type === "command" && options.client){
+            return options.client.commands.get(commandName);
         }
         return;
     },

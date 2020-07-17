@@ -1,4 +1,4 @@
-process.on("unhandledRejection", function(reason, promise) {
+ process.on("unhandledRejection", function(reason, promise) {
   console.error("Unhandled rejection", { reason: reason, promise: promise });
 });
 
@@ -131,7 +131,7 @@ if(!message.content.startsWith(prefix))return;
   const commandName = args.shift().toLowerCase();
   if(!commandName)return;
  
-    var commandModule = built_ins.getCommand(CommandName, {type: "module"});
+    var commandModule = built_ins.getCommand(commandName, {type: "module"});
   if(!commandModule) return;
     if(commandModule.disabled && commandModule.disabled === true) return message.channel.send("Sorry, that command is currently disabled.")
   
@@ -199,7 +199,7 @@ if(!message.content.startsWith(prefix))return;
    }, cooldownAmount);
 
    var imports = {
-     getRandomFunfact: getRandomFunfact,
+    built_ins: built_ins,
      message: message,
      args: args,
      client: client,
