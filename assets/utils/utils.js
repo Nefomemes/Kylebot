@@ -40,7 +40,7 @@ module.exports = {
 
         if(options.constructor = Object && options.type && options.type === "module"){
             const commandModules = require("../configs/commands/cmd-list.json").content.filter(function(command){
-                 return command.name && command.name.toLowerCase() === commandname.toLowerCase() ||command.aliases && command.aliases.includes(commandName.toLowerCase())
+                 return command.name && command.name.toLowerCase() === commandName.toLowerCase() ||command.aliases && command.aliases.includes(commandName.toLowerCase())
             })
                       if(!commandModules.length){
                     return;
