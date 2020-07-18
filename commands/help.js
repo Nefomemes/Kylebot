@@ -3,8 +3,9 @@
 module.exports = {
     name: "help",
     execute(imports){
+       
         var embed = new imports.Discord.MessageEmbed()
-        .setColor(require("../assets/configs/color.json").content.BG_COLOR)
+        .setColor(imports.colors.BG_COLOR)
         .setTitle(`${imports.client.user.username.split(" ")[0]} Help Command`)
         .setURL(`${process.env.WEBSITE}/commands`)
         .setAuthor(`${imports.client.user.username}`, imports.client.user.displayAvatarURL({dynamic: true, format: "png"}), process.env.WEBSITE)
@@ -21,7 +22,26 @@ module.exports = {
             return modules[0];
         }
         if(getCategory(imports.args[0])){
+            const value = getCategory(imports.args[0]);
+              if(value.id){
+                    embed = embed.setDescription(imports.built_ins.trim(`Insidely called \`${value.id}\`.`, 2048))
+                }
+                var descr = value.description || "No description specified.";
+                const desscr = commands.filter(function(command){
+                        
+                if(command.disabled && command.disabled === true) return false;
+                if(value.id !== "misc")return command.category && command.category === value.id;
+                if(value.id === "misc") return command.category && command.category === "misc" || !command.category;
+                return false;
+            }).length
+              if(embed.description){
+                  embed = embed.setDescription(imports.built_ins.trim(`${embed.description}\n\n ${descr}\n\n ${desscr} commands available.`, 2048))
+                } else {
+                    embed = embed.setDescription(imports.built_ins.trim(`${descr}\n\n ${desscr} commands available.`, 2048));
+                }
+            
             imports._.each(commands.filter(function(command){
+              
                 if(command.disabled && command.disabled === true)return false;
                 return command.category && command.category === getCategory(imports.args[0]).id || getCategory(imports.args[0]).id === "misc" && !command.category;
             }), function(value){

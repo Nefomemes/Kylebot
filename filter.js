@@ -8,7 +8,7 @@ module.exports = {
   
   if(imports.message.guild && violates.length /* && the function that will get if the guild activates it's badwords filter or not.*/){
   const verb_warnings = new imports.Discord.MessageEmbed()
-  .setColor(require("./assets/configs/color.json").content.BG_COLOR)
+  .setColor(imports.colors.BG_COLOR)
   .setTitle("Content Deletion")
   .setAuthor(imports.message.guild.name + " Moderation System", imports.message.guild.iconURL({format: "png", dynamic: true}))
   .setDescription(imports.built_ins.trim("Our content moderation system have flagged one of your message contains badword(s).However, this wont affect you at all (except the message you sent, though) until we have implemented database to the bot.", 2048))

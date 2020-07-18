@@ -5,7 +5,7 @@ module.exports = {
   execute(imports
   ) {
     try {
-      imports.message.react("<a:DiscordLoading:731124846234435585").then(reaction => {
+   
         const uptime = imports.client.uptime /3600000;
         var embedping = new imports.Discord.MessageEmbed()
           .setColor(require("../assets/configs/color.json").content.BG_COLOR)
@@ -38,11 +38,9 @@ module.exports = {
                                   {name: "Members cached (not all due to Discord limitations)", value: `${imports.message.guild.members.cache.size} members`, inline: true },
                                   {name: "Members cached percentage", value: `${((imports.message.guild.members.cache.size / imports.message.guild.memberCount) * 100).toFixed(2)}%`, inline: true})
             }
-        imports.message.channel.send(embedping).then(() => {
-         reaction.remove();
-          }
-        )
-      });
+        imports.message.channel.send(embedping)
+        
+
     } catch (error) {
       imports.message.channel.send(error);
     }

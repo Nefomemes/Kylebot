@@ -143,12 +143,20 @@
 },
 {
     "name":"happy",
-    "category": "GIFs",
+    "category": "rp",
     "description": "Use this whenever you are happy.",
-    "usage": "nefo!happy [reason]",
-    "disabled": true,
-    "type":"command",
-    "args":false
+    "usage": "happy [reason]",
+    "disabled": false,
+    "type":"command"
+  
+},
+{
+    "name":"walk",
+    "category": "rp",
+    "description": "When you want to uninstall Ukraine.",
+    "usage": "happy [reason]",
+    "disabled": false,
+    "type":"command"
 },
 {
     "name":"help",
@@ -289,11 +297,11 @@
 },
 {
     "name":"spiderpres",
-    "category":"Mematic",
+    "category":"memes",
     "description":"Presentate your opinions as Spiderman!",
     "usage":"spiderpres [opinion]",
     "cooldown": 10,
-    "disabled":true,
+    "disabled":false,
     "type":"command"
 },
 {

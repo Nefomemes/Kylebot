@@ -1,3 +1,4 @@
+
  process.on("unhandledRejection", function(reason, promise) {
   console.error("Unhandled rejection", { reason: reason, promise: promise });
 });
@@ -6,7 +7,7 @@ process.on("uncaughtException", err => {
   console.error("There was an uncaught error", err);
   process.exit(1); //mandatory (as per the Node docs)
 });
-
+const colors = require("./assets/configs/color.json").content;
 var imagesize = require('imagesize');
 const probe = require("probe-image-size");
 const fs = require("fs");
@@ -123,7 +124,7 @@ if(message.author.bot) return;
 			const guildPrefix = await prefixes.get(message.guild.id);
 			if (message.content.startsWith(guildPrefix)) prefixUsed = guildPrefix;
 		}*/
-require("./filter.js").execute({message: message, Discord: Discord, client: client, built_ins: built_ins})
+require("./filter.js").execute({message: message, Discord: Discord, client: client, built_ins: built_ins, colors: colors})
 if(!message.content.startsWith(prefix))return;
   
 
@@ -214,7 +215,7 @@ if(!message.content.startsWith(prefix))return;
      Canvas: Canvas,
      querystring: querystring,
      fetch: fetch,
- 
+    colors: colors,
 
    }
 

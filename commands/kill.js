@@ -9,16 +9,16 @@ module.exports = {
     var targets = [];
     var deleteArgs;
     do {
-      targets[a] = imports.getMemberFromMention(imports.args[0], imports.message);
+      targets[a] = imports.built_ins.getMemberFromMention(imports.args[0], imports.message);
       deleteArgs = imports.args.shift();
       a++;
-    } while (imports.getMemberFromMention(imports.args[0],imports.message));
+    } while (imports.built_ins.getMemberFromMention(imports.args[0],imports.message));
     if(!targets.length) return imports.message.channel.send("Uggh, who you want to kill?").then(() => {
       timestamps.delete(imports.message.author.id);
     })
     if(targets.includes(imports.message.member)) {
       let no_suicide = new imports.Discord.MessageEmbed()
-      .setColor(process.env.BG_COLOR)
+      .setColor(imports.colors.BG_COLOR)
       .setTitle("You can't kill yourself!")
       .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
       .setDescription("It's not good!")
