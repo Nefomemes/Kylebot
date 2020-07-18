@@ -22,4 +22,4 @@ That's your problem. Not mine. When the settings feature coming in. You will soo
 [Click this link.](https://www.youtube.com/watch?v=dQw4w9WgXcQ)     
 
 
-Copyright 2020 Nefomemes. This bot is licensed under MIT.
+Copyright 2020 Nefomemes. This bot is licensed under MIT lisence.
