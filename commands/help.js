@@ -12,8 +12,9 @@ module.exports = {
         .setTimestamp()
         .setFooter(`Prefix: ${process.env.PREFIX} | For the time being, no commands are available due to some major optimizations in the main code.`)
         function getCategory(name){
+            if(!name)return;
             let modules =categories.filter(function(category){
-                return category.name.toLowerCase(name) || category.id === name;
+                return category.name.toLowerCase() === name.toLowerCase() || category.id === name;
             })
             if(!modules.length) return;
             if(modules.length > 1) return;
@@ -21,22 +22,24 @@ module.exports = {
         }
         if(getCategory(imports.args[0])){
             imports._.each(commands.filter(function(command){
+                if(command.disabled && command.disabled === true)return false;
                 return command.category && command.category === getCategory(imports.args[0]).id || getCategory(imports.args[0]).id === "misc" && !command.category;
             }), function(value){
-                embed = embed.addField(value.name, value.description);
+                embed = embed.addField(value.name || "Classified", value.description || "No description given.");
             })
         } else if(imports.built_ins.getCommand(imports.args[0], {type: "module"})){
             imports._.each(imports.built_ins.getCommand(imports.args[0], {type: "module"}), function(value, key){
                 if(key === "description"){
                     embed = embed.setDescription(value)
                 } else {
-                    embed = embed.addField(key, value, true);
+                    embed = embed.addField(key || "Classified. Wait for further instructions.", value || "No description given.", true);
                 }
             })
         } else {
             
         imports._.each(categories, function (value) {
-            embed = embed.addField(key, imports.built_ins.trim(`${value.description} ${commands.filter(function(command){
+            embed = embed.addField(value.name, imports.built_ins.trim(`Insidely called \`${value.id}\`.\n \n ${value.description} \n\n ${commands.filter(function(command){
+                if(command.disabled && command.disabled === true) return false;
                 if(value.id !== "misc")return command.category && command.category === value.id;
                 if(value.id === "misc") return command.category && command.category === "misc" || !command.category;
                 return false;

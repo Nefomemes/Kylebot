@@ -35,12 +35,12 @@ module.exports = {
 }
     return message.guild.channels.cache.get(mention); 
     },
-    getCommand: (commandName, options) => {
-        
-
+    getCommand: (cmd, options) => {
+        if(!cmd) return;
+if(!options.type) return;
         if(options.constructor = Object && options.type && options.type === "module"){
             const commandModules = require("../configs/commands/cmd-list.json").content.filter(function(command){
-                 return command.name && command.name.toLowerCase() === commandName.toLowerCase() ||command.aliases && command.aliases.includes(commandName.toLowerCase())
+                 return command.name && command.name.toLowerCase() === cmd.toLowerCase() ||command.aliases && command.aliases.includes(cmd.toLowerCase())
             })
                       if(!commandModules.length){
                     return;
@@ -49,7 +49,7 @@ module.exports = {
                 }
                 return commandModules[0];
         } else if(options.constructor = Object && options.type && options.type === "command" && options.client){
-            return options.client.commands.get(commandName);
+            return options.client.commands.get(cmd);
         }
         return;
     },
