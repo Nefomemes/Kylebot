@@ -1,7 +1,5 @@
 __**Hey there!**__  
-Welcome to the Kylebot source code, the first Call of Duty-themed roleplay Discord bot, not much rp but it will got economy which is just to prevent abuse of some rp-dedicated killstreaks, like `nuke`. And for some reasons I have nothing to talk here lol. Anyways, we should do the FAQ here, shall we?    
-
-
+Welcome to the Kylebot source code, the first Call of Duty-themed roleplay Discord bot, not much rp but it will got economy which is just to prevent abuse of some rp-dedicated killstreaks, like `nuke`. And for some reasons I have nothing to talk here lol. Anyways, we should do the FAQ here, shall we?       
 
 **The bot is down randomly.**  
 And yeah. The bot is still in early alpha stage. Which means that the bot will down so that the new things can load out, sorry.    
