@@ -13,15 +13,15 @@ module.exports = {
       imports.args[0].endsWith(">") == false ||
       !imports.message.mentions.users
     )
-      return message.reply("You must mention someone!");
+      return imports.message.reply("You must mention someone!");
     argss = imports.args.join(" ").split(" | ");
 
     var a = 0;
     targets = [];
     do {
-      targets[a] = imports.getMemberFomMention(imports.args.shift(), imports.message)
+      targets[a] = imports.built_ins.getMemberFomMention(imports.args.shift(), imports.message)
       a++;
-    } while (imports.getMemberfromMention(imports.args[0]));
+    } while (imports.built_ins.getMemberfromMention(imports.args[0]));
   
 
   
@@ -39,12 +39,12 @@ module.exports = {
       the_reason = "."
     }
     let embedkill = imports.Discord.MessageEmbed()
-      .setColor(process.env.BG_COLOR)
+      .setColor(imports.color.BG_COLOR)
       .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
       .setDescription(`${message.author} respected ${targets.join(", ")}${the_reason}`)
       .setImage(selectedGIF)
       .setTimestamp()
-      .setFooter(`Prefix: ${process.env.PREFIX} | ${imports.getRandomFunfact()}`)
+      .setFooter(`Prefix: ${process.env.PREFIX} | ${imports.built_ins.getRandomFunfact()}`)
       imports.message.channel.send(embedkill);
   }
 };

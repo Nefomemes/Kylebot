@@ -1,17 +1,8 @@
 module.exports = {
-  name: "search",
-  description: "Search something in the Internet. Returns in the link though.",
-  permsreq: [],
-  category: "Misc Commands",
-  apiUsed: ["Discord"],
-  usage: "nefo!search <arg>",
-  explanation: "None",
-  example: "nefo!search Never Gonna Give You Up",
-  cooldown: 5,
   execute(imports) {
     if(!imports.args.length) return imports.message.channel.send("What you want to search, huh?");
     const embed = new imports.Discord.MessageEmbed()
-    .setColor(process.env.BG_COLOR)
+    .setColor(imports.colors.BG_COLOR)
     .setTitle("Search results for " + imports.args.join(" "))
     .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
     .setDescription("Here are some quick search link for you.\n\n" + 
@@ -27,7 +18,7 @@ module.exports = {
                     `[Fandom](https://www.fandom.com/?${imports.querystring.stringify({s: imports.args.join(" ")})}&safe=strict)`)
   
   .setTimestamp()
-  .setFooter(`Prefix: ${process.env.PREFIX} | ${imports.getRandomFunfact()}`)
+  .setFooter(`Prefix: ${process.env.PREFIX} | ${imports.built_ins.getRandomFunfact()}`)
     imports.message.channel.send(embed);
                   }
 };

@@ -1,7 +1,7 @@
 {
-  "name": "nefobot",
+  "name": "kylebot",
   "version": "1.0.0",
-  "description": "A random Discord bot.",
+  "description": "The first Call of Duty roleplay Discord bot.",
   "main": "index.js",
   "engines": {
     "node": "12.x"
@@ -10,8 +10,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nefomemes/Nefobot.git"
+  },
   "author": "Nefomemes#3927",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@discordjs/opus": "^0.3.2",
     "@vitalets/google-translate-api": "^3.0.0",

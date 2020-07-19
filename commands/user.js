@@ -7,25 +7,23 @@ module.exports = {
   aliases: ["userinfo"],
   execute(imports) {
     var user, member;
-    if(message.guild){
-          member = imports.built_ins.getMemberFromMention(imports.args[0], message)|| imports.message.member;
+    if(imports.message.guild){
+          member = imports.built_ins.getMemberFromMention(imports.args[0], imports.message)|| imports.message.member;
             user = member.user;
     }else{
-      user = message.author;
+      user = imports.message.author;
     }
 
     var embed = new imports.Discord.MessageEmbed()
-    .setColor(require("../assets/configs/color.json").content.BG_COLOR)
+    .setColor(imports.colors.BG_COLOR)
     .setTitle(`${user.username}#${user.discriminator}`)
     .setAuthor(imports.client.user.username.split(" ")[0], imports.client.user.displayAvatarURL({format: "png", dynamic: true}), process.env.WEBSITE)
     .setThumbnail(user.displayAvatarURL({format: "png", dynamic: true}))
     .addFields(  
                 {name: "ID", value: `${user.id}`, inline: true}, 
                 {name: "Accout created at", value: user.createdAt}, 
-                {name: "Presence Status", value: user.presence.status, inline: true}, 
-                {name: "Client type", value: user.presence.clientStatus, inline: true},
                 {name: "Bot", value: user.bot})
-    .setFooter(`Prefix: ${process.env.PREFIX} | ${imports.builts_in.getRandomFunfact()}`)
+    .setFooter(`Prefix: ${process.env.PREFIX} | ${imports.built_ins.getRandomFunfact()}`)
 
                 if(imports.message.guild){
                   embed.addFields({name: "Joined the server since", value: member.joinedAt},

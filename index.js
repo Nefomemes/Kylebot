@@ -111,8 +111,7 @@ for (const file of commandFiles) {
 
   client.commands.set(command.name, command);
 }
-
-client.on("message", async message => {
+function handleMessage(message){
 if(message.author.bot) return;
   /*if (message.guild) {
 		let prefixUsed;
@@ -225,7 +224,13 @@ if(!message.content.startsWith(prefix))return;
     console.error(error);
     message.reply(`An error occurred! ${error}`);
   }
-  //}
+  
+}
+client.on("message", async (message) => {
+handleMessage(message);
+});
+client.on("messageUpdate", async (oldMessage, newMessage) => {
+handleMessage(newMessage);
 });
 
 client.login(process.env.DISCORD_TOKEN);

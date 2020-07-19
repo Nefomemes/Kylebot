@@ -1,6 +1,22 @@
 {"type":"command_list",
 "content": [
     {
+        "name": "search",
+  "description": "Search something in the Internet. Returns in the link though.",
+  "category": "misc",
+  "usage": "search <arg>",
+  "explanation": "None",
+  "example": "search Never Gonna Give You Up",
+  "cooldown": 5,
+  "disabled":false
+    },
+    {"name":"user",
+    "category": "misc",
+  "description": "Get informations about a user.",
+  "usage": "```nefo!user [user] ",
+    "disabled":false,
+  "aliases": ["userinfo"]},
+    {
         "name": "ac130",
         "category": "killstreak",
         "description": "Call in an AC-310. Good for roleplay servers.",
@@ -272,20 +288,7 @@
     "disabled":true,
     "args":true,
     "guild":true
-},
-{
-"name":"search",
-"type":"command",
-"category":"Misc Commands",
-"description": "Search something in the Internet. Returns in the link though.",
-"usage": "nefo!search <args>",
-"explanation": "None",
-"example": "nefo!search Never Gonna Give You Up",
-"cooldown": 5,
-"disabled":true,
-"args":true
-},
-{
+},{
     "name":"bunker",
     "category":"Nefomemes' Coding Bunker Exclusive",
     "description":"Create a bunker for you.",
