@@ -307,7 +307,7 @@
 },
 {
     "name":"urbandefine",
-    "category": "Information",
+    "category": "misc",
     "description":
       "Get a definition from Urban Dictionary. The bot does not support NSFW definitions whatsoever.",
     "usage": "nefo!urbandefine <word>",
@@ -328,7 +328,7 @@
 },
 {
     "name":"server",
-    "category": "Information",
+    "category": "misc",
     "description":
       "Get the information of a server by it's ID. If no arguments given, it will return with the information of the server the command is executed.",
     "guild": true,
@@ -339,7 +339,8 @@
 "cooldown":7,
 "type":"command",
 "name":"steamuser",
-"disabled":true
+"disabled":false,
+"category":"misc"
 }
 
 ]

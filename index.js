@@ -219,11 +219,13 @@ if(!message.content.startsWith(prefix))return;
    }
 
   try {
+      if(!command.run)return message.channel.send("The command is not yet done!")
     command.run(imports).catch(err => {
-      message.channel.send(`An error occured! ${error}`);
+      message.channel.send(`An error occured! ${err}`);
+      console.error(err);
     }); 
   } catch (error) {
-    console.error(error);
+   
     message.channel.send(`An error occurred! ${error}`);
   }
   
