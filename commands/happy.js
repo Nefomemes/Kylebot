@@ -1,7 +1,7 @@
 module.exports = {
     name: "happy",
 
-    execute(imports){
+    run: async (imports) => {
         var the_reason = imports.args.join(" ");
     if(the_reason){
     the_reason = ` because "` + imports.args.join(" ") + `".`;

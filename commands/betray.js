@@ -1,36 +1,12 @@
 module.exports = {
   name: "betray",
 
-  execute(
-    message,
-    args,
-    client,
-    fs,
-    Canvas,
-    getRandomFunfact,
-    figlet,
-    translate,
-    Discord,
-    fetch,
-    querystring,
-    xml2js,
-    killtreaks_utils,
-    got,
-    FileType,
-    sizeOf,
-    trim,
-    getMemberFromMention,
-    probe,
-    http,
-    imagesize,
-    timestamps,
-    customSplit
-  ) {
+  run: async (imports) => {
     var gifs;
     var a = 0;
     targets = [];
     do {
-      targets[a] = "<@" + getMemberfromMention(args.shift()) + ">";
+      targets[a] = "<@" + imports.built_ins.getMemberfromMention(args.shift()) + ">";
       a++;
     } while (getMemberfromMention(args[0]));
 

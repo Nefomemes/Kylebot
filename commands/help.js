@@ -2,7 +2,7 @@
  const commands = require("../assets/configs/commands/cmd-list.json").content;
 module.exports = {
     name: "help",
-    execute(imports){
+    run: async (imports) => {
        
         var embed = new imports.Discord.MessageEmbed()
         .setColor(imports.colors.BG_COLOR)

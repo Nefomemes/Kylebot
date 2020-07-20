@@ -2,7 +2,7 @@ module.exports = {
   name: "eval",
 
 
-    execute(imports) {
+    run: async (imports) => {
         const now = Date.now();
         if(imports.message.author.id !== "665419057075585025")return imports.message.channel.send("You are not allowed to use it!")
         async function evall(){
