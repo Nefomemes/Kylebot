@@ -1,11 +1,6 @@
 module.exports = {
   name: "user",
-  category: "Information",
-  description: "Get informations about a user.",
-  usage: "```nefo!user [user] ",
-
-  aliases: ["userinfo"],
-  execute(imports) {
+  run: async (imports) => {
     var user, member;
     if(imports.message.guild){
           member = imports.built_ins.getMemberFromMention(imports.args[0], imports.message)|| imports.message.member;

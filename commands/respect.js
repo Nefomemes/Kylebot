@@ -1,11 +1,6 @@
 module.exports = {
   name: "respect",
-  category: "none",
-  description: "none",
-  usage: "nefo!respect <someone> | [reason]",
-  example: "nefo!respect @Gaz#6055 ",
-  permsreq: [],
-  execute(imports){
+  run: async (imports)=>{
     if(!imports.args.length)
       return imports.message.reply("you must write something!");
     if (

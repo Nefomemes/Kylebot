@@ -1,6 +1,7 @@
 module.exports = {
     name:"spiderpres",
-    execute(imports){try{
+  run: async(imports)=>
+    {try{
         const text = imports.args.join(" ") || "Never gonna give you up. Never gonna let you down. Never gonna run around and desert you. Never gonna make you cry. Never gonna say goodbye. Never gonna tell a lie and hurt you.";
         const image = `https://web.nefomemes.repl.co/api/spiderpres?${imports.querystring.stringify({text: text})}`;
         const embed = new imports.Discord.MessageEmbed()

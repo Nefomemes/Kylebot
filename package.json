@@ -17,7 +17,7 @@
   "author": "Nefomemes#3927",
   "license": "MIT",
   "dependencies": {
-    "@discordjs/opus": "^0.3.2",
+  
     "@vitalets/google-translate-api": "^3.0.0",
     "algorithmia": "^0.3.10",
     "canvas": "^2.6.1",
@@ -32,7 +32,7 @@
     "node-fetch": "^2.6.0",
     "probe-image-size": "^5.0.0",
     "underscore": "^1.10.2",
-    "xml2js": "^0.4.23",
-    "ytdl-core": "^3.1.1"
+    "xml2js": "^0.4.23"
+  
   }
 }

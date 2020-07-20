@@ -1,8 +1,7 @@
 module.exports = {
   name: "urbandefine",
 
-  execute(imports
-  ) {
+  run: async(imports)=> {
     imports.message.channel.send("<a:DiscordLoading:724125571847815229> Please wait, we are loading it.").then(msg => {
     async function define() {
       const word = imports.args.join(" ") || "Rick Rolling";
@@ -13,7 +12,7 @@ module.exports = {
       if (error) {
         return imports.message.channel.send("An error occured! "+ error);
       } else {
-        let badwords = require("../assets/badwords.json").contents;
+        let badwords = require("../assets/configs/badwords.json").contents;
      
         list = list.filter(function(definition){
           
@@ -32,13 +31,13 @@ module.exports = {
           return imports.message.channel.send(
             "Unable to get the definition of **" +
               word +
-              "**. Maybe you misspell it or nobody have wrote the definition of that."
+              "**. Maybe you misspell it or nobody have wrote a good definition of that."
           );
 
         const [answer] = list;
 
         const embed = new imports.Discord.MessageEmbed()
-          .setColor(process.env.BG_COLOR)
+          .setColor(imports.colors.BG_COLORS)
           .setTitle(answer.word)
           .setURL(answer.permalink)
           .setAuthor(
@@ -60,7 +59,7 @@ module.exports = {
           .setTimestamp()
           .setFooter(
             `Prefix: ${process.env.PREFIX} | ${
-              imports.getRandomFunfact()
+              imports.built_ins.getRandomFunfact()
             }`,
            imports.client.user.displayAvatarURL({format: "png", dynamic: true})
           );

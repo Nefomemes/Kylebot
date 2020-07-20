@@ -219,10 +219,12 @@ if(!message.content.startsWith(prefix))return;
    }
 
   try {
-    command.execute(imports); 
+    command.run(imports).catch(err => {
+      message.channel.send(`An error occured! ${error}`);
+    }); 
   } catch (error) {
     console.error(error);
-    message.reply(`An error occurred! ${error}`);
+    message.channel.send(`An error occurred! ${error}`);
   }
   
 }

@@ -1,7 +1,7 @@
 module.exports = {
     name: "walk",
 
-    execute(imports){
+    run: async (imports) => {
         var the_reason = imports.args.join(" ");
     if(the_reason){
     the_reason = ` 'cuz "` + imports.args.join(" ") + `".`;
@@ -17,7 +17,7 @@ module.exports = {
         .setDescription(`${imports.message.author} is  walkin' down the hall${the_reason}`)
         .setImage(selectedGIF)
         .setTimestamp()
-        .setFooter(`Prefix: ${process.env.PREFIX} | ${imports.built_ins.getRandomFunfact()}`)
+        .setFooter(`Prefix: ${process.env.PREFIX} | ${imports.built_ins.getRandomFunfact()}`, imports.client.user.displayAvatarURL({format:"png", dynamic: "true"}))
         imports.message.channel.send(embed);
     }
 }

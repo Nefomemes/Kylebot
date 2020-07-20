@@ -1,9 +1,6 @@
 module.exports = {
   name: "kill",
-
-
-
-  execute(imports) {
+run: async (imports) =>{
     var gifs;
     var a = 0;
     var targets = [];

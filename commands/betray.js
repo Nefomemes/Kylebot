@@ -6,9 +6,9 @@ module.exports = {
     var a = 0;
     targets = [];
     do {
-      targets[a] = "<@" + imports.built_ins.getMemberfromMention(args.shift()) + ">";
+      targets[a] = "<@" + imports.built_ins.getMemberfromMention(imports.args.shift()) + ">";
       a++;
-    } while (getMemberfromMention(args[0]));
+    } while (imports.built_ins.getMemberfromMention(imports.args[0], imports.message));
 
     if (a === 1) {
       gifs = [
@@ -20,28 +20,24 @@ module.exports = {
       ];
     }
 
-    const embed = new Discord.MessageEmbed()
-      .setColor("#7289da")
-      .setAuthor(
-        "Nefomemes#3927",
-        "https://images-ext-1.discordapp.net/external/7Z_bbAFsk8OXHR_x6M8AV52RnfLG7FdeftYJSntRyVM/%3Fsize%3D1024/https/cdn.discordapp.com/icons/665424841263808532/c128f3e53158dcc9640b7f8e096da992.png",
-        "https://nefomemes.blogspot.com/"
-      )
-      .setDescription(
-        `${message.author}` +
-          " betrayed " +
-          targets.join(", ") +
-          ' because "' +
-          args.join(" ") +
-          '".'
-      )
+    var the_reason = imports.args.join(" ");
+    if(the_reason){
+    the_reason = ` because "` + imports.args.join(" ") + `".`;
+    } else {
+      the_reason = "."
+    }
+   
+    const embed = new imports.Discord.MessageEmbed()
+      .setColor(imports.colors.BG_COLOR)
+      .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({format: "png", dynamic: true}), process.env.WEBSITE)
+      .setDescription(`${imports.message.author}` +" betrayed " +targets.join(", ") +the_reason)
       .setImage(gifs[Math.floor(Math.random() * gifs.length)])
       .setTimestamp()
       .setFooter(
-        "Prefix: nefo! | " + getRandomFunfact()
+        "Prefix: ${process.env.PREFIX} | " + imports.built_ins.getRandomFunfact()
       );
 
-    message.channel.send(embed);
+    imports.message.channel.send(embed);
   }
 }; /* */
 

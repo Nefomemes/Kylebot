@@ -1,7 +1,7 @@
 module.exports = {
   name: "steamuser",
 
-  execute(imports) {
+  run: async(imports) =>{
    async function loadSteam() {
      
         var query = imports.querystring.stringify({ b: imports.args.join(" ") }).slice(2);
@@ -9,7 +9,7 @@ module.exports = {
             `https://api.alexflipnote.dev/steam/user/${query}`
           ).then(response => response.json());
           const embed = new imports.Discord.MessageEmbed()
-            .setColor(process.env.BG_COLOR)
+            .setColor(imports.colors.BG_COLOR)
             .setTitle(profile.username)
             .setURL(profile.url)
             .setAuthor(
@@ -32,7 +32,7 @@ module.exports = {
             .setTimestamp()
             .setFooter(
               `Prefix: ${process.env.PREFIX} | ${
-               imports.getRandomFunfact()
+               imports.built_ins.getRandomFunfact()
               }`, imports.client.user.displayAvatarURL({format: "png", dynamic: true})
             );
 

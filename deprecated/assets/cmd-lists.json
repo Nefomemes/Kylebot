@@ -1,4 +1,16 @@
 [
+  {   "name":"ascii",
+    "type":"command",
+    "category": "misc",
+    "description": "Turn a text into ASCII.",
+    "usage": "ascii <text>",
+    "explanation": "Maximum length is 14 characters.",
+    "example": "ascii Rick Roll",
+    "cooldown": 15,
+    "guild":false,
+    "disabled":true,
+    "args":true
+}, 
     {
     "name":"randomufo",
     "category":"Misc Commands",
@@ -7,7 +19,7 @@
       "Get a random report of UFO sightings. This does not confirm the existence of UFOs however.",
     "usage": "nefo!randomufo",
     "cooldown": 15,
-    "disabled":true,
+    "disabled":true
     
 },
 {

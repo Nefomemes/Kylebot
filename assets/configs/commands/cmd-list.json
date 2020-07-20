@@ -46,18 +46,7 @@
         "args":false,
         "disabled":true
     },
-    {   "name":"ascii",
-        "type":"command",
-        "category": "misc",
-        "description": "Turn a text into ASCII.",
-        "usage": "ascii <text>",
-        "explanation": "Maximum length is 14 characters.",
-        "example": "ascii Rick Roll",
-        "cooldown": 15,
-        "guild":false,
-        "disabled":true,
-        "args":true
-    }, 
+   
     {   "name": "ban",
         "type":"command",
         "category":"mods",
@@ -153,7 +142,7 @@
     "type":"command",
     "category": "Insiders",
     "description": "Evaluate a code.",
-    "usage": "nefo!eval <code>",
+    "usage": "eval <code>",
     "args":true,
     "disabled":false
 },
@@ -199,7 +188,7 @@
 },
 {
     "name":"kill",
-    "category":"tp",
+    "category":"rp",
    
     "description": "Kill an enemy.",
     "usage": "nefo!kill <members> reason",
@@ -325,7 +314,7 @@
     "example": "nefo!urbandefine Rick Roll",
     "cooldown": 30,
     "type":"command",
-    "disabled":true
+    "disabled":false
 },
 {
     "name": "wttr",
@@ -344,7 +333,7 @@
       "Get the information of a server by it's ID. If no arguments given, it will return with the information of the server the command is executed.",
     "guild": true,
     "type":"command",
-    "disabled":true
+    "disabled":false
 },
 {
 "cooldown":7,

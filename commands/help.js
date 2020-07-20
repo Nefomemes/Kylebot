@@ -11,7 +11,7 @@ module.exports = {
         .setAuthor(`${imports.client.user.username}`, imports.client.user.displayAvatarURL({dynamic: true, format: "png"}), process.env.WEBSITE)
         .setThumbnail(imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
         .setTimestamp()
-        .setFooter(`Prefix: ${process.env.PREFIX} | For the time being, no commands are available due to some major optimizations in the main code.`)
+        .setFooter(`Prefix: ${process.env.PREFIX} | For the time being, no commands are available due to some major optimizations in the main code.`,)
         function getCategory(name){
             if(!name)return;
             let modules =categories.filter(function(category){
@@ -59,7 +59,7 @@ module.exports = {
             
         imports._.each(categories, function (value) {
             embed = embed.addField(value.name, imports.built_ins.trim(`Insidely called \`${value.id}\`.\n \n ${value.description} \n\n ${commands.filter(function(command){
-                if(command.disabled && command.disabled === true) return false;
+                if(command.disabled && command.disabled === true || !imports.built_ins.getCommand(command.name, {type:"command"}).run) return false;
                 if(value.id !== "misc")return command.category && command.category === value.id;
                 if(value.id === "misc") return command.category && command.category === "misc" || !command.category;
                 return false;

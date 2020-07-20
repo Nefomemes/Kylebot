@@ -22,6 +22,9 @@ If you have any problems, feedbacks, or suggestions. You can join the support se
 ## Trello
 The bot does have a Trello board which you can visit [here.](https://trello.com/b/dyn9b9T0/kylebot)
 
+## Developer Guide
+If you are looking at this repository to learn more about Discord bot development. Just keep in mind that all files in the `deprecated` folder are old codes that were removed from the bot and haven't been set up so that it works with the current command handler. Might have to delete that folder though.
+
 ## Frequently Asked Questions
 
 ##### The bot is down randomly. 

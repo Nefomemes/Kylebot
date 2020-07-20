@@ -1,13 +1,6 @@
 module.exports = {
   name: "server",
-  category: "Information",
-  description:
-    "Get the information of a server by it's ID. If no arguments given, it will return with the information of the server the command is executed.",
-  usage:
-    "```nefo!server [server-id]```When no arguments are given, it will show the information of the server ",
-  permsreq: [],
-  guildcmd: true,
-  execute(imports) {
+  run: async(imports) => {
     const guild = imports.message.guild;
     if(!guild){
       imports.args = ["server"];
@@ -17,7 +10,7 @@ module.exports = {
       });
     }
    var embed = new imports.Discord.MessageEmbed()
-   .setColor(process.env.BG_COLOR)
+   .setColor(imports.colors.BG_COLOR)
    .setTitle(guild.name)
    .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
    .setThumbnail(guild.iconURL({format: "png", dynamic:true}))
@@ -42,7 +35,7 @@ module.exports = {
               {name: "MFA level", value: guild.explicitContentFilter, inline: true}
               )
     .setTimestamp()
-    .setFooter(`Prefix: ${process.env.PREFIX} | ${imports.getRandomFunfact()}`, imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
+    .setFooter(`Prefix: ${process.env.PREFIX} | ${imports.built_ins.getRandomFunfact()}`, imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
     if(guild.systemChannel){
       embed = embed.addField("System channel", guild.systemChannel, true)
     } 
