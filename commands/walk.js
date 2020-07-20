@@ -14,7 +14,7 @@ module.exports = {
 
         .setColor(require("../assets/configs/color.json").content.BG_COLOR)
         .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({format: "png", dynamic: true}), process.env.WEBSITE)
-        .setDescription(`${imports.message.author} do be walkin' down the hall${the_reason}`)
+        .setDescription(`${imports.message.author} is  walkin' down the hall${the_reason}`)
         .setImage(selectedGIF)
         .setTimestamp()
         .setFooter(`Prefix: ${process.env.PREFIX} | ${imports.built_ins.getRandomFunfact()}`)
