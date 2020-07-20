@@ -13,7 +13,7 @@
     {"name":"user",
     "category": "misc",
   "description": "Get informations about a user.",
-  "usage": "```nefo!user [user] ",
+  "usage": "user [user] ",
     "disabled":false,
   "aliases": ["userinfo"]},
     {
@@ -199,11 +199,11 @@
 },
 {
     "name":"kill",
-    "category":"GIFs",
-    "type":"command",
+    "category":"tp",
+   
     "description": "Kill an enemy.",
     "usage": "nefo!kill <members> reason",
-    "disabled":true,
+    "disabled":false,
     "explanation":
       "No ID accepted. Member mentions only. You can give the reason after all the mention mumbo jumbo ends.",
     "example": "nefo!kill @Vladimir Makarov#8573 this is for Soap"
@@ -267,11 +267,11 @@
 {
     "name":"respect",
     "type":"command",
-    "category":"GIFs",
+    "category":"rp",
     "description":"F",
     "usage":"nefo!respect <member> [reason]",
     "example":"nefo!respect @Dead Bot#8493 Down.",
-    "disabled":true,
+    "disabled":false,
     "cooldown": 7,
     "args":true
 },
