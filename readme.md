@@ -13,7 +13,8 @@ The prefix of the bot is `mw!` which is for the time being,it is guaranteed no b
 And you can basically go to `mw!help` to get the full list of commands.    
 
 You will doesn't need to actually create or setup your profile so that.        
-|| I use `will` because database connection have not been connection yet. ||    
+
+Funfact: I used `will` because database connection have not been connection yet.    
 
 ## Support, Bug Reports, and Feedback  
 If you have any problems, feedbacks, or suggestions. You can join the support server [here.](https://web.nefomemes.repl.co/kylebot/support)    
