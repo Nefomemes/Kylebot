@@ -34,7 +34,7 @@ module.exports = {
                 return value.term.toLowerCase() === str.toLowerCase();
             });
           
-            if(!propaganda.length || propanganda.length > 1) return;
+            if(!propaganda.length || propaganda.length > 1) return;
             return propaganda[0];
         }
         
