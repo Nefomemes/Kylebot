@@ -59,13 +59,8 @@ if(!options.type) return;
  
   return client.user.setActivity(activity.content + ` | ${process.env.PREFIX}help`, {type: activity.type}).catch(error => console.error(error));
     },
-    avoidBreak: (string) => {
-      return string.split("```").join("`‎`‎`‎");
-    },
-    getLanguage: (code) => {
-      const langs = require("../other/langs.js");
-      if(langs.constructor !== String) return;
-      if(!langs[code]) return;
-      return langs[code];
-      }
+    avoidBreak: (str) => {
+        if(str.constructor !== String || !str)return;
+      return str.split("```").join("`‎`‎`‎");
+    }
 }
