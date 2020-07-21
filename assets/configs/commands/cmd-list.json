@@ -1,4 +1,4 @@
-{"type":"command_list",
+ {"type":"command_list",
 "content": [
     {
         "name": "search",
@@ -135,7 +135,7 @@
     
     "cooldown": 10,
     "disabled":false
-}
+},
 {
     "name":"encode",
     "type":"command",

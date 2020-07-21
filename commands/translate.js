@@ -6,7 +6,7 @@ module.exports = {
 
  
 
-        var langOne = imports.args.shift(), langTwo = imports.args.shift(), result, ;
+        var langOne = imports.args.shift(), langTwo = imports.args.shift(), result;
 
         const langs = [ "auto", "af", "sq", "am", "ar", "hy", "az", "eu", "be", "bn", "bs", "bg", "ca", "ceb", "ny", "zh-CN", "zh-TW", "co", "hr", "cs", "da", "nl", "en", "eo", "et", "tl", "fi", "fr", "fy", "gl", "ka", "de", "el", "gu", "ht", "ha", "haw", "he", "iw", "hi", "hmn", "hu", "is", "ig", "id", "ga", "it", "ja", "jw", "kn", "kk", "km", "ko", "ku", "ky", "lo", "la", "lv", "lt", "lb", "mk", "mg", "ms", "ml", "mt", "mi", "mr", "mn", "my", "ne", "no", "ps", "fa", "pl", "pt", "pa", "ro", "ru", "sm", "gd", "sr", "st", "sn", "sd", "si", "sk", "sl", "so", "es", "su", "sw", "sv", "tg", "ta", "te", "th", "tr", "uk", "ur", "uz", "vi", "cy", "xh", "yi", "yo", "zu"];
 
@@ -27,16 +27,14 @@ module.exports = {
     
         
       translate(imports.args.join(" "), {from: langOne, to: langTwo}).then(result => {
-        translate(result.text(), {from: langTwo, to: result.from.language.iso}).then(resultSecond => {
-        let getPropaganda = (str) => {
-            
-            if(str.constructor !== String)return;
-            let propaganda = require("../assets/classified/translate.json");
-            propaganda = propaganda.filter(function(value){
-                value.name.toLowerCase() === str.toLowerCase();
-            })
-            if(!propaganda.length) return;
-            if(propanganda.length > 1) return;
+        translate(result.text, {from: langTwo, to: result.from.language.iso}).then(resultSecond => {
+        function getPropaganda(str) {
+            if(!str || str.constructor !== String)return;
+            let propaganda = require("../assets/classified/translate.json").content.filter(function(value){
+                value.term.toLowerCase() === str.toLowerCase();
+            });
+          
+            if(!propaganda.length || propanganda.length > 1) return;
             return propaganda[0];
         }
         
@@ -53,19 +51,20 @@ module.exports = {
         embed = embed.addFields({name: "Output", value: `\`\`\`${imports.built_ins.avoidBreak(result.text)}\`\`\``, inline: true},
                                 {name: "Reverse translate (to make sure it still sounds the same as the input)", value: `\`\`\`${imports.built_ins.avoidBreak(resultSecond.text)}\`\`\``, inline: true})
             }
-                                if(result.from.text){
-            embed = embed.addField("Did you mean:",  `\`\`\`${imports.built_ins.avoidBreak(result.from.text)}\`\`\``, true);
+                                if(result.from.value){
+            embed = embed.addField("Did you mean:",  `\`\`\`${imports.built_ins.avoidBreak(result.from.value)}\`\`\``, true);
         }
 
         embed = embed.addFields({name: "Translated from", value: result.from.language.iso, inline: true},
                                 {name: "Translated to", value: langTwo, inline: true})
 
+imports.message.channel.send(embed);
 });
   
 });
    
 
         
-imports.message.channel.send(embed);
+
     }
 }
