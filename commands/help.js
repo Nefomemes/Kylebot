@@ -63,8 +63,9 @@ module.exports = {
                 if(value.id !== "misc")return command.category && command.category === value.id;
                 if(value.id === "misc") return command.category && command.category === "misc" || !command.category;
                 return false;
-            }).length} commands available.`, 1048), true);
-
+            }).length} commands available.`, 1048), true);  
+            embed = embed.setImage("https://vignette.wikia.nocookie.net/callofduty/images/a/a9/KyleGarrick_Gaz_OperatorCard_MW.gif/revision/latest/");
+            embed = embed.setDescription("Here are the list of all available commands. If you found any bugs, need help, or want to tell us your feedbacks, join our [support server here.](https://web.nefomemes.repl.co/kylebot/support)")
 });
         }
         imports.message.channel.send(embed);

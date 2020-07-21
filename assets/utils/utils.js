@@ -58,5 +58,14 @@ if(!options.type) return;
           let activity = activities[Math.floor(Math.random() * activities.length)];
  
   return client.user.setActivity(activity.content + ` | ${process.env.PREFIX}help`, {type: activity.type}).catch(error => console.error(error));
-    }
+    },
+    avoidBreak: (string) => {
+      return string.split("```").join("`‎`‎`‎");
+    },
+    getLanguage: (code) => {
+      const langs = require("../other/langs.js");
+      if(langs.constructor !== String) return;
+      if(!langs[code]) return;
+      return langs[code];
+      }
 }

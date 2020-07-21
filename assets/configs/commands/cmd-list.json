@@ -125,7 +125,17 @@
     "disabled": true,
     "args":true
     
-}, 
+},
+{
+    "name":"translate",
+       "category": "misc",
+    "description": "Translate something.",
+    "usage": "nefo!translate <lang-1> <lang-2> <text> The <lang-1> is the thing the text is from, use auto to auto-detect the language. \n The <lang-2> is the same, just, no auto-detect, of course. If you are confused on how to know the languages, [click here](https://github.com/vitalets/google-translate-api/blob/master/languages.js).",
+    "example": "nefo!translate en id Never Gonna Give You Up",
+    
+    "cooldown": 10,
+    "disabled":false
+} 
 {
     "name":"encode",
     "type":"command",

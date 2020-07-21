@@ -37,6 +37,11 @@
         {
             "term":"uwo uwu",
             "means":"money laundry"
+        },
+        {
+            "term":"owo uwo uwu owu",
+            "means":"chlorine gas",
+            "cod":true
         }
     ]
 }
