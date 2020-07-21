@@ -29,6 +29,7 @@ module.exports = {
       translate(imports.args.join(" "), {from: langOne, to: langTwo}).then(result => {
         translate(result.text(), {from: langTwo, to: result.from.language.iso}).then(resultSecond => {
         let getPropaganda = (str) => {
+            
             if(str.constructor !== String)return;
             let propaganda = require("../assets/classified/translate.json");
             propaganda = propaganda.filter(function(value){

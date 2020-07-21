@@ -135,7 +135,7 @@
     
     "cooldown": 10,
     "disabled":false
-} 
+}
 {
     "name":"encode",
     "type":"command",
