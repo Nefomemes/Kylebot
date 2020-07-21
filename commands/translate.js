@@ -4,7 +4,7 @@ module.exports = {
     name: "translate",
     run: async (imports) => {
 
- 
+
 
         var langOne = imports.args.shift().toLowerCase(), langTwo = imports.args.shift().toLowerCase(), reverse;
 
@@ -19,9 +19,9 @@ module.exports = {
         .setTimestamp()
         .setFooter(`Prefix: ${process.env.PREFIX} | ${imports.built_ins.getRandomFunfact()}`)
 
-        if(!langs.includes(langOne)) return message.channel.send("Unable to get the first language. Maybe you misspell it?");
-        if(!langs.includes(langTwo)) return message.channel.send("Unable to get the second language. Maybe you misspell it?");
-        if(langTwo === "auto") return message.channel.send("You can't auto-detect the second language!");
+        if(!langs.includes(langOne)) return imports.message.channel.send("Unable to get the first language. Maybe you misspell it?");
+        if(!langs.includes(langTwo)) return imports.message.channel.send("Unable to get the second language. Maybe you misspell it?");
+        if(langTwo === "auto") return imports.message.channel.send("You can't auto-detect the second language!");
         
       if(langOne === "auto") langOne = null;
     
@@ -39,12 +39,15 @@ module.exports = {
         }
         
             if(getPropaganda(imports.args.join(" "))){
-                embed = embed.addField( "Output", `\`\`\`${imports.built_ins.avoidBreak(getPropaganda(imports.args.join(" ")).means)}\`\`\``,  true)
-                if(langTwo === "en"){
-                reverse = imports.args.join(" ");
-                } else {
-                    reverse = await translate(getPropaganda(imports.args.join(" ")).means, {from: "en", to: result.from.language.iso}).then(resultThird => resultThird.text);
-                }
+               
+                    var output = getPropaganda(imports.args.join(" ")).means;
+         
+  embed = embed.addField( "Output", `\`\`\`${imports.built_ins.avoidBreak(output)}\`\`\``,  true)
+                    
+
+               
+              
+                
                 if(getPropaganda(imports.args.join(" ")).cod && getPropaganda(imports.args.join(" ")).cod === true){
                     embed = embed.setImage("https://i.imgur.com/NqWlFJc.jpg");
                 } else {
@@ -56,9 +59,10 @@ module.exports = {
             }
                                 if(result.from.value){
             embed = embed.addField("Did you mean:",  `\`\`\`${imports.built_ins.avoidBreak(result.from.value)}\`\`\``, true);
+
         }
         
-        embed = embed.addFields({name: "Reverse translate (to make sure it still sounds the same as the input)", value: `\`\`\`${reverse}\`\`\``, inline: true},
+        embed = embed.addFields({name: "Reverse translate (to make sure it still sounds the same as the input)", value: `\`\`\`${reverse || imports.args.join(" ")}\`\`\``, inline: true},
                                 {name: "Translated from", value: result.from.language.iso, inline: true},
                                 {name: "Translated to", value: langTwo, inline: true})
         
