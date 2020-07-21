@@ -6,7 +6,7 @@ module.exports = {
 
  
 
-        var langOne = imports.args.shift(), langTwo = imports.args.shift(), result;
+        var langOne = imports.args.shift().toLowerCase(), langTwo = imports.args.shift().toLowerCase(), reverse;
 
         const langs = [ "auto", "af", "sq", "am", "ar", "hy", "az", "eu", "be", "bn", "bs", "bg", "ca", "ceb", "ny", "zh-CN", "zh-TW", "co", "hr", "cs", "da", "nl", "en", "eo", "et", "tl", "fi", "fr", "fy", "gl", "ka", "de", "el", "gu", "ht", "ha", "haw", "he", "iw", "hi", "hmn", "hu", "is", "ig", "id", "ga", "it", "ja", "jw", "kn", "kk", "km", "ko", "ku", "ky", "lo", "la", "lv", "lt", "lb", "mk", "mg", "ms", "ml", "mt", "mi", "mr", "mn", "my", "ne", "no", "ps", "fa", "pl", "pt", "pa", "ro", "ru", "sm", "gd", "sr", "st", "sn", "sd", "si", "sk", "sl", "so", "es", "su", "sw", "sv", "tg", "ta", "te", "th", "tr", "uk", "ur", "uz", "vi", "cy", "xh", "yi", "yo", "zu"];
 
@@ -39,25 +39,29 @@ module.exports = {
         }
         
             if(getPropaganda(imports.args.join(" "))){
-                embed = embed.addFields({name: "Output", value: `\`\`\`${imports.built_ins.avoidBreak(getPropaganda(imports.args.join(" ")).means)}\`\`\``, inline: true},
-                                        {name: "Reverse translate (to make sure it still sounds the same as the input)", value: `\`\`\`${imports.args.join(" ")}\`\`\``, inline: true})
-        
+                embed = embed.addField( "Output", `\`\`\`${imports.built_ins.avoidBreak(getPropaganda(imports.args.join(" ")).means)}\`\`\``,  true)
+                if(langTwo === "en"){
+                reverse = imports.args.join(" ");
+                } else {
+                    reverse = await translate(getPropaganda(imports.args.join(" ")).means, {from: "en", to: result.from.language.iso}).then(resultThird => resultThird.text);
+                }
                 if(getPropaganda(imports.args.join(" ")).cod && getPropaganda(imports.args.join(" ")).cod === true){
                     embed = embed.setImage("https://i.imgur.com/NqWlFJc.jpg");
                 } else {
                     embed = embed.setImage("https://i.imgur.com/KjEm67O.jpg");
                 }
                                     } else{
-        embed = embed.addFields({name: "Output", value: `\`\`\`${imports.built_ins.avoidBreak(result.text)}\`\`\``, inline: true},
-                                {name: "Reverse translate (to make sure it still sounds the same as the input)", value: `\`\`\`${imports.built_ins.avoidBreak(resultSecond.text)}\`\`\``, inline: true})
+        embed = embed.addFields({name: "Output", value: `\`\`\`${imports.built_ins.avoidBreak(result.text)}\`\`\``, inline: true})
+            reverse = resultSecond.text;
             }
                                 if(result.from.value){
             embed = embed.addField("Did you mean:",  `\`\`\`${imports.built_ins.avoidBreak(result.from.value)}\`\`\``, true);
         }
-
-        embed = embed.addFields({name: "Translated from", value: result.from.language.iso, inline: true},
+        
+        embed = embed.addFields({name: "Reverse translate (to make sure it still sounds the same as the input)", value: `\`\`\`${reverse}\`\`\``, inline: true},
+                                {name: "Translated from", value: result.from.language.iso, inline: true},
                                 {name: "Translated to", value: langTwo, inline: true})
-
+        
 imports.message.channel.send(embed);
 });
   
