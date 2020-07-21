@@ -12,7 +12,7 @@ module.exports = {
       if (error) {
         return imports.message.channel.send("An error occured! "+ error);
       } else {
-        let badwords = require("../assets/configs/badwords.json").contents;
+        let badwords = require("../assets/configs/badwords.json").content;
      
         list = list.filter(function(definition){
           
@@ -37,7 +37,7 @@ module.exports = {
         const [answer] = list;
 
         const embed = new imports.Discord.MessageEmbed()
-          .setColor(imports.colors.BG_COLORS)
+          .setColor(imports.colors.BG_COLOR)
           .setTitle(answer.word)
           .setURL(answer.permalink)
           .setAuthor(
@@ -45,12 +45,12 @@ module.exports = {
             "https://storage.googleapis.com/burbcommunity-morethanthecurve/2013/09/urban-dictionary-logo.gif",
             "https://www.urbandictionary.com/"
           )
-          .setDescription(imports.trim(answer.definition, 2048))
+          .setDescription(imports.built_ins.trim(answer.definition, 2048))
           .setThumbnail(
             "https://storage.googleapis.com/burbcommunity-morethanthecurve/2013/09/urban-dictionary-logo.gif"
           )
           .addFields(
-            { name: "Example", value: imports.trim(answer.example, 1024) },
+            { name: "Example", value: imports.built_ins.trim(answer.example, 1024) },
             {
               name: "Rating",
               value: `${answer.thumbs_up} thumbs up. ${answer.thumbs_down} thumbs down.`
@@ -67,7 +67,9 @@ module.exports = {
       }
     }
     define().catch(error => {
+        console.log(error);
       return imports.message.channel.send("An error occured! " + error);
+
     })
     msg.delete();
   })
