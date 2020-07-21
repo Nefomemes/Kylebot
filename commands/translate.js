@@ -31,7 +31,7 @@ module.exports = {
         function getPropaganda(str) {
             if(!str || str.constructor !== String)return;
             let propaganda = require("../assets/classified/translate.json").content.filter(function(value){
-                value.term.toLowerCase() === str.toLowerCase();
+                return value.term.toLowerCase() === str.toLowerCase();
             });
           
             if(!propaganda.length || propanganda.length > 1) return;
