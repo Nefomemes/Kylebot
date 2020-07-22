@@ -12,7 +12,7 @@ run: async (imports) =>{
     if(!targets.length) return imports.message.channel.send("Uggh, who you want to kill?").then(() => {
       timestamps.delete(imports.message.author.id);
     })
-
+    if(!targets.length)return imports.message.channel.send("You must mention someone that is a valid member!")
     var the_reason = imports.args.join(" ");
     if(the_reason){
     the_reason = ` because "` + imports.args.join(" ") + `".`;
