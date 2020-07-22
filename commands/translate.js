@@ -6,7 +6,7 @@ module.exports = {
 
 
 
-        var langOne = imports.args.shift().toLowerCase(), langTwo = imports.args.shift().toLowerCase(), reverse;
+        var langOne = imports.args.shift().toLowerCase(), langTwo = imports.args.shift().toLowerCase();
 
         const langs = [ "auto", "af", "sq", "am", "ar", "hy", "az", "eu", "be", "bn", "bs", "bg", "ca", "ceb", "ny", "zh-CN", "zh-TW", "co", "hr", "cs", "da", "nl", "en", "eo", "et", "tl", "fi", "fr", "fy", "gl", "ka", "de", "el", "gu", "ht", "ha", "haw", "he", "iw", "hi", "hmn", "hu", "is", "ig", "id", "ga", "it", "ja", "jw", "kn", "kk", "km", "ko", "ku", "ky", "lo", "la", "lv", "lt", "lb", "mk", "mg", "ms", "ml", "mt", "mi", "mr", "mn", "my", "ne", "no", "ps", "fa", "pl", "pt", "pa", "ro", "ru", "sm", "gd", "sr", "st", "sn", "sd", "si", "sk", "sl", "so", "es", "su", "sw", "sv", "tg", "ta", "te", "th", "tr", "uk", "ur", "uz", "vi", "cy", "xh", "yi", "yo", "zu"];
 
@@ -39,15 +39,6 @@ module.exports = {
         }
         
             if(getPropaganda(imports.args.join(" "))){
-               
-                    var output = getPropaganda(imports.args.join(" ")).means;
-         
-  embed = embed.addField( "Output", `\`\`\`${imports.built_ins.avoidBreak(output)}\`\`\``,  true)
-                    
-
-               
-              
-                
                 if(getPropaganda(imports.args.join(" ")).cod && getPropaganda(imports.args.join(" ")).cod === true){
                     embed = embed.setImage("https://i.imgur.com/NqWlFJc.jpg");
                 } else {
@@ -61,12 +52,24 @@ module.exports = {
             embed = embed.addField("Did you mean:",  `\`\`\`${imports.built_ins.avoidBreak(result.from.value)}\`\`\``, true);
 
         }
-        
-        embed = embed.addFields({name: "Reverse translate (to make sure it still sounds the same as the input)", value: `\`\`\`${reverse || imports.args.join(" ")}\`\`\``, inline: true},
+        function doTheWork(output, reverse){
+        embed = embed.addField( "Output", `\`\`\`${imports.built_ins.avoidBreak(output)}\`\`\``,  true)
+        embed = embed.addFields({name: "Reverse translate (to make sure it still sounds the same as the input)", value: `\`\`\`${reverse}\`\`\``, inline: true},
                                 {name: "Translated from", value: result.from.language.iso, inline: true},
                                 {name: "Translated to", value: langTwo, inline: true})
         
 imports.message.channel.send(embed);
+        }
+      if(getPropaganda(imports.args.length) && langTwo !== "en"){
+          translate(getPropaganda(imports.args.length).means, {from: "en", to: langTwo}).then(resultt => {
+            doTheWork(resultt.text,  imports.args.join(" "));
+          })
+      } else if(getPropaganda(imports.args.length) && langTwo === "en"){
+        doTheWork(getPropaganda(imports.args.length).means, imports.args.join(" "));
+      } else {
+          doTheWork(result.text, resultSecond.text)
+      }
+        
 });
   
 });
