@@ -60,16 +60,14 @@ module.exports = {
         
 imports.message.channel.send(embed);
         }
-      if(getPropaganda(imports.args.join(" ")) && langTwo !== "en"){
-          translate(getPropaganda(imports.args.join(" ")).means, {from: "en", to: langTwo}).then(resultt => {
+           if(getPropaganda(imports.args.join(" ")) && langTwo === "en")return doTheWork(getPropaganda(imports.args.join(" ")).means, imports.args.join(" "));
+
+      if(getPropaganda(imports.args.join(" ")) && langTwo !== "en") return translate(getPropaganda(imports.args.join(" ")).means, {from: "en", to: langTwo}).then(resultt => {
             doTheWork(resultt.text,  imports.args.join(" "));
-          })
-      } else if(getPropaganda(imports.args.join(" ")) && langTwo === "en"){
-        doTheWork(getPropaganda(imports.args.join(" ")).means, imports.args.join(" "));
-      } else {
-          doTheWork(result.text, resultSecond.text)
-      }
-        
+      })
+   
+      return    doTheWork(result.text, resultSecond.text);
+              
 });
   
 });
