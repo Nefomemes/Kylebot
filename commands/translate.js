@@ -17,7 +17,7 @@ module.exports = {
         .setThumbnail()
         .addField(`Input`, `\`\`\`${imports.built_ins.avoidBreak(imports.args.join(" "))}\`\`\``, true)
         .setTimestamp()
-        .setFooter(`Prefix: ${process.env.PREFIX} | ${imports.built_ins.getRandomFunfact()}`)
+        .setFooter(`Prefix: ${process.env.PREFIX} | ${imports.built_ins.getRandomFunfact()}`, imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
 
         if(!langs.includes(langOne)) return imports.message.channel.send("Unable to get the first language. Maybe you misspell it?");
         if(!langs.includes(langTwo)) return imports.message.channel.send("Unable to get the second language. Maybe you misspell it?");
