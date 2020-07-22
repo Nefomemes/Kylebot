@@ -19,7 +19,23 @@ run: async (imports) =>{
     } else {
       the_reason = "."
     }
-   
+    if (targets.length === 1) {
+      gifs = [
+        "https://media.discordapp.net/attachments/712631135099813940/715868841225224223/ghost-execution-1.gif",
+        "https://media.discordapp.net/attachments/712631135099813940/715869863440285697/ghost-execution-2.gif",
+        "https://media.discordapp.net/attachments/712631135099813940/715870147264381008/ghost-execution-3.gif",
+        "https://media.discordapp.net/attachments/712195322671267873/716120348365553674/ghost-execution-4-fixed.gif",
+        "https://media.discordapp.net/attachments/712631135099813940/715872115659636746/ghost-execution-5.gif",
+        "https://i.imgur.com/XVEndwF.gif",
+        "https://i.imgur.com/DwqjmeF.gif",
+        "https://i.imgur.com/MGTVlf3.gif"
+      ];
+    } else if (targets.length === 2) {
+      gifs = ["https://i.imgur.com/zDPfrrF.gif"];
+    } else {
+      gifs = ["https://i.imgur.com/OLeruXR.gif"];
+    }
+
 gifs = gifs[Math.floor(Math.random() * gifs.length)];
    let embedkill = new imports.Discord.MessageEmbed()
       .setColor(imports.colors.BG_COLOR)
