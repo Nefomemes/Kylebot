@@ -21,11 +21,11 @@ run: async (imports) =>{
     }
     if (targets.length === 1) {
       gifs = [
-        "https://media.discordapp.net/attachments/712631135099813940/715868841225224223/ghost-execution-1.gif",
-        "https://media.discordapp.net/attachments/712631135099813940/715869863440285697/ghost-execution-2.gif",
-        "https://media.discordapp.net/attachments/712631135099813940/715870147264381008/ghost-execution-3.gif",
-        "https://media.discordapp.net/attachments/712195322671267873/716120348365553674/ghost-execution-4-fixed.gif",
-        "https://media.discordapp.net/attachments/712631135099813940/715872115659636746/ghost-execution-5.gif",
+        "https://i.imgur.com/wRTNTzP.gif",
+        "https://i.imgur.com/cGsTWLw.gif",
+        "https://i.imgur.com/qItOV7f.gif",
+        "https://i.imgur.com/jhkqhed.gif",
+        "https://i.imgur.com/GcpLcbq.gif",
         "https://i.imgur.com/XVEndwF.gif",
         "https://i.imgur.com/DwqjmeF.gif",
         "https://i.imgur.com/MGTVlf3.gif"
