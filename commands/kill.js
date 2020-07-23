@@ -28,7 +28,8 @@ run: async (imports) =>{
         "https://i.imgur.com/GcpLcbq.gif",
         "https://i.imgur.com/XVEndwF.gif",
         "https://i.imgur.com/DwqjmeF.gif",
-        "https://i.imgur.com/MGTVlf3.gif"
+        "https://i.imgur.com/MGTVlf3.gif",
+        "https://i.imgur.com/odeVVwc.gif",
       ];
     } else if (targets.length === 2) {
       gifs = ["https://i.imgur.com/zDPfrrF.gif"];
