@@ -17,7 +17,7 @@ module.exports = {
         .setThumbnail()
         .addField(`Input`, `\`\`\`${imports.built_ins.avoidBreak(imports.args.join(" "))}\`\`\``, true)
         .setTimestamp()
-        .setFooter(`Prefix: ${process.env.PREFIX} | ${imports.built_ins.getRandomFunfact()}`, imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
+        .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`, imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
 
         if(!langs.includes(langOne)) return imports.message.channel.send("Unable to get the first language. Maybe you misspell it?");
         if(!langs.includes(langTwo)) return imports.message.channel.send("Unable to get the second language. Maybe you misspell it?");
@@ -45,11 +45,11 @@ module.exports = {
                     embed = embed.setImage("https://i.imgur.com/KjEm67O.jpg");
                 }
                                     } else{
-        embed = embed.addFields({name: "Output", value: `\`\`\`${imports.built_ins.avoidBreak(result.text)}\`\`\``, inline: true})
+        embed = embed.addFields({name: "Output", value: `\`\`\`${imports.avoidBreak(result.text)}\`\`\``, inline: true})
             reverse = resultSecond.text;
             }
                                 if(result.from.value){
-            embed = embed.addField("Did you mean:",  `\`\`\`${imports.built_ins.avoidBreak(result.from.value)}\`\`\``, true);
+            embed = embed.addField("Did you mean:",  `\`\`\`${imports.avoidBreak(result.from.value)}\`\`\``, true);
 
         }
         function doTheWork(output, reverse){

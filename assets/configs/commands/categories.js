@@ -1,4 +1,4 @@
-{
+module.exports = {
     "content":[
         {
             "name":"Bot",

@@ -4,7 +4,7 @@ module.exports = {
   return `${string.slice(0, max - 3)}...`;
     },
     getRandomFunfact: () => {
-        const funfact = require("../configs/funfact.json").content;
+        const funfact = require("../configs/funfact").content;
   return funfact[Math.floor(Math.random() * funfact.length)]
 
     },
@@ -39,7 +39,7 @@ module.exports = {
         if(!cmd) return;
 if(!options.type) return;
         if(options.constructor = Object && options.type && options.type === "module"){
-            const commandModules = require("../configs/commands/cmd-list.json").content.filter(function(command){
+            const commandModules = require("../configs/commands/cmd-list").content.filter(function(command){
                  return command.name && command.name.toLowerCase() === cmd.toLowerCase() ||command.aliases && command.aliases.includes(cmd.toLowerCase())
             })
                       if(!commandModules.length){
@@ -54,7 +54,7 @@ if(!options.type) return;
         return;
     },
     freshActivity: (client) => {
-        activities = require("../configs/activities.json").content;
+        activities = require("../configs/activities").content;
           let activity = activities[Math.floor(Math.random() * activities.length)];
  
   return client.user.setActivity(activity.content + ` | ${process.env.PREFIX}help`, {type: activity.type}).catch(error => console.error(error));

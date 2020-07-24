@@ -10,7 +10,7 @@ module.exports = {
         .setDescription(`If the image doesn't looks like what you expected. \n Feel free to join our [support server](${process.env.WEBSITE}/support) and tell it to us. \n If the image doesn't load, try [click this](${image}).`)
         .setImage(image)
         .setTimestamp()
-        .setFooter(`Prefix: ${process.env.PREFIX} | ${imports.built_ins.getRandomFunfact()}`)
+        .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`)
     imports.message.channel.send(embed)} catch(error){
         imports.message.channel.send("An error occured! " + error);
     }

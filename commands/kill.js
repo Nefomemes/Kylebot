@@ -6,9 +6,9 @@ run: async (imports) =>{
     var targets = [];
     var deleteArgs;
    do {
-      targets[a] = imports.built_ins.getMemberFromMention(imports.args.shift(), imports.message)
+      targets[a] = imports.getMemberFromMention(imports.args.shift(), imports.message)
       a++;
-    } while (imports.built_ins.getMemberFromMention(imports.args[0], imports.message));
+    } while (imports.getMemberFromMention(imports.args[0], imports.message));
     if(!targets.length) return imports.message.channel.send("Uggh, who you want to kill?").then(() => {
       timestamps.delete(imports.message.author.id);
     })
@@ -41,10 +41,10 @@ gifs = gifs[Math.floor(Math.random() * gifs.length)];
    let embedkill = new imports.Discord.MessageEmbed()
       .setColor(imports.colors.BG_COLOR)
       .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
-      .setDescription(`${imports.message.author} killed ${targets.join(", ")}${the_reason}`)
+      .setDescription(imports.trim(`${imports.message.author} killed ${targets.join(", ")}${the_reason}`, 2048))
       .setImage(gifs)
       .setTimestamp()
-      .setFooter(`Prefix: ${process.env.PREFIX} | ${imports.built_ins.getRandomFunfact()}`)
+      .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`)
       imports.message.channel.send(embedkill);
 
   }

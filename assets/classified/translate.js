@@ -1,4 +1,4 @@
-{
+module.exports = {
     "type":"anti_anime_propaganda",
     "content":[
         {

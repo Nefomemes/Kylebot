@@ -32,7 +32,7 @@ module.exports = {
             .setTimestamp()
             .setFooter(
               `Prefix: ${process.env.PREFIX} | ${
-               imports.built_ins.getRandomFunfact()
+               imports.getRandomFunfact()
               }`, imports.client.user.displayAvatarURL({format: "png", dynamic: true})
             );
 

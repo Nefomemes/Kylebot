@@ -1,31 +1,6 @@
 module.exports = {
   name: "bmkg",
-  
-  execute(
-    message,
-    args,
-    client,
-    fs,
-    Canvas,
-    getRandomFunfact,
-    figlet,
-    translate,
-    Discord,
-    fetch,
-    querystring,
-    xml2js,
-    killtreaks_utils,
-    got,
-    FileType,
-    sizeOf,
-    trim,
-    getMemberFromMention,
-    probe,
-    http,
-    imagesize,
-    timestamps,
-    customSplit
-  ) {
+  run: async (imports)=> {
     if (true) return message.reply("This command is scrapped!");
 
     (async function() {

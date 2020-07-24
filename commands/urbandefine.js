@@ -45,12 +45,12 @@ module.exports = {
             "https://storage.googleapis.com/burbcommunity-morethanthecurve/2013/09/urban-dictionary-logo.gif",
             "https://www.urbandictionary.com/"
           )
-          .setDescription(imports.built_ins.trim(answer.definition, 2048))
+          .setDescription(imports.trim(answer.definition, 2048))
           .setThumbnail(
             "https://storage.googleapis.com/burbcommunity-morethanthecurve/2013/09/urban-dictionary-logo.gif"
           )
           .addFields(
-            { name: "Example", value: imports.built_ins.trim(answer.example, 1024) },
+            { name: "Example", value: imports.trim(answer.example, 1024) },
             {
               name: "Rating",
               value: `${answer.thumbs_up} thumbs up. ${answer.thumbs_down} thumbs down.`
@@ -58,8 +58,8 @@ module.exports = {
           )
           .setTimestamp()
           .setFooter(
-            `Prefix: ${process.env.PREFIX} | ${
-              imports.built_ins.getRandomFunfact()
+            `Prefix: ${imports.prefix} | ${
+              imports.getRandomFunfact()
             }`,
            imports.client.user.displayAvatarURL({format: "png", dynamic: true})
           );

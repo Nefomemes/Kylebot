@@ -1,6 +1,6 @@
 module.exports = {
     execute(imports){
-        const badwords = require("./assets/configs/badwords.json").content;
+        const badwords = require("./assets/configs/badwords").content;
              var words = imports.message.content.split("[").join(" ").split("]").join(" ").split("||").join(" ").split("`").join(" ").split("```").join(" ").split("__").join(" ").split(".").join(" ").split(",").join(" ").split(" ");
   
   var violates = words.filter(function(value, index, arr){ return badwords.includes(value.toLowerCase())});

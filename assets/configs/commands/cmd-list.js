@@ -1,4 +1,4 @@
- {"type":"command_list",
+module.exports = {"type":"command_list",
 "content": [
     {
         "name": "search",
@@ -67,7 +67,7 @@
         "example":"betray @Roach#8279 @Ghost#8676  I want to take down Makarov by myself.",
         "cooldown": 10,
         "guild":true,
-        "disabled":true
+        "disabled":false
     },
 
 {
@@ -136,17 +136,7 @@
     "cooldown": 10,
     "disabled":false
 },
-{
-    "name":"encode",
-    "type":"command",
-    "category":"Misc commands",
-    "description": "Idk",
-    "usage": "nefo!morse <text>",
-    "apiUsed": ["vierofernando"],
-    "cooldown": 15,
-    "disabled": true,
-    "args":true
-},
+
 {
     "name":"eval",
     "type":"command",

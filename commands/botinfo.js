@@ -5,11 +5,11 @@ module.exports = {
    
         const uptime = imports.client.uptime /3600000;
         var embedping = new imports.Discord.MessageEmbed()
-          .setColor(require("../assets/configs/color.json").content.BG_COLOR)
+          .setColor(imports.colors.BG_COLOR)
           .setTitle(imports.client.user.username.split(" ")[0])
           .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({format: "png", dynamic: true})
           )
-          .setDescription(`Invite the bot [here!](https://web.nefomemes.repl.co/kylebot/invite)\n\nFunfact: You wont be able to invite the bot since I made it private.`)
+          .setDescription(`Invite the bot [here!](${imports.website}/invite)\n\nFunfact: You wont be able to invite the bot since I made it private.`)
           .addFields(
             {name: "Bot's name", value: `${imports.client.user.username}#${imports.client.user.discriminator}`},
             {name: "Bot's owner", value: `Nefomemes#3927`, inline: true},
@@ -27,7 +27,7 @@ module.exports = {
               imports.client.user.displayAvatarURL({format: "png", dynamic: true})
           )
           .setTimestamp()
-          .setFooter(`Prefix: ${process.env.PREFIX} | ${imports.built_ins.getRandomFunfact()}`,   imports.client.user.displayAvatarURL({format: "png", dynamic: true})
+          .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`,   imports.client.user.displayAvatarURL({format: "png", dynamic: true})
           );
             if(imports.message.guild){
               embedping.addFields({name:"Joined the server since", value: imports.message.guild.me.joinedAt, inline: true},

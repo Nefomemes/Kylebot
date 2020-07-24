@@ -8,6 +8,5 @@ module.exports = {
   example: ["nefo!slowmode 716266404323786832 3", "nefo!slowmode 3"],
   permissions: ["MANAGE_CHANNELS"],
   execute(imports) {
-
   }
 };

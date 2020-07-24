@@ -6,9 +6,9 @@ module.exports = {
     var a = 0;
     targets = [];
     do {
-      targets[a] = "<@" + imports.built_ins.getMemberfromMention(imports.args.shift()) + ">";
+      targets[a] = "<@" + imports.getMemberfromMention(imports.args.shift()) + ">";
       a++;
-    } while (imports.built_ins.getMemberfromMention(imports.args[0], imports.message));
+    } while (imports.getMemberfromMention(imports.args[0], imports.message));
 
     if (a === 1) {
       gifs = [
@@ -30,15 +30,13 @@ module.exports = {
     const embed = new imports.Discord.MessageEmbed()
       .setColor(imports.colors.BG_COLOR)
       .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({format: "png", dynamic: true}), process.env.WEBSITE)
-      .setDescription(`${imports.message.author}` +" betrayed " +targets.join(", ") +the_reason)
+      .setDescription(imports.trim(`${imports.message.author}` +" betrayed " +targets.join(", ") +the_reason, 2048))
       .setImage(gifs[Math.floor(Math.random() * gifs.length)])
       .setTimestamp()
       .setFooter(
-        "Prefix: ${process.env.PREFIX} | " + imports.built_ins.getRandomFunfact()
+        "Prefix: ${imports.prefix} | " + imports.getRandomFunfact()
       );
 
     imports.message.channel.send(embed);
   }
-}; /* */
-
-/*'https://media.discordapp.net/attachments/665442594335096832/714676860067250518/codmw2cr_shepherd-betrayal_1person.gif' */
+}; 

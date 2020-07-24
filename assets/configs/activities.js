@@ -1,11 +1,6 @@
-{
+module.exports = {
     "type":"activityList",
     "content":[
-    {
-        "type":"PLAYING",
-        "content":"Realism Ground War in Downtown"
-    },
-    
     {
         "type":"LISTENING",
         "content":"Modern Warfare Main Theme by Sarah Schachner"
@@ -36,11 +31,43 @@
     },
     {
         "type":"PLAYING",
-        "content":"Cheshire Park and Shoot House 24/7"
+        "content":"3v3 Gunfight Snipers Only"
     }, 
     {
         "type":"PLAYING",
-        "content":"Team Deathmatch and Kill Confirmed Remix"
+        "content":"2v2 Gunfight Tournament"
+    },
+    {
+        "type":"PLAYING",
+        "content":"Call of Duty: Modern Warfare"
+    },
+    {
+        "type":"PLAYING",
+        "content":"Shoot The Ship"
+    },
+    {
+        "type":"PLAYING",
+        "content":"BR Stimulus Duos"
+    },
+    {
+        "type":"PLAYING",
+        "content":"BR Solos"
+    },
+    {
+        "type":"PLAYING",
+        "content":"BR Duos"
+    },
+    {
+        "type":"PLAYING",
+        "content":"BR Trios"
+    },
+    {
+        "type":"PLAYING",
+        "content":"BR Quads"
+    },
+    {
+        "type":"PLAYING",
+        "content":"Plunder Quads"
     }
 ]
 }

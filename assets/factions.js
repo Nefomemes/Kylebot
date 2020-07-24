@@ -1,4 +1,4 @@
-[{
+module.exports = [{
     "name": "Coalition",
     "main_killstreak_op":"US",
     "main_leader":"Citadel",

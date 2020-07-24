@@ -1,31 +1,6 @@
 module.exports = {
   name: "resize",
-
-  execute(
-    message,
-    args,
-    client,
-    fs,
-    Canvas,
-    getRandomFunfact,
-    figlet,
-    translate,
-    Discord,
-    fetch,
-    querystring,
-    xml2js,
-    killtreaks_utils,
-    got,
-    FileType,
-    sizeOf,
-    trim,
-    getMemberFromMention,
-    probe,
-    http,
-    imagesize,
-    timestamps,
-    customSplit
-  ) {  
+run: async (imports) =>{  
     (async function() {
       if (args.length < 3)
         return message.channel.send(

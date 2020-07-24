@@ -1,4 +1,4 @@
-{
+module.exports = {
     "type":"branding_color",
     "content":{
         "BG_COLOR":"#4772a8",

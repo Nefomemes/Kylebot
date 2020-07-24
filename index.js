@@ -7,20 +7,20 @@ process.on("uncaughtException", err => {
   console.error("There was an uncaught error", err);
   process.exit(1); //mandatory (as per the Node docs)
 });
-const colors = require("./assets/configs/color.json").content;
+const colors = require("./assets/configs/color").content;
 var imagesize = require('imagesize');
 const probe = require("probe-image-size");
 const fs = require("fs");
 const Discord = require("discord.js");
-const prefix = process.env.PREFIX;
-const commandList = require("./assets/configs/commands/cmd-list.json");
+const {prefix, website, support, brandingbg} = require("./assets/configs/configs");
+const commandList = require("./assets/configs/commands/cmd-list");
 const Canvas = require("canvas");
 const built_ins = require("./assets/utils/utils.js");
 const figlet = require("figlet");
 const translate = require("@vitalets/google-translate-api");
 const _ = require('underscore');
 const cooldowns = new Discord.Collection();
-const badwords = require("./assets/configs/badwords.json").contents;
+const badwords = require("./assets/configs/badwords").contents;
 const client = new Discord.Client({
   partials: ["REACTION", "MESSAGE"],
   ws: {
@@ -199,12 +199,14 @@ if(!message.content.startsWith(prefix))return;
    }, cooldownAmount);
 
    var imports = {
-    built_ins: built_ins,
+     ...built_ins,
      message: message,
      args: args,
      client: client,
      Discord: Discord,
-
+      website: website,
+      support: support,
+      brandingbg: brandingbg,
      timestamps: timestamps,
      probe: probe,
      figlet: figlet,

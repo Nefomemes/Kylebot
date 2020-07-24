@@ -14,9 +14,9 @@ module.exports = {
     var a = 0;
     targets = [];
     do {
-      targets[a] = imports.built_ins.getMemberFromMention(imports.args.shift(), imports.message)
+      targets[a] = imports.getMemberFromMention(imports.args.shift(), imports.message)
       a++;
-    } while (imports.built_ins.getMemberFromMention(imports.args[0], imports.message));
+    } while (imports.getMemberFromMention(imports.args[0], imports.message));
   
 
   if(!targets.length)return imports.message.channel.send("Noone to be respected?");
@@ -39,7 +39,7 @@ module.exports = {
       .setDescription(`${imports.message.author} respected ${targets.join(", ")}${the_reason}`)
       .setImage(selectedGIF)
       .setTimestamp()
-      .setFooter(`Prefix: ${process.env.PREFIX} | ${imports.built_ins.getRandomFunfact()}`)
+      .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`)
       imports.message.channel.send(embedkill);
   }
 };

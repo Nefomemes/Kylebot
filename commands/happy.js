@@ -12,12 +12,12 @@ module.exports = {
         const selectedGIF = gifs[Math.floor(Math.random()*gifs.length)];
         const embed = new imports.Discord.MessageEmbed()
 
-        .setColor(require("../assets/configs/color.json").content.BG_COLOR)
+        .setColor(imports.colors.BG_COLOR)
         .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({format: "png", dynamic: true}), process.env.WEBSITE)
-        .setDescription(`${imports.message.author} is happy${the_reason}`)
+        .setDescription(imports.trim(`${imports.message.author} is happy${the_reason}`))
         .setImage(selectedGIF)
         .setTimestamp()
-        .setFooter(`Prefix: ${process.env.PREFIX} | ${imports.built_ins.getRandomFunfact()}`)
+        .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`)
         imports.message.channel.send(embed);
     }
 }

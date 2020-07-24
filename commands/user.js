@@ -3,7 +3,7 @@ module.exports = {
   run: async (imports) => {
     var user, member;
     if(imports.message.guild){
-          member = imports.built_ins.getMemberFromMention(imports.args[0], imports.message)|| imports.message.member;
+          member = imports.getMemberFromMention(imports.args[0], imports.message)|| imports.message.member;
             user = member.user;
     }else{
       user = imports.message.author;
@@ -18,7 +18,7 @@ module.exports = {
                 {name: "ID", value: `${user.id}`, inline: true}, 
                 {name: "Accout created at", value: user.createdAt}, 
                 {name: "Bot", value: user.bot})
-    .setFooter(`Prefix: ${process.env.PREFIX} | ${imports.built_ins.getRandomFunfact()}`)
+    .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`, imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
 
                 if(imports.message.guild){
                   embed.addFields({name: "Joined the server since", value: member.joinedAt},
