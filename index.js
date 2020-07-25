@@ -12,7 +12,7 @@ var imagesize = require('imagesize');
 const probe = require("probe-image-size");
 const fs = require("fs");
 const Discord = require("discord.js");
-const {prefix, website, support, brandingbg} = require("./assets/configs/configs");
+const { prefix, website, support, brandingbg } = require("./assets/configs/configs");
 const commandList = require("./assets/configs/commands/cmd-list");
 const Canvas = require("canvas");
 const built_ins = require("./assets/utils/utils.js");
@@ -112,6 +112,7 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 function handleMessage(message){
+    if(!message.author)return;
 if(message.author.bot) return;
   /*if (message.guild) {
 		let prefixUsed;
@@ -207,6 +208,7 @@ if(!message.content.startsWith(prefix))return;
       website: website,
       support: support,
       brandingbg: brandingbg,
+      prefix: prefix,
      timestamps: timestamps,
      probe: probe,
      figlet: figlet,

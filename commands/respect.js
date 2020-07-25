@@ -1,25 +1,20 @@
 module.exports = {
   name: "respect",
   run: async (imports)=>{
-    if(!imports.args.length)
-      return imports.message.reply("you must write something!");
-    if (
-      imports.args[0].startsWith("<@") == false ||
-      imports.args[0].endsWith(">") == false ||
-      !imports.message.mentions.users
-    )
-      return imports.message.reply("You must mention someone!");
-    argss = imports.args.join(" ").split(" | ");
 
-    var a = 0;
-    targets = [];
+    var a = 0,
+    targets = [], 
+    deleteArgs;
     do {
-      targets[a] = imports.getMemberFromMention(imports.args.shift(), imports.message)
-      a++;
+        let target = imports.getMemberFromMention(imports.args[0], imports.message);
+      if(target){
+          targets[a] = target;
+          deleteArgs = imports.args.shift();
+      }
+
     } while (imports.getMemberFromMention(imports.args[0], imports.message));
   
-
-  if(!targets.length)return imports.message.channel.send("Noone to be respected?");
+if(!targets.length)return imports.message.react("❌");
     let gifs = [
       "https://media.discordapp.net/attachments/717210048174096446/719403405625524386/tenor_4.gif",
       "https://media.discordapp.net/attachments/717210048174096446/719398381985726524/tenor_3.gif",
@@ -37,7 +32,7 @@ module.exports = {
       .setColor(imports.colors.BG_COLOR)
       .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
       .setDescription(`${imports.message.author} respected ${targets.join(", ")}${the_reason}`)
-      .setImage(selectedGIF)
+      .setImage(gifs)
       .setTimestamp()
       .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`)
       imports.message.channel.send(embedkill);

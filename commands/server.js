@@ -35,7 +35,7 @@ module.exports = {
               {name: "MFA level", value: guild.explicitContentFilter, inline: true}
               )
     .setTimestamp()
-    .setFooter(`Prefix: ${process.env.PREFIX} | ${imports.built_ins.getRandomFunfact()}`, imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
+    .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`, imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
     if(guild.systemChannel){
       embed = embed.addField("System channel", guild.systemChannel, true)
     } 

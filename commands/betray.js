@@ -6,10 +6,10 @@ module.exports = {
     var a = 0;
     targets = [];
     do {
-      targets[a] = "<@" + imports.getMemberfromMention(imports.args.shift()) + ">";
+      targets[a] = + imports.getMemberFromMention(imports.args.shift());
       a++;
-    } while (imports.getMemberfromMention(imports.args[0], imports.message));
-
+    } while (imports.getMemberFromMention(imports.args[0], imports.message));
+if(!targets.length || targets.length < 1)return imports.message.react("❎");
     if (a === 1) {
       gifs = [
         "https://media.discordapp.net/attachments/665442594335096832/714676860067250518/codmw2cr_shepherd-betrayal_1person.gif"
@@ -34,7 +34,7 @@ module.exports = {
       .setImage(gifs[Math.floor(Math.random() * gifs.length)])
       .setTimestamp()
       .setFooter(
-        "Prefix: ${imports.prefix} | " + imports.getRandomFunfact()
+        `Prefix: ${imports.prefix} | ` + imports.getRandomFunfact(), imports.client.user.displayAvatarURL({format:"png", dynamic: true})
       );
 
     imports.message.channel.send(embed);

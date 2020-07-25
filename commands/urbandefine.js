@@ -2,7 +2,7 @@ module.exports = {
   name: "urbandefine",
 
   run: async(imports)=> {
-    imports.message.react("<a:DiscordLoading:724125571847815229>").then(reaction => {
+    imports.message.react("<a:DiscordLoading:724125571847815229").then(reaction => {
     async function define() {
       const word = imports.args.join(" ") || "Rick Rolling";
       const query = imports.querystring.stringify({ term: word});
@@ -12,7 +12,7 @@ module.exports = {
       if (error) {
         return imports.message.channel.send("An error occured! "+ error);
       } else {
-        const badwords = require("../assets/configs/badwords.json").contents;
+        const badwords = require("../assets/configs/badwords").content;
      
         list = list.filter(function(definition){
           

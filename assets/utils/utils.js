@@ -26,7 +26,7 @@ module.exports = {
  return message.guild.members.cache.get(mention);
 
     },
-    getGuildChannelFromMention: (mention, message) => {
+    getChannelFromMention: (mention, message) => {
 
   if (!mention || !message || !message.guild) return;
 

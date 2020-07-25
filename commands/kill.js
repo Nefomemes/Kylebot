@@ -9,10 +9,7 @@ run: async (imports) =>{
       targets[a] = imports.getMemberFromMention(imports.args.shift(), imports.message)
       a++;
     } while (imports.getMemberFromMention(imports.args[0], imports.message));
-    if(!targets.length) return imports.message.channel.send("Uggh, who you want to kill?").then(() => {
-      timestamps.delete(imports.message.author.id);
-    })
-    if(!targets.length)return imports.message.channel.send("You must mention someone that is a valid member!")
+if(!targets.length || targets.length < 1) return imports.message.react("❎");
     var the_reason = imports.args.join(" ");
     if(the_reason){
     the_reason = ` because "` + imports.args.join(" ") + `".`;

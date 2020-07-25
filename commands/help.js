@@ -1,5 +1,5 @@
- const categories = require("../assets/configs/commands/categories.json").content;
- const commands = require("../assets/configs/commands/cmd-list.json").content;
+ const categories = require("../assets/configs/commands/categories").content;
+ const commands = require("../assets/configs/commands/cmd-list").content;
 module.exports = {
     name: "help",
     run: async (imports) => {

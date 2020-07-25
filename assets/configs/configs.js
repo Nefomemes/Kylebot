@@ -1,6 +1,7 @@
+const web = "https://web.nefomemes.repl.co/kylebot";
 module.exports = {
     "prefix":"mw!",
-    "website":"https://web.nefomemes.repl.co/kylebot",
-    "support":`${website}/support`,
+    "website":web,
+    "support":`${web}/support`,
     "brandingbg":""
 }
