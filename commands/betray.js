@@ -3,13 +3,19 @@ module.exports = {
 
   run: async (imports) => {
     var gifs;
-    var a = 0;
-    targets = [];
+    var a = 0,
+    targets = [], 
+    deleteArgs;
     do {
-      targets[a] = + imports.getMemberFromMention(imports.args.shift());
-      a++;
+        let target = imports.getMemberFromMention(imports.args[0], imports.message);
+      if(target){
+          targets[a] = target;
+          deleteArgs = imports.args.shift();
+      }
+
     } while (imports.getMemberFromMention(imports.args[0], imports.message));
-if(!targets.length || targets.length < 1)return imports.message.react("❎");
+  
+if(!targets.length)return imports.message.react("❌");
     if (a === 1) {
       gifs = [
         "https://media.discordapp.net/attachments/665442594335096832/714676860067250518/codmw2cr_shepherd-betrayal_1person.gif"

@@ -3,9 +3,8 @@ module.exports = {
         const badwords = require("./assets/configs/badwords").content;
              var words = imports.message.content.split("[").join(" ").split("]").join(" ").split("||").join(" ").split("`").join(" ").split("```").join(" ").split("__").join(" ").split(".").join(" ").split(",").join(" ").split(" ");
   
-  var violates = words.filter(function(value, index, arr){ return badwords.includes(value.toLowerCase())});
-  violates = violates.filter(function(value, index, arr){ return value.toLowerCase() !== "classic"  });
-  
+  var violates = words.filter(function(value, index, arr){ return badwords.includes(value.toLowerCase())}).filter(function(value, index, arr){ return value.toLowerCase() !== "classic"  });
+ 
   if(imports.message.guild && violates.length /* && the function that will get if the guild activates it's badwords filter or not.*/){
   const verb_warnings = new imports.Discord.MessageEmbed()
   .setColor(imports.colors.BG_COLOR)

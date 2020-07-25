@@ -2,14 +2,19 @@ module.exports = {
   name: "kill",
 run: async (imports) =>{
     var gifs;
-    var a = 0;
-    var targets = [];
-    var deleteArgs;
-   do {
-      targets[a] = imports.getMemberFromMention(imports.args.shift(), imports.message)
-      a++;
+    var a = 0,
+    targets = [], 
+    deleteArgs;
+    do {
+        let target = imports.getMemberFromMention(imports.args[0], imports.message);
+      if(target){
+          targets[a] = target;
+          deleteArgs = imports.args.shift();
+      }
+
     } while (imports.getMemberFromMention(imports.args[0], imports.message));
-if(!targets.length || targets.length < 1) return imports.message.react("❎");
+  
+if(!targets.length)return imports.message.react("❌");
     var the_reason = imports.args.join(" ");
     if(the_reason){
     the_reason = ` because "` + imports.args.join(" ") + `".`;
