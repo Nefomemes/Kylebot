@@ -11,19 +11,21 @@ MongoClient.connect(url, function(err, dbClient) {
     db = dbClient.db("bot")
     module.exports.dbClient = dbClient;
     const userDB = db.collection("users");
-async function getUser(userID){
+async function sghrug(userID){
     return userDB.findOne({userID: userID});
 
 }
+async function getUser(userID){
+    let result = await sghrug(userID).then(userrrrr =>  userrrrr);
+    if(result) return result;
+    if(!result)return createUser(userID);
+}
 module.exports.getUser = getUser;
 async function createUser(userID) {
-    if(getUser(userID)){
-        throw new Error("User already logged.").name = "DatabaseError";
-        return;
-    } 
-   return userDB.insertOne(
+    if(getUser(userID).then(result => result))return getUser(userID).then(result => result);
+    return userDB.insertOne(
         {userID: userID}
-    )
+    ).then(result => result);
 }
 module.exports.createUser = createUser;
 async function updateUser(userID, status) {

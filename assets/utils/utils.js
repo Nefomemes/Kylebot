@@ -66,7 +66,7 @@ if(!options.type) return;
     },
     getPlayercard: (name) => {
       const playertag = require("../items/playercards").content;
-      name = name.toLowerCase() || "default";
+       name = (name || "default").toLowerCase();
 
       if(name === "default"){
         let result = playertag.filter((value) => {

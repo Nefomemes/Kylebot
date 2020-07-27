@@ -15,6 +15,7 @@ module.exports = {
 
             await dbUtils.updateUser(imports.message.author.id, { $set: { "playercard": imports.getPlayercard(form[1].toLowerCase()).id}})
         }    
+        return imports.message.react("✔")
  
     }
 }   

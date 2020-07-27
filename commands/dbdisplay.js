@@ -11,15 +11,8 @@ module.exports = {
         .setFooter(`Prefix ${imports.prefix} | This command is currently in testing. Bug may occurs.`, imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
         
        
-        var user = await dbUtils.getUser(imports.message.author.id).then(user => user);
-        if(!user){
-          dbUtils.createUser(imports.message.author.id).catch(error => {
-              return imports.message.channel.send("An error occured! " + error);
-          })
-          user = dbUtils.getUser(imports.message.author.id).then(user => user);
-        }
- 
-        embed = embed.setThumbnail(imports.getEmblem(user.emblem).assets[0].asset || false).setImage(imports.getPlayerCard(user.playercard).assets[0].asset || false);
+        var user = await dbUtils.getUser(imports.message.author.id).then(userdbb => userdbb);
+        embed = embed.setThumbnail(imports.getEmblem(user.emblem).assets[0].asset || false).setImage(imports.getPlayercard(user.playercard).assets[0].asset || false);
         imports.message.channel.send(embed);
         
     }
