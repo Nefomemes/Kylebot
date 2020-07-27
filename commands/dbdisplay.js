@@ -18,6 +18,7 @@ module.exports = {
           })
           user = dbUtils.getUser(imports.message.author.id).then(user => user);
         }
+ 
         embed = embed.setThumbnail(imports.getEmblem(user.emblem).assets[0].asset || false).setImage(imports.getPlayerCard(user.playercard).assets[0].asset || false);
         imports.message.channel.send(embed);
         

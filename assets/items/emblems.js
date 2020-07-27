@@ -3,7 +3,7 @@ module.exports = [
         "id":"alex_scape_goat",
         "type":"emblem",
         "name":"Scape Goat",
-        "disabled":true,
+        "default":true,
         "assets":[
             {
                 "type":"png",
