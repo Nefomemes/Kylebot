@@ -58,7 +58,7 @@ if(!options.type) return;
         activities = require("../configs/activities").content;
           let activity = activities[Math.floor(Math.random() * activities.length)];
  
-  return client.user.setActivity(activity.content + ` | ${process.env.PREFIX}help`, {type: activity.type}).catch(error => console.error(error));
+  return client.user.setActivity(activity.content + ` | ${require("../configs/configs").prefix}help`, {type: activity.type}).catch(error => console.error(error));
     },
     avoidBreak: (str) => {
         if(str.constructor !== String || !str)return;

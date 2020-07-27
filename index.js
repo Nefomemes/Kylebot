@@ -134,7 +134,7 @@ if(!message.content.startsWith(prefix))return;
  
     var commandModule = built_ins.getCommand(commandName, {type: "module"});
   if(!commandModule) return;
-    if(commandModule.disabled && commandModule.disabled === true) return imports.message.react("❌")
+    if(commandModule.disabled && commandModule.disabled === true) return message.react("❌")
   
   
     if(message.guild){  
@@ -143,28 +143,28 @@ if(!message.content.startsWith(prefix))return;
   
         const permits = commandModule.permissions.filter(function(value, index, arr){ return !message.member.hasPermission(value)});
      
-     if(permits.length) return imports.message.react("❌")
+     if(permits.length) return message.react("❌")
   
     }
        if(commandModule.bot_permissions){
   
         const permits = commandModule.bot_permissions.filter(function(value, index, arr){ return !message.guild.me.hasPermission(value)});
        
-       if(permits.length)return imports.message.react("❌");
+       if(permits.length)return message.react("❌");
   
       }
   
-      if(!message.channel.permissionsFor(client.user.id).has("SEND_MESSAGES") || !message.channel.permissionsFor(client.user.id).has("EMBED_LINKS") || !message.channel.permissionsFor(client.user.id).has("ATTACH_FILES")) return imports.message.react("❌")
+      if(!message.channel.permissionsFor(client.user.id).has("SEND_MESSAGES") || !message.channel.permissionsFor(client.user.id).has("EMBED_LINKS") || !message.channel.permissionsFor(client.user.id).has("ATTACH_FILES")) returnmessage.react("❌")
   
-      if(commandModule.webhooks && message.guild.fetchWebhooks().then(map => map.length) > 10 - commandModule[0].webhooks) return imports.message.react("❌")
+      if(commandModule.webhooks && message.guild.fetchWebhooks().then(map => map.length) > 10 - commandModule[0].webhooks) return message.react("❌")
   
     } 
   
-    if(!message.guild && commandModule.guild && commandModule.guild === true || !message.guild && commandModule.permissions &&commandModule.permissions || !message.guild && commandModule.bot_permissions && commandModule.bot_permissions || !message.guild && commandModule.webhooks)return imports.message.react("❌")
+    if(!message.guild && commandModule.guild && commandModule.guild === true || !message.guild && commandModule.permissions &&commandModule.permissions || !message.guild && commandModule.bot_permissions && commandModule.bot_permissions || !message.guild && commandModule.webhooks)return message.react("❌")
   
     const command = built_ins.getCommand(commandModule.name, {type: "command", client: client});
     
-    if (!command) return imports.message.react("❌")
+    if (!command) return message.react("❌")
     
 
 
@@ -184,7 +184,7 @@ if(!message.content.startsWith(prefix))return;
     ) {
       args.pop();
     } else {
-      return imports.message.react("❌")
+      return message.react("❌")
     }
   }
   
