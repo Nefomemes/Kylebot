@@ -83,8 +83,9 @@ if(!options.type) return;
       }
     },
     getEmblem: (name) => {
+    
       const emblems = require("../items/emblems");
-      name = name.toLowerCase() || "default";
+      name = (name || "default").toLowerCase();
 
       if(name === "default"){
         let result = emblems.filter((value) => {

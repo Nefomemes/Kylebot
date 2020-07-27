@@ -9,12 +9,13 @@ MongoClient.connect(url, function(err, dbClient) {
     assert.equal(null, err);
     
     db = dbClient.db("bot")
+    module.exports.dbClient = dbClient;
     const userDB = db.collection("users");
 async function getUser(userID){
     return userDB.findOne({userID: userID});
 
 }
-
+module.exports.getUser = getUser;
 async function createUser(userID) {
     if(getUser(userID)){
         throw new Error("User already logged.").name = "DatabaseError";
@@ -24,6 +25,7 @@ async function createUser(userID) {
         {userID: userID}
     )
 }
+module.exports.createUser = createUser;
 async function updateUser(userID, status) {
     let user = getUser(userID);
     if(!user){
@@ -31,13 +33,8 @@ async function updateUser(userID, status) {
     }
     return userDB.updateOne({userID: userID}, {...status, $currentDate: {lastModified: true}});
 }
+module.exports.updateUser = updateUser;
 
-module.exports = {
-    updateUser: updateUser,
-    createUser: createUser,
-    getUser: getUser,
-    dbClient: dbClient
-}
   });
 
 
