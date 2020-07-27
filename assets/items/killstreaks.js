@@ -1,4 +1,4 @@
-{"content":[{
+module.exports = {"content":[{
 
     "name":"Tactical Nuke",
     "type":"message_streak",
@@ -19,4 +19,8 @@
 "name":"Advanced UAV",
 "type":"message_streak",
 "command_name": null
-}]}
+},   
+{"id": 11,
+    "name":"UAV",
+    "type":"message_streak",
+    "command_name": null}]}

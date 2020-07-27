@@ -24,6 +24,9 @@ The bot does have a Trello board which you can visit [here.](https://trello.com/
 
 ## Developer Guide
 If you are looking at this repository to learn more about Discord bot development. Just keep in mind that all files in the `deprecated` folder are old codes that were removed from the bot and haven't been set up so that it works with the current command handler. Might have to delete that folder though.
+## Self-hosting
+Self-hosting is posibble, but currently not supported yet.
+Once I got time, I will surely make a detailed tutorial on how to self-host.
 
 ## Frequently Asked Questions
 

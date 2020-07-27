@@ -1,8 +1,8 @@
-{
+module.exports = {
     "type":"item_list",
     "content":[
         {
-        "id": 1,
+        "id": "one_four_one",
         "name":"141",
         "type": "calling_card",
         "description":"It's very hard to obtain this calling card in-game. Use this calling card and experience the 141 vibe.",
@@ -14,10 +14,10 @@
         ]
         },
         {
-        "id":2,
+        "id":"all_ghillied_up_cod_four",
         "name":"All Ghillied Up",
         "type":"calling_card",
-        "description":"Use this calling card and experience the Nefobot web design experience lol.",
+        "description":"Use this calling card and experience the Kylebot web design experience lol.",
         "assets": [
         {
             "type":"png",
@@ -26,7 +26,7 @@
         ]
         },
         {
-        "id":3,
+        "id":"adv_uav",
         "name":"Advanced UAV",
         "type":"calling_card",
         "description":"Obtainable once you called in an Advanced UAV",
@@ -37,7 +37,7 @@
             }
         ]
         },
-        {"id": 4,
+        {"id": "price_nvg_master_plan",
         "name":"Master Plan - Price NVG",
         "type":"calling_card",
         "assets":[
@@ -46,7 +46,7 @@
                 "asset":"https://i.imgur.com/VgM5mwN.gif"
             }
         ]},
-        {"id":5,
+        {"id":"bale",
         "name":"Bale",
         "type":"calling_card",
         "assets":[
@@ -63,13 +63,10 @@
         "asset":"https://i.imgur.com/nAjE3fB.gif"
     }
     ]},
-  
-    {"id": 11,
-        "name":"UAV",
-        "type":"message_streak",
-        "command_name": null},
+
         {"id": 12,
         "name":"default",
+        "default":true,
     "type":"calling_card",
 "description":"It's the budget Price calling card.",
 "assets":[
@@ -77,7 +74,7 @@
     "asset":"https://i.imgur.com/w7rnF6b.png"}
 ]
 },
-{"id":13,
+{"id":"gaz_snow",
 "type":"calling_card",
 "name":"For Her Majesty",
 "description":"Not like as you expected. This calling card is just Kyle engagin' some enemies.",
@@ -87,7 +84,7 @@
         "asset":"https://i.imgur.com/7xDWpZ9.gif"
     }
 ]},
-{"id":14,
+{"id":"welcome_warzone",
     "type":"calling_card",
 "name":"Welcome to Warzone",
 "description":"Welcome to Warzone. Battle royale.",
@@ -98,7 +95,7 @@
     }
 ]},
 {
-    "id":15,
+    "id":"faction_coalition",
     "type":"calling_card",
     "name":"Coalition",
     "description":"The calling card you should achieve when you set your faction to be Coalition. You should loose your calling card once you changed your faction to not be Coalition.",
@@ -109,10 +106,10 @@
         }
     ]
 },
-{"id":16,
+{"id":"faction_allegiance",
     "type":"calling_card",
     "name":"Allegiance",
-    "description":"The calling card you should achieve when you set your faction to be Allegiance. You should loose your calling card once you changed your faction to not be Allegiance.",
+    "description":"Check wiki for more information.",
     "assets":[  
         {
             "type":"png",
@@ -121,7 +118,7 @@
     ]
 },
 {
-    "id":17,
+    "id":"tac_insert",
     "type":"calling_card",
     "name":"Tactical Insertion",
     "description":"The field upgrade you need in Warzone Rumble. Sadly, the mode is LTM.",
@@ -145,7 +142,7 @@
     ]    
 },
 {
-    "id":19,
+    "id":"f",
     "type":"calling_card",
     "name":"Press F",
     "description":"F",
@@ -156,7 +153,7 @@
         }
     ]},
     {
-        "id":20,
+        "id":"covert_ops",
         "type":"calling_card",
         "name":"Covert Operations",
         "description":"The loading screen of Modern Warfare. Now it's a calling card!",
@@ -166,7 +163,7 @@
         }]
     },
     {
-        "id": 21,
+        "id": "ghost_ink_spiller",
         "type":"calling_card",
         "name":"Ink Spiller",
         "description":"Ghost has a lot of calling cards ngl.",
@@ -178,7 +175,7 @@
         ]
     },
     {
-        "id":22,
+        "id":"ghost_silent_death",
         "type":"calling_card",
         "name":"Silent Death",
         "description":"Ghost has a lot of calling cards ngl.",
@@ -189,16 +186,5 @@
             }
         ]
     },
-    
-    {
-        "type":"emblem",
-        "name":"Scape Goat",
-        "assets":[
-            {
-                "type":"png",
-                "asset":"https://i.imgur.com/Nswe0nQ.png"
-            }
-        ]
-    }
     ]
 }

@@ -1,3 +1,4 @@
+
 module.exports = {
     trim: (string, max) => {
   if (string.length <= max) return string;
@@ -62,5 +63,41 @@ if(!options.type) return;
     avoidBreak: (str) => {
         if(str.constructor !== String || !str)return;
       return str.split("```").join("`‎`‎`‎");
+    },
+    getPlayercard: (name) => {
+      const playertag = require("../items/playercards").content;
+      name = name.toLowerCase() || "default";
+
+      if(name === "default"){
+        let result = playertag.filter((value) => {
+          return value.default && value.default === true;
+        })
+        if(!result.length)return;
+        return result[Math.floor(Math.random() * result.length)];
+      } else {
+        let result = playertag.filter((value) => {
+          return value.id && value.id === name || value.name.toLowerCase().startsWith(name) || value.name.toLowerCase().endsWith(name) || value.name.split(name)[1];
+        })
+        if(!result.length)return;
+        return result[Math.floor(Math.random() * result.length)];
+      }
+    },
+    getEmblem: (name) => {
+      const emblems = require("../items/emblems");
+      name = name.toLowerCase() || "default";
+
+      if(name === "default"){
+        let result = emblems.filter((value) => {
+          return value.default && value.default === true;
+        })
+        if(!result.length)return;
+        return result[Math.floor(Math.random() * result.length)];
+      } else {
+        let result = emblems.filter((value) => {
+          return value.id && value.id === name || value.name.toLowerCase().startsWith(name) || value.name.toLowerCase().endsWith(name) || value.name.split(name)[1];
+        })
+        if(!result.length)return;
+        return result[Math.floor(Math.random() * result.length)];
+      }
     }
-}
+  }

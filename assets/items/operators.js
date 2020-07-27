@@ -1,4 +1,4 @@
-{
+module.exports = {
     "content":[
         {
             "id":23,

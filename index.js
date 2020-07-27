@@ -48,7 +48,7 @@ var sizeOf = require("image-size");
 
 var path = require('path');
 
-
+db
 
 /*const Keyv = require('keyv');*/
 /*const prefixes = new Keyv('sqlite://path/to/database.sqlite');*/
@@ -134,7 +134,7 @@ if(!message.content.startsWith(prefix))return;
  
     var commandModule = built_ins.getCommand(commandName, {type: "module"});
   if(!commandModule) return;
-    if(commandModule.disabled && commandModule.disabled === true) return message.channel.send("Sorry, that command is currently disabled.")
+    if(commandModule.disabled && commandModule.disabled === true) return imports.message.react("❌")
   
   
     if(message.guild){  
@@ -143,28 +143,28 @@ if(!message.content.startsWith(prefix))return;
   
         const permits = commandModule.permissions.filter(function(value, index, arr){ return !message.member.hasPermission(value)});
      
-     if(permits.length) return message.channel.send("Before you can use the `" + command.name + "`, you need to have these permissions: " + permits.join(", ").toLowerCase().split("_").join(" "));
+     if(permits.length) return imports.message.react("❌")
   
     }
        if(commandModule.bot_permissions){
   
         const permits = commandModule.bot_permissions.filter(function(value, index, arr){ return !message.guild.me.hasPermission(value)});
        
-       if(permits.length) return message.channel.send("Before you can use the `" + command.name + "`, the bot need to have these permissions: " + permits.join(", ").toLowerCase().split("_").join(" "));
+       if(permits.length)return imports.message.react("❌");
   
       }
   
-      if(!message.channel.permissionsFor(client.user.id).has("EMBED_LINKS") || !message.channel.permissionsFor(client.user.id).has("ATTACH_FILES")) return message.channel.send("An error occured. Try checking the bot's permissions. Especially embed links and attach files 'cuz they are commonly used.");
+      if(!message.channel.permissionsFor(client.user.id).has("SEND_MESSAGES") || !message.channel.permissionsFor(client.user.id).has("EMBED_LINKS") || !message.channel.permissionsFor(client.user.id).has("ATTACH_FILES")) return imports.message.react("❌")
   
-      if(commandModule.webhooks && message.guild.fetchWebhooks().then(map => map.length) > 10 - commandModule[0].webhooks) return message.channel.send("Whoa, dude. It seems there is too many webhooks in this server but the bot needs **" + commandModule[0].webhooks + "** webhooks. Try reducing the webhooks. \n **Pro tip:** Try delete the NQN webhooks. NQN creates a lot of webhooks but doesn't clean it's mess.");
+      if(commandModule.webhooks && message.guild.fetchWebhooks().then(map => map.length) > 10 - commandModule[0].webhooks) return imports.message.react("❌")
   
     } 
   
-    if(!message.guild && commandModule.guild && commandModule.guild === true || !message.guild && commandModule.permissions &&commandModule.permissions || !message.guild && commandModule.bot_permissions && commandModule.bot_permissions || !message.guild && commandModule.webhooks) return message.channel.send("That command is not available in DM!")
+    if(!message.guild && commandModule.guild && commandModule.guild === true || !message.guild && commandModule.permissions &&commandModule.permissions || !message.guild && commandModule.bot_permissions && commandModule.bot_permissions || !message.guild && commandModule.webhooks)return imports.message.react("❌")
   
     const command = built_ins.getCommand(commandModule.name, {type: "command", client: client});
     
-    if (!command) return message.channel.send( `**\`${commandName}\`** is not a valid command!`);
+    if (!command) return imports.message.react("❌")
     
 
 
@@ -184,11 +184,7 @@ if(!message.content.startsWith(prefix))return;
     ) {
       args.pop();
     } else {
-      return message.channel.send(
-        `It's too spammy! Please wait another ${timeLeft.toFixed(
-          2
-        )} minutes before using the **\`${command.name}\`** command again.`
-      );
+      return imports.message.react("❌")
     }
   }
   
@@ -223,7 +219,7 @@ if(!message.content.startsWith(prefix))return;
    }
 
   try {
-      if(!command.run)return message.channel.send("The command is not yet done!")
+      if(!command.run)return imports.message.react("❌")
     command.run(imports).catch(err => {
       message.channel.send(`An error occured! ${err}`);
       console.error(err);
