@@ -48,7 +48,7 @@ var sizeOf = require("image-size");
 
 var path = require('path');
 
-db
+
 
 /*const Keyv = require('keyv');*/
 /*const prefixes = new Keyv('sqlite://path/to/database.sqlite');*/

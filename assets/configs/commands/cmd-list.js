@@ -1,6 +1,16 @@
 module.exports = {"type":"command_list",
 "content": [
     {
+        "name":"dbdisplay",
+        "disabled":false,
+        "category":"misc"
+    },
+     {
+        "name":"dbset",
+        "disabled":false,
+        "category":"misc"
+    },
+    {
         "name": "search",
   "description": "Search something in the Internet. Returns in the link though.",
   "category": "misc",

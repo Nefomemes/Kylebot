@@ -1,4 +1,4 @@
-const dbUtils = require("../assets/other/utils/database/db-utils");
+const dbUtils = require("../assets/utils/database/db-utils");
 module.exports = {
     "name":"dbdisplay",
     run: async (imports) => {
@@ -11,7 +11,7 @@ module.exports = {
         .setFooter(`Prefix ${imports.prefix} | This command is currently in testing. Bug may occurs.`, imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
         
        
-        const user = dbUtils.getUser(imports.message.author.id).then(user => user);
+        const user = await dbUtils.getUser(imports.message.author.id).then(user => user);
         if(!user){
           dbUtils.createUser(imports.message.author.id).catch(error => {
               return imports.message.channel.send("An error occured! " + error);
