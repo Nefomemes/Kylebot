@@ -6,9 +6,9 @@ module.exports = {
         var embed = new imports.Discord.MessageEmbed()
         .setColor(imports.colors.BG_COLOR)
         .setTitle(idk[Math.floor(Math.random() * idk.length)])
-        .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
+        .setAuthor(imports.message.author.username, imports.message.author.displayAvatarURL({format: "png", dynamic: true}))
         .setTimestamp()
-        .setFooter(`Prefix ${imports.prefix} | This command is currently in testing. Bug may occurs.`, imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
+        .setFooter(`Prefix ${imports.prefix} | This command is currently in testing. Bugs may occurs.`, imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
         
        
         var user = await dbUtils.getUser(imports.message.author.id).then(userdbb => userdbb);

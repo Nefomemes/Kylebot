@@ -15,12 +15,12 @@ MongoClient.connect(url, function(err, dbClient) {
 function getUser(userID){
     return db.collection("users").findOne({userID: userID});
 }
-
+module.exports.getUser = getUser;
 function createUser(userID){
     if(getUser(userID)) return;
     return db.collection("users").insertOne({userID: imports.message.author.id});
 }
-
+module.exports.createUser = createUser;
 function updateUser(userID, status){
     if(!userID || !status)
     if(userID.constructor !== String)return;
@@ -29,17 +29,7 @@ function updateUser(userID, status){
     db.collection("users").updateOne({userID: userID}, { $set: status,
  $currentDate: { lastModified: true } });
 }
-
-module.exports = {
-    "getUser":getUser,
-    "createUser":createUser,
-    "updateUser":updateUser
-};
+module.exports.updateUser = updateUser;
 
   });
-
-
-
-
-
 })()
