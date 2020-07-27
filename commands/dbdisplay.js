@@ -1,8 +1,8 @@
-const dbUtils = require("../assets/utils/database/db-utils");
+const dbUtils = require("../assets/utils/database");
 module.exports = {
     "name":"dbdisplay",
     run: async (imports) => {
-        const idk = ["Tactical Nuke", "Advanced UAV", "UAV", "On a five kill streaks.", "On a ten kill streaks.", "Personal Radar", "Precision Airstrike", ""]
+        const idk = ["Tactical Nuke", "Advanced UAV", "UAV", "On a five kill streaks.", "On a ten kill streaks.", "Personal Radar", "Precision Airstrike"]
         var embed = new imports.Discord.MessageEmbed()
         .setColor(imports.colors.BG_COLOR)
         .setTitle(idk[Math.floor(Math.random() * idk.length)])
