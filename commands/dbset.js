@@ -3,7 +3,12 @@ const dbUtils = require("../assets/utils/database");
 module.exports = {
     name: "dbset",
     run: async (imports) => {
-        if(!imports.args.length) return imports.message.react("❌");
+        if(!imports.args.length){
+            imports.args = ["dbset"];
+            return imports.client.commands.get("help").run(imports).catch(error => {
+                throw error;
+            })
+        }
         const form = imports.args.join(" ").split(" | ");
         if(form[0] && form[0].toLowerCase() !== "--current"){
             if(!imports.getEmblem(form[0]))return imports.message.react("❌")

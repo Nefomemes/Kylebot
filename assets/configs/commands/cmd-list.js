@@ -3,12 +3,22 @@ module.exports = {"type":"command_list",
     {
         "name":"dbdisplay",
         "disabled":false,
-        "category":"misc"
+        "category":"misc",
+        "description":"Database command for testing purposes. This one will display your calling card and emblem. [Learn more.](https://trello.com/c/5CXDwz4x/36-calling-card-and-emblem-system-on-test-this-is-the-first-time-i-work-on-database-lol-db-powered-though)"
     },
      {
         "name":"dbset",
         "disabled":false,
-        "category":"misc"
+        "category":"misc",
+        "usage":"<prefix>dbset <emblem id or name> | <calling card id or name>",
+        "description":"Database command for testing purposes. [Learn more.](https://trello.com/c/5CXDwz4x/36-calling-card-and-emblem-system-on-test-this-is-the-first-time-i-work-on-database-lol-db-powered-though)"
+    },
+    {
+        "name":"filter",
+        "disabled":false,
+        "category":"mods",
+        "usage":"<prefix>filter < on | off>",
+        "description":"Database command for testing purposes. This one will turn on or off the badwords filter.[Learn more.](https://trello.com/c/5CXDwz4x/36-calling-card-and-emblem-system-on-test-this-is-the-first-time-i-work-on-database-lol-db-powered-though)"
     },
     {
         "name": "search",
