@@ -3,5 +3,5 @@ module.exports = {
     "prefix":"mw!",
     "website":web,
     "support":`${web}/support`,
-    "brandingbg":""
+    "brandingbg":"https://i.imgur.com/q3EWSPl.gif"
 }
