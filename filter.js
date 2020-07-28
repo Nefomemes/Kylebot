@@ -1,17 +1,11 @@
 module.exports = {
     execute(imports){
-if(!imports.message.guild)return;
-    
         const badwords = require("./assets/configs/badwords").content;
-             var words = imports.message.content.toLowerCase().split("[").join(" ").split("]").join(" ").split("||").join(" ").split("`").join(" ").split("```").join(" ").split("__").join(" ").split(".").join(" ").split(",").join(" ").split(" ").join("");
+             var words = imports.message.content.split("[").join(" ").split("]").join(" ").split("||").join(" ").split("`").join(" ").split("```").join(" ").split("__").join(" ").split(".").join(" ").split(",").join(" ").split(" ");
   
-  var violates = badwords.filter((badword)=>{
-    return words.split(badword.toLowerCase())[1];
-  });
+  var violates = words.filter(function(value, index, arr){ return badwords.includes(value.toLowerCase())}).filter(function(value, index, arr){ return value.toLowerCase() !== "classic"  });
  
-  if(!violates.length )return;
-    const guild =  imports.db.getGuild(imports.message.guild.id);
-    if(!guild || guild && guild.bd_filter && guild.bd_filter === false || guild && !guild.bd_filter)return;
+  if(imports.message.guild && violates.length /* && the function that will get if the guild activates it's badwords filter or not.*/){
   const verb_warnings = new imports.Discord.MessageEmbed()
   .setColor(imports.colors.BG_COLOR)
   .setTitle("Content Deletion")
@@ -29,5 +23,5 @@ author.send(verb_warnings).catch(error => {
 
 
 
-}
+}}
 }

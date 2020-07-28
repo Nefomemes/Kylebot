@@ -4,7 +4,7 @@
   "description": "The first Call of Duty roleplay Discord bot.",
   "main": "index.js",
   "engines": {
-    "node": "14.x"
+    "node": "12.x"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

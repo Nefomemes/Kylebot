@@ -7,7 +7,6 @@ process.on("uncaughtException", err => {
   console.error("There was an uncaught error", err);
   process.exit(1); //mandatory (as per the Node docs)
 });
-const db = require("./assets/utils/database");
 const colors = require("./assets/configs/color").content;
 var imagesize = require('imagesize');
 const probe = require("probe-image-size");
@@ -115,8 +114,17 @@ for (const file of commandFiles) {
 function handleMessage(message){
     if(!message.author)return;
 if(message.author.bot) return;
+  /*if (message.guild) {
+		let prefixUsed;
 
-require("./filter.js").execute({db: db, message: message, Discord: Discord, client: client, built_ins: built_ins, colors: colors})
+		if (message.content.startsWith(prefix)) {
+			prefixUsed = prefix;
+		} else {
+			
+			const guildPrefix = await prefixes.get(message.guild.id);
+			if (message.content.startsWith(guildPrefix)) prefixUsed = guildPrefix;
+		}*/
+require("./filter.js").execute({message: message, Discord: Discord, client: client, built_ins: built_ins, colors: colors})
 if(!message.content.startsWith(prefix))return;
   
 
@@ -207,7 +215,6 @@ if(!message.content.startsWith(prefix))return;
      querystring: querystring,
      fetch: fetch,
     colors: colors,
-    db: db
 
    }
 
