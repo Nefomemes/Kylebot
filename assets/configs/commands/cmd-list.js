@@ -4,7 +4,8 @@ module.exports = {
         {
             "name":"filter",
             "disabled":false,
-            "category:"misc"
+            "category":"misc"
+        
         },
         {
             "name": "dbdisplay",
