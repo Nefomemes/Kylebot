@@ -1,7 +1,7 @@
 module.exports = {
 
   execute(imports) {
-    if(!imports.args.length){
+    if (!imports.args.length) {
       imports.args = ["wttr"];
       return imports.client.commands.get("help").execute(imports).catch(error => {
         imports.message.channel.send(`An error occured! ${error}`);
@@ -24,9 +24,9 @@ module.exports = {
       .setTimestamp()
       .setFooter(
         `Prefix: ${process.env.PREFIX} | ${
-      imports.getRandomFunfact()
+        imports.getRandomFunfact()
         }`,
-        imports.client.user.displayAvatarURL({format: "png", dynamic: true})
+        imports.client.user.displayAvatarURL({ format: "png", dynamic: true })
       );
 
     imports.message.channel.send(embed);

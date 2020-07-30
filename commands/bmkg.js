@@ -1,9 +1,9 @@
 module.exports = {
   name: "bmkg",
-  run: async (imports)=> {
+  run: async (imports) => {
     if (true) return message.reply("This command is scrapped!");
 
-    (async function() {
+    (async function () {
       provinces = [
         "Indonesia",
         "Aceh",

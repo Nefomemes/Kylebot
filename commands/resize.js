@@ -1,7 +1,7 @@
 module.exports = {
   name: "resize",
-run: async (imports) =>{  
-    (async function() {
+  run: async (imports) => {
+    (async function () {
       if (args.length < 3)
         return message.channel.send(
           "Invalid usage. Please specify the width, height, an a URL / user mention."

@@ -17,7 +17,6 @@
   "author": "Nefomemes#3927",
   "license": "MIT",
   "dependencies": {
-    "@vitalets/google-translate-api": "^3.0.0",
     "algorithmia": "^0.3.10",
     "canvas": "^2.6.1",
     "discord.js": "^12.2.0",
@@ -30,6 +29,7 @@
     "imagesize": "^1.0.0",
     "mongodb": "^3.5.9",
     "node-fetch": "^2.6.0",
+    "node-grau": "^1.0.0",
     "probe-image-size": "^5.0.0",
     "underscore": "^1.10.2",
     "xml2js": "^0.4.23"

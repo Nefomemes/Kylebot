@@ -1,23 +1,36 @@
 module.exports = {
   name: "kill",
-run: async (imports) =>{
-    var gifs;
-    var a = 0,
-    targets = [], 
-    deleteArgs;
-    do {
-        let target = imports.getMemberFromMention(imports.args[0], imports.message);
-      if(target){
-          targets[a] = target;
-          deleteArgs = imports.args.shift();
-      }
+  run: async (imports) => {
+    var gifs, a = 0, targets = [];
+ 
+    const getUserFromMention = (mention) => {
 
-    } while (imports.getMemberFromMention(imports.args[0], imports.message));
+      if (!mention || !message || !message.guild) return;
   
-if(!targets.length)return imports.message.react("❌");
+      if (mention.startsWith("<@") && mention.endsWith(">")) {
+        mention = mention.slice(2, -1);
+        if (mention.startsWith("!")) {
+          mention = mention.slice(1);
+        }
+      }
+      return imports.message.mentions.users.cache.get(mention);
+  
+    },
+ 
+  do {
+    let user = getUserFromMention(imports.args[0])
+    if(user){
+      targets.push(user);
+    } else {
+      break;
+    }
+  }
+while(a <= imports.args.length)
+
+    if (!targets.length) return imports.message.react("❌");
     var the_reason = imports.args.join(" ");
-    if(the_reason){
-    the_reason = ` because "` + imports.args.join(" ") + `".`;
+    if (the_reason) {
+      the_reason = ` because "` + imports.args.join(" ") + `".`;
     } else {
       the_reason = "."
     }
@@ -39,15 +52,15 @@ if(!targets.length)return imports.message.react("❌");
       gifs = ["https://i.imgur.com/OLeruXR.gif"];
     }
 
-gifs = gifs[Math.floor(Math.random() * gifs.length)];
-   let embedkill = new imports.Discord.MessageEmbed()
+    gifs = gifs[Math.floor(Math.random() * gifs.length)];
+    let embedkill = new imports.Discord.MessageEmbed()
       .setColor(imports.colors.BG_COLOR)
-      .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
+      .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({ format: "png", dynamic: true }))
       .setDescription(imports.trim(`${imports.message.author} killed ${targets.join(", ")}${the_reason}`, 2048))
       .setImage(gifs)
       .setTimestamp()
       .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`)
-      imports.message.channel.send(embedkill);
+    imports.message.channel.send(embedkill);
 
   }
 };

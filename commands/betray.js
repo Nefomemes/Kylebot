@@ -3,20 +3,34 @@ module.exports = {
 
   run: async (imports) => {
     var gifs;
-    var a = 0,
-    targets = [], 
-    deleteArgs;
-    do {
-        let target = imports.getMemberFromMention(imports.args[0], imports.message);
-      if(target){
-          targets[a] = target;
-          deleteArgs = imports.args.shift();
-      }
+    var targets = [];
+    const getUserFromMention = (mention) => {
 
-    } while (imports.getMemberFromMention(imports.args[0], imports.message));
+      if (!mention || !message || !message.guild) return;
   
-if(!targets.length)return imports.message.react("❌");
-    if (a === 1) {
+      if (mention.startsWith("<@") && mention.endsWith(">")) {
+        mention = mention.slice(2, -1);
+        if (mention.startsWith("!")) {
+          mention = mention.slice(1);
+        }
+      }
+      return imports.message.mentions.users.cache.get(mention);
+  
+    },
+ 
+  do {
+    let user = getUserFromMention(imports.args[0])
+    if(user){
+      targets.push(user);
+    } else {
+      break;
+    }
+  }
+while(a <= imports.args.length)
+
+
+    if (!targets.length) return imports.message.react("❌");
+    if (targets.length === 1) {
       gifs = [
         "https://media.discordapp.net/attachments/665442594335096832/714676860067250518/codmw2cr_shepherd-betrayal_1person.gif"
       ];
@@ -27,20 +41,20 @@ if(!targets.length)return imports.message.react("❌");
     }
 
     var the_reason = imports.args.join(" ");
-    if(the_reason){
-    the_reason = ` because "` + imports.args.join(" ") + `".`;
+    if (the_reason) {
+      the_reason = ` because "` + imports.args.join(" ") + `".`;
     } else {
       the_reason = "."
     }
-   
+
     const embed = new imports.Discord.MessageEmbed()
       .setColor(imports.colors.BG_COLOR)
-      .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({format: "png", dynamic: true}), process.env.WEBSITE)
-      .setDescription(imports.trim(`${imports.message.author}` +" betrayed " +targets.join(", ") +the_reason, 2048))
+      .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({ format: "png", dynamic: true }), process.env.WEBSITE)
+      .setDescription(imports.trim(`${imports.message.author}` + " betrayed " + targets.join(", ") + the_reason, 2048))
       .setImage(gifs[Math.floor(Math.random() * gifs.length)])
       .setTimestamp()
       .setFooter(
-        `Prefix: ${imports.prefix} | ` + imports.getRandomFunfact(), imports.client.user.displayAvatarURL({format:"png", dynamic: true})
+        `Prefix: ${imports.prefix} | ` + imports.getRandomFunfact(), imports.client.user.displayAvatarURL({ format: "png", dynamic: true })
       );
 
     imports.message.channel.send(embed);
