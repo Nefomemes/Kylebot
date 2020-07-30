@@ -3,8 +3,8 @@ module.exports = {
         const badwords = require("./assets/configs/badwords").content;
              var words = imports.message.content.toLowerCase().split("[").join(" ").split("]").join(" ").split("||").join(" ").split("`").join(" ").split("```").join(" ").split("__").join(" ").split(".").join(" ").split(",").join(" ").split(" ");
   
-  var violates = badwords.content.filter((badword) => {
-  if(badwords.white.includes(badword))return words.includes(badword);
+  var violates = badwords.word.filter((badword) => {
+  if(badwords.prio.includes(badword))return words.includes(badword);
   return words.join("").split(badword)[1];
   })
  

@@ -16,17 +16,18 @@ module.exports = {
         }
         return imports.message.mentions.users.cache.get(mention);
     
-      },
+      };
    
-    do {
-      let user = getUserFromMention(imports.args[0])
-      if(user){
-        targets.push(user);
-      } else {
-        break;
-      }
+for(arg of imports.args){
+    let user = getUserFromMention(arg)
+    if(user){
+      targets.push(user);
+    } else {
+      break;
     }
-  while(a <= imports.args.length)
+}
+ 
+
 
     if (!targets.length) return imports.message.react("❌");
     let gifs = [
