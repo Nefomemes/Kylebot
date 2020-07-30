@@ -17,7 +17,7 @@ const commandList = require("./assets/configs/commands/cmd-list");
 const Canvas = require("canvas");
 const built_ins = require("./assets/utils/utils.js");
 const figlet = require("figlet");
-const translate = require("@vitalets/google-translate-api");
+
 const _ = require('underscore');
 const cooldowns = new Discord.Collection();
 const badwords = require("./assets/configs/badwords").contents;
@@ -212,7 +212,7 @@ function handleMessage(message) {
     timestamps: timestamps,
     probe: probe,
     figlet: figlet,
-    translate: translate,
+    
     got: got,
     _: _,
     Canvas: Canvas,
