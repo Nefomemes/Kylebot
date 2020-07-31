@@ -50,7 +50,7 @@ module.exports = {
       }
       return commandModules[0];
     } else if (options.constructor = Object && options.type && options.type === "command" && options.client) {
-      return options.client.commands.cache.get(cmd);
+      return options.client.commands.get(cmd);
     }
     return;
   },
