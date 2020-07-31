@@ -99,8 +99,9 @@ function handleMessage(message) {
   return new Promise((resolve, reject) => {
     try {
       (async function () {
-        if (await (!message.author || message.author.bot)) resolve();
-        imports.message = await message;
+              imports.message = await message;
+        if (await (!imports.message.author || imports.message.author.bot)) resolve();
+  
         await require("./filter").run(imports).catch(reject);
         if (await !imports.message.content.startsWith(imports.prefix)) resolve();
         imports.args = await imports.message.content.slice(imports.prefix.length).split(/ +/);
