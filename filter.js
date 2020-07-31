@@ -8,7 +8,7 @@ module.exports = {
   return words.join("").split(badword)[1];
   })
  
-  if(imports.message.guild && violates.length && db.getDoc('guilds', imports.message.guild.id).filter){
+  if(imports.message.guild && violates.length && imports.db.getDoc('guilds', imports.message.guild.id).filter){
   const verb_warnings = new imports.Discord.MessageEmbed()
   .setColor(imports.colors.BG_COLOR)
   .setTitle("Content Deletion")
