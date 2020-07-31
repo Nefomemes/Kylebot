@@ -8,16 +8,14 @@ process.on("uncaughtException", err => {
   process.exit(1); //mandatory (as per the Node docs)
 });
 const colors = require("./assets/configs/color").content;
-var imagesize = require('imagesize');
-const probe = require("probe-image-size");
+
 const fs = require("fs");
 const Discord = require("discord.js");
-const { prefix, website, support, brandingbg } = require("./assets/configs/configs");
+const branding = require("./assets/configs/configs");
 const commandList = require("./assets/configs/commands/cmd-list");
 const Canvas = require("canvas");
 const built_ins = require("./assets/utils/utils.js");
 const figlet = require("figlet");
-
 const _ = require('underscore');
 const cooldowns = new Discord.Collection();
 const badwords = require("./assets/configs/badwords").contents;
@@ -39,56 +37,19 @@ const querystring = require("querystring");
 const fetch = require("node-fetch");
 const grau = require("node-grau");
 const db = new grau(process.env.DB, 'bot');
-client.commands = new Discord.Collection();
-const commandFiles = fs
-  .readdirSync("./commands")
-  .filter(file => file.endsWith(".js"));
-
-const got = require("got");
-const FileType = require("file-type");
-var sizeOf = require("image-size");
-
+client.commands.cache = new Discord.Collection();
 
 var path = require('path');
-
-
-
-/*const Keyv = require('keyv');*/
-/*const prefixes = new Keyv('sqlite://path/to/database.sqlite');*/
-/*keyv.on('error', err => console.error('Keyv connection error:', err));*/
 
 const express = require("express");
 const app = express();
 const http = require("http");
-
-/*
-app.get("/", (request, response) => {
-  console.log(Date.now() + " Ping Received");
-  response.sendStatus(200);
-});
-app.listen(process.env.PORT);
-setInterval(() => {
-  http.get(`http://nefobot-hosting.glitch.me/`);
-}, 150000);
-*/
-
-
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Gaz is closing in. PORT ${PORT}`);
   require("./req-handler.js").execute({ app: app })
 });
-
-
-
-
-
-
-
-
-
 
 client.once("ready", () => {
 
@@ -107,136 +68,92 @@ client.on("error", (err) => {
 
 
 
-
+const commandFiles = fs
+  .readdirSync("./commands")
+  .filter(file => file.endsWith(".js"));
 
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
 
   client.commands.set(command.name, command);
 }
-function handleMessage(message) {
-  if (!message.author) return;
-  if (message.author.bot) return;
-  /*if (message.guild) {
-		let prefixUsed;
 
-		if (message.content.startsWith(prefix)) {
-			prefixUsed = prefix;
-		} else {
-			
-			const guildPrefix = await prefixes.get(message.guild.id);
-			if (message.content.startsWith(guildPrefix)) prefixUsed = guildPrefix;
-		}*/
-  require("./filter.js").run({db: db, message: message, Discord: Discord, client: client, ...built_ins, colors: colors })
-  if (!message.content.startsWith(prefix)) return;
-
-
-  var args = message.content.slice(prefix.length).split(/ +/);
-  const commandName = args.shift().toLowerCase();
-  if (!commandName) return;
-
-  var commandModule = built_ins.getCommand(commandName, { type: "module" });
-  if (!commandModule) return;
-  if (commandModule.disabled && commandModule.disabled === true) return message.react("❌")
-
-
-  if (message.guild) {
-    if (message.guild.id !== "712195322230865994" && commandModule.category && commandModule.category.toLowerCase() === "nefomemes' coding bunker exclusive") return message.channel.send("Oops, that command is only available at Nefomemes' Coding Bunker. Use `mw!codingbunker` for more information.")
-    if (commandModule.permissions) {
-
-      const permits = commandModule.permissions.filter(function (value, index, arr) { return !message.member.hasPermission(value) });
-
-      if (permits.length) return message.react("❌")
-
-    }
-    if (commandModule.bot_permissions) {
-
-      const permits = commandModule.bot_permissions.filter(function (value, index, arr) { return !message.guild.me.hasPermission(value) });
-
-      if (permits.length) return message.react("❌");
-
-    }
-
-    if (!message.channel.permissionsFor(client.user.id).has("SEND_MESSAGES") || !message.channel.permissionsFor(client.user.id).has("EMBED_LINKS") || !message.channel.permissionsFor(client.user.id).has("ATTACH_FILES")) returnmessage.react("❌")
-
-    if (commandModule.webhooks && message.guild.fetchWebhooks().then(map => map.length) > 10 - commandModule[0].webhooks) return message.react("❌")
-
-  }
-
-  if (!message.guild && commandModule.guild && commandModule.guild === true || !message.guild && commandModule.permissions && commandModule.permissions || !message.guild && commandModule.bot_permissions && commandModule.bot_permissions || !message.guild && commandModule.webhooks) return message.react("❌")
-
-  const command = built_ins.getCommand(commandModule.name, { type: "command", client: client });
-
-  if (!command) return message.react("❌")
-
-
-
-  if (!cooldowns.has(command.name)) {
-    cooldowns.set(command.name, new Discord.Collection());
-  }
-
-  const now = Date.now();
-  const timestamps = cooldowns.get(command.name);
-  const cooldownAmount = (command.cooldown || 5) * 1000;
-  const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-  const timeLeft = (expirationTime - now) / 60000;
-
-  if (timestamps.has(message.author.id) && now < expirationTime) {
-    if (
-      message.author.id === "665419057075585025" && message.content.toLowerCase().endsWith(" --debug")
-    ) {
-      args.pop();
-    } else {
-      return message.react("❌")
-    }
-  }
-
-  timestamps.set(message.author.id, now);
-  setTimeout(() => {
-    if (timestamps.has(message.author.id)) {
-      timestamps.delete(message.author.id);
-    }
-  }, cooldownAmount);
-
-  var imports = {
-    db: db,
-    ...built_ins,
-    message: message,
-    args: args,
-    client: client,
-    Discord: Discord,
-    website: website,
-    support: support,
-    brandingbg: brandingbg,
-    prefix: prefix,
-    timestamps: timestamps,
-    probe: probe,
-    figlet: figlet,
-    
-    got: got,
-    _: _,
-    Canvas: Canvas,
-    querystring: querystring,
-    fetch: fetch,
-    colors: colors,
-
-  }
-
-  try {
-    if (!command.run) return imports.message.react("❌")
-    command.run(imports).catch(err => {
-      message.channel.send(`An error occured! ${err}`);
-      console.error(err);
-    });
-  } catch (error) {
-
-    message.channel.send(`An error occurred! ${error}`);
-  }
-
+var imports = {
+  db: db,
+  ...built_ins,
+  ...branding,
+  client: client,
+  Discord: Discord,
+  probe: probe,
+  figlet: figlet,
+  got: got,
+  _: _,
+  querystring: querystring,
+  fetch: fetch,
+  colors: colors,
+  opt: {},
+  cooldowns: cooldowns
 }
-client.on("message", async (message) => {
-  handleMessage(message);
-});
+
+function handleMessage(message) {
+  return new Promise((resolve, reject) => {
+    try {
+      (async function () {
+        if (await (!message.author || message.author.bot)) resolve();
+        imports.message = await message;
+        await require("./filter").run(imports).catch(reject);
+        if (await !imports.message.content.startsWith(imports.prefix)) resolve();
+        imports.args = await imports.message.content.slice(imports.prefix.length).split(/ +/);
+        imports.commandName = await imports.args.shift().toLowerCase();
+        if (await !imports.commandName) resolve();
+        imports.commandModule = built_ins.getCommand(commandName, { type: "module" });
+
+        if (await !imports.commandModule || imports.commandModule.disabled && imports.commandModule.disabled === true) resolve();
+        if (await !imports.message.guild && (imports.commandModule.av && (imports.commandModule.av === "guild") || imports.commandModule.wbh || imports.commandModule.perms || imports.commandModule.bot_perms)) resolve();
+
+        if (await imports.message.guild) {
+
+          if (await imports.commandModule.perms) {
+            let permits = await imports.commandModule.perms.filter((perm) => { return !imports.message.member.hasPermission(perm) });
+            if (await permits.length) resolve();
+          }
+
+          if (await imports.commandModule.bot_perms) {
+            let permits = await imports.commandModule.bot_permissions.filter((perm) => { return !imports.message.guild.me.hasPermission(perm) });
+            if (await permits.length) resolve();
+          }
+          if (await imports.commandModule.wbh && await imports.message.guild.fetchWebhooks().then(wbh => wbh.length) > 10 - await imports.commandModule.wbh) resolve();
+        }
+        if (await !imports.cooldowns.has(imports.commandModule.name)) {
+          await imports.cooldowns.set(imports.commandModule.name, new Discord.Collection());
+        }
+        imports.requestCachedAt = await Date.now();
+        imports.timestamps = await imports.cooldowns.get(imports.commandModule.name)
+
+        imports.cooldown = await (imports.commandModule.cooldown || 5) * 1000;
+        imports.timeLeft = await (imports.cooldown - imports.requestCachedAt) / 60000;
+
+        if (await imports.timestamps.has(imports.message.author.id) && await imports.requestCachedAt < imports.timeLeft) resolve();
+        await imports.timestamps.set(imports.message.author.id, imports.requestCacheAt);
+
+        setTimeout(() => {
+          if (imports.timestamps.has(imports.message.author.id)) resolve(imports.timestamps.delete(imports.message.author.id));
+          resolve();
+        }, imports.cooldown);
+
+        imports.command = await imports.getCommand(imports.commandModule.name, { type: "command", client: imports.client });
+        
+        if (await !imports.command || !imports.command.run) resolve();
+
+        imports.command.run(imports).catch(reject)
+
+      })()
+    } catch (e) {
+      reject(e)
+    }
+  })
+}
+client.on("message", handleMessage);
 client.on("messageUpdate", async (oldMessage, newMessage) => {
   handleMessage(newMessage);
 });

@@ -6,7 +6,7 @@ module.exports = {
       targets = [];
       const getUserFromMention = (mention) => {
   
-        if (!mention || !message || !message.guild) return;
+        if (!mention || !imports.message) return;
     
         if (mention.startsWith("<@") && mention.endsWith(">")) {
           mention = mention.slice(2, -1);
