@@ -127,7 +127,7 @@ function handleMessage(message) {
 			const guildPrefix = await prefixes.get(message.guild.id);
 			if (message.content.startsWith(guildPrefix)) prefixUsed = guildPrefix;
 		}*/
-  require("./filter.js").execute({db: db, message: message, Discord: Discord, client: client, built_ins: built_ins, colors: colors })
+  require("./filter.js").run({db: db, message: message, Discord: Discord, client: client, ...built_ins, colors: colors })
   if (!message.content.startsWith(prefix)) return;
 
 
