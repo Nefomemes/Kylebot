@@ -11,7 +11,7 @@ module.exports.run = async (imports) => {
   })
  if(imports.message.guild && violates.length){
       let exist = await imports.db.getDoc('guilds', await imports.message.guild.id).filter;
-if(!exist || exist === false) resolve();
+if(!exist || exist === false) return resolve(); 
   const verb_warnings = await new imports.Discord.MessageEmbed()
   .setColor(await imports.colors.BG_COLOR)
   .setTitle("Content Deletion")
