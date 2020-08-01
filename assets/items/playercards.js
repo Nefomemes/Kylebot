@@ -180,7 +180,7 @@ module.exports = {
         },
         {
             "id": "ghost_ink_spiller",
-            "type": "calling_card",
+            "type": "playercard",
             "name": "Ink Spiller",
             "description": "Ghost has a lot of calling cards ngl.",
             "assets": [
@@ -192,7 +192,7 @@ module.exports = {
         },
         {
             "id": "ghost_silent_death",
-            "type": "calling_card",
+            "type": "playercard",
             "name": "Silent Death",
             "description": "Ghost has a lot of calling cards ngl.",
             "assets": [
