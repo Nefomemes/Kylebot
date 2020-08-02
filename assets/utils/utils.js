@@ -101,5 +101,18 @@ module.exports = {
       return result[Math.floor(Math.random() * result.length)];
     }
   },
+  getPage: (array, length, page)=> {
+    if(!array || array.constructor !== Array)return;
+    if(!length || length.constructor !== Number)return;
+    if(!page || page.constructor !== Number)return;
+    page--;
+    let l = length - 1;
+    let start = 0 + (length * page);
+    let end = l + (length * page);    
+    if(end  >= array.length) {
+end = array.length - 1;
+}
+    return {start: start, end: end};
+  }
 
 }
