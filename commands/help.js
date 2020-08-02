@@ -56,13 +56,14 @@ module.exports = {
                 }
             })
         } else {
-            var page = parseInt(imports.args[0] || 1) - 1;
-            if(Number.isNaN(page)){
+            var page = parseInt(imports.args[0]);
+            if(Number.isNaN(page) || !page){
                 page = 1;
             }
             const pagegd = imports.getPage(categories, 25, page);
-            imports._.each(categories, function (value) {
-                if(categories.findIndex(value) > pagegd.end || categories.findIndex(value) < pagegd.start)return;
+            categories.forEach((value)=> {
+                let index = categories.indexOf(value);
+                if( index > pagegd.end || index < pagegd.start) return;
                 embed = embed.addField(value.name, imports.trim(`Insidely called \`${value.id}\`.\n \n ${value.description} \n\n ${commands.filter(function (command) {
                     if (command.disabled && command.disabled === true) return false;
                     if (value.id !== "misc") return command.category && command.category === value.id;
