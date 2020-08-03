@@ -28,7 +28,7 @@ module.exports = {
         },
         {
             "name": "Economy",
-            "id": "capitalism",
+            "id": "plunder",
             "description": "Call of Duty: Warzone-themed Economy. Should make a Plunder dedicated server though."
         },
         {

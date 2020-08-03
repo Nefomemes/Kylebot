@@ -183,6 +183,7 @@ module.exports = {
             "type": "playercard",
             "name": "Ink Spiller",
             "description": "Ghost has a lot of calling cards ngl.",
+            "rarity":3,
             "assets": [
                 {
                     "type": "gif",
@@ -195,6 +196,7 @@ module.exports = {
             "type": "playercard",
             "name": "Silent Death",
             "description": "Ghost has a lot of calling cards ngl.",
+            "rarity":3,
             "assets": [
                 {
                     "type": "gif",
@@ -202,5 +204,18 @@ module.exports = {
                 }
             ]
         },
+        {
+            "id":"ghost_ghost_wind",
+            "type":"playercard",
+            "name":"Ghost Wind",
+            "description":"Ghost has a lot of calling cards ngl.",
+            "rarity":5,
+            "assets": [
+                {
+                    "type":"gif",
+                    "asset":"https://i.imgur.com/i87Rx3f.gif"
+                }
+            ]
+        }
     ]
 }

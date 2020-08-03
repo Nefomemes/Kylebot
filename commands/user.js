@@ -1,13 +1,14 @@
 module.exports = {
   name: "user",
   run: async (imports) => {
-    var user, member;
+    var user, member, userDB;
     if (imports.message.guild) {
       member = imports.getMemberFromMention(imports.args[0], imports.message) || imports.message.member;
       user = member.user;
     } else {
       user = imports.message.author;
     }
+ 
 
     var embed = new imports.Discord.MessageEmbed()
       .setColor(imports.colors.BG_COLOR)
@@ -27,7 +28,7 @@ module.exports = {
         embed.addField("Display color (Base 10)", member.displayColor, true);
       }
       if (member.displayHexColor) {
-        embed.setColor(member.displayHexCOlor)
+        embed.setColor(member.displayHexColor)
         embed.addField("Display color(Hex)", member.displayHexColor, true);
       }
       if (member.premiumSince) {
@@ -39,9 +40,16 @@ module.exports = {
           embed.addField("Hoist role (the role that separate the user from other online users)", member.roles.hoist, true);
         }
       }
-
-      imports.message.channel.send(embed);
-
     }
+    if(!user.bot){
+      userDB = imports.db.getDoc('users', user.id);
+      if(userDB.desc){
+        embed.setDescription(userDB.desc);
+      }
+      if(userDB.cash){
+        embed.addField("Cash")
+      }
+    }
+    imports.message.channel.send(embed);
   }
 };

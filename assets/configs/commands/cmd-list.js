@@ -211,25 +211,7 @@ module.exports = {
                 "No ID accepted. Member mentions only. You can give the reason after all the mention mumbo jumbo ends.",
             "example": "nefo!kill @Vladimir Makarov#8573 this is for Soap"
         },
-        {
-            "name": "noanime",
-            "type": "command",
-            "disabled": true,
-            "category": "Mematic",
-            "description": "S nami bog. Remember- no anime.",
-            "usage": "nefo!noanime <member> | <reasons> | <penalty>",
-            "explanation": "Use `, ` for the reasons.",
-            "example": ["nefo!noanime @Weeb Bot#8474 | anime girl, anime pfp. | Stop."]
-        },
-        {
-            "name": "nuke",
-            "category": "Message Streak",
-            "type": "command",
-
-            "description": "Deploy a tactical nuke.",
-            "usage": "nefo!nuke",
-            "disabled": true
-        },
+        
         {
             "name": "perms",
             "category": "Server Information",
@@ -239,14 +221,7 @@ module.exports = {
             "disabled": true
         },
 
-        {
-            "name": "precstrike",
-            "category": "Message Streak",
-            "type": "command",
-            "description": "Deploy a precision airstrike",
-            "usage": "nefo!precstrike",
-            "disabled": true
-        },
+    
         {
             "name": "prefix",
             "category": "Bot",
@@ -255,18 +230,7 @@ module.exports = {
             "type": "command"
         },
 
-        {
-            "name": "resize",
-            "type": "command",
-            "category": "Mematic",
-            "description": "With this, you can make a Putin photo into a wide Putin photo.",
-            "usage": "nefo!resize <object>",
-            "explanation": "You can mention someone to get their avatar or leave a link.",
-            "example": "nefo!resize",
-            "cooldown": 15,
-            "disabled": true,
-            "args": true
-        },
+    
         {
             "name": "respect",
             "type": "command",
@@ -299,15 +263,6 @@ module.exports = {
             "guild": true,
             "cooldown": 30,
             "disabled": true,
-            "type": "command"
-        },
-        {
-            "name": "spiderpres",
-            "category": "memes",
-            "description": "Presentate your opinions as Spiderman!",
-            "usage": "spiderpres [opinion]",
-            "cooldown": 10,
-            "disabled": false,
             "type": "command"
         },
         {
@@ -355,6 +310,12 @@ module.exports = {
             "name": "steamuser",
             "disabled": false,
             "category": "misc"
+        },
+        {
+            "name":"daily",
+            "disabled":false,
+            "category":"plunder",
+            "description":"Get your daily money with this command!"
         }
 
     ]

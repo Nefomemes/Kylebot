@@ -64,23 +64,27 @@ module.exports = {
     if (str.constructor !== String || !str) return;
     return str.split("```").join("`‎`‎`‎");
   },
-  getPlayercard: (name) => {
-    const playertag = require("../items/playercards").content;
-    name = (name || "default").toLowerCase();
-
-    if (name === "default") {
-      let result = playertag.filter((value) => {
+  getItem: (collection, item) => {
+if(!item)return; 
+try {
+    const items = require(`../items/${item}s`);
+    item = (item || "default").toLowerCase();
+    if (item === "default") {
+      let result = items.filter((value) => {
         return value.default && value.default === true;
       })
       if (!result.length) return;
       return result[Math.floor(Math.random() * result.length)];
     } else {
-      let result = playertag.filter((value) => {
+      let result = items.filter((value) => {
         return value.id && value.id === name || value.name.toLowerCase().startsWith(name) || value.name.toLowerCase().endsWith(name) || value.name.split(name)[1];
       })
       if (!result.length) return;
       return result[Math.floor(Math.random() * result.length)];
     }
+  } catch(e){
+return;
+  }
   },
   getEmblem: (name) => {
 

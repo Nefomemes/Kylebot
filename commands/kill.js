@@ -17,7 +17,7 @@ module.exports = {
   
     };
  
-for(arg of imports.args){
+for(let arg of imports.args){
     let user = getUserFromMention(arg)
     if(user){
       targets.push(user);
