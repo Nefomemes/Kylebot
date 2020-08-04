@@ -12,7 +12,7 @@ module.exports = {
 
 
         var user = await imports.db.getDoc('users', imports.message.author.id);
-        embed = embed.setThumbnail(imports.getEmblem(user.emblem).assets[0].asset || false).setImage(imports.getPlayercard(user.playercard).assets[0].asset || false);
+        embed = embed.setThumbnail(imports.getItem('emblem', user.emblem).assets[0].asset || false).setImage(imports.getItem('playercard',user.playercard).assets[0].asset || false);
         imports.message.channel.send(embed);
 
     }

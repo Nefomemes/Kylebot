@@ -47,8 +47,9 @@ module.exports = {
         embed.setDescription(userDB.desc);
       }
       if(userDB.cash){
-        embed.addField("Cash")
+        embed.addField("Cash", userDB.cash, true);
       }
+      
     }
     imports.message.channel.send(embed);
   }

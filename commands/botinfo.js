@@ -12,7 +12,7 @@ module.exports = {
           .setDescription(`Invite the bot [here!](${imports.website}/invite)\n\nFunfact: You wont be able to invite the bot since I made it private.`)
           .addFields(
             {name: "Bot's name", value: `${imports.client.user.username}#${imports.client.user.discriminator}`},
-            {name: "Bot's owner", value: `Nefomemes#3927`, inline: true},
+            {name: "Bot's owner", value: `Nefomemes`, inline: true},
             {name: "Discord API ping", value: `${imports.client.ws.ping}ms`, inline: true},
             {name: "Bot's ping", value: `${Date.now() - imports.message.createdTimestamp}ms`, inline: true},
             {name: "Bot's ID", value: imports.client.user.id, inline: true},

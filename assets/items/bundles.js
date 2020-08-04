@@ -1,4 +1,4 @@
-module.exports = [
+module.exports.content = [
     {
         "name":"Ghost Costumization Pack",
         "description":"Get your emblem and calling card to be Ghost-like.",

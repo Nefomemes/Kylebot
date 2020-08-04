@@ -1,4 +1,4 @@
-module.exports = [
+module.exports.content = [
     {
         "id": "alex_scape_goat",
         "type": "emblem",

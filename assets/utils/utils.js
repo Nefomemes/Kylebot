@@ -67,7 +67,7 @@ module.exports = {
   getItem: (collection, item) => {
 if(!item)return; 
 try {
-    const items = require(`../items/${item}s`);
+    const items = require(`../items/${item}s`).content;
     item = (item || "default").toLowerCase();
     if (item === "default") {
       let result = items.filter((value) => {
@@ -85,38 +85,6 @@ try {
   } catch(e){
 return;
   }
-  },
-  getEmblem: (name) => {
-
-    const emblems = require("../items/emblems");
-    name = (name || "default").toLowerCase();
-
-    if (name === "default") {
-      let result = emblems.filter((value) => {
-        return value.default && value.default === true;
-      })
-      if (!result.length) return;
-      return result[Math.floor(Math.random() * result.length)];
-    } else {
-      let result = emblems.filter((value) => {
-        return value.id && value.id === name || value.name.toLowerCase().startsWith(name) || value.name.toLowerCase().endsWith(name) || value.name.split(name)[1];
-      })
-      if (!result.length) return;
-      return result[Math.floor(Math.random() * result.length)];
-    }
-  },
-  getPage: (array, length, page)=> {
-    if(!array || array.constructor !== Array)return;
-    if(!length || length.constructor !== Number)return;
-    if(!page || page.constructor !== Number)return;
-    page--;
-    let l = length - 1;
-    let start = 0 + (length * page);
-    let end = l + (length * page);    
-    if(end  >= array.length) {
-end = array.length - 1;
-}
-    return {start: start, end: end};
   }
 
 }
