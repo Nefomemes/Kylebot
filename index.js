@@ -20,7 +20,7 @@ const figlet = require("figlet");
 const _ = require('underscore');
 const cooldowns = new Discord.Collection();
 const badwords = require("./assets/configs/badwords").contents;
-const client = new Discord.Client({
+global.client = new Discord.Client({
   partials: ["REACTION", "MESSAGE"],
   ws: {
     intents: [
@@ -32,7 +32,7 @@ const client = new Discord.Client({
     ]
   }
 });
-
+const configs = require("./assets/configs/configs")
 const xml2js = require("xml2js");
 const querystring = require("querystring");
 const fetch = require("node-fetch");
@@ -77,15 +77,18 @@ for(let file of files){
       let commandCode = require(path.join(__dirname, dir, file));
       let commandName = file.substring(0, file.indexOf(".js"));
       let commandModule = commandList.filter(function (command) {
-        return command.name && command.name.toLowerCase() === cmd.toLowerCase() || command.aliases && command.aliases.includes(cmd.toLowerCase())
+        return command.name && command.name.toLowerCase() === commandName.toLowerCase() || command.aliases && command.aliases.filter((alias) => {
+            return alias.toLowerCase() === commandName.toLowerCase();
+                    }).length
       })[0];
-      delete commandModule.run;
+     
       if(commandCode.run && commandModule){
         let command = {
           ...commandCode,
-          ...commandModule
+          ...commandModule,
+          name: commandName
         } 
-        client.commands.cache.set(command.name, command);
+        client.commands.cache.set(commandName, command);
       }
   }
 }
@@ -103,7 +106,7 @@ for (let file of commandFiles) {
 var imports = {
   db: db,
   ...built_ins,
-  ...branding,
+  ...configs,
   client: client,
   Discord: Discord,
   figlet: figlet,
@@ -115,7 +118,7 @@ var imports = {
   cooldowns: cooldowns
 }
 
-function handleMessage(message) {
+async function handleMessage(message) {
 /*  return new Promise((resolve, reject) => {
     try {
       (async function () {*/
@@ -127,9 +130,10 @@ function handleMessage(message) {
         imports.args = imports.message.content.slice(imports.prefix.length).split(/ +/);
         imports.commandName = imports.args.shift().toLowerCase();
         if (!imports.commandName) return;
-        imports.command = imports.client.commands.cache.get(commandName);
+        imports.command = imports.client.commands.cache.get(imports.commandName);
 
         if ( !imports.command || imports.command.disabled && imports.command.disabled === true) return;
+        if(imports.command.dev && imports.command.dev === true && !(imports.admins.includes(imports.message.author.id) || imports.admins === imports.message.author.id))return;
         if (!imports.message.guild && (imports.command.av && (imports.command.av === "guild") || imports.commandModule.wbh || imports.command.perms || imports.command.bot_perms)) return imports.message.channel.send("That command is only available in servers!");
 
         if (imports.message.guild) {
@@ -145,8 +149,8 @@ function handleMessage(message) {
           }
           if ( imports.command.wbh && imports.message.channel.fetchWebhooks().then(wbh => wbh.length) > 10 - imports.command.wbh) return imports.message.channel.send(`This channel have reached it's maximum amount of webhooks possible. Please clear them up before proceeding.`);
         }
-        if ( !imports.cooldowns.has(imports.commandModule.name)) {
-      imports.cooldowns.set(imports.commandModule.name, new Discord.Collection());
+        if ( !imports.cooldowns.has(imports.command.name)) {
+      imports.cooldowns.set(imports.command.name, new Discord.Collection());
         }
         imports.now = imports.message.createdTimestamp;
         imports.timestamps = imports.cooldowns.get(imports.command.name);
@@ -170,7 +174,7 @@ function handleMessage(message) {
           } else {
             
           }
-         }, cooldownAmount);
+         }, imports.cooldownAmount);
       
 
         imports.command.run(imports).catch(e => {

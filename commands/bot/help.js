@@ -25,7 +25,7 @@ module.exports = {
         }
         function filterTheCommands(category){
             category = category.toLowerCase();
-            this = (command) => {
+            return (command) => {
                 if (command.disabled && command.disabled === true) return false;
                 if(getCategory(category).id === "misc")return !command.category || command.category === "misc"; 
                 return command.category || command.category === getCategory(category).id;
@@ -50,7 +50,7 @@ module.exports = {
             if (Number.isNaN(number) || !number){
                 number = 1;
             }
-            commands = commands.filter(new filterTheCommands(getCategory(form).id));
+            commands = commands.filter( filterTheCommands(getCategory(form).id));
             let page = imports.getPage(commands, 25, number);
             
             commands.forEach((command) => {
@@ -72,7 +72,7 @@ module.exports = {
             categories.forEach((category) => {
                 let index = categories.indexOf(category);
                 if( index > page.end || index < page.start) return;
-                embed = embed.addField(category.name, imports.trim(`ID: \`${category.id}\` \n\n${category.description} \n\n${commands.filter(new filterTheCommands(category.id)).length} commands available.`, 2048), true);
+                embed = embed.addField(category.name, imports.trim(`ID: \`${category.id}\` \n\n${category.description} \n\n${commands.filter(filterTheCommands(category.id)).length} commands available.`, 2048), true);
             })
         
         }
