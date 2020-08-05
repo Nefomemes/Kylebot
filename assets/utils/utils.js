@@ -36,24 +36,6 @@ module.exports = {
     }
     return message.guild.channels.cache.get(mention);
   },
-  getCommand: (cmd, options) => {
-    if (!cmd) return;
-    if (!options.type) return;
-    if (options.constructor = Object && options.type && options.type === "module") {
-      const commandModules = require("../configs/commands/cmd-list").content.filter(function (command) {
-        return command.name && command.name.toLowerCase() === cmd.toLowerCase() || command.aliases && command.aliases.includes(cmd.toLowerCase())
-      })
-      if (!commandModules.length) {
-        return;
-      } else if (commandModules.length > 1) {
-        return;
-      }
-      return commandModules[0];
-    } else if (options.constructor = Object && options.type && options.type === "command" && options.client) {
-      return options.client.commands.get(cmd);
-    }
-    return;
-  },
   freshActivity: (client) => {
     activities = require("../configs/activities").content;
     let activity = activities[Math.floor(Math.random() * activities.length)];
@@ -85,6 +67,21 @@ try {
   } catch(e){
 return;
   }
-  }
-
+  },
+  getCommand: (str, client) => {
+    return client.commands.cache.get(str.toLowerCase()) || client.commands.cache.find(command => command.aliases.includes(str.toLowerCase()));
+  },
+   getPage:(array, length, page)=> {
+    if(!array || array.constructor !== Array)return;
+    if(!length || length.constructor !== Number)return;
+    if(!page || page.constructor !== Number)return;
+    page--;
+    let l = length - 1;
+    let start = 0 + (length * page);
+    let end = l + (length * page); 
+   if(end >= array.length) {
+   end = array.length - 1; 
+   }
+    return {start: start, end: end};
+    }
 }

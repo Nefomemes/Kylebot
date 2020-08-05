@@ -18,67 +18,12 @@ module.exports = {
             "category": "misc"
         },
         {
-            "name": "search",
-            "description": "Search something in the Internet. Returns in the link though.",
-            "category": "misc",
-            "usage": "search <arg>",
-            "explanation": "None",
-            "example": "search Never Gonna Give You Up",
-            "cooldown": 5,
-            "disabled": false
-        },
-        {
             "name": "user",
             "category": "misc",
             "description": "Get informations about a user.",
             "usage": "user [user] ",
             "disabled": false,
             "aliases": ["userinfo"]
-        },
-        {
-            "name": "ac130",
-            "category": "killstreak",
-            "description": "Call in an AC-310. Good for roleplay servers.",
-            "usage": "ac310",
-            "example": "ac310",
-            "aliases": ["gunship"],
-            "guildcmd": true,
-            "cooldown": 15,
-            "permissions": [],
-            "bot_permissions": ["MANAGE_WEBHOOKS"],
-            "type": "command",
-            "guild": true,
-            "disabled": true,
-            "args": false
-
-        },
-        {
-            "name": "adminnuke",
-            "type": "command",
-            "category": "mods",
-            "description": "Clear all messages in a text channel by duplicating and deleting the channel.",
-            "usage": "adminnuke [channel]",
-            "explanation": "The permission required does not applies on the guild owner.",
-            "cooldown": 30,
-            "permissions": ["ASMINISTRATOR"],
-            "bot_permissions": ["MANAGE_CHANNELS", "MANAGE_WEBHOOKS"],
-            "guild": true,
-            "args": false,
-            "disabled": true
-        },
-
-        {
-            "name": "ban",
-            "type": "command",
-            "category": "mods",
-            "description": "Ban a user. Make sure you respect free speech and bla bla bla.",
-            "usage": "ban <member>",
-            "example": "ban @Weeb Bot#8279",
-            "permissions": ["BAN_MEMBERS"],
-            "bot_permissions": ["BAN_MEMBERS"],
-            "guild": true,
-            "args": true,
-            "disabled": true
         },
         {
             "name": "betray",
@@ -88,21 +33,8 @@ module.exports = {
             "usage": "betray <user> [other-users]  [reason]",
             "example": "betray @Roach#8279 @Ghost#8676  I want to take down Makarov by myself.",
             "cooldown": 10,
-            "guild": true,
+            "av": "guild",
             "disabled": false
-        },
-
-        {
-            "name": "bmkg",
-            "type": "command",
-            "category": "Misc Commands",
-            "description":
-                "Get the Indonesian weather and earthquake forecast from the Indonesian Meteorogical, Climatological, and Geophysical agency.",
-            "usage":
-                "nefo!bmkg <province>\n\nCase sensitive and you must use the Indonesian name.\n\nIt must be an Indonesian province. Does not support other countries. Sorry, 'muricas.\n\nFunfact, you can get the overall data if you does not give any arguments or you put `Indonesia` as the argument.\n\nYou can also get the latest news about earthquake by simply using `earthquake` as the argument.",
-            "example": ["nefo!bmkg DKI Jakarta", "nefo!bmkg Indonesia", "nefo!bmkg earthquake"],
-            "disabled": true,
-            "args": true
         },
         {
             "name": "botinfo",
@@ -113,7 +45,7 @@ module.exports = {
             "example": ["nefo!botinfo"],
             "aliases": ["stats", "ping", "latency", "uptime", "invite"],
             "disabled": false,
-            "guild": false,
+       
             "args": false
 
         }, {

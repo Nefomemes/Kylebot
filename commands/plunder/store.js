@@ -1,6 +1,6 @@
 module.exports = {
     name: "store",
-    run: async(imports){
+    run: async(imports) => {
         
     }
 }

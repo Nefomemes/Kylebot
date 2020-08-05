@@ -12,7 +12,7 @@ module.exports = {
         if (error) {
           return imports.message.channel.send("An error occured! " + error);
         } else {
-          const badwords = require("../assets/configs/badwords").content;
+          const badwords = require("../../assets/configs/badwords").content;
 
           list = list.filter(function (definition) {
 

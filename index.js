@@ -9,11 +9,11 @@ process.on("uncaughtException", err => {
 });
 const colors = require("./assets/configs/color").content;
 
-const fs = require("fs");
+const fs = require("fs").promises;
 const Discord = require("discord.js");
 /*const branding = require("./assets/configs/configs");*/
 const { prefix, website, support, brandingbg } = require("./assets/configs/configs");
-const commandList = require("./assets/configs/commands/cmd-list");
+const commandList = require("./assets/configs/commands/cmd-list").content;
 const Canvas = require("canvas");
 const built_ins = require("./assets/utils/utils.js");
 const figlet = require("figlet");
@@ -38,7 +38,7 @@ const querystring = require("querystring");
 const fetch = require("node-fetch");
 const grau = require("node-grau");
 const db = new grau(process.env.DB, 'bot');
-client.commands = new Discord.Collection();
+client.commands = {cache:new Discord.Collection()};
 
 var path = require('path');
 
@@ -68,18 +68,39 @@ client.on("error", (err) => {
 });
 
 
-
-const commandFiles = fs
+(async function registerCommands(dir = "commands"){
+let files = await fs.readdir(path.join(__dirname, dir));
+for(let file of files){
+  let stat = await fs.lstat(path.join(__dirname, dir, file));
+  if(stat.isDirectory()) registerCommands(path.join(dir, file));
+  else if(file.endsWith(".js")){
+      let commandCode = require(path.join(__dirname, dir, file));
+      let commandName = file.substring(0, file.indexOf(".js"));
+      let commandModule = commandList.filter(function (command) {
+        return command.name && command.name.toLowerCase() === cmd.toLowerCase() || command.aliases && command.aliases.includes(cmd.toLowerCase())
+      })[0];
+      delete commandModule.run;
+      if(commandCode.run && commandModule){
+        let command = {
+          ...commandCode,
+          ...commandModule
+        } 
+        client.commands.cache.set(command.name, command);
+      }
+  }
+}
+})()
+/* const commandFiles = fs
   .readdirSync("./commands")
   .filter(file => file.endsWith(".js"));
 
-for (const file of commandFiles) {
+for (let file of commandFiles) {
   const command = require(`./commands/${file}`);
 
   client.commands.set(command.name, command);
-}
+} */
 
-/*var imports = {
+var imports = {
   db: db,
   ...built_ins,
   ...branding,
@@ -92,68 +113,77 @@ for (const file of commandFiles) {
   colors: colors,
   opt: {},
   cooldowns: cooldowns
-}*/
-/*
+}
+
 function handleMessage(message) {
-  return new Promise((resolve, reject) => {
+/*  return new Promise((resolve, reject) => {
     try {
-      (async function () {
+      (async function () {*/
               imports.message = message;
-        if ( (!imports.message.author || imports.message.author.bot)) resolve(imports.message.channel.send("Error code pre-beta 4."));
+        if ( (!imports.message.author || imports.message.author.bot)) return;
   
-      require("./filter").run(imports).catch(reject);
-        if (!imports.message.content.startsWith(imports.prefix)) resolve(/* imports.message.channel.send("Error code pre-beta 3.")*//*);
+      require("./filter").run(imports).catch(console.error);
+        if (!imports.message.content.startsWith(imports.prefix)) return;
         imports.args = imports.message.content.slice(imports.prefix.length).split(/ +/);
         imports.commandName = imports.args.shift().toLowerCase();
-        if (!imports.commandName) resolve(imports.message.channel.send("Error code pre-beta 1."));
-        imports.commandModule = built_ins.getCommand(commandName, { type: "module" });
+        if (!imports.commandName) return;
+        imports.command = imports.client.commands.cache.get(commandName);
 
-        if ( !imports.commandModule || imports.commandModule.disabled && imports.commandModule.disabled === true) resolve(imports.message.channel.send("Error code pre-beta 2."));
-        if (!imports.message.guild && (imports.commandModule.av && (imports.commandModule.av === "guild") || imports.commandModule.wbh || imports.commandModule.perms || imports.commandModule.bot_perms)) resolve(imports.message.channel.send("Error code 1."));
+        if ( !imports.command || imports.command.disabled && imports.command.disabled === true) return;
+        if (!imports.message.guild && (imports.command.av && (imports.command.av === "guild") || imports.commandModule.wbh || imports.command.perms || imports.command.bot_perms)) return imports.message.channel.send("That command is only available in servers!");
 
         if (imports.message.guild) {
-
-          if (await imports.commandModule.perms) {
-            let permits = await imports.commandModule.perms.filter((perm) => { return !imports.message.member.hasPermission(perm) });
-            if (await permits.length) resolve(imports.message.channel.send("Error code 2."));
+          if(imports.command.av && imports.command.av === "dm")return imports.message.channel.send("This command is only available in DM! Perhaps due to privacy reasons?");
+          if ( imports.command.perms) {
+            let permits = imports.command.perms.filter((perm) => { return !imports.message.member.hasPermission(perm) });
+            if (permits.length) return imports.message.channel.send(imports.trim("You needs to have these permissions before proceeding: " + permits.join(", "), 2000));
           }
 
-          if (await imports.commandModule.bot_perms) {
-            let permits = await imports.commandModule.bot_permissions.filter((perm) => { return !imports.message.guild.me.hasPermission(perm) });
-            if (await permits.length) resolve(imports.message.channel.send("Error code 3."));
+          if ( imports.command.bot_perms) {
+            let permits = imports.command.bot_permissions.filter((perm) => { return !imports.message.guild.me.hasPermission(perm) });
+            if ( permits.length) return imports.message.channel.send(imports.trim("The bot need these permissions before proceeding: " + permits.join(", "), 2000));
           }
-          if (await imports.commandModule.wbh && await imports.message.guild.fetchWebhooks().then(wbh => wbh.length) > 10 - await imports.commandModule.wbh) resolve(imports.message.channel.send("Error code 4."));
+          if ( imports.command.wbh && imports.message.channel.fetchWebhooks().then(wbh => wbh.length) > 10 - imports.command.wbh) return imports.message.channel.send(`This channel have reached it's maximum amount of webhooks possible. Please clear them up before proceeding.`);
         }
-        if (await !imports.cooldowns.has(imports.commandModule.name)) {
-          await imports.cooldowns.set(imports.commandModule.name, new Discord.Collection());
+        if ( !imports.cooldowns.has(imports.commandModule.name)) {
+      imports.cooldowns.set(imports.commandModule.name, new Discord.Collection());
         }
-        imports.requestCachedAt = await Date.now();
-        imports.timestamps = await imports.cooldowns.get(imports.commandModule.name)
+        imports.now = imports.message.createdTimestamp;
+        imports.timestamps = imports.cooldowns.get(imports.command.name);
+        imports.cooldownAmount = (imports.command.cooldown || 5) * 1000;
+        imports.expirationTime = imports.timestamps.get(imports.message.author.id) + imports.cooldownAmount;
+        imports.timeLeft = (imports.expirationTime - imports.now) / 60000;
+      
+        if (imports.timestamps.has(imports.message.author.id) && imports.now < imports.expirationTime) {
+         if(imports.options && imports.opt.bypassSlowmode && imports.opt.bypassSlowmode === true && imports.message.author.id === ""){
 
-        imports.cooldown = await (imports.commandModule.cooldown || 5) * 1000;
-        imports.timeLeft = await (imports.cooldown - imports.requestCachedAt) / 60000;
-
-        if (await imports.timestamps.has(imports.message.author.id) && await imports.requestCachedAt < imports.timeLeft) resolve(imports.message.channel.send("Error code 5."));
-        await imports.timestamps.set(imports.message.author.id, imports.requestCacheAt);
-
+         }else {
+           return;
+         }
+         
+        }
+      
+        imports.timestamps.set(imports.message.author.id, imports.now);
         setTimeout(() => {
-          if (imports.timestamps.has(imports.message.author.id)) resolve(imports.timestamps.delete(imports.message.author.id));
-          resolve(imports.message.channel.send("Error code 6."));
-        }, imports.cooldown);
+          if (imports.timestamps.has(imports.message.author.id)) {
+            imports.timestamps.delete(imports.message.author.id);
+          } else {
+            
+          }
+         }, cooldownAmount);
+      
 
-        imports.command = await imports.getCommand(imports.commandModule.name, { type: "command", client: imports.client });
-        
-        if (await !imports.command || !imports.command.run) resolve();
-
-        imports.command.run(imports).catch(reject)
-
+        imports.command.run(imports).catch(e => {
+          imports.message.channel.send("```"+imports.trim(require("util").inspect(e), 2000 - 6) + "```");
+        })
+/*
       })()
     } catch (e) {
       reject(e)
     }
-  })
+  })*/
 }
-*/
+/*
 function handleMessage(message) {
   if (!message.author) return;
   if (message.author.bot) return;
@@ -258,13 +288,16 @@ function handleMessage(message) {
   } catch (error) {
 
     message.channel.send(`An error occurred! ${error}`);
-  } }
+  } } */
   
-client.on("message", async (message) => {
-    handleMessage(message);
-});
+  function cmdHandler(message){
+    return handleMessage(message).catch(e => {
+      message.channel.send("```" + built_ins.trim(require("util").inspect(e), 2000 - 6) + "```")
+    });
+  }
+client.on("message", cmdHandler);
 client.on("messageUpdate", async (oldMessage, newMessage) => {
-  handleMessage(newMessage);
+  cmdHandler(newMessage);
 });
 
-client.login(process.env.DISCORD_TOKEN);
+client.login();
