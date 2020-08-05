@@ -69,8 +69,8 @@ return;
   }
   },
   getCommand: (str) => {
-      
-    return global.client.commands.cache.get(str.toLowerCase());
+      if(!str)return;
+    return global.client.commands.cache.get(str.toLowerCase()) || client.commands.cache.find(command => command.aliases.includes(str.toLowerCase()));
   },
    getPage:(array, length, page)=> {
     if(!array || array.constructor !== Array)return;
