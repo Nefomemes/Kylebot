@@ -13,7 +13,7 @@ module.exports = {
             .setTimestamp()
             .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`, imports.client.user.displayAvatarURL({ format: "png", dynamic: true }))
  
-      const commands = imports.client.commands.cache.map(i => i);
+      var commands = imports.client.commands.cache.map(i => i);
             function getCategory(name) {
             if (!name) return;
             let modules = categories.filter(function (category) {

@@ -20,37 +20,39 @@ module.exports = {
         { name: "Accout created at", value: user.createdAt },
         { name: "Bot", value: user.bot })
       .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`, imports.client.user.displayAvatarURL({ format: "png", dynamic: true }))
-
+function loadAdditionalInformations(){
     if (imports.message.guild) {
-      embed.addFields({ name: "Joined the server since", value: member.joinedAt },
+      embed = embed.addFields({ name: "Joined the server since", value: member.joinedAt },
         { name: "Display name", value: member.displayName })
       if (member.displayColor) {
-        embed.addField("Display color (Base 10)", member.displayColor, true);
+        embed = embed.addField("Display color (Base 10)", member.displayColor, true);
       }
       if (member.displayHexColor) {
-        embed.setColor(member.displayHexColor)
-        embed.addField("Display color(Hex)", member.displayHexColor, true);
+        embed = embed.setColor(member.displayHexColor)
+        embed = embed.addField("Display color(Hex)", member.displayHexColor, true);
       }
       if (member.premiumSince) {
-        embed.addField("Boosting the server since", member.premiumSince);
+        embed = embed.addField("Boosting the server since", member.premiumSince);
       }
       if (member.roles) {
-        embed.addField("Highest roles", member.roles.highest);
+        embed = embed.addField("Highest roles", member.roles.highest);
         if (member.roles.hoist) {
-          embed.addField("Hoist role (the role that separate the user from other online users)", member.roles.hoist, true);
+          embed = embed.addField("Hoist role (the role that separate the user from other online users)", member.roles.hoist, true);
         }
       }
     }
     if(!user.bot){
       userDB = imports.db.getDoc('users', user.id);
       if(userDB.desc){
-        embed.setDescription(userDB.desc);
+        embed =embed.setDescription(userDB.desc);
       }
       if(userDB.cash){
-        embed.addField("Cash", userDB.cash, true);
+        embed = embed.addField("Cash", userDB.cash, true);
       }
       
     }
+}
+await loadAdditionalInformations();
     imports.message.channel.send(embed);
   }
 };
