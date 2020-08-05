@@ -32,6 +32,7 @@ global.client = new Discord.Client({
     ]
   }
 });
+const client = global.client;
 const configs = require("./assets/configs/configs")
 const xml2js = require("xml2js");
 const querystring = require("querystring");

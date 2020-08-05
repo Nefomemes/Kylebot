@@ -1,4 +1,4 @@
-const categories = require("../../assets/configs/commands/categories").content;
+ const categories = require("../../assets/configs/commands/categories").content;
 
 module.exports = {
     name: "help",
@@ -39,7 +39,7 @@ module.exports = {
             }
             let command = imports.getCommand(form);
           
-            imports._.each(command, function(key, value){
+            imports._.each(command, function(value, key){
                 if(key.toLowerCase().startsWith("desc"))return embed = embed.setDescription(value.toString());
                 if(key === 'run')return;
                 embed = embed.addField(key.toString(), value.toString(), true);
