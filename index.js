@@ -94,15 +94,6 @@ for(let file of files){
   }
 }
 })()
-/* const commandFiles = fs
-  .readdirSync("./commands")
-  .filter(file => file.endsWith(".js"));
-
-for (let file of commandFiles) {
-  const command = require(`./commands/${file}`);
-
-  client.commands.set(command.name, command);
-} */
 
 var imports = {
   db: db,
@@ -160,23 +151,19 @@ async function handleMessage(message) {
       
         if (imports.timestamps.has(imports.message.author.id) && imports.now < imports.expirationTime) {
          if(imports.options && imports.opt.bypassSlowmode && imports.opt.bypassSlowmode === true && imports.message.author.id === ""){
-
+          // Bypass
          }else {
            return imports.message.channel.send(`Slowmode! Please wait another ${imports.timeLeft.toFixed(2)} seconds.`);
          }
-         
         }
       
         imports.timestamps.set(imports.message.author.id, imports.now);
         setTimeout(() => {
           if (imports.timestamps.has(imports.message.author.id)) {
             imports.timestamps.delete(imports.message.author.id);
-          } else {
-            
-          }
+          } else {}
          }, imports.cooldownAmount);
-      
-
+    
         imports.command.run(imports).catch(e => {
           imports.message.channel.send("```"+imports.trim(require("util").inspect(e), 2000 - 6) + "```");
         })
