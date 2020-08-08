@@ -131,7 +131,8 @@ async function handleMessage(message) {
         imports.args = imports.message.content.slice(imports.prefix.length).split(/ +/);
         imports.commandName = imports.args.shift().toLowerCase();
         if (!imports.commandName) return;
-        imports.command = imports.client.commands.cache.get(imports.commandName);
+        imports.command = imports.getCommand(imports.commandName);
+
 
         if ( !imports.command || imports.command.disabled && imports.command.disabled === true) return;
         if(imports.command.dev && imports.command.dev === true && !(imports.admins.includes(imports.message.author.id) || imports.admins === imports.message.author.id))return;
