@@ -1,7 +1,7 @@
 module.exports = {
     "name":"daily",
     "run":async (imports) => {
-        const user = imports.db.getDoc('users', imports.message.author.id);
+        const user = await imports.db.getDoc('users', imports.message.author.id);
         const interval = user.dailyClaim;
         const remaining = 86400000 - (imports.message.createdTimestamp - interval);
         if(interval && remaining > 0)return imports.message.channel.send("Ugh, no. You already claimed it. Come back another day.");

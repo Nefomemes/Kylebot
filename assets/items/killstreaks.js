@@ -1,4 +1,4 @@
-module.exports = {
+module.exports.content = {
     "content": [{
 
         "name": "Tactical Nuke",

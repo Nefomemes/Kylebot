@@ -301,7 +301,7 @@ function handleMessage(message) {
     });
   }
 client.on("message", cmdHandler);
-client.on("messageUpdate", async (oldMessage, newMessage) => {
+client.on("messageUpdate", (oldMessage, newMessage) => {
   cmdHandler(newMessage);
 });
 

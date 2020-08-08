@@ -47,42 +47,42 @@ module.exports = {
     return str.split("```").join("`‎`‎`‎");
   },
   getItem: (collection, item) => {
-if(!item)return; 
-try {
-    const items = require(`../items/${item}s`).content;
-    item = (item || "default").toLowerCase();
-    if (item === "default") {
-      let result = items.filter((value) => {
-        return value.default && value.default === true;
-      })
-      if (!result.length) return;
-      return result[Math.floor(Math.random() * result.length)];
-    } else {
-      let result = items.filter((value) => {
-        return value.id && value.id === name || value.name.toLowerCase().startsWith(name) || value.name.toLowerCase().endsWith(name) || value.name.split(name)[1];
-      })
-      if (!result.length) return;
-      return result[Math.floor(Math.random() * result.length)];
+    if (!item) return;
+    try {
+      const items = require(`/home/runner/Kylebot/assets/items/${collection}s`).content;
+      item = (item || "default").toLowerCase();
+      if (item === "default") {
+        let result = items.filter((value) => {
+          return value.default && value.default === true;
+        })
+        if (!result.length) return;
+        return result[Math.floor(Math.random() * result.length)];
+      } else {
+        let result = items.filter((value) => {
+          return value.id && value.id === item || value.name && (value.name.toLowerCase().startsWith(item) || value.name.toLowerCase().endsWith(item) || value.name.split(item)[1]);
+        })
+        if (!result.length) return;
+        return result[Math.floor(Math.random() * result.length)];
+      }
+    } catch (e) {
+      throw e;
     }
-  } catch(e){
-return;
-  }
   },
   getCommand: (str) => {
-      if(!str)return;
-    return global.client.commands.cache.get(str.toLowerCase()) || client.commands.cache.find((command) => {return command.aliases &&command.aliases.includes(str.toLowerCase())});
+    if (!str) return;
+    return global.client.commands.cache.get(str.toLowerCase()) || client.commands.cache.find((command) => { return command.aliases && command.aliases.includes(str.toLowerCase()) });
   },
-   getPage:(array, length, page)=> {
-    if(!array || array.constructor !== Array)return;
-    if(!length || length.constructor !== Number)return;
-    if(!page || page.constructor !== Number)return;
+  getPage: (array, length, page) => {
+    if (!array || array.constructor !== Array) return;
+    if (!length || length.constructor !== Number) return;
+    if (!page || page.constructor !== Number) return;
     page--;
     let l = length - 1;
     let start = 0 + (length * page);
-    let end = l + (length * page); 
-   if(end >= array.length) {
-   end = array.length - 1; 
-   }
-    return {start: start, end: end};
+    let end = l + (length * page);
+    if (end >= array.length) {
+      end = array.length - 1;
     }
+    return { start: start, end: end };
+  }
 }

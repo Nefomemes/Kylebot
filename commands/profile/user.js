@@ -20,7 +20,7 @@ module.exports = {
         { name: "Accout created at", value: user.createdAt },
         { name: "Bot", value: user.bot })
       .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`, imports.client.user.displayAvatarURL({ format: "png", dynamic: true }))
-function loadAdditionalInformations(){
+
     if (imports.message.guild) {
       embed = embed.addFields({ name: "Joined the server since", value: member.joinedAt },
         { name: "Display name", value: member.displayName })
@@ -42,7 +42,7 @@ function loadAdditionalInformations(){
       }
     }
     if(!user.bot){
-      userDB = imports.db.getDoc('users', user.id);
+      userDB = await imports.db.getDoc('users', user.id);
       if(userDB.desc){
         embed =embed.setDescription(userDB.desc);
       }
@@ -51,8 +51,6 @@ function loadAdditionalInformations(){
       }
       
     }
-}
-await loadAdditionalInformations();
     imports.message.channel.send(embed);
   }
 };
