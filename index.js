@@ -120,9 +120,7 @@ var imports = {
 }
 
 async function handleMessage(message) {
-/*  return new Promise((resolve, reject) => {
-    try {
-      (async function () {*/
+
               imports.message = message;
         if ( (!imports.message.author || imports.message.author.bot)) return;
   
@@ -158,13 +156,13 @@ async function handleMessage(message) {
         imports.timestamps = imports.cooldowns.get(imports.command.name);
         imports.cooldownAmount = (imports.command.cooldown || 5) * 1000;
         imports.expirationTime = imports.timestamps.get(imports.message.author.id) + imports.cooldownAmount;
-        imports.timeLeft = (imports.expirationTime - imports.now) / 60000;
+        imports.timeLeft = (imports.expirationTime - imports.now) / 1000;
       
         if (imports.timestamps.has(imports.message.author.id) && imports.now < imports.expirationTime) {
          if(imports.options && imports.opt.bypassSlowmode && imports.opt.bypassSlowmode === true && imports.message.author.id === ""){
 
          }else {
-           return;
+           return imports.message.channel.send(`Slowmode! Please wait another ${imports.timeLeft.toFixed(2)} seconds.`);
          }
          
         }
@@ -182,128 +180,15 @@ async function handleMessage(message) {
         imports.command.run(imports).catch(e => {
           imports.message.channel.send("```"+imports.trim(require("util").inspect(e), 2000 - 6) + "```");
         })
-/*
-      })()
-    } catch (e) {
-      reject(e)
-    }
-  })*/
+
 }
-/*
-function handleMessage(message) {
-  if (!message.author) return;
-  if (message.author.bot) return;
-
-  require("./filter.js").run({db: db, message: message, Discord: Discord, client: client, ...built_ins, colors: colors })
-  if (!message.content.startsWith(prefix)) return;
-
-
-  var args = message.content.slice(prefix.length).split(/ +/);
-  const commandName = args.shift().toLowerCase();
-  if (!commandName) return;
-
-  var commandModule = built_ins.getCommand(commandName, { type: "module" });
-  if (!commandModule) return;
-  if (commandModule.disabled && commandModule.disabled === true) return message.react("❌");
-   if (message.guild) {
-    if (message.guild.id !== "712195322230865994" && commandModule.category && commandModule.category.toLowerCase() === "nefomemes' coding bunker exclusive") return message.channel.send("Oops, that command is only available at Nefomemes' Coding Bunker. Use `mw!codingbunker` for more information.")
-    if (commandModule.permissions) {
-
-      const permits = commandModule.permissions.filter(function (value, index, arr) { return !message.member.hasPermission(value) });
-
-      if (permits.length) return message.react("❌")
-
-    }
-    if (commandModule.bot_permissions) {
-
-      const permits = commandModule.bot_permissions.filter(function (value, index, arr) { return !message.guild.me.hasPermission(value) });
-
-      if (permits.length) return message.react("❌");
-
-    }
-
-    if (!message.channel.permissionsFor(client.user.id).has("SEND_MESSAGES") || !message.channel.permissionsFor(client.user.id).has("EMBED_LINKS") || !message.channel.permissionsFor(client.user.id).has("ATTACH_FILES")) returnmessage.react("❌")
-
-    if (commandModule.webhooks && message.guild.fetchWebhooks().then(map => map.length) > 10 - commandModule[0].webhooks) return message.react("❌")
-
-  }
-
-  if (!message.guild && commandModule.guild && commandModule.guild === true || !message.guild && commandModule.permissions && commandModule.permissions || !message.guild && commandModule.bot_permissions && commandModule.bot_permissions || !message.guild && commandModule.webhooks) return message.react("❌")
-
-  const command = built_ins.getCommand(commandModule.name, { type: "command", client: client });
-
-  if (!command) return message.react("❌")
-
-
-
-  if (!cooldowns.has(command.name)) {
-    cooldowns.set(command.name, new Discord.Collection());
-  }
-
-  const now = Date.now();
-  const timestamps = cooldowns.get(command.name);
-  const cooldownAmount = (command.cooldown || 5) * 1000;
-  const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-  const timeLeft = (expirationTime - now) / 60000;
-
-  if (timestamps.has(message.author.id) && now < expirationTime) {
-    if (
-      message.author.id === "665419057075585025" && message.content.toLowerCase().endsWith(" --debug")
-    ) {
-      args.pop();
-    } else {
-      return message.react("❌")
-    }
-  }
-
-  timestamps.set(message.author.id, now);
-  setTimeout(() => {
-    if (timestamps.has(message.author.id)) {
-      timestamps.delete(message.author.id);
-    }}, cooldownAmount);
-
-  var imports = {
-    db: db,
-    ...built_ins,
-    message: message,
-    args: args,
-    client: client,
-    Discord: Discord,
-    website: website,
-    support: support,
-    brandingbg: brandingbg,
-    prefix: prefix,
-    timestamps: timestamps,
-  
-    figlet: figlet,
- 
-    _: _,
- 
-    querystring: querystring,
-    fetch: fetch,
-    colors: colors,
-
-  }
-
-  try {
-    if (!command.run) return imports.message.react("❌")
-    command.run(imports).catch(err => {
-      message.channel.send(`An error occured! ${err}`);
-      console.error(err);
-    });
-  } catch (error) {
-
-    message.channel.send(`An error occurred! ${error}`);
-  } } */
   
   function cmdHandler(message){
     return handleMessage(message).catch(e => {
       message.channel.send("```" + built_ins.trim(require("util").inspect(e), 2000 - 6) + "```")
     });
   }
-client.on("message", cmdHandler);
-client.on("messageUpdate", (oldMessage, newMessage) => {
-  cmdHandler(newMessage);
-});
+client.on("message", handleMessage);
+client.on("messageUpdate", (m, message) => { return handleMessage(newMessage);});
 
 client.login();
