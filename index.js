@@ -176,6 +176,6 @@ async function handleMessage(message) {
     });
   }
 client.on("message", handleMessage);
-client.on("messageUpdate", (m, message) => { return handleMessage(newMessage);});
+client.on("messageUpdate", (m, message) => { return handleMessage(message);});
 
 client.login();
