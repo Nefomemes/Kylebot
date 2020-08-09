@@ -4,14 +4,13 @@ module.exports.run = async (imports) => {
    (async function(){
         const badwords = await require("./assets/configs/badwords").content;
              var words = await imports.message.content.toLowerCase().split("[").join(" ").split("]").join(" ").split("||").join(" ").split("`").join(" ").split("```").join(" ").split("__").join(" ").split(".").join(" ").split(",").join(" ").split(" ");
-  
   var violates = await badwords.word.filter((badword) => {
  if(  badwords.prio.includes(badword))return words.includes(badword);
   return words.join("").split(badword)[1];
   })
- if(imports.message.guild && violates.length){
-      let exist = await imports.db.getDoc('guilds', await imports.message.guild.id).filter;
-if(!exist || exist === false) return resolve(); 
+ if(await imports.message.guild && await violates.length){
+      let guild = await imports.db.getDoc('guilds', imports.message.guild.id);
+if(await !guild.filter || guild.filter === false) return resolve(); 
   const verb_warnings = await new imports.Discord.MessageEmbed()
   .setColor(await imports.colors.BG_COLOR)
   .setTitle("Content Deletion")

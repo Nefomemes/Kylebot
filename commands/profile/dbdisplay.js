@@ -10,8 +10,8 @@ module.exports = {
             .setTimestamp()
             .setFooter(`Prefix ${imports.prefix} | This command is currently in testing. Bugs may occurs.`, imports.client.user.displayAvatarURL({ format: "png", dynamic: true }))
 
-
-        var user = await imports.db.getDoc('users', imports.message.author.id);
+        var target = imports.getMemberFromMention(imports.args[0], imports.message).user || imports.message.author;
+        var user = await imports.db.getDoc('users', target.id);
         embed = embed.setThumbnail(imports.getItem('emblem', user.emblem).assets[0].asset || false).setImage(imports.getItem('playercard',user.playercard).assets[0].asset || false);
         imports.message.channel.send(embed);
 

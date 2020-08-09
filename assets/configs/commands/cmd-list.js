@@ -59,16 +59,6 @@ module.exports = {
             "args": false
 
         },
-
-        {
-            "name": "drake",
-            "type": "command",
-            "category": "Mematic",
-            "description": "Make a simple with the Drake format.",
-            "usage": "drake",
-            "disabled": true,
-            "args": false
-        },
         {
             "name": "emoji",
             "type": "command",

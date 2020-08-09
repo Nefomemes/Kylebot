@@ -14,7 +14,7 @@ module.exports = {
           mention = mention.slice(1);
         }
       }
-      return imports.message.mentions.users.cache.get(mention);
+      return imports.message.mentions.users.get(mention);
   
     };
  
