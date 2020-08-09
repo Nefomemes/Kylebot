@@ -44,7 +44,7 @@ module.exports = {
     if(!user.bot){
       userDB = await imports.db.getDoc('users', user.id);
       if(userDB.desc){
-        embed =embed.setDescription(userDB.desc);
+        embed = embed.setDescription(userDB.desc);
       }
       if(userDB.cash){
         embed = embed.addField("Cash", userDB.cash, true);

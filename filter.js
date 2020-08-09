@@ -10,7 +10,7 @@ module.exports.run = async (imports) => {
   })
  if(await imports.message.guild && await violates.length){
       let guild = await imports.db.getDoc('guilds', imports.message.guild.id);
-if(await !guild.filter || guild.filter === false) return resolve(); 
+if(await !guild.filter || guild.filter === false) return resolve(true); 
   const verb_warnings = await new imports.Discord.MessageEmbed()
   .setColor(await imports.colors.BG_COLOR)
   .setTitle("Content Deletion")
@@ -21,9 +21,12 @@ if(await !guild.filter || guild.filter === false) return resolve();
   .setFooter(`Prefix: ${await imports.prefix} | ${await imports.getRandomFunfact()}`, await imports.client.user.displayAvatarURL({format: "png", dynamic: true}))  
 const author = await imports.message.author;
 
-await imports.message.delete()
-resolve(await author.send(verb_warnings).catch(error => {}))
- }
+await imports.message.delete().catch(e => e)
+await author.send(verb_warnings).catch(e => e)
+resolve(true)
+ } else {
+      resolve(false); 
+ } 
   })()
   } catch (e){
       reject(e);

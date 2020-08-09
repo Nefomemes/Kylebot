@@ -115,7 +115,8 @@ async function handleMessage(message) {
               imports.message = message;
         if ( (!imports.message.author || imports.message.author.bot)) return;
   
-      require("./filter").run(imports).catch(console.error);
+      imports.filter = require("./filter").run(imports).catch(console.error);
+  
         if (!imports.message.content.startsWith(imports.prefix)) return;
         imports.args = imports.message.content.slice(imports.prefix.length).split(/ +/);
         imports.commandName = imports.args.shift().toLowerCase();
@@ -124,6 +125,7 @@ async function handleMessage(message) {
 
 
         if ( !imports.command || imports.command.disabled && imports.command.disabled === true) return;
+        if(imports.filter && imports.filter === true)return;
         if(imports.command.dev && imports.command.dev === true && !(imports.admins.includes(imports.message.author.id) || imports.admins === imports.message.author.id))return;
         if (!imports.message.guild && (imports.command.av && (imports.command.av === "guild") || imports.command.wbh || imports.command.perms || imports.command.bot_perms)) return imports.message.channel.send("That command is only available in servers!");
 

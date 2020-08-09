@@ -47,7 +47,7 @@ module.exports = {
     return str.split("```").join("`‎`‎`‎");
   },
   getItem: (collection, item) => {
-    if (!item) return;
+    if (!collection) return;
     try {
       const items = require(`/home/runner/Kylebot/assets/items/${collection}s`).content;
       item = (item || "default").toLowerCase();
