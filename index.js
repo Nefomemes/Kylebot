@@ -125,7 +125,7 @@ async function handleMessage(message) {
 
         if ( !imports.command || imports.command.disabled && imports.command.disabled === true) return;
         if(imports.command.dev && imports.command.dev === true && !(imports.admins.includes(imports.message.author.id) || imports.admins === imports.message.author.id))return;
-        if (!imports.message.guild && (imports.command.av && (imports.command.av === "guild") || imports.commandModule.wbh || imports.command.perms || imports.command.bot_perms)) return imports.message.channel.send("That command is only available in servers!");
+        if (!imports.message.guild && (imports.command.av && (imports.command.av === "guild") || imports.command.wbh || imports.command.perms || imports.command.bot_perms)) return imports.message.channel.send("That command is only available in servers!");
 
         if (imports.message.guild) {
           if(imports.command.av && imports.command.av === "dm")return imports.message.channel.send("This command is only available in DM! Perhaps due to privacy reasons?");
