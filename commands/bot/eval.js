@@ -4,7 +4,7 @@ module.exports = {
 
     run: async (imports) => {
         const now = Date.now();
-        if (imports.message.author.id !== "665419057075585025") return imports.message.channel.send("You are not allowed to use it!")
+        if (!imports.client.owners.cache.get(imports.message.author.id))return;
         async function evall() {
             return await eval(imports.args.join(" "))
         }

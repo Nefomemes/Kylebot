@@ -4,5 +4,5 @@ module.exports = {
     "website": web,
     "support": `${web}/support`,
     "brandingbg": "https://i.imgur.com/q3EWSPl.gif",
-    "admins":["665419057075585025"]
+    "owners":["665419057075585025"]
 }

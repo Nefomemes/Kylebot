@@ -7,20 +7,17 @@ process.on("uncaughtException", err => {
   console.error("There was an uncaught error", err);
   process.exit(1); //mandatory (as per the Node docs)
 });
-const colors = require("./assets/configs/color").content;
+global.colors = require("./assets/configs/color").content;
 
-const fs = require("fs").promises;
-const Discord = require("discord.js");
-/*const branding = require("./assets/configs/configs");*/
-const { prefix, website, support, brandingbg } = require("./assets/configs/configs");
-const commandList = require("./assets/configs/commands/cmd-list").content;
-const Canvas = require("canvas");
-const built_ins = require("./assets/utils/utils.js");
-const figlet = require("figlet");
-const _ = require('underscore');
-const cooldowns = new Discord.Collection();
-const badwords = require("./assets/configs/badwords").contents;
-global.client = new Discord.Client({
+global.fs = require("fs").promises;
+global.Discord = require("discord.js");
+global.commandList = require("./assets/configs/commands/cmd-list").content;
+global.Canvas = require("canvas");
+global.built_ins = require("./assets/utils/utils.js");
+global.figlet = require("figlet");
+global._ = require('underscore');
+global.badwords = require("./assets/configs/badwords").contents;
+const client = new global.Discord.Client({
   partials: ["REACTION", "MESSAGE"],
   ws: {
     intents: [
@@ -32,20 +29,31 @@ global.client = new Discord.Client({
     ]
   }
 });
-const client = global.client;
-const configs = require("./assets/configs/configs")
-const xml2js = require("xml2js");
-const querystring = require("querystring");
-const fetch = require("node-fetch");
-const grau = require("node-grau");
-const db = new grau(process.env.DB, 'bot');
-client.commands = {cache:new Discord.Collection()};
-
-var path = require('path');
-
-const express = require("express");
-const app = express();
-const http = require("http");
+global.configs = require("./assets/configs/configs")
+global.xml2js = require("xml2js");
+global.querystring = require("querystring");
+global.fetch = require("node-fetch");
+global.grau = require("node-grau");
+const db = new global.grau(process.env.DB, 'bot');
+function CommandManager(cache){
+    this.cache = cache;
+}
+function ClientAdminsManager(cache){
+    this.cache = cache;
+}
+function ClientOwnersManager(cache){
+    this.cache = cache;
+}
+function CooldownsManager(cache){
+    this.cache = cache;
+}
+client.commands = new CommandManager(new global.Discord.Collection());
+client.admins = new ClientAdminsManager(new global.Discord.Collection());
+client.owners = new ClientOwnersManager(new global.Discord.Collection());
+client.cooldowns = new CooldownsManager(new global.Discord.Collection());
+global.path = require('path');
+global.express = require("express");
+const app = global.express();
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
@@ -53,15 +61,20 @@ app.listen(PORT, () => {
   require("./req-handler.js").execute({ app: app })
 });
 
+global.configs.owners.forEach((owner) => {
+    client.owners.cache.set(owner, owner);
+})
+
+
 client.once("ready", () => {
 
   console.log("Gaz is inbound!");
-  built_ins.freshActivity(client);
+  global.built_ins.freshActivity(client);
 
 });
 client.on("ready", () => {
   setInterval(() => {
-    built_ins.freshActivity(client);
+    global.built_ins.freshActivity(client);
   }, 150000);
 })
 client.on("error", (err) => {
@@ -70,12 +83,12 @@ client.on("error", (err) => {
 
 
 (async function registerCommands(dir = "commands"){
-let files = await fs.readdir(path.join(__dirname, dir));
+let files = await global.fs.readdir(global.path.join(__dirname, dir));
 for(let file of files){
-  let stat = await fs.lstat(path.join(__dirname, dir, file));
-  if(stat.isDirectory()) registerCommands(path.join(dir, file));
+  let stat = await global.fs.lstat(global.path.join(__dirname, dir, file));
+  if(stat.isDirectory()) registerCommands(global.path.join(dir, file));
   else if(file.endsWith(".js")){
-      let commandCode = require(path.join(__dirname, dir, file));
+      let commandCode = require(global.path.join(__dirname, dir, file));
       let commandName = file.substring(0, file.indexOf(".js"));
       let commandModule = commandList.filter(function (command) {
         return command.name && command.name.toLowerCase() === commandName.toLowerCase() || command.aliases && command.aliases.filter((alias) => {
@@ -83,7 +96,7 @@ for(let file of files){
                     }).length
       })[0];
      
-      if(commandCode.run && commandModule){
+      if(commandCode.run){
         let command = {
           ...commandCode,
           ...commandModule,
@@ -100,14 +113,8 @@ var imports = {
   ...built_ins,
   ...configs,
   client: client,
-  Discord: Discord,
-  figlet: figlet,
-  _: _,
-  querystring: querystring,
-  fetch: fetch,
-  colors: colors,
+ ...global,
   opt: {},
-  cooldowns: cooldowns
 }
 
 async function handleMessage(message) {
@@ -146,7 +153,7 @@ async function handleMessage(message) {
       imports.cooldowns.set(imports.command.name, new Discord.Collection());
         }
         imports.now = imports.message.createdTimestamp;
-        imports.timestamps = imports.cooldowns.get(imports.command.name);
+        imports.timestamps = imports.cooldowns.cache.get(imports.command.name);
         imports.cooldownAmount = (imports.command.cooldown || 5) * 1000;
         imports.expirationTime = imports.timestamps.get(imports.message.author.id) + imports.cooldownAmount;
         imports.timeLeft = (imports.expirationTime - imports.now) / 1000;

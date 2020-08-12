@@ -27,15 +27,15 @@ module.exports = {
         },
         {
             "type": "PLAYING",
-            "content": "Gunfight Tournaments 2v2"
+            "content": "Bare Bones Moshpit"
         },
         {
             "type": "PLAYING",
-            "content": "3v3 Gunfight Snipers Only"
+            "content": "BR Buy Back Solos"
         },
         {
             "type": "PLAYING",
-            "content": "2v2 Gunfight Tournament"
+            "content": "Warzone in Verdansk"
         },
         {
             "type": "PLAYING",
@@ -43,11 +43,11 @@ module.exports = {
         },
         {
             "type": "PLAYING",
-            "content": "Shoot The Ship"
+            "content": "2v2 Gunfight Blueprint"
         },
         {
             "type": "PLAYING",
-            "content": "BR Stimulus Duos"
+            "content": "BR Duos"
         },
         {
             "type": "PLAYING",

@@ -14,7 +14,7 @@ module.exports = {
         {
             "name": "GIFs",
             "id": "rp",
-            "description": "For roleplay purposes."
+            "description": "GIF commands for roleplay purposes."
         },
         {
             "name": "Message Streak",
@@ -29,12 +29,18 @@ module.exports = {
         {
             "name": "Economy",
             "id": "plunder",
-            "description": "Call of Duty: Warzone-themed Economy. Should make a Plunder dedicated server though."
+            "desc": "Call of Duty: Warzone-themed Economy. Should make a Plunder dedicated server though."
         },
+      
         {
+            "name":"Profile",
+            "id":"profile",
+            "desc":"Profile commands."
+        },
+  {
             "name": "Misc commands",
             "id": "misc",
-            "description": "Mostly commands that uses API a lot."
+            "desc": "Miscellaneous commands that doesn't fit elsewhere."
         }
     ]
 }

@@ -11,6 +11,7 @@ module.exports = {
             .setFooter(`Prefix ${imports.prefix} | This command is currently in testing. Bugs may occurs.`, imports.client.user.displayAvatarURL({ format: "png", dynamic: true }))
 
         var target = imports.getMemberFromMention(imports.args[0], imports.message).user || imports.message.author;
+        if(target.bot === true) return imports.message.channel.send("They are a bot. Bots doesn't have playercards or emblems.")
         var user = await imports.db.getDoc('users', target.id);
         embed = embed.setThumbnail(imports.getItem('emblem', user.emblem).assets[0].asset || false).setImage(imports.getItem('playercard',user.playercard).assets[0].asset || false);
         imports.message.channel.send(embed);

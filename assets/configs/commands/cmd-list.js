@@ -2,20 +2,58 @@ module.exports = {
     "type": "command_list",
     "content": [
         {
+            "name":"desc",
+            "desc":"Change the description of your profile or the server you are in.",
+            "category":"profile",
+            "args":[
+                {
+                    "name":"mode",
+                    "desc":"What you want to change, you can use either --user / --me or --guild / --server",
+                    "optional":false
+                },
+                {
+                    "name":"desc",
+                    "desc":"The description you want. Max 128 characters."
+                }
+                ]
+        },
+        {
             "name":"filter",
             "disabled":false,
-            "category":"misc"
+            "category":"mod",
+            "desc":"Enable or disable the badwords filter for the server.",
+            "args":[
+                {"name":"value",
+                "desc":"The toggle for the command. You can either use 'on' or 'off'.",
+                "optional":false
+                }
+                ]
         
         },
         {
             "name": "dbdisplay",
             "disabled": false,
-            "category": "misc"
+            "category": "profile",
+            
         },
         {
             "name": "dbset",
             "disabled": false,
-            "category": "misc"
+            "category": "misc",
+            "desc":"Set your calling card and emblem.",
+            "args":[
+                {
+                    "name":"emblem",
+                    "desc":"The emblem you want to use.",
+                    "optional":"Use '--current' if you doesn't want to change the emblem."
+                },
+                {
+                    "name":"playercard",
+                    "desc":"The calling card you want.",
+                    "optional":"Use --current if you doesn't want to change the calling card. "
+                    }
+                
+                ]
         },
         {
             "name": "user",
@@ -28,7 +66,7 @@ module.exports = {
         {
             "name": "betray",
             "type": "command",
-            "category": "GIFs",
+            "category": "gifs",
             "description": "Betray a friend.",
             "usage": "betray <user> [other-users]  [reason]",
             "example": "betray @Roach#8279 @Ghost#8676  I want to take down Makarov by myself.",
