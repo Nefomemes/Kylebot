@@ -70,7 +70,7 @@ module.exports = {
   },
   getCommand: (str, client) => {
     if (!str || !client) return;
-    return global.client.commands.cache.get(str.toLowerCase()) || client.commands.cache.find((command) => { return command.aliases && command.aliases.includes(str.toLowerCase()) });
+    return client.commands.cache.get(str.toLowerCase()) || client.commands.cache.find((command) => { return command.aliases && command.aliases.includes(str.toLowerCase()) });
   },
   getPage: (array, length, page) => {
     if (!array || array.constructor !== Array) return;

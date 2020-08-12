@@ -35,7 +35,7 @@ global.querystring = require("querystring");
 global.fetch = require("node-fetch");
 global.grau = require("node-grau");
 const db = new global.grau(process.env.DB, 'bot');
-function CommandManager(cache){
+function CommandsManager(cache){
     this.cache = cache;
 }
 function ClientAdminsManager(cache){
@@ -47,7 +47,7 @@ function ClientOwnersManager(cache){
 function CooldownsManager(cache){
     this.cache = cache;
 }
-client.commands = new CommandManager(new global.Discord.Collection());
+client.commands = new CommandsManager(new global.Discord.Collection());
 client.admins = new ClientAdminsManager(new global.Discord.Collection());
 client.owners = new ClientOwnersManager(new global.Discord.Collection());
 client.cooldowns = new CooldownsManager(new global.Discord.Collection());
@@ -149,11 +149,11 @@ async function handleMessage(message) {
           }
           if ( imports.command.wbh && imports.message.channel.fetchWebhooks().then(wbh => wbh.length) > 10 - imports.command.wbh) return imports.message.channel.send(`This channel have reached it's maximum amount of webhooks possible. Please clear them up before proceeding.`);
         }
-        if ( !imports.cooldowns.has(imports.command.name)) {
-      imports.cooldowns.set(imports.command.name, new Discord.Collection());
+        if ( !imports.client.cooldowns.cache.has(imports.command.name)) {
+      imports.client.cooldowns.cache.set(imports.command.name, new Discord.Collection());
         }
         imports.now = imports.message.createdTimestamp;
-        imports.timestamps = imports.cooldowns.cache.get(imports.command.name);
+        imports.timestamps = imports.client.cooldowns.cache.get(imports.command.name);
         imports.cooldownAmount = (imports.command.cooldown || 5) * 1000;
         imports.expirationTime = imports.timestamps.get(imports.message.author.id) + imports.cooldownAmount;
         imports.timeLeft = (imports.expirationTime - imports.now) / 1000;
