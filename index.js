@@ -128,7 +128,7 @@ async function handleMessage(message) {
         imports.args = imports.message.content.slice(imports.prefix.length).split(/ +/);
         imports.commandName = imports.args.shift().toLowerCase();
         if (!imports.commandName) return;
-        imports.command = imports.getCommand(imports.commandName);
+        imports.command = imports.getCommand(imports.commandName, client);
 
 
         if ( !imports.command || imports.command.disabled && imports.command.disabled === true) return;

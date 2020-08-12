@@ -68,8 +68,8 @@ module.exports = {
       throw e;
     }
   },
-  getCommand: (str) => {
-    if (!str) return;
+  getCommand: (str, client) => {
+    if (!str || !client) return;
     return global.client.commands.cache.get(str.toLowerCase()) || client.commands.cache.find((command) => { return command.aliases && command.aliases.includes(str.toLowerCase()) });
   },
   getPage: (array, length, page) => {
