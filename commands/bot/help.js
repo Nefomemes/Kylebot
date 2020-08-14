@@ -24,16 +24,16 @@ module.exports = {
             return modules[0];
         }
         function filterTheCommands(category){
-            category = category.toLowerCase();
+            category = getCategory(category.toLowerCase() || "misc").id;
             return (command) => {
                 if (command.disabled && command.disabled === true) return false;
-                if(getCategory(category).id === "misc")return !command.category || command.category === "misc"; 
-                return command.category || command.category === getCategory(category).id;
+                if(category === "misc")return !command.category || command.category === "misc"; 
+                return command.category && command.category === category;
             }
         }
         if(imports.getCommand(form)){
             // Command?
-            let number = parseInt(imports.args[0]);
+            let number = parseInt(imports.args[0] || 1);
             if (Number.isNaN(number) || !number){
                 number = 1;
             }
@@ -46,7 +46,7 @@ module.exports = {
             })
         } else if(getCategory(form)){
             // Category 
-            let number = parseInt(imports.args[0]);
+            let number = parseInt(imports.args[0] || 1);
             if (Number.isNaN(number) || !number){
                 number = 1;
             }
@@ -57,11 +57,11 @@ module.exports = {
                 let index = commands.indexOf(command);
                 if( index > page.end || index < page.start) return;
         let name = imports.client.commands.cache.findKey(i => i === command);
-        embed = embed.addField(name || "Unknown", command.description || "No description", true);
+        embed = embed.addField(name || "Unknown", command.desc || "No description", true);
             });
         } else {
         embed = embed.setImage(imports.brandingbg);
-       // embed = embed.setDescription("")
+       embed = embed.setDescription("Kylebot is currently the first Call of Duty roleplay Discord bot.")
         
             // All categories
             let number = parseInt(form);
@@ -72,7 +72,7 @@ module.exports = {
             categories.forEach((category) => {
                 let index = categories.indexOf(category);
                 if( index > page.end || index < page.start) return;
-                embed = embed.addField(category.name, imports.trim(`ID: \`${category.id}\` \n\n${category.description} \n\n${commands.filter(filterTheCommands(category.id)).length} commands available.`, 2048), true);
+                embed = embed.addField(category.name, imports.trim(`ID: \`${category.id}\` \n\n${category.desc || "No description."} \n\n${commands.filter(filterTheCommands(category.id)).length} commands available.`, 2048), true);
             })
         
         }

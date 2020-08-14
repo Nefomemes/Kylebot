@@ -3,28 +3,23 @@ module.exports = {
         {
             "name": "Bot",
             "id": "bot",
-            "description": "Some useless commands to get newbies start."
+            "desc": "Some useless commands to get newbies start."
 
         },
         {
             "name": "Mematic",
             "id": "memes",
-            "description": "Meme generation commands that uses our own API!"
+            "desc": "Meme generation commands that uses our own API!"
         },
         {
             "name": "GIFs",
             "id": "rp",
-            "description": "GIF commands for roleplay purposes."
-        },
-        {
-            "name": "Message Streak",
-            "id": "killstreak",
-            "description": "ENEMY TACTICAL NUKE INCOMING!"
+            "desc": "GIF commands for roleplay purposes."
         },
         {
             "name": "Moderation",
             "id": "mod",
-            "description": "Keep your server safe with this."
+            "desc": "Keep your server safe with this."
         },
         {
             "name": "Economy",

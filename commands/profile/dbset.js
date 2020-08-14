@@ -12,7 +12,7 @@ module.exports = {
             const playercard = imports.getItem('playercard',form[1]);
             if(!playercard)return imports.message.react("❌")
 
-            await imports.db.updateDoc('users', imports.message.author.id, {$users: { "playercard": playercard.id}})
+            await imports.db.updateDoc('users', imports.message.author.id, {$set: { "playercard": playercard.id}})
         }    
         return imports.message.react("✔");
     }

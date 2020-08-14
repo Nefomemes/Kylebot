@@ -18,9 +18,10 @@ module.exports = {
     };
  
 for(let arg of imports.args){
-    let user = getUserFromMention(arg)
+    let user = getUserFromMention(arg);
     if(user){
       targets.push(user);
+      importsargs.shift();
     } else {
       break;
     }
@@ -54,7 +55,7 @@ for(let arg of imports.args){
     gifs = gifs[Math.floor(Math.random() * gifs.length)];
     let embedkill = new imports.Discord.MessageEmbed()
       .setColor(imports.colors.BG_COLOR)
-      .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({ format: "png", dynamic: true }))
+      .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({ format: "png", dynamic: true }), imports.website)
       .setDescription(imports.trim(`${imports.message.author} killed ${targets.join(", ")}${the_reason}`, 2048))
       .setImage(gifs)
       .setTimestamp()

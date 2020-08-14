@@ -10,6 +10,6 @@ if(mode === "--user" || mode === "--me"){
 } else if((mode === "--server" || mode === "--guild") && imports.message.guild){
             if(!imports.message.member.hasPermission('MANAGE_GUILD'))return imports.message.channel.send("Missing permission!");
         imports.db.updateDoc('guilds', imports.message.guild.id, {$set: {desc: desc}});
-        } else {    imports.message.react("❌")}
-        
+        } else {   return imports.message.react("❌")}
+        return imports.message.react("✔")
 }

@@ -100,6 +100,7 @@ for(let file of files){
         let command = {
           ...commandCode,
           ...commandModule,
+          ...global.configs,
           name: commandName
         } 
         client.commands.cache.set(commandName, command);
@@ -172,11 +173,15 @@ async function handleMessage(message) {
             imports.timestamps.delete(imports.message.author.id);
           } else {}
          }, imports.cooldownAmount);
-    
+    try{
         imports.command.run(imports).catch(e => {
-          imports.message.channel.send("```"+imports.trim(require("util").inspect(e), 2000 - 6) + "```");
+            throw e
         })
-
+} catch(e) {
+    if(!(e.message === "Cannot read property 'catch' of undefined" && e.name === "TypeError")){
+        
+    }
+}
 }
   
   function cmdHandler(message){

@@ -13,7 +13,7 @@ module.exports = {
         const embed = new imports.Discord.MessageEmbed()
 
             .setColor(imports.colors.BG_COLOR)
-            .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({ format: "png", dynamic: true }), process.env.WEBSITE)
+            .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({ format: "png", dynamic: true }), imports.website)
             .setDescription(imports.trim(`${imports.message.author} is happy${the_reason}`))
             .setImage(selectedGIF)
             .setTimestamp()

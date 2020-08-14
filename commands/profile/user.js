@@ -49,7 +49,11 @@ module.exports = {
       if(userDB.cash){
         embed = embed.addField("Cash", userDB.cash, true);
       }
-      
+      try{
+      embed = embed.setThumbnail(imports.getItem("emblem", userDB.emblem).assets[0].asset).setImage(imports.getItem("playercard", userDB.playercard).assets[0].asset); 
+      } finally {
+          
+      }
     }
     imports.message.channel.send(embed);
   }
