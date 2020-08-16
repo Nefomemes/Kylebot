@@ -47,8 +47,8 @@ module.exports = {
         embed = embed.setDescription(userDB.desc);
       }
    
-        embed = embed.addFields({name: "COD Points", value: userDB.cp || 0, inline:true},
-                                {name: "Cash", value: userDB.cash, inline:true});
+        embed = embed.addFields({name: "COD Points", value: `${userDB.cp || 0} <:cp:744403130594230313>`, inline:true},
+                                {name: "Cash", value: userDB.cash || 0, inline:true});
       try{
       embed = embed.setThumbnail(imports.getItem("emblem", userDB.emblem).assets[0].asset).setImage(imports.getItem("playercard", userDB.playercard).assets[0].asset); 
       } finally {

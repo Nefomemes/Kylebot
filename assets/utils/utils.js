@@ -46,10 +46,11 @@ module.exports = {
     if (str.constructor !== String || !str) return;
     return str.split("```").join("`‎`‎`‎");
   },
-  getItem: (collection, item) => {
+  getItem: (collection, item, type) => {
     if (!collection) return;
     try {
-      const items = require("../items/${collection}s").content;
+      const items = require(`../items/${collection}s`).content;
+      if(type && type.toLowerCase() === "all") return items;
       item = (item || "default").toLowerCase();
       if (item === "default") {
         let result = items.filter((value) => {
