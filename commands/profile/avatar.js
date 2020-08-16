@@ -1,8 +1,8 @@
 module.exports.run = (imports) => {
 const supported =["webp", "png", "jpg", "jpeg", "gif"]
-const type = (imports.args.shift() || "png").toLowerCase();
+const type = (imports.args[1]  || "png").toLowerCase();
 if (!supported.includes(type))return imports.message.channel.send("Invalid file type.")
-var user = imports.message.author;
+var user = imports.getUserFromMention(imports.args[0]) || imports.message.author;
 if(imports.message.guild && imports.args.length){
     let mention = imports.getMemberFromMention(imports.args[0], imports.message)
     if(mention && mention.constructor === imports.Discord.GuildMember){

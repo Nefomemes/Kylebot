@@ -4,7 +4,7 @@ module.exports.content = [
         "description":"Get your emblem and calling card to be Ghost-like.",
         "id":"ghost_custom_pack",
         "available":true,
-        "price":100, // Place holder
+        "price":120, // Place holder
         "contents":[
             {
                 "type":"playercard",

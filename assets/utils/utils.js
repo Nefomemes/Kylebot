@@ -49,7 +49,7 @@ module.exports = {
   getItem: (collection, item) => {
     if (!collection) return;
     try {
-      const items = require(`/home/runner/Kylebot/assets/items/${collection}s`).content;
+      const items = require("../items/${collection}s").content;
       item = (item || "default").toLowerCase();
       if (item === "default") {
         let result = items.filter((value) => {
@@ -84,5 +84,16 @@ module.exports = {
       end = array.length - 1;
     }
     return { start: start, end: end };
+  },
+  getUserFromMention: (str, client) => {
+    if (!mention || !message || !message.guild) return;
+    if (mention.startsWith("<@") && mention.endsWith(">")) {
+      mention = mention.slice(2, -1);
+      if (mention.startsWith("!")) {
+        mention = mention.slice(1);
+      }
+    }
+  
+  return client.users.cache.get(str);
   }
 }

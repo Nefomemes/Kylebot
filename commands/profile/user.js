@@ -46,9 +46,9 @@ module.exports = {
       if(userDB.desc){
         embed = embed.setDescription(userDB.desc);
       }
-      if(userDB.cash){
-        embed = embed.addField("Cash", userDB.cash, true);
-      }
+   
+        embed = embed.addFields({name: "COD Points", value: userDB.cp || 0, inline:true},
+                                {name: "Cash", value: userDB.cash, inline:true});
       try{
       embed = embed.setThumbnail(imports.getItem("emblem", userDB.emblem).assets[0].asset).setImage(imports.getItem("playercard", userDB.playercard).assets[0].asset); 
       } finally {

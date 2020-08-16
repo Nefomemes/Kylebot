@@ -21,6 +21,7 @@ module.exports = {
             "name":"filter",
             "disabled":false,
             "category":"mod",
+            "perm":7,
             "desc":"Enable or disable the badwords filter for the server.",
             "args":[
                 {"name":"value",
@@ -31,12 +32,6 @@ module.exports = {
         
         },
         {
-            "name": "dbdisplay",
-            "disabled": false,
-            "category": "profile",
-            
-        },
-        {
             "name": "dbset",
             "disabled": false,
             "category": "misc",
@@ -45,12 +40,12 @@ module.exports = {
                 {
                     "name":"emblem",
                     "desc":"The emblem you want to use.",
-                    "optional":"Use '--current' if you doesn't want to change the emblem."
+                    "optional":"Use '-current' if you doesn't want to change the emblem."
                 },
                 {
                     "name":"playercard",
                     "desc":"The calling card you want.",
-                    "optional":"Use --current if you doesn't want to change the calling card. "
+                    "optional":"Use -current if you doesn't want to change the calling card. "
                     }
                 
                 ]
@@ -58,8 +53,14 @@ module.exports = {
         {
             "name": "user",
             "category": "misc",
-            "description": "Get informations about a user.",
-            "usage": "user [user] ",
+            "desc": "Get informations about a user.",
+            "args": [
+                {
+                    "name":"user",
+                    "desc":"The user, duh.",
+                    "optional":true
+                }
+            ],
             "disabled": false,
             "aliases": ["userinfo"]
         },
@@ -67,11 +68,15 @@ module.exports = {
             "name": "betray",
             "type": "command",
             "category": "gifs",
-            "description": "Betray a friend.",
-            "usage": "betray <user> [other-users]  [reason]",
-            "example": "betray @Roach#8279 @Ghost#8676  I want to take down Makarov by myself.",
+            "desc": "Betray a friend.",
+            "args":[
+                {
+                    "name":"users",
+                    
+                }
+            ],
             "cooldown": 10,
-            "av": "guild",
+    
             "disabled": false
         },
         {

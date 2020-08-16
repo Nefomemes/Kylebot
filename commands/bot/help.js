@@ -32,18 +32,42 @@ module.exports = {
             }
         }
         if(imports.getCommand(form)){
-            // Command?
-            let number = parseInt(imports.args[0] || 1);
-            if (Number.isNaN(number) || !number){
-                number = 1;
+            if(imports.args[0].toLowerCase() === "-args" && imports.getCommand(form).args && imports.getCommand(form).args.constructor === Array){
+
+                let number = parseInt(imports.args[0] || 1);
+                if (Number.isNaN(number) || !number){
+                    number = 1;
+                }
+                let command = imports.getCommand(form);
+                for(let arg of command.args){
+                    let optional;
+                    if(arg.optional && arg.optional === true){
+                        optional = "This argument is optional.";
+                    } else if(arg.optional && arg.optional){
+                        optional = "This argument is mandatory.";
+                    } else {
+                     optional = arg.optional || "This argument is ¯\_(ツ)_/¯.";
+                    }
+
+                    embed = embed.addField(arg.name || "Unknown", imports.trim((arg.desc || "<redacted> ") + optional, 1024), true);
+                
+                }
+            } else {
+              /*  let number = parseInt(imports.args[0] || 1);
+                if (Number.isNaN(number) || !number){
+                    number = 1;
+                }*/
+                let command = imports.getCommand(form);
+              
+                imports._.each(command, function(value, key){
+                    if(key.toLowerCase().startsWith("desc"))return embed = embed.setDescription(value.toString());
+                    if(key.toLowerCase() === "args" )return embed = embed.addField("Arguments", imports.trim("Please add \"-args\" after the syntax you are using. Example, `<prefix>help user -args`.", 1024), true);
+                    if(key === 'run')return;
+                    embed = embed.addField(key.toString(), value.toString(), true);
+                })
             }
-            let command = imports.getCommand(form);
-          
-            imports._.each(command, function(value, key){
-                if(key.toLowerCase().startsWith("desc"))return embed = embed.setDescription(value.toString());
-                if(key === 'run')return;
-                embed = embed.addField(key.toString(), value.toString(), true);
-            })
+  
+    
         } else if(getCategory(form)){
             // Category 
             let number = parseInt(imports.args[0] || 1);
