@@ -18,7 +18,7 @@ module.exports = {
             imports._.each(imports.getItem('bundle', imports.args[0]), (value, key) => {
                 if(key && key === "assets" && value.constructor === Array  && value[0] && value[0].asset){
                     embed = embed.setImage(value[0].asset || false);
-                } else if(key && key === "contents"){
+                } else if(false /*key && key === "contents"*/){
                     for(let content of value){
                         embed = embed.addField(content.name, "yes", true);
                     }
