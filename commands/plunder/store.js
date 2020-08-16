@@ -32,10 +32,10 @@ module.exports = {
                 if (user.cp && user.cp !== 0 && bundle.price && (user.cp - bundle.price) >= 0) {
                     user_can_buy = "";
                 } else {
-                    user_can_buy = "**Sadly, you doesn't not enough funds. :cry:**\n";
+                    user_can_buy = "**Sadly, you doesn't have enough funds. :cry:**\n";
                 }
 
-                embed = embed.addField(bundle.name || "Unknown", imports.trim(`ID: ${bundle.id || "<redacted>"}\n\n${user_can_buy} This bundle costs ${bundle.price || "<redacted>"} <:cp:744403130594230313>. ${bundle.desc || "<redacted>."}`, 1024), true);
+                embed = embed.addField(bundle.name || "Unknown", imports.trim(`ID: \`${bundle.id || "<redacted>"}\`\n\n${bundle.desc || "<redacted>."} \nThis bundle costs ${bundle.price || "<redacted>"} <:cp:744403130594230313>. ${user_can_buy}`, 1024), true);
             }
         }
 

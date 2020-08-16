@@ -19,7 +19,7 @@ module.exports = {
         { name: "ID", value: `${user.id}`, inline: true },
         { name: "Accout created at", value: user.createdAt },
         { name: "Bot", value: user.bot })
-      .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`, imports.client.user.displayAvatarURL({ format: "png", dynamic: true }))
+      .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`, imports.client.user.displayAvatarURL({ format: "png", dynamic: true })).setTimestamp()
 
     if (imports.message.guild) {
       embed = embed.addFields({ name: "Joined the server since", value: member.joinedAt },
