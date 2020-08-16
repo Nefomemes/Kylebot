@@ -1,4 +1,4 @@
- const categories = require("../../assets/configs/commands/categories").content;
+ const categories = require("../../assets/commands/categories").content;
 
 module.exports = {
     name: "help",
@@ -31,14 +31,14 @@ module.exports = {
                 return command.category && command.category === category;
             }
         }
-        if(imports.getCommand(form)){
-            if(imports.args[0].toLowerCase() === "-args" && imports.getCommand(form).args && imports.getCommand(form).args.constructor === Array){
+        if(imports.getCommand(form, imports.client)){
+            if(imports.args[0] && imports.args[0].toLowerCase() === "-args" && imports.getCommand(form, imports.client).args && imports.getCommand(form, imports.client).args.constructor === Array){
 
                 let number = parseInt(imports.args[0] || 1);
                 if (Number.isNaN(number) || !number){
                     number = 1;
                 }
-                let command = imports.getCommand(form);
+                let command = imports.getCommand(form, imports.client);
                 for(let arg of command.args){
                     let optional;
                     if(arg.optional && arg.optional === true){
@@ -46,18 +46,18 @@ module.exports = {
                     } else if(arg.optional && arg.optional){
                         optional = "This argument is mandatory.";
                     } else {
-                     optional = arg.optional || "This argument is ¯\_(ツ)_/¯.";
+                     optional = arg.optional || "This argument is ¯\\_(ツ)_/¯.";
                     }
 
-                    embed = embed.addField(arg.name || "Unknown", imports.trim((arg.desc || "<redacted> ") + optional, 1024), true);
+                    embed = embed.addField(arg.name || "Unknown", imports.trim((arg.desc || "<redacted> ") + "\n\n" + optional, 1024), true);
                 
                 }
             } else {
-              /*  let number = parseInt(imports.args[0] || 1);
+       /*  let number = parseInt(imports.args[0] || 1);
                 if (Number.isNaN(number) || !number){
                     number = 1;
                 }*/
-                let command = imports.getCommand(form);
+                let command = imports.getCommand(form, imports.client);
               
                 imports._.each(command, function(value, key){
                     if(key.toLowerCase().startsWith("desc"))return embed = embed.setDescription(value.toString());
@@ -100,6 +100,6 @@ module.exports = {
             })
         
         }
-        imports.message.channel.send(embed);
+       return imports.message.channel.send(embed);
     }
 }

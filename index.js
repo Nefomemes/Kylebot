@@ -100,7 +100,6 @@ client.on("error", (err) => {
         let command = {
           ...commandCode,
           ...commandModule,
-          ...global.configs,
           name: commandName
         }
         client.commands.cache.set(commandName, command);
@@ -112,7 +111,7 @@ client.on("error", (err) => {
 var imports = {
   db: db,
   ...built_ins,
-  ...configs,
+  ...global.configs,
   client: client,
   ...global,
   opt: {},
@@ -120,7 +119,7 @@ var imports = {
 
 
 function cmdHandler(message) {
-  return handleMessage(imports, message).catch(e => {
+  return require("./handler.js")(imports, message).catch(e => {
     message.channel.send("```" + built_ins.trim(require("util").inspect(e), 2000 - 6) + "```")
   });
 }

@@ -9,7 +9,7 @@ async function handleMessage(imports, message) {
     imports.args = imports.message.content.slice(imports.prefix.length).split(/ +/);
     imports.commandName = imports.args.shift().toLowerCase();
     if (!imports.commandName) return;
-    imports.command = imports.getCommand(imports.commandName, client);
+    imports.command = imports.getCommand(imports.commandName, imports.client);
 
 
     if (!imports.command || imports.command.disabled && imports.command.disabled === true) return;
@@ -63,3 +63,5 @@ async function handleMessage(imports, message) {
         }
     }
 }
+
+module.exports = handleMessage;
