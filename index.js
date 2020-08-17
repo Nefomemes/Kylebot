@@ -13,7 +13,7 @@ global.fs = require("fs").promises;
 global.Discord = require("discord.js");
 global.commandList = require("./assets/commands/cmd-list").content;
 global.Canvas = require("canvas");
-global.built_ins = require("./assets/utils/utils");
+global.built_ins = require("./assets/utils");
 global.figlet = require("figlet");
 global._ = require('underscore');
 global.badwords = require("./assets/configs/badwords").contents;
@@ -81,6 +81,25 @@ client.on("error", (err) => {
   console.err(err);
 });
 
+client.on("guildCreate", async (guild) => {
+  try {
+  client.channels.cache.get("730374154569646091").send(`<@!${guild.ownerID}>`).then((message) => {
+    const user = message.mentions.users.get(guild.ownerID);
+    const userID = db.getDoc('users', user.id);
+    const embed = new global.Discord.MessageEmbed()
+    .setColor(global.colors.BG_COLOR)
+    .setAuthor(user.username, user.displayAvatarURL({format:"png", dynamic: true}))
+    .setTitle("Server invited Kylebot")
+    .setThumbnail(global.built_ins.getItem('emblem', user.emblem))
+    .setImage(global.built_ins.getItem('playercard', user.playercard))
+    .setTimestamp()
+    .setFooter(`Prefix: ${global.configs.prefix} | ${global.built_ins.getRandomFunfact()}`)
+    message.channel.send(embed);
+  })
+  } catch{
+
+  }
+})
 
 (async function registerCommands(dir = "commands") {
   let files = await global.fs.readdir(global.path.join(__dirname, dir));

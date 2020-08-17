@@ -5,7 +5,7 @@ module.exports = {
     return `${string.slice(0, max - 3)}...`;
   },
   getRandomFunfact: () => {
-    const funfact = require("../configs/funfact").content;
+    const funfact = require("./configs/funfact").content;
     return funfact[Math.floor(Math.random() * funfact.length)]
 
   },
@@ -37,10 +37,10 @@ module.exports = {
     return message.guild.channels.cache.get(mention);
   },
   freshActivity: (client) => {
-    activities = require("../configs/activities").content;
+    activities = require("./configs/activities").content;
     let activity = activities[Math.floor(Math.random() * activities.length)];
 
-    return client.user.setActivity(activity.content + ` | ${require("../configs/configs").prefix}help`, { type: activity.type }).catch(error => console.error(error));
+    return client.user.setActivity(activity.content + ` | ${require("./configs/configs").prefix}help`, { type: activity.type }).catch(error => console.error(error));
   },
   avoidBreak: (str) => {
     if (str.constructor !== String || !str) return;
@@ -66,7 +66,7 @@ module.exports = {
         return result[Math.floor(Math.random() * result.length)];
       }
     } catch (e) {
-      throw e;
+      return;
     }
   },
   getCommand: (str, client) => {

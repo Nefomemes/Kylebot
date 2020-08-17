@@ -1,6 +1,6 @@
 {
   "name": "kylebot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The first Call of Duty roleplay Discord bot.",
   "main": "index.js",
   "engines": {
@@ -17,20 +17,11 @@
   "author": "Nefomemes#3927",
   "license": "MIT",
   "dependencies": {
-    "algorithmia": "^0.3.10",
-    "canvas": "^2.6.1",
     "discord.js": "^12.2.0",
     "express": "^4.17.1",
-    "figlet": "^1.4.0",
-    "file-type": "^14.6.2",
-    "got": "^11.5.0",
     "html-parser": "^0.11.0",
-    "image-size": "^0.8.3",
-    "imagesize": "^1.0.0",
-    "mongodb": "^3.5.9",
     "node-fetch": "^2.6.0",
     "node-grau": "^1.0.19",
-    "probe-image-size": "^5.0.0",
     "underscore": "^1.10.2",
     "xml2js": "^0.4.23"
   }

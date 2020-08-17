@@ -18,9 +18,31 @@ module.exports = {
             imports._.each(imports.getItem('bundle', imports.args[0]), (value, key) => {
                 if(key && key === "assets" && value.constructor === Array  && value[0] && value[0].asset){
                     embed = embed.setImage(value[0].asset || false);
-                } else if(false /*key && key === "contents"*/){
+                } else if(key && key === "contents"){
+
+                    
+                    all = false;
                     for(let content of value){
-                        embed = embed.addField(content.name, "yes", true);
+                        content = getItem(content.type, content.id);
+                        if(content){
+
+                            let rarity;
+                            switch(content.rarity){
+                                case 1:
+                                    rarity = 'base';
+                                case 2:
+                                    rarity = 'common';
+                                case 3:
+                                    rarity = 'rare';
+                                case 4:
+                                    rarity = 'epic';
+                                case 5:
+                                    rarity = 'legendary';
+                                default:
+                                    rarity = "unknown";
+                            }
+                            embed = embed.addField(content.name || "Unknown", `ID: \`${content.id || "<redacted>"}\`\n\nWorth ${content.price} <:cp:744403130594230313>. \n${content.desc || "<redacted>"}\nThis item have the rarity of **${rarity}**.`)
+                        }
                     }
                 } else if(all === true){
                     embed = embed.addField(key || "Unknown", value || "<redacted>", true);
