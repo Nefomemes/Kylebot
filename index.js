@@ -25,7 +25,7 @@ const client = new global.Discord.Client({
       "GUILD_MESSAGES",
       "DIRECT_MESSAGES",
       "GUILD_MESSAGE_REACTIONS",
-      "DIRECT_MESSAGE_REACTIONS"
+      "DIRECT_MESSAGE_REACTIONS",
     ]
   }
 });
