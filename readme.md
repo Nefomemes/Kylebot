@@ -9,8 +9,7 @@
 
 <p>This bot is in Public Alpha though. Things may break.</p>
 <br/>
-
-![Kylebot background](https://i.imgur.com/q3EWSPl.gif")
+<img src="https://i.imgur.com/q3EWSPl.gif"</a>
 
 ## Inviting the bot.
 
