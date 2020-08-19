@@ -28,10 +28,12 @@
 
 ## Trello board
 
-<p>The bot does have a Trello board. <a href="">Click here</a> to join.</p>
+<p>The bot does have a Trello board. <a href="https://trello.com/b/dyn9b9T0/kylebot">Click here</a> to join.</p>
 
-## Bugs & Issues
+## Bugs & Suggestions
 
+<p>Bugs reports or suggestions should be made by <a href="/issues">creating a new issue</a>.
+  
 ## Legal Mumbo Jumbo
 
 <p> This is an unnoficial Call of Duty: Modern Warfare roleplay Discord bot. Some assets used here are property of Activision and Infinity Ward. Neither Discord, Activision, nor Infinity Ward are or was sponsoring or endorsing, or supporting this bot.</p>
