@@ -28,7 +28,7 @@
 
 ## Trello board
 
-<p>The bot does have a Trello board. <a href="https://trello.com/b/dyn9b9T0/kylebot">Click here</a> to join.</p>
+<p>The bot does have a Trello board. <a href="https://trello.com/b/dyn9b9T0/kylebot">Click here</a> to view.</p>
 
 ## Bugs & Suggestions
 
