@@ -24,7 +24,7 @@
 
 ## Frequently Asked Questions
 
-<p>The FAQ is in a separate file, please open <a href="https://github.com/Nefomemes/Kylebot/docs/FAQ.md"><code>docs/FAQ.md</code></a>.</p>
+<p>The FAQ is in a separate file, please open <a href="/docs/FAQ.md"><code>docs/FAQ.md</code></a>.</p>
 
 ## Trello board
 
@@ -32,7 +32,7 @@
 
 ## Bugs & Suggestions
 
-<p>Bugs reports or suggestions should be made by <a href="/issues">creating a new issue</a>.
+<p>Bugs reports or suggestions should be made by <a href="https://github.com/Nefomemes/Kylebot/issues">creating a new issue</a>.
   
 ## Legal Mumbo Jumbo
 
