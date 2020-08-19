@@ -32,7 +32,7 @@
 
 ## Bugs & Suggestions
 
-<p>Bugs reports or suggestions should be made by <a href="https://github.com/Nefomemes/Kylebot/issues">creating a new issue</a>.
+<p>Bugs reports or suggestions should be made by <a href="https://github.com/Nefomemes/Kylebot/issues">creating a new issue</a>. Just, please make sure noone have posted it first.<p/>
   
 ## Legal Mumbo Jumbo
 
