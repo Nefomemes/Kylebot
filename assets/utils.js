@@ -50,6 +50,10 @@ module.exports = {
     if (!collection) return;
     try {
       const items = require(`../items/${collection}s`).content;
+      
+  } catch {
+    return;
+    }
       if(type && type.toLowerCase() === "all") return items;
       item = (item || "default").toLowerCase();
       if (item === "default") {
@@ -65,9 +69,6 @@ module.exports = {
         if (!result.length) return;
         return result[Math.floor(Math.random() * result.length)];
       }
-    } catch (e) {
-      return;
-    }
   },
   getCommand: (str, client) => {
     if (!str || !client) return;
