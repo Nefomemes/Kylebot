@@ -13,7 +13,7 @@
 
 ## Inviting the bot.
 
-<p><a href="https://discord.com/oauth2/authorize?client_id=675840311599300650&permissions=8&redirect_uri=https%3A%2F%2Fweb.nefomemes.repl.co%2Fkylebot%2Fsupport&scope=bot&response_type=code">Click here</a> to invite the bot. You will be redirected to the bot's support server after inviting.</p>
+<p><a href="https://api.nefomemes.repl.co/links/Kylebot/invite">Click here</a> to invite the bot. You will be redirected to the bot's support server after inviting.</p>
 
 ## Prefix
 <p><code>mw!</code>. Will be customizable (and supports @mention) in the future.</p>
