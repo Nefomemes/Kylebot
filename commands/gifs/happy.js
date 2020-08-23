@@ -14,7 +14,7 @@ module.exports = {
 
             .setColor(imports.colors.BG_COLOR)
             .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({ format: "png", dynamic: true }), imports.website)
-            .setDescription(imports.trim(`${imports.message.author} is happy${the_reason}`))
+            .setDescription(imports.trim(`${imports.message.author} is happy${the_reason}`, 2048))
             .setImage(selectedGIF)
             .setTimestamp()
             .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`)

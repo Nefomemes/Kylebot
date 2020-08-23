@@ -87,7 +87,7 @@ module.exports = {
     }
     return { start: start, end: end };
   },
-  getUserFromMention: (str, client) => {
+  getUserFromMention: (mention, client) => {
     if (!mention || !message || !message.guild ||!client) return;
     if (mention.startsWith("<@") && mention.endsWith(">")) {
       mention = mention.slice(2, -1);

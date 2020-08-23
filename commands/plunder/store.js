@@ -23,7 +23,7 @@ module.exports = {
                     
                     all = false;
                     for(let content of value){
-                        content = getItem(content.type, content.id);
+                        content = imports.getItem(content.type, content.id);
                         if(content){
 
                             let rarity;

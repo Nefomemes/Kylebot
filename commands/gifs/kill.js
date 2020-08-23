@@ -13,21 +13,22 @@ module.exports = {
           mention = mention.slice(1);
         }
       }
-      return imports.message.mentions.users.get(mention);
+      return imports.message.mentions.users.fetch(mention);
   
     };
  
 for(let arg of imports.args){
     let user = getUserFromMention(arg);
-    if(user){
+if(user && user.constructor && user.constructor === require("discord.js").User){
       targets.push(user);
       imports.args.shift();
-    } else {
-      break;
-    }
+} else {
+  break;
+}
 }
 
     if (!targets.length) return imports.message.react("❌");
+    if(targets.includes(imports.message.author)) return imports.message.react("❌");
     var the_reason = imports.args.join(" ");
     if (the_reason) {
       the_reason = ` because "` + imports.args.join(" ") + `".`;
