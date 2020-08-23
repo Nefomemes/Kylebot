@@ -1,5 +1,5 @@
 module.exports.run = async (imports) => {
-if(!imports.args.length)return imports.message.react(":x:");
+if(!imports.args.length)return imports.message.react("❌");
     var toggle;
     switch(imports.args.shift().toLowerCase()){
         case "on":
