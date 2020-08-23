@@ -32,26 +32,28 @@ module.exports = {
             }
         }
         if(imports.getCommand(form, imports.client)){
-            if(imports.args[0] && imports.args[0].toLowerCase() === "-args" && imports.getCommand(form, imports.client).args && imports.getCommand(form, imports.client).args.constructor === Array){
-
-                let number = parseInt(imports.args[0] || 1);
-                if (Number.isNaN(number) || !number){
-                    number = 1;
-                }
+            if(/* imports.args[0] && imports.args[0].toLowerCase() === "-syntax" && imports.getCommand(form, imports.client).syntaxes && imports.getCommand(form, imports.client).syntaxes.constructor === Array*/ false){
+/*
+     
                 let command = imports.getCommand(form, imports.client);
-                for(let arg of command.args){
-                    let optional;
-                    if(arg.optional && arg.optional === true){
-                        optional = "This argument is optional.";
-                    } else if(arg.optional && arg.optional){
-                        optional = "This argument is mandatory.";
-                    } else {
-                     optional = arg.optional || "This argument is ¯\\_(ツ)_/¯.";
+                if(parseInt(imports.args[1])){
+                    const page = parseInt(imports.args[1]);
+                    const pagegd;
+                    for(let arg of args){
+                        let optional;
+                        if(arg.optional && arg.optional === true){
+                            optional = "This argument is optional.";
+                        } else if(arg.optional && arg.optional){
+                            optional = "This argument is mandatory.";
+                        } else {
+                         optional = arg.optional || "This argument is ¯\\_(ツ)_/¯.";
+                        }
+    
+                        embed = embed.addField(arg.name || "Unknown", imports.trim((arg.desc || "<redacted> ") + "\n\n" + optional, 1024), true);
+                    
                     }
-
-                    embed = embed.addField(arg.name || "Unknown", imports.trim((arg.desc || "<redacted> ") + "\n\n" + optional, 1024), true);
-                
                 }
+       */
             } else {
        /*  let number = parseInt(imports.args[0] || 1);
                 if (Number.isNaN(number) || !number){
