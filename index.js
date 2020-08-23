@@ -126,7 +126,10 @@ client.on("guildMemberAdd", async (member) => {
     if(guildDB.welcomeMessage && guildDB.welcomeMessage !== null && guildDB.welcomeMessage.constructor === String){
       content = guildDB.welcomeMessage.split("${user}").join(`<@!${user.id}>`).split("${username}").join(user.username);
     }
-    client.channels.fetch(guildDB.welcomeChannel).send(content, embed);
+    if(content || embed){
+      client.channels.fetch(guildDB.welcomeChannel).send(content, embed);
+    }
+  
   };
 
 });
