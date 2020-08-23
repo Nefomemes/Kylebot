@@ -48,8 +48,9 @@ module.exports = {
   },
   getItem: (collection, item, type) => {
     if (!collection) return;
+    var items;
     try {
-      const items = require(`../items/${collection}s`).content;
+       items = require(`./items/${collection}s`).content;
       
   } catch {
     return;

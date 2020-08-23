@@ -90,8 +90,8 @@ client.on("guildCreate", async (guild) => {
     .setColor(global.colors.BG_COLOR)
     .setAuthor(user.username, user.displayAvatarURL({format:"png", dynamic: true}))
     .setTitle("Server invited Kylebot")
-    .setThumbnail(global.built_ins.getItem('emblem', userDB.emblem))
-    .setImage(global.built_ins.getItem('playercard', userDB.playercard))
+    .setThumbnail(global.built_ins.getItem('emblem', userDB.emblem).assets[0].asset)
+    .setImage(global.built_ins.getItem('playercard', userDB.playercard).assets[0].asset)
     .setTimestamp()
     .setFooter(`Prefix: ${global.configs.prefix} | ${global.built_ins.getRandomFunfact()}`)
     message.channel.send(embed);
@@ -118,8 +118,8 @@ client.on("guildMemberAdd", async (member) => {
     .setColor(global.colors.BG_COLOR)
     .setAuthor(user.username, user.displayAvatarURL({format:"png", dynamic: true}))
     .setTitle("Joined the server")
-    .setThumbnail(global.built_ins.getItem('emblem', userDB.emblem))
-    .setImage(global.built_ins.getItem('playercard', userDB.playercard))
+    .setThumbnail(global.built_ins.getItem('emblem', userDB.emblem).assets[0].asset)
+    .setImage(global.built_ins.getItem('playercard', userDB.playercard).assets[0].asset)
     .setTimestamp()
     .setFooter(`Prefix: ${global.configs.prefix} | ${global.built_ins.getRandomFunfact()}`)
     } 
@@ -127,7 +127,7 @@ client.on("guildMemberAdd", async (member) => {
       content = guildDB.welcomeMessage.split("${user}").join(`<@!${user.id}>`).split("${username}").join(user.username);
     }
     if(content || embed){
-      client.channels.fetch(guildDB.welcomeChannel).send(content, embed);
+      client.channels.cache.get(guildDB.welcomeChannel).send(content, embed);
     }
   
   };
