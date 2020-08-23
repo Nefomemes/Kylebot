@@ -32,6 +32,11 @@ module.exports = {
             "id":"profile",
             "desc":"Profile commands."
         },
+        {
+            "name":"Server Configuration",
+            "id":"guild_configs",
+            "desc":"Configurations for server."
+        },
   {
             "name": "Misc commands",
             "id": "misc",

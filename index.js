@@ -24,6 +24,7 @@ const client = new global.Discord.Client({
       "DIRECT_MESSAGES",
       "GUILD_MESSAGE_REACTIONS",
       "DIRECT_MESSAGE_REACTIONS",
+      "GUILD_MEMBERS"
     ]
   }
 });
@@ -103,6 +104,32 @@ client.on("guildDelete", () => {
   client.channels.cache.get("730374154569646091").send("A server have kicked the bot. Press F to pay respect for Nefomemes.");
                                                      
   })
+client.on("guildMemberAdd", async (member) => {
+
+  const guildDB = await db.getDoc("guilds", member.guild.id);
+  if(guildDB && guildDB.welcomeChannel && client.channels.fetch(guildDB.welcomeChannel)){
+    
+
+    const user = member.user;
+    var embed = null, content = null;
+    if(guildDB.welcomeEmbed && guildDB.welcomeEmbed === true){
+    const userDB = await db.getDoc("users", member.user.id);
+    embed = new global.Discord.MessageEmbed()
+    .setColor(global.colors.BG_COLOR)
+    .setAuthor(user.username, user.displayAvatarURL({format:"png", dynamic: true}))
+    .setTitle("Joined the server")
+    .setThumbnail(global.built_ins.getItem('emblem', userDB.emblem))
+    .setImage(global.built_ins.getItem('playercard', userDB.playercard))
+    .setTimestamp()
+    .setFooter(`Prefix: ${global.configs.prefix} | ${global.built_ins.getRandomFunfact()}`)
+    } 
+    if(guildDB.welcomeMessage && guildDB.welcomeMessage !== null && guildDB.welcomeMessage.constructor === String){
+      content = guildDB.welcomeMessage.split("${user}").join(`<@!${user.id}>`).split("${username}").join(user.username);
+    }
+    client.channels.fetch(guildDB.welcomeChannel).send(content, embed);
+  };
+
+});
 (async function registerCommands(dir = "commands") {
   let files = await global.fs.readdir(global.path.join(__dirname, dir));
   for (let file of files) {
@@ -119,8 +146,8 @@ client.on("guildDelete", () => {
 
       if (commandCode.run) {
         let command = {
-          ...commandCode,
           ...commandModule,
+          ...commandCode,
           name: commandName
         }
         client.commands.cache.set(commandName, command);

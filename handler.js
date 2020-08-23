@@ -19,9 +19,9 @@ async function handleMessage(imports, message) {
 
     if (imports.message.guild) {
         if (imports.command.av && imports.command.av === "dm") return imports.message.channel.send("This command is only available in DM! Perhaps due to privacy reasons?");
-        if (imports.command.perms) {
-            let permits = imports.command.perms.filter((perm) => { return !imports.message.member.hasPermission(perm) });
-            if (permits.length) return imports.message.channel.send(imports.trim("You needs to have these permissions before proceeding: " + permits.join(", "), 2000));
+        if (imports.command.perms && !Number.isNaN(parseInt(imports.command.perms))) {
+            const permission = require("./perms").checkPermission(imports.command.perms, imports.message.member);
+            if(permission !== true) return imports.message.channel.send("Missing permissions. Permission level " + imports.command.perms + ".")
         }
 
         if (imports.command.bot_perms) {

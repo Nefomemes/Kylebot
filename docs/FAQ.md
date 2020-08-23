@@ -12,6 +12,12 @@
 
 ## Anime got filtered lol.
 
-<p>Yes.</p>
+<p>Yes. This is to prevent further degeneration of our generation.</p>
 
-## How to get Call of Duty points
+## How to get Call of Duty points?
+
+<p>You can claim Kylebot's COD points each day by using the 'daily' command.</p>
+
+## What you are going to do after the release of Call of Duty: Black Ops Cold War?
+
+<p>The bot will continue to be Modern Warfare and still Modern Warfare when the sequel of Call of Duty: Modern Warfare released. Probably have a Black Ops version with shared economy but idk.</p>

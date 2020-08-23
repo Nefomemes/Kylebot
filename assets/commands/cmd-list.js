@@ -8,7 +8,7 @@ module.exports = {
             "args":[
                 {
                     "name":"mode",
-                    "desc":"What you want to change, you can use either --user / --me or --guild / --server",
+                    "desc":"What you want to change, you can use either --user / --me or --guild / --server. If you use the server mode, you will be required to have the Manage Server permission.",
                     "optional":false
                 },
                 {
@@ -22,7 +22,7 @@ module.exports = {
             "disabled":false,
             "category":"mod",
             "perm":7,
-            "desc":"Enable or disable the badwords filter for the server.",
+            "desc":"Enable or disable the badwords filter for the server. Requires the Manage Server permission.",
             "args":[
                 {"name":"value",
                 "desc":"The toggle for the command. You can either use 'on' or 'off'.",
@@ -153,19 +153,6 @@ module.exports = {
             "disabled": false
         },
         {
-            "type": "command",
-            "name": "kick",
-            "category": "Moderation",
-            "description": "Kick a member. They will be able to join the server again with a new invite.",
-            "usage": "nefo!kick <member> reason",
-            "example": "nefo!kick @Joe Mama#7686",
-            "guild": true,
-            "permissions": ["KICK_MEMBERS"],
-            "disabled": true,
-            "bot_permissions": ["KICK_MEMBERS"]
-
-        },
-        {
             "name": "kill",
             "category": "rp",
 
@@ -176,26 +163,6 @@ module.exports = {
                 "No ID accepted. Member mentions only. You can give the reason after all the mention mumbo jumbo ends.",
             "example": "nefo!kill @Vladimir Makarov#8573 this is for Soap"
         },
-        
-        {
-            "name": "perms",
-            "category": "Server Information",
-            "type": "command",
-            "description": "Check the perms of a user / role.",
-            "usage": [],
-            "disabled": true
-        },
-
-    
-        {
-            "name": "prefix",
-            "category": "Bot",
-            "description": "Just a scrapped command. It will be used when the database is ready.",
-            "disabled": true,
-            "type": "command"
-        },
-
-    
         {
             "name": "respect",
             "type": "command",
@@ -206,29 +173,6 @@ module.exports = {
             "disabled": false,
             "cooldown": 7,
             "args": true
-        },
-        {
-            "name": "say",
-            "type": "command",
-            "category": "Misc Commands",
-            "description": "Ask the bot to say anything in the chat. ",
-            "usage": "nefo!say [channel] <message>",
-            "example": ["nefo!say 718625509516378152 Never Gonna Give You Up"],
-            "explanation":
-                "You can use the channel's ID. Or mention the channel. When no destinations given, it will send the message in the channel the command was executed and delete the message. Embeds are not yet supported.",
-            "permsreq": ["ADMINISTRATOR"],
-            "disabled": true,
-            "args": true,
-            "guild": true
-        }, {
-            "name": "bunker",
-            "category": "Nefomemes' Coding Bunker Exclusive",
-            "description": "Create a bunker for you.",
-            "usage": "bunker",
-            "guild": true,
-            "cooldown": 30,
-            "disabled": true,
-            "type": "command"
         },
         {
             "name": "speedaudit",
@@ -249,16 +193,6 @@ module.exports = {
             "cooldown": 30,
             "type": "command",
             "disabled": false
-        },
-        {
-            "name": "wttr",
-            "category": "Information",
-            "description": "Get the weather forecast for a place using the wttr.in API.",
-            "usage": "nefo!wttr <api>",
-            "example": "nefo!wttr Old Zealand",
-            "cooldown": 10,
-            "type": "command",
-            "disabled": true
         },
         {
             "name": "server",
