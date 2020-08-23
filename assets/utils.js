@@ -24,7 +24,7 @@ module.exports = {
         mention = mention.slice(1);
       }
     }
-    return message.guild.members.cache.get(mention);
+    return message.guild.members.fetch(mention);
 
   },
   getChannelFromMention: (mention, message) => {
@@ -97,6 +97,6 @@ module.exports = {
       }
     }
   
-  return client.users.cache.get(str);
+  return client.users.fetch(mention);
   }
 }
