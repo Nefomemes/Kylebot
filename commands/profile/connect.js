@@ -7,3 +7,4 @@ switch(imports.args.shift().toLowerCase()){
     imports.message.channel.send("The platform you are trying to use is probably ha")
 }
 }
+module.exports.disabled = true;
