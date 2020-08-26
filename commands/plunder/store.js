@@ -73,11 +73,11 @@ module.exports = {
             if (Number.isNaN(number) || !number){
                 number = 1;
             }
-            let page = imports.getPage(          
-                                       
-                                      
-      , 25, number);
-   embed = embed.addFields(fields);
+            let page = imports.getPage(fields, 6, number);
+        for(let field  of fields){
+            
+            }
+   
         return imports.message.channel.send(embed);
     }
 
