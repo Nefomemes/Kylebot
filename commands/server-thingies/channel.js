@@ -11,6 +11,11 @@ if(channel) imports.args.shift();
    .setTimestamp()
     .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`, imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
                
+             
+               switch(channel.type){
+          case "text":
+          
+          }
          
        
                
