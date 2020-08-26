@@ -67,7 +67,7 @@ module.exports = {
             commands.forEach((command) => {
              
         let name = imports.client.commands.cache.findKey(i => i === command);
-        embed = embed.addField({name: name || "Unknown", value: command.desc || "No description", inline: true});
+        fields.push({name: name || "Unknown", value: command.desc || "No description", inline: true});
             });
         } else {
         embed = embed.setImage(imports.brandingbg);
@@ -76,7 +76,7 @@ module.exports = {
             categories.forEach((category) => {
                
       
-                embed = embed.addField(category.name, imports.trim(`ID: \`${category.id}\` \n\n${category.desc || "No description."} \n\n${commands.filter(filterTheCommands(category.id)).length} commands available.`, 2048), true);
+                fields.push({name: category.name, value: imports.trim(`ID: \`${category.id}\` \n\n${category.desc || "No description."} \n\n${commands.filter(filterTheCommands(category.id)).length} commands available.`, 1024), inline:true});
             })
         
         }
