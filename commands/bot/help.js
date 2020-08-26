@@ -32,6 +32,7 @@ module.exports = {
             }
         }
         if(imports.getCommand(form, imports.client)){
+
          let command = imports.getCommand(form, imports.client);
             if(imports.args[0] && imports.args[0].toLowerCase() === "-args" && imports.getCommand(form, imports.client).args && imports.getCommand(form, imports.client).args.constructor === Array){
              imports.args.shift();
@@ -48,7 +49,11 @@ module.exports = {
 
                     fields.push({name: arg.name || "Unknown", value: imports.trim((arg.desc || "<redacted> ") + "\n\n" + optional, 1024), inline: true});
                 
-                }
+}
+            
+                            
+                
+      
             } else {
                  
                 imports._.each(command, function(value, key){
