@@ -6,7 +6,7 @@ module.exports = {
         const uptime = imports.client.uptime /3600000;
         var embedping = new imports.Discord.MessageEmbed()
           .setColor(imports.colors.BG_COLOR)
-          .setTitle(imports.client.user.username.split(" ")[0])
+          .setTitle(imports.client.user.username)
           .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({format: "png", dynamic: true})
           )
           .setDescription(`Invite the bot [here!](${imports.website}/invite)\n\nFunfact: You wont be able to invite the bot since I made it private.`)
