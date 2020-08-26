@@ -35,7 +35,17 @@ module.exports = {
               fields.push({name: "Members cached (not all due to Discord limitations)", value: `${imports.message.guild.members.cache.size} members`, inline: true })
               fields.push({name: "Members cached percentage", value: `${((imports.message.guild.members.cache.size / imports.message.guild.memberCount) * 100).toFixed(2)}%`, inline: true})
             }
-      
+      let number = parseInt(imports.args[0]);
+            if (Number.isNaN(number) || !number){
+                number = 1;
+            }
+            let page = imports.getPage(fields, 6, number);
+        for(let field  of fields){
+            let index = fields.indexOf(field);
+                if(!(index > page.end || index < page.start)){
+                    embed = embed.addField(field.name, field.value, field.inline);
+                    }
+            }
         imports.message.channel.send(embedping)
         
 
