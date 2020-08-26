@@ -1,13 +1,15 @@
-module.exports = {
-    name: "channel",
-    execute(imports) {
-        return;
-        var channel = message.guild.channels.cache.get(args[0]) || message.mentions.channels.first() || message.channel;
+module.exports.run = async (imports) => {
+       /*
+        var channel = imports.getChannelFromMention(imports.args[0]);
+if(channel) imports.args.shift();
+    if(!channel) channel = imports.message.channel;
+    
+    var embed = new imports.Discord.MessageEmbed()
+    .setColor(imports.colors.BG_COLOR)
+   .setTitle("Channel Insights - Kylebot")
+    .setAuthor(import
 
-        if (channel) return message.reply("that isn't a valid channel!");
-
-
-
-
+*/
     }
-}
+    
+
