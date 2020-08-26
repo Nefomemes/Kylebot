@@ -14,15 +14,11 @@ module.exports = {
             return true;
         })
         if (imports.getItem('bundle', imports.args[0])) {
-            var all = true;
-            imports._.each(imports.getItem('bundle', imports.args[0]), (value, key) => {
-                if(key && key === "assets" && value.constructor === Array  && value[0] && value[0].asset){
-                    embed = embed.setImage(value[0].asset || false);
-                } else if(key && key === "contents"){
+            const item = imports.getItem('bundle', imports.args[0]);
 
-                    
-                    all = false;
-                    for(let content of value){
+    if(imports.args[1].toLowerCase() === "--content"){
+        
+                    for(let content of item.contents){
                         content = imports.getItem(content.type, content.id);
                         if(content){
 
@@ -41,13 +37,21 @@ module.exports = {
                                 default:
                                     rarity = "unknown";
                             }
-                            embed = embed.addField(content.name || "Unknown", `ID: \`${content.id || "<redacted>"}\`\n\nWorth ${content.price} <:cp:744403130594230313>. \n${content.desc || "<redacted>"}\nThis item have the rarity of **${rarity}**.`)
-                        }
+                            embed = embed.addField(content.name || "Unknown", `ID: \`${content.id || "<redacted>"}\`\n\nWorth ${content.price || 0} <:cp:744403130594230313>. \n${content.desc || "<redacted>"}\nThis item have the rarity of **${rarity || "unknown"}**.`)
+                        
                     }
-                } else if(all === true){
-                    embed = embed.addField(key || "Unknown", value || "<redacted>", true);
-                }
-            })
+                    } else {
+                        let fields = [];
+                        imports._.each(item, (value, key) => {
+                            if(key === "assets") {
+                                value = "Add \"--content\" to the back, yeah.";
+                                }
+                            fields.push({key: key, value: value, inline: true});
+                           })
+     
+                        }
+                
+            
         } else {
             for (let bundle of bundles) {
                 let user_can_buy;
