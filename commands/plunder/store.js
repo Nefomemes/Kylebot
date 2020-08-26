@@ -12,11 +12,12 @@ module.exports = {
         
         
        var fields = [];
-        if (imports.getItem('bundle', imports.args[0])) {
+        if (imports.args[0] && imports.getItem('bundle', imports.args[0].toLowerCase())) {
+            imports.args.shift();
             const item = imports.getItem('bundle', imports.args[0]);
 
-    if(imports.args[1].toLowerCase() === "--content"){
-        
+    if(imports.args[0] && imports.args[0].toLowerCase() === "--content"){
+        imports.args.shift();
                     for(let content of item.contents){
                         content = imports.getItem(content.type, content.id);
                         if(content){
@@ -68,6 +69,14 @@ module.exports = {
                 fields.push({name: bundle.name || "Unknown", value: imports.trim(`ID: \`${bundle.id || "<redacted>"}\`\n\n${bundle.desc || "<redacted>."} \nThis bundle costs ${bundle.price || "<redacted>"} <:cp:744403130594230313>. ${user_can_buy}`, 1024), inline: true});
             }
         }
+        let number = parseInt(imports.args[0]);
+            if (Number.isNaN(number) || !number){
+                number = 1;
+            }
+            let page = imports.getPage(          
+                                       
+                                      
+      , 25, number);
    embed = embed.addFields(fields);
         return imports.message.channel.send(embed);
     }
