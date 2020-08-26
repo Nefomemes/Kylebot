@@ -1,13 +1,14 @@
 module.exports.run = async (imports) => {
-    if(!imports.args.length)return imports.message.react(":x:")
+    if(!imports.args.length)return imports.message.react("❌")
 const channelName = imports.args.shift().toLowerCase();
-const channel = imports.getChannelFromMention(channelName);
+const channel = imports.getChannelFromMention(channelName, imports.message);
 var id;
 if(!channel){
     if(channelName === "none"){
         id = null;
     } else {
-    return imports.message.react(":x:");
+        imports.message.channel.send("Invalid channel.");
+    return imports.message.react("❌");
     }
 } else if(channel){
     id = channel.id;

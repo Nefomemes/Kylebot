@@ -11,6 +11,8 @@ if(permsLevel.constructor !== Number || member.constructor !== require("discord.
     throw error;
     return;
 }
+    if(member.client.owners.cache.get(member.user.id))return true;
+    
 switch(permsLevel){
     case 0:
         return true;
@@ -34,8 +36,8 @@ switch(permsLevel){
         if(member.user.id === member.guild.ownerID)return true;
     case 10:
     if(member.client.admins.cache.get(member.user.id))return true;
-    case 11:
-  if(member.client.owners.cache.get(member.user.id))return true;
+   
+  
   default:
   return false;
 }

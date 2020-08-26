@@ -24,7 +24,7 @@ module.exports = {
         mention = mention.slice(1);
       }
     }
-    return message.guild.members.cache.get(mention);
+    return message.guild.members.fetch(mention);
 
   },
   getChannelFromMention: (mention, message) => {
@@ -48,8 +48,9 @@ module.exports = {
   },
   getItem: (collection, item, type) => {
     if (!collection) return;
+    var items;
     try {
-      const items = require(`../items/${collection}s`).content;
+       items = require(`./items/${collection}s`).content;
       
   } catch {
     return;
@@ -88,7 +89,7 @@ module.exports = {
     return { start: start, end: end };
   },
   getUserFromMention: (mention, client) => {
-    if (!mention || !message || !message.guild ||!client) return;
+    if (!mention ||!client) return;
     if (mention.startsWith("<@") && mention.endsWith(">")) {
       mention = mention.slice(2, -1);
       if (mention.startsWith("!")) {
@@ -96,6 +97,6 @@ module.exports = {
       }
     }
   
-  return client.users.cache.get(str);
+  return client.users.fetch(mention);
   }
 }
