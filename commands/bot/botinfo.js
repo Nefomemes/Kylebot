@@ -10,7 +10,13 @@ module.exports = {
           .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({format: "png", dynamic: true})
           )
           .setDescription(`Invite the bot [here!](${imports.website}/invite)\n\nFunfact: You wont be able to invite the bot since I made it private.`)
-          .addFields(
+          .setThumbnail(
+              imports.client.user.displayAvatarURL({format: "png", dynamic: true})
+          )
+          .setTimestamp()
+          .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`,   imports.client.user.displayAvatarURL({format: "png", dynamic: true})
+          );
+      var fields = [
             {name: "Bot's name", value: `${imports.client.user.username}#${imports.client.user.discriminator}`},
             {name: "Bot's owner", value: `Nefomemes`, inline: true},
             {name: "Discord API ping", value: `${imports.client.ws.ping}ms`, inline: true},
@@ -22,19 +28,14 @@ module.exports = {
             {name: "Servers joined", value: `${imports.client.guilds.cache.size} servers`, inline: true},
             {name: "Users cached (not all users due to Discord limitations)", value: `${imports.client.users.cache.size} users`, inline: true},
             {name: "Channels", value: `${imports.client.channels.cache.size}`, inline: true}
-          )
-          .setThumbnail(
-              imports.client.user.displayAvatarURL({format: "png", dynamic: true})
-          )
-          .setTimestamp()
-          .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`,   imports.client.user.displayAvatarURL({format: "png", dynamic: true})
-          );
+        ];
             if(imports.message.guild){
-              embedping.addFields({name:"Joined the server since", value: imports.message.guild.me.joinedAt, inline: true},
-                                  {name: "Display name", value: imports.message.guild.me.displayName, inline: true},
-                                  {name: "Members cached (not all due to Discord limitations)", value: `${imports.message.guild.members.cache.size} members`, inline: true },
-                                  {name: "Members cached percentage", value: `${((imports.message.guild.members.cache.size / imports.message.guild.memberCount) * 100).toFixed(2)}%`, inline: true})
+              fields.push({name:"Joined the server since", value: imports.message.guild.me.joinedAt, inline: true});                                 
+              fields.push({name: "Display name", value: imports.message.guild.me.displayName, inline: true})
+              fields.push({name: "Members cached (not all due to Discord limitations)", value: `${imports.message.guild.members.cache.size} members`, inline: true })
+              fields.push({name: "Members cached percentage", value: `${((imports.message.guild.members.cache.size / imports.message.guild.memberCount) * 100).toFixed(2)}%`, inline: true})
             }
+      
         imports.message.channel.send(embedping)
         
 
