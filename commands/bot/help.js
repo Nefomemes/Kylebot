@@ -40,11 +40,11 @@ module.exports = {
                 for(let arg of command.args){
                     let optional;
                     if(arg.optional && arg.optional === true){
-                        optional = "This argument is optional.";
+                        optional = "This argument is ||optional||.";
                     } else if(arg.optional && arg.optional){
-                        optional = "This argument is mandatory.";
+                        optional = "This argument is ||mandatory||.";
                     } else {
-                     optional = arg.optional || "This argument is ¯\\_(ツ)_/¯.";
+                     optional = arg.optional || "This argument is ||¯\\_(ツ)_/¯||.";
                     }
 
                     fields.push({name: arg.name || "Unknown", value: imports.trim((arg.desc || "<redacted> ") + "\n\n" + optional, 1024), inline: true});
@@ -57,8 +57,8 @@ module.exports = {
             } else {
                  
                 imports._.each(command, function(value, key){
-                    if(key.toLowerCase().startsWith("desc"))return embed = embed.setDescription(value.toString());
-                    if(key.toLowerCase() === "args" ) value = "Use \"-args\" to view arguments, yeah.";
+                    if(key.toLowerCase().startsWith("desc"))return embed = embed.setDescription("||" + value.toString() + "||");
+                    if(key.toLowerCase() === "args" ) value = "Use ||\"-args\" ||to view arguments, yeah.";
                     if(key === 'run')return;
                     fields.push({name: key, value: value, inline: true});
                 })
@@ -72,16 +72,16 @@ module.exports = {
             commands.forEach((command) => {
              
         let name = imports.client.commands.cache.findKey(i => i === command);
-        fields.push({name: name || "Unknown", value: command.desc || "No description", inline: true});
+        fields.push({name: name || "Unknown", value: "||" + command.desc || "No description" + "||", inline: true});
             });
         } else {
         embed = embed.setImage(imports.brandingbg);
-       embed = embed.setDescription("Kylebot is currently the first Call of Duty roleplay Discord bot.")
+       embed = embed.setDescription("||Kylebot|| is currently the ||first|| Call of Duty ||roleplay|| Discord bot.")
  
             categories.forEach((category) => {
                
       
-                fields.push({name: category.name, value: imports.trim(`ID: \`${category.id}\` \n\n${category.desc || "No description."} \n\n${commands.filter(filterTheCommands(category.id)).length} commands available.`, 1024), inline:true});
+                fields.push({name: category.name, value: imports.trim(`ID: ||\`${category.id}\`|| \n||${category.desc || "No description."}|| \n||${commands.filter(filterTheCommands(category.id)).length}|| commands available.`, 1024), inline:true});
             })
         
         }
