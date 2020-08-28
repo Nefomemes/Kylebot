@@ -6,7 +6,7 @@ module.exports = {
   },
   getRandomFunfact: () => {
     const funfact = require("./configs/funfact").content;
-    return funfact[Math.floor(Math.random() * funfact.length)]
+    return "WIP: Public Alpha: " + require("home/runner/Kylebot/package.json").version + " | "+ funfact[Math.floor(Math.random() * funfact.length)]
 
   },
   customSplit: (str, maxLength) => {
