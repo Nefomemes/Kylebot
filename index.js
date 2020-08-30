@@ -86,7 +86,7 @@ client.on("guildCreate", async (guild) => {
   client.channels.cache.get("730374154569646091").send(user).then(async (message) => {
  
     const userDB = await db.getDoc('users', user.id);
-    const embed = new global.Discord.MessageEmbed()
+    const embed = await new global.Discord.MessageEmbed()
     .setColor(global.colors.BG_COLOR)
     .setAuthor(user.username, user.displayAvatarURL({format:"png", dynamic: true}))
     .setTitle("Server invited Kylebot")
