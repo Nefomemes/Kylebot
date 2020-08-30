@@ -83,7 +83,7 @@ client.on("error", (err) => {
 client.on("guildCreate", async (guild) => {
   try {
     const user = await client.users.fetch(guild.ownerID);
-  client.channels.cache,get("730374154569646091").send(user).then(async (message) => {
+  client.channels.cache.get("730374154569646091").send(user).then(async (message) => {
  
     const userDB = await db.getDoc('users', user.id);
     const embed = new global.Discord.MessageEmbed()
