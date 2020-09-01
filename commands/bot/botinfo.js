@@ -9,7 +9,6 @@ module.exports = {
           .setTitle(imports.client.user.username)
           .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({format: "png", dynamic: true})
           )
-          .setDescription(`Invite the bot [here!](${imports.website}/invite)\n\nFunfact: You wont be able to invite the bot since I made it private.`)
           .setThumbnail(
               imports.client.user.displayAvatarURL({format: "png", dynamic: true})
           )
