@@ -48,12 +48,21 @@ global.Discord.Guild.prototype.members.fetchMemberFromMention = (m) => {
     if(member.user.username.split(m)[1]) return true;
     return false;
     })     
-  
 }
 }
 global.Discord.Client.prototype.users.fetchUserFromMention = (m) => {
-  
- 
+  if(!m || m.constructor !== String) return;
+  var id = m;
+  if(id.startsWith("<@") && id.endsWith(">") id.slice(2, id.length - 1);
+  if(id.startsWith("!")) id.slice(1);
+  if(!Number.isNaN(parseInt(id))){
+  return this.fetch(id)
+    } else {
+  return this.cache.find((user) => {
+    if(user.username.split(m)[1]) return true;
+    return false;
+    })     
+}
   }
 
 
