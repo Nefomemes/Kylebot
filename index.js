@@ -48,7 +48,7 @@ global.Discord.Guild.prototype.members.fetchMemberFromMention = (m) => {
        if(user.displayName.split(m)[1]) return true;
     if(user.user.username.split(m)[1]) return true;
       } else if(user.constructor === global.Discord.User){
-        
+        if(user.username.split(m)[1]) return true;
         }
     return false;
     })     
