@@ -43,9 +43,13 @@ global.Discord.Guild.prototype.members.fetchMemberFromMention = (m) => {
   if(!Number.isNaN(parseInt(id))){
   return this.fetch(id)
     } else {
-  return this.cache.find((member) => {
-    if(member.displayName.split(m)[1]) return true;
-    if(member.user.username.split(m)[1]) return true;
+  return this.cache.find((user) => {
+    if(user.constructor === global.Discord.GuildMember){
+       if(user.displayName.split(m)[1]) return true;
+    if(user.user.username.split(m)[1]) return true;
+      } else if(user.constructor === global.Discord.User){
+        
+        }
     return false;
     })     
 }
