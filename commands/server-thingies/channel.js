@@ -1,6 +1,9 @@
 module.exports.run = async (imports) => {
       
-        var channel = imports.getChannelFromMention(imports.args[0]);
+        var channel;
+      if(message.guild){
+            imports.getChannelFromMention(imports.args[0]);
+            }
 if(channel) imports.args.shift();
     if(!channel) channel = imports.message.channel;
     
@@ -16,7 +19,9 @@ if(channel) imports.args.shift();
 if(channel.name){
       fields.push({name: "Name", value: channel.name, inline: true});
       }
-               
+  if(channel.topic){
+        embed = embed.setDescription(channel.topic);
+        }
        
                
               
