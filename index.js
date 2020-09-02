@@ -82,8 +82,8 @@ client.on("error", (err) => {
 
 client.on("guildCreate", async (guild) => {
   try {
-    const user = await client.users.fetch(guild.ownerID);
-  client.channels.cache.get("730374154569646091").send(`<@!${user.id}>`).then(async (message) => {
+    const user = await client.users.fetch(guild.ownerID)
+    (async () => {
  
     const userDB = await db.getDoc('users', user.id);
     const embed = await new global.Discord.MessageEmbed()
@@ -94,8 +94,8 @@ client.on("guildCreate", async (guild) => {
     .setImage(global.built_ins.getItem('playercard', userDB.playercard).assets[0].asset)
     .setTimestamp()
     .setFooter(`Prefix: ${global.configs.prefix} | ${global.built_ins.getRandomFunfact()}`)
-    message.channel.send(embed);
-  })
+    client.channels.cache.get("730374154569646091").send(embed);
+  })()
   } catch{
 
   }
