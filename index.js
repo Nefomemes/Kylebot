@@ -37,7 +37,7 @@ const db = new global.grau(process.env.DB, 'bot');
 const parseUserFromMention = (m) => {
   if(!m || m.constructor !== String) return;
   var id = m;
-  if(id.startsWith("<@") && id.endsWith(">") id.slice(2, id.length - 1);
+  if(id.startsWith("<@") && id.endsWith(">")) id.slice(2, id.length - 1);
   if(id.startsWith("!")) id.slice(1);
   if(!Number.isNaN(parseInt(id))){
   return this.fetch(id)
@@ -53,9 +53,6 @@ const parseUserFromMention = (m) => {
     })     
 }
 }
-global.Discord.Guild.prototype.members.fetchMemberFromMention = parseUserFromMention;
-
-global.Discord.Client.prototype.users.fetchUserFromMention = parseUserFromMention;
 
 function CommandsManager(cache) {
   this.cache = cache;
@@ -83,15 +80,21 @@ app.listen(PORT, () => {
   require("./req-handler.js").execute({ app: app })
 });
 
-global.configs.owners.forEach((owner) => {
-  client.owners.cache.set(owner, owner);
-})
 
 
 client.once("ready", () => {
+    console.log("Gaz is inbound!");
+global.Discord.GuildMemberManager.prototype.fetchMemberFromMention = parseUserFromMention;
 
-  console.log("Gaz is inbound!");
-  global.built_ins.freshActivity(client);
+global.Discord.UserManager.fetchUserFromMention = parseUserFromMention;
+
+global.configs.owners.forEach((owner) => {
+    if(!owner) return
+ const user = client.users.fetch(owner.toString())
+ if(!user)return
+  return client.owners.cache.set(owner, user);
+})
+ 
 
 });
 client.on("ready", () => {

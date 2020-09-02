@@ -67,7 +67,7 @@ module.exports = {
     
         } else if(getCategory(form)){
           
-               const commands = filterTheCommands(getCategory(form).id));
+               const commands = filterTheCommands(getCategory(form).id);
       
             commands.forEach((command) => {
              
