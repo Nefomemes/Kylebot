@@ -135,7 +135,7 @@ client.on("guildMemberAdd", async (member) => {
 
     const user = member.user;
     var embed = null, content = null;
-    if(guildDB.welcomeEmbed && guildDB.welcomeEmbed === true){
+    if(!user.bot && guildDB.welcomeEmbed && guildDB.welcomeEmbed === true){
     const userDB = await db.getDoc("users", member.user.id);
     embed = new global.Discord.MessageEmbed()
     .setColor(global.colors.BG_COLOR)
