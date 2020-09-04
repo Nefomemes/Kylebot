@@ -20,6 +20,7 @@ const client = new global.Discord.Client({
   ws: {
     intents: [
       "GUILDS",
+      "GUILD_PRESENCES",
       "GUILD_MESSAGES",
       "DIRECT_MESSAGES",
       "GUILD_MESSAGE_REACTIONS",
