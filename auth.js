@@ -1,4 +1,4 @@
-(async function() {
+module.exports = (async function() {
 const fetch = require("node-fetch")
 const xsrf = await fetch("https://profile.callofduty.com/cod/login").then(r => r.headers.get("set-cookie").split(";")[0].split("=")[1])
 const formdata = new URLSearchParams();
@@ -14,5 +14,19 @@ const requestOptions = {
 };
 
 fetch("https://profile.callofduty.com/do_login?new_SiteId=cod", requestOptions)
- .then(response => response.text())
- })()
+ .then(res => {
+    if(res.ok){
+        console.log("Logged in to COD API")
+        process.env.COD_XSRF_TOKEN = xsrf;
+    } else {
+    console.log("Error when authenticating with COD API!")
+    try {
+        console.log(res.json())
+    } catch {
+        console.log(res.text() || "No log message")
+    } finally {
+        console.log(res);
+    }
+    }
+ })
+ })

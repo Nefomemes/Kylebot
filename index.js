@@ -24,7 +24,8 @@ const client = new global.Discord.Client({
       "DIRECT_MESSAGES",
       "GUILD_MESSAGE_REACTIONS",
       "DIRECT_MESSAGE_REACTIONS",
-      "GUILD_MEMBERS"
+      "GUILD_MEMBERS",
+      "GUILD_PRESENCES"
     ]
   }
 });
@@ -33,26 +34,8 @@ global.xml2js = require("xml2js");
 global.querystring = require("querystring");
 global.fetch = require("node-fetch");
 global.grau = require("node-grau");
-const db = new global.grau(process.env.DB, 'bot');
-const parseUserFromMention = (m) => {
-  if(!m || m.constructor !== String) return;
-  var id = m;
-  if(id.startsWith("<@") && id.endsWith(">")) id.slice(2, id.length - 1);
-  if(id.startsWith("!")) id.slice(1);
-  if(!Number.isNaN(parseInt(id))){
-  return this.fetch(id)
-    } else {
-  return this.cache.find((user) => {
-    if(user.constructor === global.Discord.GuildMember){
-       if(user.displayName.split(m)[1]) return true;
-    if(user.user.username.split(m)[1]) return true;
-      } else if(user.constructor === global.Discord.User){
-        if(user.username.split(m)[1]) return true;
-        }
-    return false;
-    })     
-}
-}
+global.db = new global.grau(process.env.DB, 'bot');
+
 
 function CommandsManager(cache) {
   this.cache = cache;
@@ -81,12 +64,9 @@ app.listen(PORT, () => {
 });
 
 
-
+require("./auth")().catch(e => e)
 client.once("ready", () => {
-    console.log("Gaz is inbound!");
-global.Discord.GuildMemberManager.prototype.fetchMemberFromMention = parseUserFromMention;
-
-global.Discord.UserManager.fetchUserFromMention = parseUserFromMention;
+    console.log("Gaz is inbound")
 
 global.configs.owners.forEach((owner) => {
     if(!owner) return
@@ -95,7 +75,7 @@ global.configs.owners.forEach((owner) => {
   return client.owners.cache.set(owner, user);
 })
  
-
+global.built_ins.freshActivity;
 });
 client.on("ready", () => {
   setInterval(() => {
@@ -106,59 +86,11 @@ client.on("error", (err) => {
   console.err(err);
 });
 
-client.on("guildCreate", async (guild) => {
-  try {
-    const user = await client.users.fetch(guild.ownerID)
-    (async () => {
- 
-    const userDB = await db.getDoc('users', user.id);
-    const embed = await new global.Discord.MessageEmbed()
-    .setColor(global.colors.BG_COLOR)
-    .setAuthor(user.username, user.displayAvatarURL({format:"png", dynamic: true}))
-    .setTitle("Server invited Kylebot")
-    .setThumbnail(global.built_ins.getItem('emblem', userDB.emblem).assets[0].asset)
-    .setImage(global.built_ins.getItem('playercard', userDB.playercard).assets[0].asset)
-    .setTimestamp()
-    .setFooter(`Prefix: ${global.configs.prefix} | ${global.built_ins.getRandomFunfact()}`)
-    client.channels.cache.get("730374154569646091").send(embed);
-  })()
-  } catch{
 
-  }
-})
-client.on("guildDelete", () => {
-  client.channels.cache.get("730374154569646091").send("A server have kicked the bot. Press F to pay respect for Nefomemes.");
-                                                     
-  })
-client.on("guildMemberAdd", async (member) => {
 
-  const guildDB = await db.getDoc("guilds", member.guild.id);
-  if(guildDB && guildDB.welcomeChannel && client.channels.fetch(guildDB.welcomeChannel)){
-    
 
-    const user = member.user;
-    var embed = null, content = null;
-    if(!user.bot && guildDB.welcomeEmbed && guildDB.welcomeEmbed === true){
-    const userDB = await db.getDoc("users", member.user.id);
-    embed = new global.Discord.MessageEmbed()
-    .setColor(global.colors.BG_COLOR)
-    .setAuthor(user.username, user.displayAvatarURL({format:"png", dynamic: true}))
-    .setTitle("Joined the server")
-    .setThumbnail(global.built_ins.getItem('emblem', userDB.emblem).assets[0].asset)
-    .setImage(global.built_ins.getItem('playercard', userDB.playercard).assets[0].asset)
-    .setTimestamp()
-    .setFooter(`Prefix: ${global.configs.prefix} | ${global.built_ins.getRandomFunfact()}`)
-    } 
-    if(guildDB.welcomeMessage && guildDB.welcomeMessage !== null && guildDB.welcomeMessage.constructor === String){
-      content = guildDB.welcomeMessage.split("${user}").join(`<@!${user.id}>`).split("${username}").join(user.username);
-    }
-    if(content || embed){
-      client.channels.cache.get(guildDB.welcomeChannel).send(content, embed);
-    }
-  
-  };
 
-});
+
 (async function registerCommands(dir = "commands") {
   let files = await global.fs.readdir(global.path.join(__dirname, dir));
   for (let file of files) {
@@ -191,6 +123,7 @@ var imports = {
   ...global.configs,
   client: client,
   ...global,
+  codapi: require("./auth"),
   opt: {},
 }
 
