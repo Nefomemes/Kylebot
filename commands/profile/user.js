@@ -2,15 +2,14 @@ module.exports = {
   name: "user",
   run: async (imports) => {
     var user, member, userDB;
-    if (imports.message.guild) {
-      member = imports.getMemberFromMention(imports.args[0], imports.message.guild.members) || imports.message.member;
-      user = member.user;
-    } else {
-      user = imports.message.author;
-    }
+ user  = imports.getUserFromMention(imports.args[0], imports.client) || imports.message.author;
+ if(imports.message.guild){
+     member = await imports.getMemberFromMention(user.id, imports.message.guild.members) || imports.message.member;
+     user = member.user;
+ }
  
 
-    var embed = new imports.Discord.MessageEmbed()
+var embed = new imports.Discord.MessageEmbed()
       .setColor(imports.colors.BG_COLOR)
       .setTitle(`${user.username}#${user.discriminator}`)
       .setAuthor(imports.client.user.username.split(" ")[0], imports.client.user.displayAvatarURL({ format: "png", dynamic: true }), process.env.WEBSITE)

@@ -93,7 +93,7 @@ module.exports = {
         for(let field  of fields){
             let index = fields.indexOf(field);
                 if(!(index > page.end || index < page.start)){
-                    embed = embed.addField(field.name, field.value, field.inline);
+                    embed = embed.addField(field.name, field.value,true);
                     }
             }
        return imports.message.channel.send(embed);
