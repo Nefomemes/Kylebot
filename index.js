@@ -116,7 +116,5 @@ client.on("error", (err) => {
 })()
 
 
-client.on("message", cmdHandler);
-client.on("messageUpdate", (m, message) => { return cmdHandler(message) });
 
 client.login();

@@ -54,18 +54,7 @@ if (guild.systemChannel) {
       embed = embed.setDescription(guild.description);
     } 
     
-    let number = parseInt(imports.args[0]);
-            if (Number.isNaN(number) || !number){
-                number = 1;
-            }
-            let page = imports.getPage(fields, 6, number);
-        for(let field  of fields){
-            let index = fields.indexOf(field);
-                if(!(index > page.end || index < page.start)){
-                    embed = embed.addField(field.name, field.value, field.inline);
-                    }
-            }
-    
+      
     imports.message.channel.send(embed);
   }
 };
