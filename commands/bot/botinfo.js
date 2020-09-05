@@ -1,6 +1,4 @@
-module.exports = {
-  name: "botinfo",
-    run: async(imports)=> {
+module.exports.run = async(imports)=> {
     try {
    
         const uptime = imports.client.uptime /3600000;
