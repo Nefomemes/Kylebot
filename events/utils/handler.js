@@ -1,4 +1,16 @@
-async function handleMessage(imports, message) {
+
+var imports = {
+  ...global.configs,
+  client: client,
+  ...global,
+  opt: {},
+}
+
+
+
+
+async function handleMessage( message, oldMessage) {
+    try  {
     message.latency = Date.now();
     imports.message = message;
     if ((!imports.message.author || imports.message.author.bot)) return;
@@ -6,6 +18,7 @@ async function handleMessage(imports, message) {
     imports.filter = require("./filter").run(imports).catch(console.error);
 
     if (!imports.message.content.startsWith(imports.prefix)) return;
+    if(oldMessage.content === message.content)return;
     imports.args = imports.message.content.slice(imports.prefix.length).split(/ +/);
     imports.commandName = imports.args.shift().toLowerCase();
     if (!imports.commandName) return;
@@ -61,6 +74,9 @@ async function handleMessage(imports, message) {
         if (!(e.message === "Cannot read property 'catch' of undefined" && e.name === "TypeError")) {
             imports.message.channel.send("```" + built_ins.trim(require("util").inspect(e), 2000 - 6) + "```")
         }
+    }
+    } catch(e) {
+        message.channel.send("```" + global.built_ins.trim(require("util").inspect(e), 2000 - 6) + "```");
     }
 }
 

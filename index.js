@@ -63,8 +63,6 @@ app.listen(PORT, () => {
   require("./req-handler.js").execute({ app: app })
 });
 
-
-require("./auth")().catch(e => e)
 client.once("ready", () => {
     console.log("Gaz is inbound")
 
@@ -117,22 +115,7 @@ client.on("error", (err) => {
   }
 })()
 
-var imports = {
-  db: db,
-  ...built_ins,
-  ...global.configs,
-  client: client,
-  ...global,
-  codapi: require("./auth"),
-  opt: {},
-}
 
-
-function cmdHandler(message) {
-  return require("./handler.js")(imports, message).catch(e => {
-    message.channel.send("```" + built_ins.trim(require("util").inspect(e), 2000 - 6) + "```")
-  });
-}
 client.on("message", cmdHandler);
 client.on("messageUpdate", (m, message) => { return cmdHandler(message) });
 

@@ -22,6 +22,8 @@ if(channel.name){
   if(channel.topic){
         embed = embed.setDescription(channel.topic);
         }
+        
+    if(channel.rateLimit)
        
                
               
