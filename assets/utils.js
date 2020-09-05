@@ -16,7 +16,7 @@ module.exports = {
   },
   getMemberFromMention: (mention, GuildMemberManager) => {
 
-    if (!mention || !message || !message.guild) return;
+    if (!mention || !GuildMemberManager) return;
 
     if (mention.startsWith("<@") && mention.endsWith(">")) {
       mention = mention.slice(2, -1);
