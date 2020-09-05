@@ -29,6 +29,7 @@ const client = new global.Discord.Client({
     ]
   }
 });
+global.client = client;
 global.configs = require("./assets/configs/configs")
 global.xml2js = require("xml2js");
 global.querystring = require("querystring");
@@ -90,7 +91,7 @@ client.on("error", (err) => {
 
 
 (async function registerCommands(dir = "commands") {
-  let files = await global.fs.readdir(global.path.join(__dirname, dir));
+   files = await global.fs.readdir(global.path.join(__dirname, dir));
   for (let file of files) {
     let stat = await global.fs.lstat(global.path.join(__dirname, dir, file));
     if (stat.isDirectory()) registerCommands(global.path.join(dir, file));
@@ -115,6 +116,16 @@ client.on("error", (err) => {
   }
 })()
 
+async function registerEvents() {
+    let files = await global.fs.readdir(global.path.join(__dirname, "events"));
+    for(let file of files){
+        let stat = await global.fs.lstat(global.path.join(__dirname, "events", file));
+        if(!stat.isDirectory() && file.endsWith(".js")){
+                  let eventName = file.substring(0, file.indexOf(".js"));
+                 client.on(eventName, require(global.path.join(__dirname, "events", eventName)));
+        }
+    }
+}
 
-
+registerEvents()
 client.login();

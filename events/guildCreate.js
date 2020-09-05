@@ -1,4 +1,4 @@
-global.client.on('guildCreate', async guild => {
+module.exports = async guild => {
 	try {
 		const user = await global.client.users.fetch(guild.ownerID)(async () => {
 			const userDB = await global.db.getDoc('users', user.id);
@@ -25,4 +25,4 @@ global.client.on('guildCreate', async guild => {
 			global.client.channels.cache.get('730374154569646091').send(embed);
 		})();
 	} catch {}
-});
+}

@@ -14,7 +14,7 @@ module.exports = {
     var parts = str.match(new RegExp(".{1," + maxLength + "}", "g"));
     return parts;
   },
-  getMemberFromMention: (mention, message) => {
+  getMemberFromMention: (mention, GuildMemberManager) => {
 
     if (!mention || !message || !message.guild) return;
 
@@ -24,8 +24,11 @@ module.exports = {
         mention = mention.slice(1);
       }
     }
-    return message.guild.members.fetch(mention);
-
+    try {
+    return GuildMemberManager.fetch(mention);
+} catch {
+    return;
+}
   },
   getChannelFromMention: (mention, message) => {
 
@@ -97,6 +100,7 @@ module.exports = {
       }
     }
   
-  return client.users.fetch(mention);
+  return client.users.fetch(mention).catch(e => null);
+ 
   }
 }

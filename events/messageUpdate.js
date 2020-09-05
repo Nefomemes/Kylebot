@@ -1,4 +1,4 @@
 const handler = require("./utils/handler");
-global.client.on("messageUpdate", (oldMessage, newMessage) => {
+module.exports = async (oldMessage, newMessage) => {
     handler(newMessage, oldMessage)
-})
+}

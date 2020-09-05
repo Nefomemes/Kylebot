@@ -23,10 +23,23 @@ if(channel.name){
         embed = embed.setDescription(channel.topic);
         }
         
-    if(channel.rateLimit)
+    if(channel.rateLimitPerUser){
+        fields.push({name: "Slowmode", value: channel.rateLimitPerUser, inline: true});
+    }
+    
        
-               
+                 let number = parseInt(imports.args[0]);
+            if (Number.isNaN(number) || !number){
+                number = 1;
+            }
+            let page = imports.getPage(fields, 6, number);
+        for(let field  of fields){
+            let index = fields.indexOf(field);
+                if(!(index > page.end || index < page.start)){
+                    embed = embed.addField(field.name, field.value, field.inline);
+                    }
+            }
+return imports.message.channel.send(embed)
               
-
     }
     

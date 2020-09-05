@@ -3,7 +3,7 @@ module.exports = {
   run: async (imports) => {
     var user, member, userDB;
     if (imports.message.guild) {
-      member = imports.getMemberFromMention(imports.args[0], imports.message) || imports.message.member;
+      member = imports.getMemberFromMention(imports.args[0], imports.message.guild.members) || imports.message.member;
       user = member.user;
     } else {
       user = imports.message.author;

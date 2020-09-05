@@ -1,9 +1,9 @@
 
 var imports = {
   ...global.configs,
-  client: client,
   ...global,
-  opt: {},
+  ...global.built_ins,
+ opt: {}
 }
 
 
@@ -18,7 +18,7 @@ async function handleMessage( message, oldMessage) {
     imports.filter = require("./filter").run(imports).catch(console.error);
 
     if (!imports.message.content.startsWith(imports.prefix)) return;
-    if(oldMessage.content === message.content)return;
+    if(oldMessage && oldMessage.content === message.content)return;
     imports.args = imports.message.content.slice(imports.prefix.length).split(/ +/);
     imports.commandName = imports.args.shift().toLowerCase();
     if (!imports.commandName) return;

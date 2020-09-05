@@ -1,4 +1,4 @@
-global.client.on("guildMemberAdd", async (member) => {
+module.exports = async (member) => {
 
   const guildDB = await global.db.getDoc("guilds", member.guild.id);
   if(guildDB && guildDB.welcomeChannel && global.client.channels.fetch(guildDB.welcomeChannel)){
@@ -25,4 +25,4 @@ global.client.on("guildMemberAdd", async (member) => {
     }
   
   };
-})
+}
