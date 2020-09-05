@@ -25,7 +25,7 @@ module.exports = {
       }
     }
     try {
-    return GuildMemberManager.fetch(mention);
+    return GuildMemberManager.fetch(mention).catch(e => null);
 } catch {
     return;
 }
