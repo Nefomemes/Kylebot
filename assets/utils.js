@@ -30,14 +30,13 @@ module.exports = {
     return;
 }
   },
-  getChannelFromMention: (mention, message) => {
+  getChannelFromMention: (mention, GuildChannelManager) => {
 
-    if (!mention || !message || !message.guild) return;
-
+    if (!mention || !GuildChannelManager) return;
     if (mention.startsWith("<#") && mention.endsWith(">")) {
       mention = mention.slice(2, -1);
     }
-    return message.guild.channels.cache.get(mention);
+    return GuildChannelManager.fetch(mention);
   },
   freshActivity: (client) => {
     activities = require("./configs/activities").content;
@@ -89,7 +88,8 @@ module.exports = {
     if (end >= array.length) {
       end = array.length - 1;
     }
-    return { start: start, end: end };
+    page++
+    return { start: start, end: end, array:  array, length: length, page: page, pages: (array.length / length).toFixed(0)};
   },
   getUserFromMention: (mention, client) => {
     if (!mention ||!client) return;

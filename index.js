@@ -74,7 +74,7 @@ global.configs.owners.forEach((owner) => {
   return client.owners.cache.set(owner, user);
 })
  
-global.built_ins.freshActivity;
+global.built_ins.freshActivity(client);
 });
 client.on("ready", () => {
   setInterval(() => {

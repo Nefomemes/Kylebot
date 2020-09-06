@@ -90,6 +90,7 @@ module.exports = {
                 number = 1;
             }
             let page = imports.getPage(fields, 6, number);
+                        embed = embed.setFooter(imports.trim(`Page ${page.page}/${page.pages} | ${ embed.footer.text}`,2048))
         for(let field  of fields){
             let index = fields.indexOf(field);
                 if(!(index > page.end || index < page.start)){
