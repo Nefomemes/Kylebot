@@ -88,8 +88,10 @@ module.exports = {
     if (end >= array.length) {
       end = array.length - 1;
     }
-    page++
-    return { start: start, end: end, array:  array, length: length, page: page, pages: (array.length / length).toFixed(0)};
+    page++;
+var pages_length = (array.length / length).toFixed(0)
+if(pages_length <== 0) pages_length = 1;
+    return { start: start, end: end, array:  array, length: length, page: page, pages: pages_length};
   },
   getUserFromMention: (mention, client) => {
     if (!mention ||!client) return;

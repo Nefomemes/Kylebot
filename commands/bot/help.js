@@ -54,11 +54,13 @@ return modules[0];
         }
        
    } else { 
-     
-       for(let category of categories){
-           fields.push({name: category.name, value: `ID: \`${category.id || "<redacted>"}\`\n${category.desc || "Unknown."}`, inline: true});
+
+let categoriess = require(require("path").join(process.cwd(), "assets/commands/categories")).content;
+
+for(let category of categoriess){
+fields.push({name: category.name, value: `ID: \`${category.id || "<redacted>"}\`\n${category.desc || "Unknown."}`, inline: true});
+}
        
-       }
    }
    
    
@@ -71,7 +73,7 @@ return modules[0];
         for(let field  of fields){
             let index = fields.indexOf(field);
                 if(!(index > page.end || index < page.start)){
-                    embed = embed.addField((field.name || "unknown").toString(), "||" + (field.value || "redacted").toString() + "||", true);
+                    embed = embed.addField((field.name || "unknown").toString(), "||" + (field.value || "redacted").toString() + "||", field.inline);
                     }
             }
        return imports.message.channel.send(embed)
