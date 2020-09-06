@@ -51,7 +51,7 @@ module.exports.run = async(imports)=> {
         for(let field  of fields){
             let index = fields.indexOf(field);
                 if(!(index > page.end || index < page.start)){
-                    embed = embed.addField(field.name, "||" + field.value + "||", true);
+                    embed = embed.addField(field.name.toString(), "||" + field.value.toString() + "||", true);
                     }
             }
        return imports.message.channel.send(embed)
