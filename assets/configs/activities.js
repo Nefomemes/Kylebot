@@ -71,11 +71,11 @@ module.exports = {
         },
         {
             "type":"LISTENING",
-            "content":"to footsteps"
+            "content":"footsteps"
         },
         {
             "type":"LISTENING",
-            "content":"to gunshots"
+            "content":"gunshots"
         }
     ]
 }
