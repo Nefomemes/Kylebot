@@ -89,7 +89,12 @@ module.exports = {
       end = array.length - 1;
     }
     page++;
-var pages_length = (array.length / length).toFixed(0)
+var pages_length = (array.length / length).toString().split(".");
+if(pages_length[1]){
+    pages_length = parseInt(pages_length[0]) + 1;
+} else {
+    pages_length = parseInt(pages_length[0])
+}
 if(pages_length <= 0) pages_length = 1;
     return { start: start, end: end, array:  array, length: length, page: page, pages: pages_length};
   },
