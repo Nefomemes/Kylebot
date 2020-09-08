@@ -27,15 +27,15 @@ module.exports = {
         },
         {
             "type": "PLAYING",
-            "content": "Bare Bones Moshpit"
+            "content": "Ground War Reinforce"
         },
         {
             "type": "PLAYING",
-            "content": "BR Buy Back Solos"
+            "content": "BR Solos"
         },
         {
             "type": "PLAYING",
-            "content": "Warzone in Verdansk"
+            "content": "Shoot the Shiptember"
         },
         {
             "type": "PLAYING",
@@ -47,27 +47,35 @@ module.exports = {
         },
         {
             "type": "PLAYING",
-            "content": "BR Duos"
+            "content": "Warzone in Verdansk"
         },
         {
             "type": "PLAYING",
-            "content": "BR Solos"
+            "content": "with Captain Price"
         },
         {
             "type": "PLAYING",
-            "content": "BR Duos"
+            "content": "Kingslayer Trios"
+        },
+        {
+            "type": "WATCHING",
+            "content": "out for cheaters"
         },
         {
             "type": "PLAYING",
-            "content": "BR Trios"
+            "content": "Call of Duty: Black Ops Cold War"
         },
         {
             "type": "PLAYING",
-            "content": "BR Quads"
+            "content": "VIP Escort in Miami"
         },
         {
-            "type": "PLAYING",
-            "content": "Plunder Quads"
+            "type":"LISTENING",
+            "content":"to footsteps"
+        },
+        {
+            "type":"LISTENING",
+            "content":"to gunshots"
         }
     ]
 }

@@ -38,4 +38,4 @@
 
 <p> This is an unnoficial Call of Duty: Modern Warfare roleplay Discord bot. Some assets used here are property of Activision and Infinity Ward. Neither Discord, Activision, nor Infinity Ward are or was sponsoring or endorsing, or supporting this bot.</p>
 
-<p>This bot is made by Nefomemed and was licensed under the MIT Lisence.</p>
+<p>This bot is made by Nefomemes and was licensed under the MIT Lisence.</p>

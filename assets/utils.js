@@ -6,7 +6,7 @@ module.exports = {
   },
   getRandomFunfact: () => {
     const funfact = require("./configs/funfact").content;
-    return funfact[Math.floor(Math.random() * funfact.length)]
+    return "WIP Internal Alpha"+ " | "+ funfact[Math.floor(Math.random() * funfact.length)]
 
   },
   customSplit: (str, maxLength) => {
@@ -14,9 +14,9 @@ module.exports = {
     var parts = str.match(new RegExp(".{1," + maxLength + "}", "g"));
     return parts;
   },
-  getMemberFromMention: (mention, message) => {
+  getMemberFromMention: (mention, GuildMemberManager) => {
 
-    if (!mention || !message || !message.guild) return;
+    if (!mention || !GuildMemberManager) return;
 
     if (mention.startsWith("<@") && mention.endsWith(">")) {
       mention = mention.slice(2, -1);
@@ -24,17 +24,19 @@ module.exports = {
         mention = mention.slice(1);
       }
     }
-    return message.guild.members.fetch(mention);
-
+    try {
+    return GuildMemberManager.fetch(mention).catch(e => null);
+} catch {
+    return;
+}
   },
-  getChannelFromMention: (mention, message) => {
+  getChannelFromMention: (mention, GuildChannelManager) => {
 
-    if (!mention || !message || !message.guild) return;
-
+    if (!mention || !GuildChannelManager) return;
     if (mention.startsWith("<#") && mention.endsWith(">")) {
       mention = mention.slice(2, -1);
     }
-    return message.guild.channels.cache.get(mention);
+    return GuildChannelManager.fetch(mention);
   },
   freshActivity: (client) => {
     activities = require("./configs/activities").content;
@@ -86,7 +88,10 @@ module.exports = {
     if (end >= array.length) {
       end = array.length - 1;
     }
-    return { start: start, end: end };
+    page++;
+var pages_length = (array.length / length).toFixed(0)
+if(pages_length <= 0) pages_length = 1;
+    return { start: start, end: end, array:  array, length: length, page: page, pages: pages_length};
   },
   getUserFromMention: (mention, client) => {
     if (!mention ||!client) return;
@@ -97,6 +102,7 @@ module.exports = {
       }
     }
   
-  return client.users.fetch(mention);
+  return client.users.fetch(mention).catch(e => null);
+ 
   }
 }

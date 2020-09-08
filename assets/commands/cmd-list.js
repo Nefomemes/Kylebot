@@ -98,7 +98,7 @@ module.exports = {
             "description": "Get the information of a channel.",
             "usage": " channel [channel]",
             "guild": true,
-            "disabled": true,
+            "disabled": false,
             "args": false
 
         },

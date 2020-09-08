@@ -1,4 +1,16 @@
-async function handleMessage(imports, message) {
+
+var imports = {
+  ...global.configs,
+  ...global,
+  ...global.built_ins,
+ opt: {}
+}
+
+
+
+
+async function handleMessage( message, oldMessage) {
+    try  {
     message.latency = Date.now();
     imports.message = message;
     if ((!imports.message.author || imports.message.author.bot)) return;
@@ -6,6 +18,7 @@ async function handleMessage(imports, message) {
     imports.filter = require("./filter").run(imports).catch(console.error);
 
     if (!imports.message.content.startsWith(imports.prefix)) return;
+    if(oldMessage && oldMessage.content === message.content)return;
     imports.args = imports.message.content.slice(imports.prefix.length).split(/ +/);
     imports.commandName = imports.args.shift().toLowerCase();
     if (!imports.commandName) return;
@@ -53,15 +66,19 @@ async function handleMessage(imports, message) {
             imports.timestamps.delete(imports.message.author.id);
         } else { }
     }, imports.cooldownAmount);
-    try {
-        imports.command.run(imports).catch(e => {
-            throw e
-        })
-    } catch (e) {
-        if (!(e.message === "Cannot read property 'catch' of undefined" && e.name === "TypeError")) {
-            imports.message.channel.send("```" + built_ins.trim(require("util").inspect(e), 2000 - 6) + "```")
-        }
-    }
+
+        imports.command.run(imports)
+    
+    
+} catch(e){
+    const embed = new imports.Discord.MessageEmbed()
+    .setColor(imports.colors.BG_COLOR)
+    .setAuthor("Report Issue on GitHub", "https://raw.githubusercontent.com/Nefomemes/Kylebot/master/assets/GitHub-Mark-Light-120px-plus.png", "https://github.com/Nefomemes/Kylebot/issues/new")
+    .setDescription("```" + imports.trim(require("util").inspect(e), 2048 - 6) + "```")
+    .setFooter("Please make sure noone have ever posted a similar issue and please provide reproduction steps.", imports.client.user.displayAvatarURL({dynamic: true, format: "png"}));
+    return imports.message.channel.send(embed);
+}
+    
 }
 
 module.exports = handleMessage;

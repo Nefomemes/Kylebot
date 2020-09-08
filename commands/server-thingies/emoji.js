@@ -1,7 +1,3 @@
-module.exports = {
-    name: "emoji",
-
-execute(){
-    return;
-}
+module.exports.run = async (imports) => {
+    
 }

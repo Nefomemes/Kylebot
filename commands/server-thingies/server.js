@@ -9,12 +9,17 @@ module.exports = {
         imports.message.channel.send("An error occured! " + error);
       });
     }
-    var embed = new imports.Discord.MessageEmbed()
+    const guildDB = imports.db.getDoc('guilds', guild.id);
+
+var embed = new imports.Discord.MessageEmbed()
       .setColor(imports.colors.BG_COLOR)
       .setTitle(guild.name)
       .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({ format: "png", dynamic: true }))
       .setThumbnail(guild.iconURL({ format: "png", dynamic: true }))
-      .addFields({ name: "Owner", value: `<@!${guild.ownerID}>`, inline: true },
+      .setTimestamp()
+      .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`, imports.client.user.displayAvatarURL({ format: "png", dynamic: true }))
+
+ var fields = [{ name: "Owner", value: `<@!${guild.ownerID}>`, inline: true },
         { name: "Server created at", value: guild.createdAt, inline: true },
         { name: "Server region", value: guild.region, inline: true },
         { name: "Members", value: guild.memberCount, inline: true },
@@ -32,22 +37,35 @@ module.exports = {
         { name: "Boost Tier", value: guild.premiumTier, inline: true },
         { name: "Verification level", value: guild.verificationLevel, inline: true },
         { name: "Explicit content filter", value: guild.explicitContentFilter, inline: true },
-        { name: "MFA level", value: guild.explicitContentFilter, inline: true }
-      )
-      .setTimestamp()
-      .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`, imports.client.user.displayAvatarURL({ format: "png", dynamic: true }))
-    if (guild.systemChannel) {
-      embed = embed.addField("System channel", guild.systemChannel, true)
-    }
-    if (guild.widgetChannel) {
-      embed = embed.addField("Widget channel", guild.widgetChannel, true)
-    }
-    if (guild.description) {
-      embed = embed.setDescription(guild.description);
-    } else if (guild.id === "730363347400130612") {
-      embed = embed.setDescription("The official Discord support server for " + imports.client.user.username.split(" ")[0] + ".")
-    }
+        { name: "MFA level", value: guild.explicitContentFilter, inline: true }]
 
+if (guild.systemChannel) {
+      fields.push({name:"System channel", value: guild.systemChannel, inline: true})
+    }
+ if(guild.rulesChannel){
+   fields.push({name:"Rules channel", value: guild.rulesChannel, inline: true})
+   }
+    if (guild.widgetChannel) {
+      fields.push({name: "Widget channel", value: guild.widgetChannel, inline: true})
+    }
+    if(guildDB.desc){
+      embed = embed.setDescription(guildDB.desc);
+    } else if(guild.description){
+      embed = embed.setDescription(guild.description);
+    } 
+    
+           let number = parseInt(imports.args[0]);
+            if (Number.isNaN(number) || !number){
+                number = 1;
+            }
+            let page = imports.getPage(fields, 6, number);
+            embed = embed.setFooter(imports.trim(`Page ${page.page}/${page.pages} | ${ embed.footer.text}`,2048))
+        for(let field  of fields){
+            let index = fields.indexOf(field);
+                if(!(index > page.end || index < page.start)){
+                    embed = embed.addField(field.name.toString(), "||" + field.value.toString() + "||", field.inline);
+                    }
+            }
     imports.message.channel.send(embed);
   }
 };

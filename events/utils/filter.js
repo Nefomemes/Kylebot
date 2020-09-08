@@ -2,7 +2,7 @@ module.exports.run = async (imports) => {
         return new Promise((resolve, reject) => {
             try {
    (async function(){
-        const badwords = await require("./assets/configs/badwords").content;
+        const badwords = await require(global.path.join(process.cwd(), "assets/configs/badwords")).content;
              var words = await imports.message.content.toLowerCase().split("[").join(" ").split("]").join(" ").split("||").join(" ").split("`").join(" ").split("```").join(" ").split("__").join(" ").split(".").join(" ").split(",").join(" ").split(" ");
   var violates = await badwords.word.filter((badword) => {
  if(  badwords.prio.includes(badword))return words.includes(badword);

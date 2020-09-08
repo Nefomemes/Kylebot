@@ -1,6 +1,6 @@
 {
   "name": "kylebot",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "The first Call of Duty roleplay Discord bot.",
   "main": "index.js",
   "engines": {
@@ -19,6 +19,7 @@
   "dependencies": {
     "discord.js": "^12.2.0",
     "express": "^4.17.1",
+    "home": "^2.0.0",
     "node-fetch": "^2.6.0",
     "node-grau": "^1.0.19",
     "underscore": "^1.10.2",

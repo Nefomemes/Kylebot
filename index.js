@@ -25,16 +25,20 @@ const client = new global.Discord.Client({
       "DIRECT_MESSAGES",
       "GUILD_MESSAGE_REACTIONS",
       "DIRECT_MESSAGE_REACTIONS",
-      "GUILD_MEMBERS"
+      "GUILD_MEMBERS",
+      "GUILD_PRESENCES"
     ]
   }
 });
+global.client = client;
 global.configs = require("./assets/configs/configs")
 global.xml2js = require("xml2js");
 global.querystring = require("querystring");
 global.fetch = require("node-fetch");
 global.grau = require("node-grau");
-const db = new global.grau(process.env.DB, 'bot');
+global.db = new global.grau(process.env.DB, 'bot');
+
+
 function CommandsManager(cache) {
   this.cache = cache;
 }
@@ -61,16 +65,17 @@ app.listen(PORT, () => {
   require("./req-handler.js").execute({ app: app })
 });
 
-global.configs.owners.forEach((owner) => {
-  client.owners.cache.set(owner, owner);
-})
-
-
 client.once("ready", () => {
+    console.log("Gaz is inbound")
 
-  console.log("Gaz is inbound!");
-  global.built_ins.freshActivity(client);
-
+global.configs.owners.forEach((owner) => {
+    if(!owner) return
+ const user = client.users.fetch(owner.toString())
+ if(!user)return
+  return client.owners.cache.set(owner, user);
+})
+ 
+global.built_ins.freshActivity(client);
 });
 client.on("ready", () => {
   setInterval(() => {
@@ -81,61 +86,13 @@ client.on("error", (err) => {
   console.err(err);
 });
 
-client.on("guildCreate", async (guild) => {
-  try {
-    const user = await client.users.fetch(guild.ownerID)
-    (async () => {
- 
-    const userDB = await db.getDoc('users', user.id);
-    const embed = await new global.Discord.MessageEmbed()
-    .setColor(global.colors.BG_COLOR)
-    .setAuthor(user.username, user.displayAvatarURL({format:"png", dynamic: true}))
-    .setTitle("Server invited Kylebot")
-    .setThumbnail(global.built_ins.getItem('emblem', userDB.emblem).assets[0].asset)
-    .setImage(global.built_ins.getItem('playercard', userDB.playercard).assets[0].asset)
-    .setTimestamp()
-    .setFooter(`Prefix: ${global.configs.prefix} | ${global.built_ins.getRandomFunfact()}`)
-    client.channels.cache.get("730374154569646091").send(embed);
-  })()
-  } catch{
 
-  }
-})
-client.on("guildDelete", () => {
-  client.channels.cache.get("730374154569646091").send("A server have kicked the bot. Press F to pay respect for Nefomemes.");
-                                                     
-  })
-client.on("guildMemberAdd", async (member) => {
 
-  const guildDB = await db.getDoc("guilds", member.guild.id);
-  if(guildDB && guildDB.welcomeChannel && client.channels.fetch(guildDB.welcomeChannel)){
-    
 
-    const user = member.user;
-    var embed = null, content = null;
-    if(guildDB.welcomeEmbed && guildDB.welcomeEmbed === true){
-    const userDB = await db.getDoc("users", member.user.id);
-    embed = new global.Discord.MessageEmbed()
-    .setColor(global.colors.BG_COLOR)
-    .setAuthor(user.username, user.displayAvatarURL({format:"png", dynamic: true}))
-    .setTitle("Joined the server")
-    .setThumbnail(global.built_ins.getItem('emblem', userDB.emblem).assets[0].asset)
-    .setImage(global.built_ins.getItem('playercard', userDB.playercard).assets[0].asset)
-    .setTimestamp()
-    .setFooter(`Prefix: ${global.configs.prefix} | ${global.built_ins.getRandomFunfact()}`)
-    } 
-    if(guildDB.welcomeMessage && guildDB.welcomeMessage !== null && guildDB.welcomeMessage.constructor === String){
-      content = guildDB.welcomeMessage.split("${user}").join(`<@!${user.id}>`).split("${username}").join(user.username);
-    }
-    if(content || embed){
-      client.channels.cache.get(guildDB.welcomeChannel).send(content, embed);
-    }
-  
-  };
 
-});
+
 (async function registerCommands(dir = "commands") {
-  let files = await global.fs.readdir(global.path.join(__dirname, dir));
+   files = await global.fs.readdir(global.path.join(__dirname, dir));
   for (let file of files) {
     let stat = await global.fs.lstat(global.path.join(__dirname, dir, file));
     if (stat.isDirectory()) registerCommands(global.path.join(dir, file));
@@ -160,22 +117,16 @@ client.on("guildMemberAdd", async (member) => {
   }
 })()
 
-var imports = {
-  db: db,
-  ...built_ins,
-  ...global.configs,
-  client: client,
-  ...global,
-  opt: {},
+async function registerEvents() {
+    let files = await global.fs.readdir(global.path.join(__dirname, "events"));
+    for(let file of files){
+        let stat = await global.fs.lstat(global.path.join(__dirname, "events", file));
+        if(!stat.isDirectory() && file.endsWith(".js")){
+                  let eventName = file.substring(0, file.indexOf(".js"));
+                 client.on(eventName, require(global.path.join(__dirname, "events", eventName)));
+        }
+    }
 }
 
-
-function cmdHandler(message) {
-  return require("./handler.js")(imports, message).catch(e => {
-    message.channel.send("```" + built_ins.trim(require("util").inspect(e), 2000 - 6) + "```")
-  });
-}
-client.on("message", cmdHandler);
-client.on("messageUpdate", (m, message) => { return cmdHandler(message) });
-
+registerEvents()
 client.login();
