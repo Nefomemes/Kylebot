@@ -11,7 +11,7 @@ if(channel) imports.args.shift();
     .setColor(imports.colors.BG_COLOR)
    .setTitle("Channel Insights - Kylebot")
     .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({format: "png", dynamic: true})).setTimestamp()
-    .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`, imports.client.user.displayAvatarURL({format: "png", dynamic: true})))
+    .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`, imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
      var fields       =   [{name: "Channel ID", value: channel.id, inline: true},
                            {name: "Created at", value: new Date(channel.createdTimestamp).toUTCString(), inline: true},
                            {name: "Type", value: channel.type, inline: true}];
