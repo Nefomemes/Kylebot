@@ -50,7 +50,7 @@ module.exports.run = async imports => {
 		});
 	}
 	if (channel.guild) {
-		const category = channel.parentID;
+		var category = channel.parentID;
 		if (category) category = `<#${category}>`;
 
 		fields.push({
@@ -70,16 +70,15 @@ module.exports.run = async imports => {
 	if (channel.parentID){
 	    fields.push({name: 'Synced to category', value: channel.permissionsLocked, inline: true});
 	}
-	fields.push({name: 'Viewable by me', value: channel, inline: true});
+	fields.push({name: 'Viewable by me', value: channel.viewable, inline: true});
 	switch (channel.type) {
 	    
 	
 		case 'voice':
-		    if(channel.userLimit){
 		        var limit = channel.userLimit;
-		        if(limit <== 0) limit = "∞";
-		        fields.push({name: "User limit", value: limit, inline: true});
-		    }
+		        if(limit <= 0) limit = "∞";
+		        fields.push({name: "User limit", value: limit + " users", inline: true});
+		    
 		    fields.push({name: "Speakable by me", value: channel.speakable, inline: true});
 			if (channel.bitrate) {
 				fields.push({
@@ -121,7 +120,7 @@ module.exports.run = async imports => {
 	for (let field of fields) {
 		let index = fields.indexOf(field);
 		if (!(index > page.end || index < page.start)) {
-			embed = embed.addField(field.name.toString(), field.value.toString(), field.inline);
+			embed = embed.addField(field.name.toString(), "||" + field.value.toString() + "||", field.inline);
 		}
 	}
 	return imports.message.channel.send(embed);
