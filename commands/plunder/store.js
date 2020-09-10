@@ -98,7 +98,7 @@ module.exports.run = async (imports) => {
 	for (let field of fields) {
 		let index = fields.indexOf(field);
 		if (!(index > page.end || index < page.start)) {
-			embed = embed.addField(field.name, field.value, field.inline);
+			embed = embed.addField((field.name || "unknown").toString (), (field.value || "unknown").toString(), field.inline);
 		}
 	}
 

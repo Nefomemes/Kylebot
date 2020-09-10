@@ -32,7 +32,8 @@ module.exports.run = async imports => {
 	];
 	if (channel.name) {
 		fields.push({ name: 'Name', value: channel.name, inline: true });
-	}
+		embed = embed.setTitle(`"${channel.name}" channel insight`)
+		}
 	if (channel.topic) {
 		embed = embed.setDescription(channel.topic);
 	}
@@ -52,12 +53,19 @@ module.exports.run = async imports => {
 	if (channel.guild) {
 		var category = channel.parentID;
 		if (category) category = `<#${category}>`;
+		fields.push({
+			name: 'Viewable by me',
+			value: channel.viewable,
+			inline: true
+		});
 
 		fields.push({
 			name: 'Category',
 			value: category || 'uncategorized',
 			inline: true
 		});
+	} else {
+		fields.push({ name: 'Viewable by me', value: true, inline: true });
 	}
 
 	if (channel.rateLimitPerUser) {
@@ -67,19 +75,29 @@ module.exports.run = async imports => {
 			inline: true
 		});
 	}
-	if (channel.parentID){
-	    fields.push({name: 'Synced to category', value: channel.permissionsLocked, inline: true});
+	if (channel.parentID) {
+		fields.push({
+			name: 'Synced to category',
+			value: channel.permissionsLocked,
+			inline: true
+		});
 	}
-	fields.push({name: 'Viewable by me', value: channel.viewable, inline: true});
+
 	switch (channel.type) {
-	    
-	
 		case 'voice':
-		        var limit = channel.userLimit;
-		        if(limit <= 0) limit = "∞";
-		        fields.push({name: "User limit", value: limit + " users", inline: true});
-		    
-		    fields.push({name: "Speakable by me", value: channel.speakable, inline: true});
+			var limit = channel.userLimit;
+			if (limit <= 0) limit = '∞';
+			fields.push({
+				name: 'User limit',
+				value: limit + ' users',
+				inline: true
+			});
+
+			fields.push({
+				name: 'Speakable by me',
+				value: channel.speakable,
+				inline: true
+			});
 			if (channel.bitrate) {
 				fields.push({
 					name: 'Bitrate',
@@ -89,8 +107,6 @@ module.exports.run = async imports => {
 			}
 			if (channel.members) {
 				fields.push(
-			
-
 					{
 						name: 'Users connected',
 						value: channel.members.filter(m => !m.user.bot).size + ' bots',
@@ -108,6 +124,37 @@ module.exports.run = async imports => {
 					}
 				);
 			}
+			break;
+		case 'category': {
+			if (channel.children) {
+				fields.push(
+					{
+						name: 'Voice channels',
+						value:
+							channel.children.filter(i => i.type === 'voice').size +
+							' channels',
+						inline: true
+					},
+					{
+						name: 'Text channels',
+						value:
+							channel.children.filter(i => i.type === 'text').size +
+							' channels',
+						inline: true
+					},
+					{
+						name: 'Store channels',
+						value: channel.children.filter(i => i.type === 'store'),
+						inline: true
+					},
+					{
+					    name: 'Channels in total',
+					    value: channel.children.size,
+					    inline: true
+					}
+				);
+			}
+		}
 	}
 	let number = parseInt(imports.args.pop());
 	if (Number.isNaN(number) || !number) {
@@ -120,7 +167,11 @@ module.exports.run = async imports => {
 	for (let field of fields) {
 		let index = fields.indexOf(field);
 		if (!(index > page.end || index < page.start)) {
-			embed = embed.addField(field.name.toString(), "||" + field.value.toString() + "||", field.inline);
+			embed = embed.addField(
+				(field.name || 'unknown').toString(),
+				'||' + (field.value || 'unknown').toString() + '||',
+				field.inline
+			);
 		}
 	}
 	return imports.message.channel.send(embed);
