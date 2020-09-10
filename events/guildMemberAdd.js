@@ -1,5 +1,5 @@
 module.exports = async (member) => {
-
+try {
   const guildDB = await global.db.getDoc("guilds", member.guild.id);
   if(guildDB && guildDB.welcomeChannel && global.client.channels.fetch(guildDB.welcomeChannel)){
     
@@ -25,4 +25,7 @@ module.exports = async (member) => {
     }
   
   };
+} catch(e){
+    console.error(e);
+}
 }

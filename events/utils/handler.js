@@ -71,11 +71,7 @@ async function handleMessage( message, oldMessage) {
     
     
 } catch(e){
-    const embed = new imports.Discord.MessageEmbed()
-    .setColor(imports.colors.BG_COLOR)
-    .setAuthor("Report Issue on GitHub", "https://raw.githubusercontent.com/Nefomemes/Kylebot/master/assets/GitHub-Mark-Light-120px-plus.png", "https://github.com/Nefomemes/Kylebot/issues/new")
-    .setDescription("```" + imports.trim(require("util").inspect(e), 2048 - 6) + "```")
-    .setFooter("Please make sure noone have ever posted a similar issue and please provide reproduction steps.", imports.client.user.displayAvatarURL({dynamic: true, format: "png"}));
+ const embed = imports.errorEmbed(e);
     return imports.message.channel.send(embed);
 }
     

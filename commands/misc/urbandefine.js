@@ -12,20 +12,12 @@ module.exports = {
         if (error) {
           return imports.message.channel.send("An error occured! " + error);
         } else {
-          const badwords = require("../../assets/configs/badwords").content;
-
+          const badwords = require("../../assets/configs/badwords");
+function filter(str) {
+    
+}
           list = list.filter(function (definition) {
-
-            let description = definition.definition.split("[").join(" ").split("]").join(" ").split("||").join(" ").split("`").join(" ").split("```").join(" ").split("__").join(" ").split(".").join(" ").split(",").join(" ").split(" ");
-            let example = definition.example.split("[").join(" ").split("]").join(" ").split("||").join(" ").split("`").join(" ").split("```").join(" ").split("__").join(" ").split(".").join(" ").split(",").join(" ").split(" ");
-            description = description.filter(function (word) {
-              return badwords.includes(word.toLowerCase());
-            });
-            example = example.filter(function (word) {
-              return badwords.includes(word.toLowerCase());
-            })
-
-            return !badwords.includes(definition.word.toLowerCase()) && !description.length && !example.length;
+              i
           })
           if (!list.length)
             return imports.message.channel.send(

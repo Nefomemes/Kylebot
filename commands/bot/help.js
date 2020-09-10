@@ -64,7 +64,7 @@ fields.push({name: category.name, value: `ID: \`${category.id || "<redacted>"}\`
    }
    
    
-    let number = parseInt(imports.args[0]);
+    let number = parseInt(imports.args.pop());
             if (Number.isNaN(number) || !number){
                 number = 1;
             }

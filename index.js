@@ -38,7 +38,9 @@ global.fetch = require("node-fetch");
 global.grau = require("node-grau");
 global.db = new global.grau(process.env.DB, 'bot');
 
-
+const ReplDatabase = require("@replit/database");
+const replDB = new ReplDatabase(); 
+global.replDB = replDB;
 function CommandsManager(cache) {
   this.cache = cache;
 }
@@ -130,3 +132,5 @@ async function registerEvents() {
 
 registerEvents()
 client.login();
+const Database = require("@replit/database");
+const db = new Database();

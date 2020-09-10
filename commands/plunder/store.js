@@ -21,7 +21,7 @@ module.exports.run = async (imports) => {
 		imports.args.shift();
 		const item = imports.getItem('bundle', imports.args[0]);
 
-		if (imports.args[0] && imports.args[0].toLowerCase() === '--content') {
+		if (imports.args[0] && imports.args[0].toLowerCase() === '-content') {
 			imports.args.shift();
 			for (let content of item.contents) {
 				content = imports.getItem(content.type, content.id);
@@ -90,7 +90,7 @@ module.exports.run = async (imports) => {
 			});
 		}
 	}
-	let number = parseInt(imports.args[0]);
+	let number = parseInt(imports.args.pop());
 	if (Number.isNaN(number) || !number) {
 		number = 1;
 	}

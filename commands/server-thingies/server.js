@@ -20,7 +20,7 @@ var embed = new imports.Discord.MessageEmbed()
       .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`, imports.client.user.displayAvatarURL({ format: "png", dynamic: true }))
 
  var fields = [{ name: "Owner", value: `<@!${guild.ownerID}>`, inline: true },
-        { name: "Server created at", value: guild.createdAt, inline: true },
+        { name: "Server created at", value: new Date(guild.createdTimestamp).toUTCString(), inline: true },
         { name: "Server region", value: guild.region, inline: true },
         { name: "Members", value: guild.memberCount, inline: true },
         { name: "Booster members", value: guild.premiumSubscriptionCount, inline: true },
@@ -54,7 +54,7 @@ if (guild.systemChannel) {
       embed = embed.setDescription(guild.description);
     } 
     
-           let number = parseInt(imports.args[0]);
+           let number = parseInt(imports.args.pop());
             if (Number.isNaN(number) || !number){
                 number = 1;
             }

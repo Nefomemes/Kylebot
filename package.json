@@ -17,6 +17,7 @@
   "author": "Nefomemes#3927",
   "license": "MIT",
   "dependencies": {
+    "@replit/database": "^2.0.0",
     "discord.js": "^12.2.0",
     "express": "^4.17.1",
     "home": "^2.0.0",

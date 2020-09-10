@@ -25,18 +25,23 @@ module.exports = {
       }
     }
     try {
-    return GuildMemberManager.fetch(mention).catch(e => null);
+    return GuildMemberManager.fetch(mention).then(i => i).catch(e => null);
 } catch {
     return;
 }
   },
-  getChannelFromMention: (mention, GuildChannelManager) => {
+  getChannelFromMention: (mention, ChannelManager) => {
 
-    if (!mention || !GuildChannelManager) return;
+    if (!mention || !ChannelManager) return;
     if (mention.startsWith("<#") && mention.endsWith(">")) {
       mention = mention.slice(2, -1);
     }
-    return GuildChannelManager.fetch(mention);
+    if(mention.startsWith("id:")) mention.slice(2);
+    try {
+    return ChannelManager.fetch(mention).then(i => i).catch(e => null);
+    } catch {
+        return;
+    }
   },
   freshActivity: (client) => {
     activities = require("./configs/activities").content;
@@ -98,8 +103,8 @@ if(pages_length[1]){
 if(pages_length <= 0) pages_length = 1;
     return { start: start, end: end, array:  array, length: length, page: page, pages: pages_length};
   },
-  getUserFromMention: (mention, client) => {
-    if (!mention ||!client) return;
+  getUserFromMention: (mention, UserManager) => {
+    if (!mention ||!UserManager) return;
     if (mention.startsWith("<@") && mention.endsWith(">")) {
       mention = mention.slice(2, -1);
       if (mention.startsWith("!")) {
@@ -107,7 +112,15 @@ if(pages_length <= 0) pages_length = 1;
       }
     }
   
-  return client.users.fetch(mention).catch(e => null);
+  return UserManager.fetch(mention).catch(e => null).then ;
  
+  },
+  errorEmbed: (error) => {
+        const embed = new require("discord.js").MessageEmbed()
+    .setColor(imports.colors.BG_COLOR)
+    .setAuthor("Report Issue on GitHub", "https://raw.githubusercontent.com/Nefomemes/Kylebot/master/assets/GitHub-Mark-Light-120px-plus.png", "https://github.com/Nefomemes/Kylebot/issues/new")
+    .setDescription("```" + imports.trim(require("util").inspect(error), 2048 - 6) + "```")
+    .setFooter("Please make sure noone have ever posted a similar issue and please provide reproduction steps.", imports.client.user.displayAvatarURL({dynamic: true, format: "png"}));
+    return embed;
   }
 }

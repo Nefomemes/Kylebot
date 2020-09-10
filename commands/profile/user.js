@@ -2,7 +2,7 @@ module.exports = {
   name: "user",
   run: async (imports) => {
     var user, member, userDB;
- user  = imports.getUserFromMention(imports.args[0], imports.client) || imports.message.author;
+ user  = imports.getUserFromMention(imports.args[0], imports.client.users) || imports.message.author;
  if(imports.message.guild){
      member = await imports.getMemberFromMention(user.id, imports.message.guild.members) || imports.message.member;
      user = member.user;
@@ -51,7 +51,7 @@ var fields = [ { name: "ID", value: `${user.id}`, inline: true },
           
       }
     }
-      let number = parseInt(imports.args[0]);
+      let number = parseInt(imports.args.pop());
             if (Number.isNaN(number) || !number){
                 number = 1;
             }

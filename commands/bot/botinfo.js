@@ -42,7 +42,7 @@ module.exports.run = async(imports)=> {
               }
             }
            
-      let number = parseInt(imports.args[0]);
+      let number = parseInt(imports.args.pop());
             if (Number.isNaN(number) || !number){
                 number = 1;
             }

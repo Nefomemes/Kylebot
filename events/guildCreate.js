@@ -1,6 +1,7 @@
 module.exports = async guild => {
 	try {
-		const user = await global.client.users.fetch(guild.ownerID)(async () => {
+		const user = await global.client.users.fetch(guild.ownerID);
+	
 			const userDB = await global.db.getDoc('users', user.id);
 			const embed = await new global.Discord.MessageEmbed()
 				.setColor(global.colors.BG_COLOR)
@@ -22,7 +23,11 @@ module.exports = async guild => {
 						global.configs.prefix
 					} | ${global.built_ins.getRandomFunfact()}`
 				);
-			global.client.channels.cache.get('730374154569646091').send(embed);
-		})();
-	} catch {}
-}
+	(await global.client.channels.fetch('730374154569646091')).send(embed);
+		
+	} catch (e) {
+	    console.error(e);
+	    const embed = imports.errorEmbed(e);
+	(await	global.client.channels.fetch('730374154569646091')).send(embed);
+	}
+};

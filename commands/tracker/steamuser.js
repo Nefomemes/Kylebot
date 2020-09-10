@@ -1,7 +1,4 @@
-module.exports = {
-  name: "steamuser",
-
-  run: async (imports) => {
+module.exports.run = async (imports) => {
     async function loadSteam() {
 
       var query = imports.querystring.stringify({ b: imports.args.join(" ") }).slice(2);
@@ -42,4 +39,3 @@ module.exports = {
       imports.message.channel.send("An error occured! " + error);
     })
   }
-};
