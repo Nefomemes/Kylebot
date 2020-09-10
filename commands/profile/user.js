@@ -24,6 +24,9 @@ var fields = [ { name: "ID", value: `${user.id}`, inline: true },
       if (member.displayColor) {
         fields.push({name: "Display color (Base 10)", value: member.displayColor,inline: true});
       }
+      if(member.voice){
+          
+      }
       if (member.displayHexColor) {
         embed = embed.setColor(member.displayHexColor)
         fields.push({name: "Display color(Hex)", value: member.displayHexColor, inline: true});

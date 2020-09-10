@@ -109,12 +109,12 @@ module.exports.run = async imports => {
 				fields.push(
 					{
 						name: 'Users connected',
-						value: channel.members.filter(m => !m.user.bot).size + ' bots',
+						value: channel.members.filter(m => !m.user.bot).size + ' bot(s)',
 						inline: true
 					},
 					{
 						name: 'Bots connected',
-						value: channel.members.filter(m => m.user.bot).size + ' bots',
+						value: channel.members.filter(m => m.user.bot).size + ' bot(s)',
 						inline: true
 					},
 					{
@@ -132,24 +132,28 @@ module.exports.run = async imports => {
 						name: 'Voice channels',
 						value:
 							channel.children.filter(i => i.type === 'voice').size +
-							' channels',
+							' channel(s)',
 						inline: true
 					},
 					{
 						name: 'Text channels',
 						value:
 							channel.children.filter(i => i.type === 'text').size +
-							' channels',
+							' channel(s)',
 						inline: true
 					},
 					{
 						name: 'Store channels',
-						value: channel.children.filter(i => i.type === 'store'),
+						value: channel.children.filter(i => i.type === 'store').size + " channel(s)",
 						inline: true
 					},
 					{
+					   name: 'News channels',
+					   value: channel.children.filter(i => i.type === 'news').size + " channel(s)"
+					},
+					{
 					    name: 'Channels in total',
-					    value: channel.children.size,
+					    value: channel.children.size + " channel(s)",
 					    inline: true
 					}
 				);
