@@ -128,6 +128,6 @@ if(pages_length <= 0) pages_length = 1;
       mention = mention.toString();
       
     
-      
+      return EmojiManager.resolve(mention.match(/^<a?:(\w+):(\d+)>$/)[2])
       }
 }
