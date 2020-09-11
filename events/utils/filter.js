@@ -1,13 +1,18 @@
+module.exports.audit = async (string) => {
+    const badwords = require(global.path.join(process.cwd(), "assets/configs/badwords")).content;
+             var words = string.toLowerCase().split("[").join(" ").split("]").join(" ").split("||").join(" ").split("`").join(" ").split("```").join(" ").split("__").join(" ").split(".").join(" ").split(",").join(" ").split(" ");
+  var violates = badwords.word.filter((badword) => {
+ if(  badwords.prio.includes(badword))return words.includes(badword);
+  return words.join("").split(badword)[1];
+  })
+  return violates;
+}
 module.exports.run = async (imports) => {
         return new Promise((resolve, reject) => {
             try {
    (async function(){
-        const badwords = await require(global.path.join(process.cwd(), "assets/configs/badwords")).content;
-             var words = await imports.message.content.toLowerCase().split("[").join(" ").split("]").join(" ").split("||").join(" ").split("`").join(" ").split("```").join(" ").split("__").join(" ").split(".").join(" ").split(",").join(" ").split(" ");
-  var violates = await badwords.word.filter((badword) => {
- if(  badwords.prio.includes(badword))return words.includes(badword);
-  return words.join("").split(badword)[1];
-  })
+        
+  var violates = module.exports.audit(imports.message.content);
  if(await imports.message.guild && await violates.length){
       let guild = await imports.db.getDoc('guilds', imports.message.guild.id);
 if(await !guild.filter || guild.filter === false) return resolve(true); 

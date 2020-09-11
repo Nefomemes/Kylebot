@@ -1,7 +1,4 @@
-module.exports = {
-  name: "urbandefine",
-
-  run: async (imports) => {
+module.eimport.run async (imports) => {
     imports.message.react("<a:DiscordLoading:724125571847815229").then(reaction => {
       async function define() {
         const word = imports.args.join(" ") || "Rick Rolling";
@@ -12,13 +9,14 @@ module.exports = {
         if (error) {
           return imports.message.channel.send("An error occured! " + error);
         } else {
-          const badwords = require("../../assets/configs/badwords");
-function filter(str) {
-    
-}
+        const { audit } = require(require("path").join(process.cwd(), "events/utils/filter"));
           list = list.filter(function (definition) {
-              i
-          })
+             
+     if(audit(definition.word).length) return false;
+     if(audit(definition.definition).length) return false;
+     if(audit(definition.example).length) return false;
+     return true;
+                        })
           if (!list.length)
             return imports.message.channel.send(
               "Unable to get the definition of **" +
@@ -66,4 +64,3 @@ function filter(str) {
       reaction.remove();
     })
   }
-};
