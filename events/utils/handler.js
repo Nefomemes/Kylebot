@@ -62,12 +62,14 @@ async function handleMessage( message, oldMessage) {
 
     imports.timestamps.set(imports.message.author.id, imports.now);
     setTimeout(() => {
-        if (imports.timestamps.has(imports.message.author.id)) {
+        if (imports.timestamps.has((imports.message.author || {id: 141}).id)) {
             imports.timestamps.delete(imports.message.author.id);
         } else { }
     }, imports.cooldownAmount);
 
-        imports.command.run(imports)
+        imports.command.run(imports).catch(e => {
+            throw e;
+        })
     
     
 } catch(e){

@@ -111,16 +111,21 @@ if(pages_length <= 0) pages_length = 1;
         mention = mention.slice(1);
       }
     }
-  
-  return UserManager.fetch(mention).catch(e => null).then ;
- 
+  try {
+  return UserManager.fetch(mention).catch(e => null) ;
+ } catch {
+     return;
+ }
   },
   errorEmbed: (error) => {
-        const embed = new require("discord.js").MessageEmbed()
-    .setColor(imports.colors.BG_COLOR)
+      const { MessageEmbed } = require("discord.js");
+        const embed = new MessageEmbed()
+    .setColor(global.colors.BG_COLOR)
     .setAuthor("Report Issue on GitHub", "https://raw.githubusercontent.com/Nefomemes/Kylebot/master/assets/GitHub-Mark-Light-120px-plus.png", "https://github.com/Nefomemes/Kylebot/issues/new")
-    .setDescription("```" + imports.trim(require("util").inspect(error), 2048 - 6) + "```")
-    .setFooter("Please make sure noone have ever posted a similar issue and please provide reproduction steps.", imports.client.user.displayAvatarURL({dynamic: true, format: "png"}));
+    .setDescription("```" + global.built_ins.trim(require("util").inspect(error), 2048 - 6) + "```")
+    .setFooter(`Prefix: ${global.configs.prefix} | ` + "Please make sure noone have ever posted a similar issue and please provide reproduction steps.", global.client.user.displayAvatarURL({dynamic: true, format: "png"}))
+    .setTimestamp()
+    .setTitle("An error occured!")
     return embed;
   },
   getEmojiFromMention: (mention, EmojiManager) => {
