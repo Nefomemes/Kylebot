@@ -1,6 +1,6 @@
 module.exports.run = async imports => {
 	imports.message
-		.react('<a:DiscordLoading:724125571847815229')
+		.react('<a:DiscordLoading:731124846234435585')
 		.then(reaction => {
 			async function define() {
 				const word = imports.args.join(' ') || 'Rick Rolling';
