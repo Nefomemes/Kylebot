@@ -122,5 +122,12 @@ if(pages_length <= 0) pages_length = 1;
     .setDescription("```" + imports.trim(require("util").inspect(error), 2048 - 6) + "```")
     .setFooter("Please make sure noone have ever posted a similar issue and please provide reproduction steps.", imports.client.user.displayAvatarURL({dynamic: true, format: "png"}));
     return embed;
-  }
+  },
+  getEmojiFromMention: (mention, EmojiManager) => {
+      if(!mention || !EmojiManager) return;
+      mention = mention.toString();
+      
+    
+      
+      }
 }
