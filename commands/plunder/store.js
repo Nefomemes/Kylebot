@@ -18,26 +18,32 @@ module.exports.run = async (imports) => {
 		imports.args[0] &&
 		imports.getItem('bundle', imports.args[0].toLowerCase())
 	) {
-		imports.args.shift();
-		const item = imports.getItem('bundle', imports.args[0]);
-
-		if (imports.args[0] && imports.args[0].toLowerCase() === '-content') {
+		
+		const item = imports.getItem('bundle', imports.args.shift().toLowerCase());
+embed = embed.setTitle(item.name + " - " + embed.title); 
+		if (imports.args[0] && imports.args[0].toLowerCase() === '-content' && item.content) {
 			imports.args.shift();
-			for (let content of item.contents) {
+			
+			for (let content of item.content) {
 				content = imports.getItem(content.type, content.id);
 				if (content) {
 					let rarity;
 					switch (content.rarity) {
 						case 1:
 							rarity = 'base';
+							break;
 						case 2:
 							rarity = 'common';
+							break;
 						case 3:
 							rarity = 'rare';
+							break;
 						case 4:
 							rarity = 'epic';
+							break;
 						case 5:
 							rarity = 'legendary';
+							break;
 						default:
 							rarity = 'unknown';
 					}
@@ -54,10 +60,10 @@ module.exports.run = async (imports) => {
 			}
 		} else {
 			imports._.each(item, (value, key) => {
-				if (key === 'assets') {
-					value = 'Add "--content" to the back, yeah.';
+				if (key === 'content') {
+					value = 'Add "-content" to the back, yeah.';
 				}
-				fields.push({ key: key, value: value, inline: true });
+				fields.push({ name: key, value: value, inline: true });
 			});
 		}
 	} else {
@@ -95,10 +101,11 @@ module.exports.run = async (imports) => {
 		number = 1;
 	}
 	let page = imports.getPage(fields, 6, number);
+	               embed = embed.setFooter(imports.trim(`Page ${page.page}/${page.pages} | ${ embed.footer.text}`, 2048));
 	for (let field of fields) {
 		let index = fields.indexOf(field);
 		if (!(index > page.end || index < page.start)) {
-			embed = embed.addField((field.name || "unknown").toString (), (field.value || "unknown").toString(), field.inline);
+			embed = embed.addField((field.name || "unknown").toString (), "||" + (field.value || "unknown").toString() + "||", field.inline);
 		}
 	}
 

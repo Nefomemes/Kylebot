@@ -5,7 +5,7 @@ module.exports.content = [
         "id":"ghost_custom_pack",
         "available":true,
         "price":120, 
-        "contents":[
+        "content":[
             {
                 "type":"playercard",
                 "id":"ghost_silent_death" // Rarity: Rare (3)

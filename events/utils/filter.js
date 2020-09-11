@@ -1,6 +1,7 @@
 module.exports.audit = async (string) => {
+    if(!string) return [];
     const badwords = require(global.path.join(process.cwd(), "assets/configs/badwords")).content;
-             var words = string.toLowerCase().split("[").join(" ").split("]").join(" ").split("||").join(" ").split("`").join(" ").split("```").join(" ").split("__").join(" ").split(".").join(" ").split(",").join(" ").split(" ");
+             var words = string.toString().toLowerCase().split("[").join(" ").split("]").join(" ").split("||").join(" ").split("`").join(" ").split("```").join(" ").split("__").join(" ").split(".").join(" ").split(",").join(" ").split(" ");
   var violates = badwords.word.filter((badword) => {
  if(  badwords.prio.includes(badword))return words.includes(badword);
   return words.join("").split(badword)[1];

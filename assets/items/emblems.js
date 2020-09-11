@@ -15,7 +15,7 @@ module.exports.content = [
     "id":"ghost_classic",
     "type":"emblem",
     "name":"Ghost",
-    "description":"In game, get this emblem by buying Call of Duty: Modern Warfare 2 Campaign Remastered.",
+    "desc":"In game, get this emblem by buying Call of Duty: Modern Warfare 2 Campaign Remastered.",
     "rarity":3,
     "assets":[
         {
@@ -29,7 +29,7 @@ module.exports.content = [
         "id":"ghost_ghost_com",
         "type":"emblem",
         "name":"Ghost Com",
-        "description":"Ghost have a lot of cosmetics. Pretty much stonks for Activision.",
+        "desc":"Ghost have a lot of cosmetics. Pretty much stonks for Activision.",
         "rarity":3,
         "assets":[{
             "type":"png",
