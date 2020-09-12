@@ -1,5 +1,5 @@
 module.exports.run = async (imports) => {
-    if(imports.args.length) return imports.message.channel.send("You should provide an argument. Don't you know it, yeah?")
+    if(!imports.args.length) return imports.message.channel.send("You should provide an argument. Don't you know it, yeah?")
     const query = imports.querystring.stringify({a: imports.args.shift()}).slice(2);
     
     var embed = new imports.Discord.MessageEmbed()
