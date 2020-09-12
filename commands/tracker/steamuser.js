@@ -1,6 +1,6 @@
 module.exports.run = async imports => {
 	var embed = new imports.Discord.MessageEmbed()
-		.setColor(imports.colors.BG_COLOR)
+		.setColor("#000000")
 		.setFooter(
 			`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`,
 			imports.client.user.displayAvatarURL({ format: 'png', dynamic: true })
