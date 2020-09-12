@@ -3,29 +3,31 @@ module.exports.run = async imports => {
 		.setColor(imports.colors.BG_COLOR)
 		.setFooter(
 			`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`,
-			imports.client.user
-				.displayAvatarURL({ format: 'png', dynamic: true })
-				.setTimestamp()
-				.setAuthor(
-					'Powered by Steam (API provided by AlexFlipnote though)',
-					'https://cdn.freebiesupply.com/images/large/2x/steam-logo-transparent.png',
-					'https://api.alexflipnote.dev/'
-				)
+			imports.client.user.displayAvatarURL({ format: 'png', dynamic: true })
+		)
+		.setTimestamp()
+		.setAuthor(
+			'Powered by Steam (API provided by AlexFlipnote though)',
+			'https://cdn.freebiesupply.com/images/large/2x/steam-logo-transparent.png',
+			'https://api.alexflipnote.dev/'
 		);
+
 	var fields = [];
-	var query = imports.querystring.stringify({ b: imports.args.shift() || "Nefomemes" }).slice(2);
+	var query = imports.querystring
+		.stringify({a: imports.args[0]})
+		.slice(2);
 	var user;
 	await imports
 		.fetch(`https://api.alexflipnote.dev/steam/user/${query}`)
 		.then(async res => {
 			try {
-				user = res.json();
+		 user =	await res.json();
 			} catch {
 				var $ = require('cheerio').load(await res.text());
 				embed = embed.setDescription($('title').html());
 			} finally {
 				if (user) {
-					const { profile, id, avatars } = user;
+				const { avatars, id, profile } = user;
 					embed = embed
 						.setTitle(profile.username)
 						.setURL(profile.url)
@@ -42,13 +44,14 @@ module.exports.run = async imports => {
 						{ name: 'Time created', value: profile.timecreated, inline: true },
 						{
 							name: "Banned by VAC (Valve' Anti Cheat system)",
-							value: profile.vacbanned,
+							value: (profile.vacbanned || false).toString(),
 							inline: true
 						}
 					);
 				}
 			}
 		});
+		
 	if (fields.length) {
 		let number = parseInt(imports.args.pop());
 		if (Number.isNaN(number) || !number) {
