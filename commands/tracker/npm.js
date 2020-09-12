@@ -22,7 +22,7 @@ module.exports.run = async (imports) => {
     fields.push(
         { name: "ID", value: package["_id"], inline: true },
         { name: "Author", value: package.author.name, inline: true },
-        { name: "Lisence", value: package.lisence || "Unlisenced", inline: true },
+        { name: "Licence", value: package.licence || "Unlisenced", inline: true },
         { name: "Created at", value: new Date(package.time.created).toUTCString(), inline: true },
         { name: "Last modified at", value: new Date(package.time.modified).toUTCString(), inline: true },
         { name: "Tags", value: (package.tags || []).join(", ") || "No tags", inline: true },
