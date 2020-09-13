@@ -25,3 +25,4 @@ await channel.setRateLimitPerUser(slowmode, `Reason: ${imports.args.join(" ") ||
 return imports.message.channel.send("Nicely done. Ez pz.");
 }
 module.exports.av = "guild";
+module.exports.category = "mod";
