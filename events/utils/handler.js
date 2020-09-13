@@ -1,16 +1,18 @@
 
-var imports = {
-  ...global.configs,
-  ...global,
-  ...global.built_ins,
- opt: {}
-}
-
-
 
 
 async function handleMessage( message, oldMessage) {
+    
     try  {
+        
+var imports = {
+    ...global.configs,
+    ...global,
+    ...global.built_ins,
+   opt: {}
+  }
+  
+  
     message.latency = Date.now();
     imports.message = message;
     if ((!imports.message.author || imports.message.author.bot)) return;
