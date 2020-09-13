@@ -25,7 +25,7 @@ module.exports = {
       }
     }
     try {
-    return GuildMemberManager.fetch(mention).then(i => i).catch(e => null);
+    return GuildMemberManager.fetch(mention).catch(e => null);
 } catch {
     return;
 }
@@ -33,14 +33,11 @@ module.exports = {
   getChannelFromMention: (mention, ChannelManager) => {
 
     if (!mention || !ChannelManager) return;
-    if (mention.startsWith("<#") && mention.endsWith(">")) {
-      mention = mention.slice(2, -1);
-    }
-    if(mention.startsWith("id:")) mention.slice(2);
+    if (mention.startsWith("<#") && mention.endsWith(">")) mention = mention.slice(2, -1);
     try {
     return ChannelManager.fetch(mention).catch(i => null);
     } catch {
-        return;
+        return null;
     }
   },
   freshActivity: (client) => {
