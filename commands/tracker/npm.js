@@ -12,6 +12,7 @@ module.exports.run = async (imports) => {
     const res = await imports.fetch(`http://registry.npmjs.org/${query}`).then(i => i)
     if (!res.ok) return imports.message.channel.send(`Ugh, sir. We got error ${res.status}, "${res.statusText}", copy.`);
     var package = await res.json();
+    if(package.error) return imports.message.channel.send("NPM Registry returned an error! " + package.error);
     embed = embed.setTitle(`"${package.name}" NPM Package Insight`)
         .setURL(package.homepage)
         .setDescription(package.description)

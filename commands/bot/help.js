@@ -54,7 +54,7 @@ return modules[0];
         }
        
    } else { 
-
+embed = embed.setImage("https://i.imgur.com/q3EWSPl.gif");
 let categoriess = require(require("path").join(process.cwd(), "assets/commands/categories")).content;
 
 for(let category of categoriess){
