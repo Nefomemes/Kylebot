@@ -38,7 +38,7 @@ module.exports = {
     }
     if(mention.startsWith("id:")) mention.slice(2);
     try {
-    return ChannelManager.fetch(mention).then(i => i).catch(e => null);
+    return ChannelManager.fetch(mention).catch(i => null);
     } catch {
         return;
     }
