@@ -42,7 +42,7 @@ module.exports.run = async(imports)=> {
               }
             }
            
-      let number = parseInt(imports.args[0]);
+      let number = parseInt(imports.args.pop());
             if (Number.isNaN(number) || !number){
                 number = 1;
             }
@@ -51,7 +51,7 @@ module.exports.run = async(imports)=> {
         for(let field  of fields){
             let index = fields.indexOf(field);
                 if(!(index > page.end || index < page.start)){
-                    embed = embed.addField(field.name.toString(), "||" + field.value.toString() + "||", field.inline);
+                    embed = embed.addField((field.name || "unknown").toString(), "||" + (field.value || "unknown").toString() + "||", field.inline);
                     }
             }
        return imports.message.channel.send(embed)

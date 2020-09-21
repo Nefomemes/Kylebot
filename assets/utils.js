@@ -30,13 +30,20 @@ module.exports = {
     return;
 }
   },
-  getChannelFromMention: (mention, GuildChannelManager) => {
+  getChannelFromMention: (mention, ChannelManager) => {
 
-    if (!mention || !GuildChannelManager) return;
-    if (mention.startsWith("<#") && mention.endsWith(">")) {
-      mention = mention.slice(2, -1);
+    if (!mention || !ChannelManager) return;
+    if (mention.startsWith("<#") && mention.endsWith(">")) mention = mention.slice(2, -1);
+    try {
+        if(ChannelManager.fetch){
+   return ChannelManager.fetch(mention).catch(i => null);
+        } else if(ChannelManager.resolve){
+               return ChannelManager.resolve(mention)
+        }
+ 
+    } catch {
+        return null;
     }
-    return GuildChannelManager.fetch(mention);
   },
   freshActivity: (client) => {
     activities = require("./configs/activities").content;
@@ -89,20 +96,45 @@ module.exports = {
       end = array.length - 1;
     }
     page++;
-var pages_length = (array.length / length).toFixed(0)
+var pages_length = (array.length / length).toString().split(".");
+if(pages_length[1]){
+    pages_length = parseInt(pages_length[0]) + 1;
+} else {
+    pages_length = parseInt(pages_length[0])
+}
 if(pages_length <= 0) pages_length = 1;
     return { start: start, end: end, array:  array, length: length, page: page, pages: pages_length};
   },
-  getUserFromMention: (mention, client) => {
-    if (!mention ||!client) return;
+  getUserFromMention: (mention, UserManager) => {
+    if (!mention ||!UserManager) return;
     if (mention.startsWith("<@") && mention.endsWith(">")) {
       mention = mention.slice(2, -1);
       if (mention.startsWith("!")) {
         mention = mention.slice(1);
       }
     }
-  
-  return client.users.fetch(mention).catch(e => null);
- 
-  }
+  try {
+  return UserManager.fetch(mention).catch(e => null) ;
+ } catch {
+     return;
+ }
+  },
+  errorEmbed: (error) => {
+      const { MessageEmbed } = require("discord.js");
+        const embed = new MessageEmbed()
+    .setColor(global.colors.BG_COLOR)
+    .setAuthor("Report Issue on GitHub", "https://raw.githubusercontent.com/Nefomemes/Kylebot/master/assets/GitHub-Mark-Light-120px-plus.png", "https://github.com/Nefomemes/Kylebot/issues/new")
+    .setDescription("```" + global.built_ins.trim(require("util").inspect(error), 2048 - 6) + "```")
+    .setFooter(`Prefix: ${global.configs.prefix} | ` + "Please make sure noone have ever posted a similar issue and please provide reproduction steps.", global.client.user.displayAvatarURL({dynamic: true, format: "png"}))
+    .setTimestamp()
+    .setTitle("An error occured!")
+    return embed;
+  },
+  getEmojiFromMention: (mention, EmojiManager) => {
+      if(!mention || !EmojiManager) return;
+      mention = mention.toString();
+      
+    
+      return EmojiManager.resolve(mention.match(/^<a?:(\w+):(\d+)>$/)[2])
+      }
 }

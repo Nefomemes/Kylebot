@@ -2,7 +2,7 @@ module.exports = {
   name: "user",
   run: async (imports) => {
     var user, member, userDB;
- user  = imports.getUserFromMention(imports.args[0], imports.client) || imports.message.author;
+ user  = imports.getUserFromMention(imports.args[0], imports.client.users) || imports.message.author;
  if(imports.message.guild){
      member = await imports.getMemberFromMention(user.id, imports.message.guild.members) || imports.message.member;
      user = member.user;
@@ -24,6 +24,9 @@ var fields = [ { name: "ID", value: `${user.id}`, inline: true },
       if (member.displayColor) {
         fields.push({name: "Display color (Base 10)", value: member.displayColor,inline: true});
       }
+      if(member.voice){
+          
+      }
       if (member.displayHexColor) {
         embed = embed.setColor(member.displayHexColor)
         fields.push({name: "Display color(Hex)", value: member.displayHexColor, inline: true});
@@ -39,7 +42,7 @@ var fields = [ { name: "ID", value: `${user.id}`, inline: true },
       }
     }
     if(!user.bot){
-      userDB = await imports.db.getDoc('users', user.id);
+      userDB = await imports.db.collection("users").getDoc({docID: user.id});
       if(userDB.desc){
         embed = embed.setDescription(userDB.desc);
       }
@@ -51,7 +54,7 @@ var fields = [ { name: "ID", value: `${user.id}`, inline: true },
           
       }
     }
-      let number = parseInt(imports.args[0]);
+      let number = parseInt(imports.args.pop());
             if (Number.isNaN(number) || !number){
                 number = 1;
             }

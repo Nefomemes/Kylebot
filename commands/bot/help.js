@@ -54,7 +54,7 @@ return modules[0];
         }
        
    } else { 
-
+embed = embed.setImage("https://i.imgur.com/q3EWSPl.gif");
 let categoriess = require(require("path").join(process.cwd(), "assets/commands/categories")).content;
 
 for(let category of categoriess){
@@ -64,7 +64,7 @@ fields.push({name: category.name, value: `ID: \`${category.id || "<redacted>"}\`
    }
    
    
-    let number = parseInt(imports.args[0]);
+    let number = parseInt(imports.args.pop());
             if (Number.isNaN(number) || !number){
                 number = 1;
             }

@@ -1,16 +1,18 @@
 
-var imports = {
-  ...global.configs,
-  ...global,
-  ...global.built_ins,
- opt: {}
-}
-
-
 
 
 async function handleMessage( message, oldMessage) {
+    
     try  {
+        
+var imports = {
+    ...global.configs,
+    ...global,
+    ...global.built_ins,
+   opt: {}
+  }
+  
+  
     message.latency = Date.now();
     imports.message = message;
     if ((!imports.message.author || imports.message.author.bot)) return;
@@ -62,20 +64,18 @@ async function handleMessage( message, oldMessage) {
 
     imports.timestamps.set(imports.message.author.id, imports.now);
     setTimeout(() => {
-        if (imports.timestamps.has(imports.message.author.id)) {
+        if (imports.timestamps.has((imports.message.author || {id: 141}).id)) {
             imports.timestamps.delete(imports.message.author.id);
         } else { }
     }, imports.cooldownAmount);
 
-        imports.command.run(imports)
+        imports.command.run(imports).catch(e => {
+            throw e;
+        })
     
     
 } catch(e){
-    const embed = new imports.Discord.MessageEmbed()
-    .setColor(imports.colors.BG_COLOR)
-    .setAuthor("Report Issue on GitHub", "https://raw.githubusercontent.com/Nefomemes/Kylebot/master/assets/GitHub-Mark-Light-120px-plus.png", "https://github.com/Nefomemes/Kylebot/issues/new")
-    .setDescription("```" + imports.trim(require("util").inspect(e), 2048 - 6) + "```")
-    .setFooter("Please make sure noone have ever posted a similar issue and please provide reproduction steps.", imports.client.user.displayAvatarURL({dynamic: true, format: "png"}));
+ const embed = imports.errorEmbed(e);
     return imports.message.channel.send(embed);
 }
     

@@ -5,7 +5,7 @@ module.exports = {
      
               
 const channel = imports.getChannelFromMention(imports.args[0]) || imports.message.guild.channels.cache.get(imports.args[0]) || imports.message.channel;
-if(!channel.permissionsFor(imports.message.author.id).has("VIEW_AUDIT_LOG"))return message.channel.send("You need to have the View Audit Log permission to audit the channel!");
+if(!channel.permissionsFor(imports.message.author.id).has(""))return message.channel.send("You need to have the View Audit Log permission to audit the channel!");
 imports.message.react("<a:DiscordLoading:724125571847815229").then(reaction => {
         const filter = m => !m.author.bot;
 const collector = channel.createMessageCollector(filter);

@@ -109,7 +109,7 @@ module.exports = {
             "description": "Get the information of a certain emoji.",
             "apiUsed": ["Discord"],
             "usage": "emoji <emoji>",
-            "disabled": true,
+            "disabled": false,
             "args": true
 
         },
