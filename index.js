@@ -35,8 +35,9 @@ global.configs = require("./assets/configs/configs")
 global.xml2js = require("xml2js");
 global.querystring = require("querystring");
 global.fetch = require("node-fetch");
+const { mongodb } = require("node-grau")
 
-const { MongoClient } = require("mongodb")
+const { MongoClient } = mongodb;
 const db = new MongoClient(process.env.DB);
 
 
