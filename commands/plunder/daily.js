@@ -6,7 +6,7 @@ module.exports.run = async (imports) => {
 		return imports.message.channel.send(
 			'Ugh, no. You already claimed it. Come back another day.'
 		);
-	imports.db.updateDoc({docID: imports.message.author.id}, {
+	imports.db.collection("users").updateDoc({docID: imports.message.author.id}, {
 		$inc: { cp: 25 },
 		$set: { dailyClaim: Date.now() }
 	});

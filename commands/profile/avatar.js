@@ -7,7 +7,7 @@ if(!user) {
 user = await imports.getUserFromMention(imports.args[1], imports.client.users);
 if(user){
  type = (imports.args[0]  || "png").toLowerCase();
-if (!supported.includes(type))return imports.message.channel.send("Invalid file type.")
+
 } else {
     user = imports.message.author;
     ok = true; 
@@ -15,8 +15,10 @@ if (!supported.includes(type))return imports.message.channel.send("Invalid file 
 } else { ok = true; }
 if(ok){
      type = (imports.args[1]  || "png").toLowerCase();
-if (!supported.includes(type))return imports.message.channel.send("Invalid file type.")
 }
+if (!supported.includes(type))return imports.message.channel.send("Invalid file type.")
+if(!user) return imports.message.channel.send("Invalid user, sir.");
+
 var embed = new imports.Discord.MessageEmbed()
 .setColor(imports.colors.BG_COLOR)
 .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({format : "png", dynamic: true}), imports.website)
