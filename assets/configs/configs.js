@@ -1,6 +1,6 @@
 const web = "https://api.nefomemes.repl.co/links/kylebot";
 module.exports = {
-    "prefix": "mw!",
+    "prefix": "wz!",
     "website": web,
     "support": `${web}/support`,
     "invite":`${web}/invite?perms=8`,
