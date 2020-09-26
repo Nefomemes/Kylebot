@@ -72,7 +72,7 @@ var imports = {
         imports.command.run(imports).catch(e => {
            const embed = imports.errorEmbed(e);
     return imports.message.channel.send(embed);
-}
+
         })
     
     
