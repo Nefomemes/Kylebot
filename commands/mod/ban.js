@@ -59,3 +59,4 @@ return imports.message.channel.send("Nicely done. Ez pz.");
 
     
 }
+module.exports.category = "mod";
