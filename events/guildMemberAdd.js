@@ -1,13 +1,13 @@
 module.exports = async (member) => {
 try {
-  const guildDB = await global.db.getDoc("guilds", member.guild.id);
+  const guildDB = await global.db.collection("guilds").getDoc({docID: member.guild.id});
   if(guildDB && guildDB.welcomeChannel && global.client.channels.fetch(guildDB.welcomeChannel)){
     
 
     const user = member.user;
     var embed = null, content = null;
     if(!user.bot && guildDB.welcomeEmbed && guildDB.welcomeEmbed === true){
-    const userDB = await global.db.getDoc("users", member.user.id);
+    const userDB = await global.db.collection("users").getDoc({docID: member.user.id});
     embed = new global.Discord.MessageEmbed()
     .setColor(global.colors.BG_COLOR)
     .setAuthor(user.username, user.displayAvatarURL({format:"png", dynamic: true}))

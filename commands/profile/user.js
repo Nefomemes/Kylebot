@@ -42,7 +42,7 @@ var fields = [ { name: "ID", value: `${user.id}`, inline: true },
       }
     }
     if(!user.bot){
-      userDB = await imports.db.getDoc('users', user.id);
+      userDB = await imports.db.collection("users").getDoc({docID: user.id});
       if(userDB.desc){
         embed = embed.setDescription(userDB.desc);
       }

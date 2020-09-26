@@ -10,7 +10,7 @@ module.exports.run = async imports => {
 				imports.message.channel.send('An error occured! ' + error);
 			});
 	}
-	const guildDB = imports.db.getDoc('guilds', guild.id);
+	const guildDB = imports.db.collection("guilds").getDoc({docID: guild.id});
 
 	var embed = new imports.Discord.MessageEmbed()
 		.setColor(imports.colors.BG_COLOR)

@@ -1,5 +1,5 @@
 module.exports.run = async (imports) => {
-	const user = await imports.db.getDoc('users', imports.message.author.id);
+	const user = await imports.db.collection("users").getDoc({docID: imports.message.author.id});
 	var embed = new imports.Discord.MessageEmbed()
 		.setColor(imports.colors.BG_COLOR)
 		.setTitle('Store')

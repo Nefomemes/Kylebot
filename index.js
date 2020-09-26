@@ -35,12 +35,17 @@ global.configs = require("./assets/configs/configs")
 global.xml2js = require("xml2js");
 global.querystring = require("querystring");
 global.fetch = require("node-fetch");
-global.grau = require("node-grau");
-global.db = new global.grau(process.env.DB, 'bot');
+const { mongodb } = require("node-grau")
 
-const ReplDatabase = require("@replit/database");
-const replDB = new ReplDatabase(); 
-global.replDB = replDB;
+const { MongoClient } = mongodb;
+const db = new MongoClient(process.env.DB);
+
+
+(async function(){
+    await db.connect()
+    console.log("Connected with database.");
+    global.db = db.db("bot");
+})()
 function CommandsManager(cache) {
   this.cache = cache;
 }
@@ -132,5 +137,3 @@ async function registerEvents() {
 
 registerEvents()
 client.login();
-const Database = require("@replit/database");
-const db = new Database();

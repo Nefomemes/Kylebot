@@ -22,8 +22,9 @@
     "discord.js": "^12.2.0",
     "express": "^4.17.1",
     "home": "^2.0.0",
+    "mongodb": "^3.6.2",
     "node-fetch": "^2.6.1",
-    "node-grau": "^1.0.19",
+    "node-grau": "github:Nefomemes/node-grau#dev",
     "underscore": "^1.10.2",
     "xml2js": "^0.4.23"
   }
