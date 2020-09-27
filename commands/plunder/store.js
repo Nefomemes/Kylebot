@@ -80,10 +80,13 @@ embed = embed.setTitle(item.name + " - " + embed.title);
 				user.cp - bundle.price >= 0
 			) {
 				user_can_buy = '';
+			} else if(user.bundles && user.bundles.includes(bundle.id)) {
+				user_can_buy = 'You owned this bundle.';
 			} else {
 				user_can_buy = "**Sadly, you doesn't have enough funds. :cry:**\n";
 			}
-
+		
+			;
 			fields.push({
 				name: bundle.name || 'Unknown',
 				value: imports.trim(

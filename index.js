@@ -98,13 +98,13 @@ client.on("error", (err) => {
 
 
 
-(async function registerCommands(dir = "commands") {
-   files = await global.fs.readdir(global.path.join(__dirname, dir));
+(async function registerCommands(dir = "commands", commandCache = client.commands.cache, type = "command", defaultSettings = {}) {
+   var files = await fs.readdir(path.join(__dirname, dir));
   for (let file of files) {
-    let stat = await global.fs.lstat(global.path.join(__dirname, dir, file));
+    let stat = await fs.lstat(path.join(__dirname, dir, file));
     if (stat.isDirectory()) registerCommands(global.path.join(dir, file));
     else if (file.endsWith(".js")) {
-      let commandCode = require(global.path.join(__dirname, dir, file));
+      let commandCode = require(path.join(__dirname, dir, file));
       let commandName = file.substring(0, file.indexOf(".js"));
       let commandModule = commandList.filter(function (command) {
         return command.name && command.name.toLowerCase() === commandName.toLowerCase() || command.aliases && command.aliases.filter((alias) => {
@@ -114,14 +114,43 @@ client.on("error", (err) => {
 
       if (commandCode.run) {
         let command = {
+          ...defaultSettings,
           ...commandModule,
           ...commandCode,
-          name: commandName
+          name: commandName,
+          type: type
         }
-        client.commands.cache.set(commandName, command);
+        commandCache.set(commandName, command);
       }
     }
   }
+})()
+
+(async function registerSuperCommands(dir = "supcommands", commandCache = client.commands.cache, type = "supcommand"){
+var files = await fs.readdir(path.join(__dirname, dir));
+for (let file of files){
+  let stat = await fs.lstat(path.join(__dirname, dir, file));
+  if(stat.isDirectory()){
+    let commandName = file.substring(0, file.indexOf(".js"));
+    let supcommand = {};
+    var settings = {};
+    try {
+   
+       settings = require(path.join(__dirname, dir, file, "settings.json"));
+
+    } catch {}
+    supcommand = {
+      ...settings,
+      type: type,
+      name: commandName,
+      commands: new Discord.Collection()
+    };
+    delete settings.name;
+   await registerCommands("supcommands", supcommand.commands, "childcommand", settings);
+    commandCache.set(commandName, supcommand);
+
+  }
+}
 })()
 
 async function registerEvents() {

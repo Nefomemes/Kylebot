@@ -1,0 +1,5 @@
+{
+    "guild": true,
+    "perms": 7,
+    "desc": "Modify server settings"
+}

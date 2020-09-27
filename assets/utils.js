@@ -80,9 +80,9 @@ module.exports = {
         return result[Math.floor(Math.random() * result.length)];
       }
   },
-  getCommand: (str, client) => {
-    if (!str || !client) return;
-    return client.commands.cache.get(str.toLowerCase()) || client.commands.cache.find((command) => { return command.aliases && command.aliases.includes(str.toLowerCase()) });
+  getCommand: (str, commandCache) => {
+    if (!str || !commandCache) return;
+    return commandCache.get(str.toLowerCase()) || commandCache.find((command) => { return command.aliases && command.aliases.includes(str.toLowerCase()) });
   },
   getPage: (array, length, page) => {
     if (!array || array.constructor !== Array) return;
