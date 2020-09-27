@@ -33,7 +33,7 @@ var i = {
             i.command.name = `${name}#${i.command.name}`;
         } else {
             i.args = [i.command.name, i.args.pop()];
-            return client.commands.cache.get("help").run(i).cath(e => {
+            return client.commands.cache.get("help").run(i).catch(e => {
                 return i.message.channel.send(i.errorEmbed(e));
             })
         };
@@ -63,7 +63,7 @@ var i = {
     i.timestamps = client.cooldowns.cache.get(i.command.name);
     i.cooldownAmount = (i.command.cooldown || 5) * 1000;
     i.expirationTime = i.timestamps.get(i.message.author.id) + i.cooldownAmount;
-    i.timeLeft = (i.expirationTime - imports.now) / 1000;
+    i.timeLeft = (i.expirationTime - i.now) / 1000;
 
     if (i.timestamps.has(i.message.author.id) && i.now < i.expirationTime) {
         if (i.options && i.opt.bypassSlowmode && i.opt.bypassSlowmode === true && i.message.author.id === "") {
