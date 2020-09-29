@@ -19,8 +19,8 @@ if (modules.length > 1) return;
 return modules[0];
 }
 
-   if(imports.getCommand(imports.args[0], imports.client)){
-       const command = imports.getCommand(imports.args.shift(), imports.client);
+   if(imports.getCommand(imports.args[0], imports.client.commands.cache)){
+       const command = imports.getCommand(imports.args.shift(), imports.client.commands.cache);
        if(command){
            imports._.each(command, (value, key) => {
                if(key === "run") return;
