@@ -2,7 +2,7 @@ const { Channel } = require("discord.js");
 const { content } = require("../../assets/configs/funfact");
 
 module.exports.run = async (i) => {
-    const bundle = i.getItem("bundle", imports.args.shift())
+    const bundle = i.getItem("bundle", i.args.shift())
     if(!bundle) return i.message.channel.send("That bundle doesn't exist.");
     
     const price = bundle.price || 0; 
@@ -18,8 +18,8 @@ collector.once("collect", async (m) => {
     collector.stop();
     switch(m.content.toLowerCase()){
         case "yes":{
-            
-          await  db.collection("users").updateDoc({docID: i.message.author.id}, {$push: {"bundles": bundle.id}});
+           
+          await  db.collection("users").updateDoc({docID: i.message.author.id}, {$push: {"bundles": bundle.id}, $inc: {cp: -1 * price}});
             for(let item of bundle.content){
                 let itemMeta = i.getItem(item.type, item.id);
                 if(itemMeta){

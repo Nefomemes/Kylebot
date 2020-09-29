@@ -29,8 +29,9 @@ var i = {
         if(cmdname && i.getCommand(cmdname, i.command.commands)){
             var name = i.command.name;
             i.command = i.getCommand(cmdname, i.command.commands);
-           if(!command) return;
+           if(!i.command) return;
             i.command.name = `${name}#${i.command.name}`;
+            i.args.shift()
         } else {
             i.args = [i.command.name, i.args.pop()];
             return client.commands.cache.get("help").run(i).catch(e => {
