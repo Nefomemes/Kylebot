@@ -6,7 +6,7 @@ module.exports.run = async (imports) => {
     if(user.deleted) return imports.message.channel.send("Target is no longer a member of this server, sir.");
     if(!user.bannable) return imports.message.channel.send("Sorry, sir. I was unable to :b:an target. Try to give me the **Kick Members** permission or higher my role a little bit higher than target.");
     if(imports.message.author.id !== imports.message.guild.ownerID && imports.message.member.roles.highest.position <= user.roles.highest.position) return imports.message.channel.send("Sorry, sir. Target have the same or even a higher highest role position than you. Try reporting target to someone whose highest role is higher than them, yeah.");
-    const guildDB = await imports.db.getDoc("guilds", imports.message.guild.id);
+    const guildDB = await imports.db.collection("guilds").getDoc({docID: imports.message.guild.id});
     var embed = new imports.Discord.MessageEmbed()
     .setColor(imports.color.BG_COLOR)
     .setTitle(`Banned from ${imports.message.guild.name}`)
@@ -38,7 +38,7 @@ module.exports.run = async (imports) => {
         },
         {
             "name":"Date",
-            "value":`${Date.now().toUTCString()} (${Date.now()})`,
+            "value":`${new Date(Date.now()).toUTCString()} (${Date.now()})`,
             "inline": true
         },
         {
@@ -52,7 +52,7 @@ module.exports.run = async (imports) => {
         embed = embed.addField("‎", `[Appeal Action](${guildDB.appealLink})`, true)
     }
 if(!user.user.bot){
-    user.user.send(embed);
+    user.user.send(embed).catch(e => e);
 }
 await user.ban(`Reason: ${imports.args.join(" ") || "none"} ModID: ${imports.message.author.id} ModUsername: ${imports.message.author.username}#${imports.message.author.discriminator}`);
 return imports.message.channel.send("Nicely done. Ez pz.");

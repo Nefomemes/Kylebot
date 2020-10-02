@@ -1,0 +1,102 @@
+[
+  {
+     "name": "Precision Airstrike",
+     "id":"precision_airstrike",
+     "type":"lethal"
+  },
+  {
+     "name":"Cruise Missile",
+     "id":"cruise_predator",
+     "type":"lethal"
+  },
+  {
+     "name":"turret_manual",
+     "id":"turret_manual",
+     "type":"lethal"
+  },
+  {
+     "name":"White Phosphorus",
+     "id":"white_phosphorus",
+     "type":"lethal"
+  },
+  {
+     "name":"VTOL",
+     "id":"hover_jet",
+     "type":"lethal"
+  },
+  {
+     "name":"Chopper Gunner",
+     "id":"chopper_gunner",
+     "type":"lethal"
+  },
+  {
+     "name":"Gunship",
+     "id":"gunship",
+     "type":"lethal"
+  },
+  {
+     "name":"Sentry Gun",
+     "id":"sentry_gun",
+     "type":"lethal"
+  },
+  {
+     "name":"toma_strike",
+     "id":"toma_strike",
+     "type":"lethal"
+  },
+  {
+     "name":"Tactical Nuke",
+     "id":"nuke",
+     "type":"lethal"
+  },
+  {
+     "name":"Juggernaut", 
+     "id":"juggernaut",
+     "type":"lethal"
+  },
+  {
+     "name":"pac_sentry",
+     "id":"pac_sentry",
+     "type":"lethal"
+  },
+  {
+     "name":"chopper_support",
+     "id":"chopper_support",
+     "type":"lethal"
+  },
+  {
+     "name":"Wheelson",
+     "id":"bradley",
+     "type":"lethal"
+  },
+  {
+     "name":"Care Package",
+     "id":"airdrop",
+     "type":"support"
+  },
+  {
+     "name":"Personal UAV",
+     "id":"radar_drone_overwatch",
+     "type":"support"
+  },
+  {
+     "name":"Counter UAV",
+     "id":"scrambler_drone_guard",
+     "type":"support"
+  },
+  {
+     "name":"UAV",
+     "id":"uav",
+     "type":"support"
+  },
+  {
+     "name":"Emergency Care Package",
+     "id":"multiple_airdrop",
+     "type":"support"
+  }, 
+  {
+     "name":"Advanced UAV",
+     "id":"directional_uav",
+     "type":"support"
+  }
+];

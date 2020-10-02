@@ -6,12 +6,12 @@ module.exports.run = async (imports) => {
     if(user.deleted) return imports.message.channel.send("Target is no longer a member of this server, sir.");
     if(!user.kickable) return imports.message.channel.send("Sorry, sir. I was unable to kick target. Try to give me the **Kick Members** permission or higher my role a little bit higher than target.");
     if(imports.message.author.id !== imports.message.guild.ownerID && imports.message.member.roles.highest.position <= user.roles.highest.position) return imports.message.channel.send("Sorry, sir. Target have the same or even a higher highest role position than you. Try reporting target to someone whose highest role is higher than them, yeah.");
-    const guildDB = await imports.db.getDoc("guilds", imports.message.guild.id);
+    const guildDB = await db.collection("guilds").getDoc({docID: imports.message.guild.id});
     var embed = new imports.Discord.MessageEmbed()
-    .setColor(imports.color.BG_COLOR)
+    .setColor(imports.colors.BG_COLOR)
     .setTitle(`Kicked from ${imports.message.guild.name}`)
     .setDescription(`You have been kicked by ${imports.message.author.username}#${imports.message.author.discriminator} (${imports.message.member.displayName }) from ${imports.message.guild.name} for "${imports.args.join(" ") || "none"}".`)
-    .setAuthor(imports.message.author.displayAvatarURL({format: "png", dynamic: true}), imports.message.author.username)
+    .setAuthor(imports.message.author.username, imports.message.author.displayAvatarURL({format: "png", dynamic: true}))
     .setThumbnail(imports.message.guild.iconURL({format: "png", dynamic: true}))
     .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`)
     .setTimestamp()
@@ -38,7 +38,7 @@ module.exports.run = async (imports) => {
         },
         {
             "name":"Date",
-            "value":`${Date.now().toUTCString()} (${Date.now()})`,
+            "value":`${new Date(Date.now()).toUTCString()} (${Date.now()})`,
             "inline": true
         },
         {
@@ -52,7 +52,7 @@ module.exports.run = async (imports) => {
         embed = embed.addField("‎", `[Appeal Action(you can use an invite link instead though, it's just a kick)](${guildDB.appealLink})`, true)
     }
 if(!user.user.bot){
-    user.user.send(embed);
+    user.user.send(embed).catch(e => e);
 }
 await user.kick(`Reason: ${imports.args.join(" ") || "none"} ModID: ${imports.message.author.id} ModUsername: ${imports.message.author.username}#${imports.message.author.discriminator}`);
 return imports.message.channel.send("Nicely done.")

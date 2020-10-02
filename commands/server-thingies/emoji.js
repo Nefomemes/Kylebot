@@ -4,12 +4,7 @@ module.exports.run = async imports => {
 		imports.args[0],
 		imports.client.emojis
 	);
-	if (!emoji)
-		return imports.message.channel.send(
-			"Sorry, sir. Can't find any emojis on that."
-		);
-	imports.args.shift();
-	var embed = new imports.Discord.MessageEmbed()
+		var embed = new imports.Discord.MessageEmbed()
 		.setColor(imports.colors.BG_COLOR)
 		.setAuthor(
 			imports.client.user.username,
@@ -17,6 +12,12 @@ module.exports.run = async imports => {
 		)
 		.setTimestamp()
 		.setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`);
+	if (!emoji) {
+		if(Number.isNaN(parseInt(imports.args[0]))) return i.message.channel.send("Invalid emoji!");
+ return i.message.channel.send("Invalid emoji!")
+	}
+		imports.args.shift();
+
 	var fields = [{name: 'Animated', value: emoji.animated.toString(), inline: true}, {name: 'Name', value: emoji.name, inline: true}, {name: 'ID', value: emoji.id, inline: true}];
 
 	var format = imports.args[0] || 'png';

@@ -4,9 +4,9 @@ module.exports = {
     if (string.length <= max) return string;
     return `${string.slice(0, max - 3)}...`;
   },
-  getRandomFunfact: () => {
+  getRandomFunfact: (str) => {
     const funfact = require("./configs/funfact").content;
-    return "WIP Internal Alpha"+ " | "+ funfact[Math.floor(Math.random() * funfact.length)]
+    return "WIP Internal Alpha"+ " | "+ ( str || funfact[Math.floor(Math.random() * funfact.length)])
 
   },
   customSplit: (str, maxLength) => {
@@ -59,10 +59,14 @@ module.exports = {
     if (!collection) return;
     var items;
     try {
-       items = require(`./items/${collection}s`).content;
+       items = require(`./items/${collection}s`);
       
   } catch {
+  	try {
+  		items = require(`./items/${collection}s.json`);
+  	} catch {
     return;
+  	}
     }
       if(type && type.toLowerCase() === "all") return items;
       item = (item || "default").toLowerCase();
@@ -125,7 +129,7 @@ if(pages_length <= 0) pages_length = 1;
     .setColor(global.colors.BG_COLOR)
     .setAuthor("Report Issue on GitHub", "https://raw.githubusercontent.com/Nefomemes/Kylebot/master/assets/GitHub-Mark-Light-120px-plus.png", "https://github.com/Nefomemes/Kylebot/issues/new")
     .setDescription("```" + global.built_ins.trim(require("util").inspect(error), 2048 - 6) + "```")
-    .setFooter(`Prefix: ${global.configs.prefix} | ` + "Please make sure noone have ever posted a similar issue and please provide reproduction steps.", global.client.user.displayAvatarURL({dynamic: true, format: "png"}))
+    .setFooter(`Prefix: ${global.configs.prefix} | WIP Internal Alpha | ` + "Please make sure noone have ever posted a similar issue and please provide reproduction steps.", global.client.user.displayAvatarURL({dynamic: true, format: "png"}))
     .setTimestamp()
     .setTitle("An error occured!")
     return embed;
