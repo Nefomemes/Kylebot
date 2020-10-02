@@ -59,13 +59,13 @@ module.exports = {
     if (!collection) return;
     var items;
     try {
-       items = require(`./items/${collection}s`);
+       items = require(require("path").join(process.cwd(), `assets/items/${collection}s`));
       
   } catch {
   	try {
-  		items = require(`./items/${collection}s.json`);
+  		items = require(require("path").join(process.cwd(), `assets/items/${collection}s.json`));
   	} catch {
-    return;
+    return null;
   	}
     }
       if(type && type.toLowerCase() === "all") return items;

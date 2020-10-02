@@ -91,7 +91,7 @@
   },
   {
      "name":"Emergency Care Package",
-     "id":"multiple_airdrop",
+     "id":"airdrop_multiple",
      "type":"support"
   }, 
   {
@@ -99,4 +99,4 @@
      "id":"directional_uav",
      "type":"support"
   }
-];
+]
