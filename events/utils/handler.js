@@ -21,7 +21,7 @@ var i = {
     i.args = i.message.content.slice(i.prefix.length).split(/ +/);
     
     i.commandName = i.args.shift().toLowerCase();
-    i.rawArgv = require("string-argv").parseArgsStringToArgv(i.args.join(" "))
+    i.rawArgv = require("shell-quote").parse(i.args.join(" "))
 	i.argv = require("minimist")(i.rawArgv);
     if (!i.commandName) return;
     

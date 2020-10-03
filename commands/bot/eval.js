@@ -2,18 +2,18 @@ module.exports.run = async i => {
 	const now = Date.now();
 	if (!client.owners.cache.get(i.message.author.id)) return;
 
-	if (!i.argv.code)
+	/*if (!i.argv.code)
 		return i.message.channel.send(
 			'Add `--code=<code>` or `-code <code>`.\n\n If you need to add spaces. Use `--code="<code>"` or `-code  "<code>"  instead.'
 		);
 		
-		
+		*/
 	i.argv.depth = parseInt(i.argv.depth);
 	if (!i.argv.depth || Number.isNaN(i.argv.depth)) {
 		i.argv.depth = 0;
 	}
 	async function evall() {
-		return await eval(i.argv.code);
+		return await eval(i.args.join(" "));
 
 	}
 	async function evaluate() {

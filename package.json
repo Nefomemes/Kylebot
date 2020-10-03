@@ -17,16 +17,15 @@
   "author": "Nefomemes#3927",
   "license": "MIT",
   "dependencies": {
-    "@replit/database": "^2.0.0",
     "call-of-duty-api": "^1.2.16",
     "cheerio": "^1.0.0-rc.3",
     "discord.js": "^12.2.0",
     "express": "^4.17.1",
-    "home": "^2.0.0",
     "minimist": "^1.2.5",
     "mongodb": "^3.6.2",
     "node-fetch": "^2.6.1",
     "node-grau": "^1.0.21",
+    "shell-quote": "^1.7.2",
     "string-argv": "^0.3.1",
     "underscore": "^1.10.2",
     "xml2js": "^0.4.23"
