@@ -26,7 +26,7 @@ module.exports.run = async i => {
 		const noww = Date.now();
 		i.message.channel.send(`Process executed within ${noww - now}ms.`);
 		i.message.channel.send(
-			'```js\n' + i.trim(i.avoidBreak(i.args.join(' ')), 2000 - 12) + '\n```'
+			'```js\n' + i.trim(i.avoidBreak(i.argv.code), 2000 - 12) + '\n```'
 		);
 		i.message.channel.send(
 			'```js\n' +
