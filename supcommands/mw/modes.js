@@ -11,7 +11,7 @@ module.exports = {
 			return i.message.channel.send(
 				"You haven't specified a platform to look for the player. Add `--platform=<platform>` or `-platform <platform>`."
 			);
-		if (i.argv.mode && !modes[i.argv.mode]) return i.message.channel.send("That mode is not in our gamemode list.");
+		
 		const supports = {
 			activision: 'uno',
 			acti: 'uno',
@@ -31,7 +31,7 @@ module.exports = {
 				"Platform doesn't exist or isn't supported yet. Try again."
 			);
 
-		return codAPI.MWstats(args.player, platform).then(o => {
+		return codAPI.MWstats(i.argv.player, platform).then(o => {
 			if (typeof o === 'string') return i.message.channel.send('Message: ' + i);
 			var embed = new Discord.MessageEmbed()
 				.setColor(i.colors.BG_COLOR)
@@ -48,13 +48,16 @@ module.exports = {
 
 			var fields = [];
 			if (i.argv.mode) {
+		
 				if (!o.lifetime.mode[i.argv.mode]) return i.message.channel.send("That game mode does not exist in the API response.");
+				embed = embed.setTitle(`${modes[key] || i.argv.mode}`);
 				_.each(o.lifetime.mode[i.argv.mode].properties, (value, key) => {
 					return fields.push({ name: key, value: value, inline: true });
 				})
 			} else {
+
 				_.each(o.lifetime.mode, (value, key) => {
-					fields.push({ name: `${[key] || key}`, value: i.trim(`Kills: ${value.properties.kills} kill\nDeaths: ${value.properties.deaths}\nScore: ${value.properties.score}\nKD: ${value.properties.kdRatio}\nScore per minute: ${value.properties.scorePerMinute}`, 1024), inline: true })
+					fields.push({ name: `${modes[key] || key}`, value: i.trim(`Refer this gamemode as \`${key}\`.\n\n**Kills**: ${value.properties.kills} kills\n**Deaths**: ${value.properties.deaths} deaths\n**Score**: ${value.properties.score} scores\n**KD**: ${value.properties.kdRatio}\n**SPM**: ${value.properties.scorePerMinute} scores/min`, 1024), inline: true })
 				})
 			}
 			let number = parseInt(i.argv.page);

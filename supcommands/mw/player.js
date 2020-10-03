@@ -30,7 +30,7 @@ module.exports = {
 				"Platform doesn't exist or isn't supported yet. Try again."
 			);
 
-		return codAPI.MWstats(args.player, platform).then(o => {
+		return codAPI.MWstats(i.argv.player, platform).then(o => {
 			if (typeof o === 'string') return i.message.channel.send('Message: ' + i);
 			var embed = new Discord.MessageEmbed()
 				.setColor(i.colors.BG_COLOR)
