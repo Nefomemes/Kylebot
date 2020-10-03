@@ -25,7 +25,15 @@ var i = {
     if(!i.command) return;
     if(i.command.type && i.command.type === "supcommand"){
     	i.rawArgv = require("string-argv").parseArgsStringToArgv(i.args.join(" "))
-i.argv = require("minimist")(i.rawArgv);
+      
+        i.argv = require("minimist")(i.rawArgv);
+        
+        _.forEach(i.argv, (value, key) => {
+            if(!key) return;
+            if(!value) return;
+            if(typeof value !== "string") return;
+            if(value.endsWith('"') && value.startsWith('"') || value.startsWith("'") && value.endsWith("'")) return i.argv[key] = value.slice(1) - 1;
+        })
         var cmdname = i.args[0]
         if(cmdname && i.getCommand(cmdname, i.command.commands)){
             var name = i.command.name;
