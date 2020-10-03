@@ -13,7 +13,7 @@ module.exports.run = async i => {
 		i.argv.depth = 0;
 	}
 	async function evall() {
-		return await eval(i.argv.code);
+		return await eval(`${ await eval(i.argv.code)}`);
 	}
 	async function evaluate() {
 		return await evall()

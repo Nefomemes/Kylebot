@@ -19,13 +19,16 @@ var i = {
     if (!i.message.content.startsWith(i.prefix)) return;
     if(oldMessage && oldMessage.content === message.content)return;
     i.args = i.message.content.slice(i.prefix.length).split(/ +/);
+    
     i.commandName = i.args.shift().toLowerCase();
+    i.rawArgv = require("string-argv").parseArgsStringToArgv(i.args.join(" "))
+	i.argv = require("minimist")(i.rawArgv);
     if (!i.commandName) return;
+    
     i.command = i.getCommand(i.commandName, i.client.commands.cache);
     if(!i.command) return;
     if(i.command.type && i.command.type === "supcommand"){
-    	i.rawArgv = require("string-argv").parseArgsStringToArgv(i.args.join(" "))
-i.argv = require("minimist")(i.rawArgv);
+    	
         var cmdname = i.args[0]
         if(cmdname && i.getCommand(cmdname, i.command.commands)){
             var name = i.command.name;
