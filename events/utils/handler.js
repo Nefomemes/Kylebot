@@ -19,8 +19,12 @@ var i = {
     if (!i.message.content.startsWith(i.prefix)) return;
     if(oldMessage && oldMessage.content === message.content)return;
     i.args = i.message.content.slice(i.prefix.length).split(/ +/);
+    
     i.commandName = i.args.shift().toLowerCase();
+    i.rawArgv = require("string-argv").parseArgsStringToArgv(i.args.join(" "))
+	i.argv = require("minimist")(i.rawArgv);
     if (!i.commandName) return;
+    
     i.command = i.getCommand(i.commandName, i.client.commands.cache);
     if(!i.command) return;
     if(i.command.type && i.command.type === "supcommand"){
@@ -34,6 +38,7 @@ var i = {
             if(typeof value !== "string") return;
             if(value.endsWith('"') && value.startsWith('"') || value.startsWith("'") && value.endsWith("'")) return i.argv[key] = value.slice(1) - 1;
         })
+        
         var cmdname = i.args[0]
         if(cmdname && i.getCommand(cmdname, i.command.commands)){
             var name = i.command.name;
