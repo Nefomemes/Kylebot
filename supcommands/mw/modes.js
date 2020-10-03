@@ -1,7 +1,8 @@
+const modes = require(require("path").join(process.cwd(), "assets/gamemodes.json"));
 module.exports = {
 	desc: 'Get the information of a Call of Duty: Modern Warfare player.',
 	run: async i => {
-		
+
 		if (!i.argv.player)
 			return i.message.channel.send(
 				"Looks like you're searching for John Cena. Add `--player=<gamertag>` or `-player <gamertag>` to look fo their stats."
@@ -10,7 +11,7 @@ module.exports = {
 			return i.message.channel.send(
 				"You haven't specified a platform to look for the player. Add `--platform=<platform>` or `-platform <platform>`."
 			);
-
+		if (i.argv.mode && !modes[i.argv.mode]) return i.message.channel.send("That mode is not in our gamemode list.");
 		const supports = {
 			activision: 'uno',
 			acti: 'uno',
@@ -45,9 +46,17 @@ module.exports = {
 					client.user.displayAvatarURL({ format: 'png', dynamic: true })
 				);
 
-            var fields = [];
-            
-
+			var fields = [];
+			if (i.argv.mode) {
+				if (!o.lifetime.mode[i.argv.mode]) return i.message.channel.send("That game mode does not exist in the API response.");
+				_.each(o.lifetime.mode[i.argv.mode].properties, (value, key) => {
+					return fields.push({ name: key, value: value, inline: true });
+				})
+			} else {
+				_.each(o.lifetime.mode, (value, key) => {
+					fields.push({ name: `${[key] || key}`, value: i.trim(`Kills: ${value.properties.kills} kill\nDeaths: ${value.properties.deaths}\nScore: ${value.properties.score}\nKD: ${value.properties.kdRatio}\nScore per minute: ${value.properties.scorePerMinute}`, 1024), inline: true })
+				})
+			}
 			let number = parseInt(i.argv.page);
 			if (Number.isNaN(number) || !number) {
 				number = 1;
@@ -66,6 +75,7 @@ module.exports = {
 					);
 				}
 			}
+
 			return i.message.channel.send(embed);
 		});
 	}
