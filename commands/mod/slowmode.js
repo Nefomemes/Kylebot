@@ -1,7 +1,6 @@
 module.exports.run = async i => {
-	
-	var args = require("minimist")(i.args);
-var channel = i.getChannelFromMention(args.channel) || i.message.channel;
+
+var channel = i.getChannelFromMention(i.argv.channel) || i.message.channel;
 
 	if (!channel) return i.message.channel.send('Invalid channel.');
 	if (channel.type !== 'text')
@@ -15,19 +14,19 @@ var channel = i.getChannelFromMention(args.channel) || i.message.channel;
 		);
  if(!channel.manageable) return i.message.channel.send("Sorry, sir. I am missing permissions to set the channel's slowmode.");
 
-	if(!args.slowmode)
+	if(!i.argv.slowmode)
 		return i.message.channel.send(
 			'Add `-slowmode <slowmode>` or `--slowmode=<slowmode>` to specify how long the slowmode should be.'
 		);
-	if(Number.isNaN(parseInt(args.slowmode))) return i.message.channel.send('The slowmode argument must be a number and is in seconds.');
+	if(Number.isNaN(parseInt(i.argv.slowmode))) return i.message.channel.send('The slowmode argument must be a number and is in seconds.');
 	
-	if (args.slowmode > (6 * 3600))
+	if (i.argv.slowmode > (6 * 3600))
 		return i.message.channel.send(
-			'Slowmode may not be longer than 6 hours (3600 seconds). Try again.'
+			`Slowmode may not be longer than 6 hours (${6 * 3600} seconds). Try again.`
 		);
 	await channel.setRateLimitPerUser(
-		args.slowmode,
-		`Reason: ${args.reason || 'unknown'} AdminID: ${
+		i.argv.slowmode,
+		`Reason: ${i.argv.reason || 'unknown'} AdminID: ${
 			imports.message.author.id
 		} AdminUsername: ${imports.message.author.username}#${
 			imports.message.author.discriminator

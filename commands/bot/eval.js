@@ -1,20 +1,19 @@
 module.exports.run = async i => {
 	const now = Date.now();
 	if (!client.owners.cache.get(i.message.author.id)) return;
-/*	var args = require('minimist')(i.args);
-	if (!args.code)
+
+	if (!i.argv.code)
 		return i.message.channel.send(
 			'Add `--code=<code>` or `-code <code>`.\n\n If you need to add spaces. Use `--code="<code>"` or `-code  "<code>"  instead.'
 		);
-		*/
-		var args = {}
-		args.code = i.args.join(" ")
-	args.depth = parseInt(args.depth);
-	if (!args.depth || Number.isNaN(args.depth)) {
-		args.depth = 0;
+		
+		
+	i.argv.depth = parseInt(i.argv.depth);
+	if (!i.argv.depth || Number.isNaN(i.argv.depth)) {
+		i.argv.depth = 0;
 	}
 	async function evall() {
-		return await eval(args.code);
+		return await eval(i.argv.code);
 	}
 	async function evaluate() {
 		return await evall()
@@ -30,7 +29,7 @@ module.exports.run = async i => {
 		i.message.channel.send(
 			'```js\n' +
 				i.trim(
-					i.avoidBreak(require('util').inspect(result, { depth: args.depth })),
+					i.avoidBreak(require('util').inspect(result, { depth: i.argv.depth })),
 					2000 - 12
 				) +
 				'\n```'
