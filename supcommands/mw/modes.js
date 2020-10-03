@@ -50,7 +50,7 @@ module.exports = {
 			if (i.argv.mode) {
 		
 				if (!o.lifetime.mode[i.argv.mode]) return i.message.channel.send("That game mode does not exist in the API response.");
-				embed = embed.setTitle(`${modes[key] || i.argv.mode}`);
+				embed = embed.setTitle(`${modes[i.argv.mode] || i.argv.mode}`);
 				_.each(o.lifetime.mode[i.argv.mode].properties, (value, key) => {
 					return fields.push({ name: key, value: value, inline: true });
 				})
