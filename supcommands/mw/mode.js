@@ -11,7 +11,7 @@ module.exports = {
 			return i.message.channel.send(
 				"You haven't specified a platform to look for the player. Add `--platform=<platform>` or `-platform <platform>`."
 			);
-		
+
 		const supports = {
 			activision: 'uno',
 			acti: 'uno',
@@ -48,7 +48,7 @@ module.exports = {
 
 			var fields = [];
 			if (i.argv.mode) {
-		
+
 				if (!o.lifetime.mode[i.argv.mode]) return i.message.channel.send("That game mode does not exist in the API response.");
 				embed = embed.setTitle(`${modes[i.argv.mode] || i.argv.mode} stats for ${o.username}`);
 				_.each(o.lifetime.mode[i.argv.mode].properties, (value, key) => {
@@ -57,7 +57,21 @@ module.exports = {
 			} else {
 
 				_.each(o.lifetime.mode, (value, key) => {
-					fields.push({ name: `${modes[key] || key}`, value: i.trim(`Refer this gamemode as \`${key}\`.\n\n**Kills**: ${value.properties.kills} kills\n**Deaths**: ${value.properties.deaths} deaths\n**Score**: ${value.properties.score} scores\n**KD**: ${value.properties.kdRatio}\n**SPM**: ${value.properties.scorePerMinute} scores/min`, 1024), inline: true })
+					switch (key.toLowerCase()) {
+						case "kills":
+							return fields.push({ name: 'Kills', value: `${value} kills`, inline: true });
+						case "deaths":
+							return fields.push({ name: 'Deaths', value: `${value} deaths`, inline: true });
+						case "score":
+							return fields.push({name: "Score", value: `${value}`, inline: true});
+						case "timePlayed":
+							return fields.push({name: "Time played", value: `${value}`, inline: true});
+						case "scorePerMinute":
+							
+							default:
+							return fields.push({ name: `${modes[key] || key}`, value: i.trim(`Refer this gamemode as \`${key}\`.\n\n**Kills**: ${value.properties.kills} kills\n**Deaths**: ${value.properties.deaths} deaths\n**Score**: ${value.properties.score} scores\n**KD**: ${value.properties.kdRatio}\n**SPM**: ${value.properties.scorePerMinute} scores/min`, 1024), inline: true });
+					}
+
 				})
 			}
 			let number = parseInt(i.argv.page);
