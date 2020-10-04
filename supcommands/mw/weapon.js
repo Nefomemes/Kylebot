@@ -48,6 +48,7 @@ module.exports = {
                 if (weapons[i.argv.weapon] || weaponStats[i.argv.weapon]) {
                     weapon = i.argv.weapon
                 } else {
+                 
                     let foobar = [];
                     for (const [key, value] of Object.entries(weaponStats)) {
                         foobar.push({ key: key, value: value });
@@ -57,6 +58,7 @@ module.exports = {
                     })
                     if (!foobar.length) return i.message.channel.send("There are no gun with that name or id.");
                     weapon = foobar[0].key;
+                    
                 }
                 if (weaponStats[weapon]) return i.message.channel.send("There are no weapons with that name or id.");
                 embed = embed.setImage(`https://www.callofduty.com/cdn/app/weapons/mw/icon_cac_weapon_${weapon.slice(4)}.png`)
