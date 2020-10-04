@@ -3,7 +3,7 @@ const weapons = require(require("path").join(process.cwd(), "assets/weapons.json
 module.exports = {
     desc: 'Get the information of a Call of Duty: Modern Warfare player.',
     run: async i => {
-
+var k = 6;
         if (!i.argv.player)
             return i.message.channel.send(
                 "Looks like you're searching for John Cena. Add `--player=<gamertag>` or `-player <gamertag>` to look fo their stats."
@@ -68,7 +68,7 @@ module.exports = {
                     return fields.push({ name: key, value: value, inline: true });
                 })
             } else {
-
+                k = 4;
                 _.each(weaponStats, (v, k) => {
                     fields.push({ name: weapons[k] || k, value: i.trim(`**Kills**: ${v.properties.kills} kills\n**Deaths**: ${v.properties.deaths} deaths\n**KD ratio**: ${v.properties.kdRatio}\n**Shots**:${v.properties.shots} shots\n**Hits**:${v.properties.hits} hits\n**Accuracy**:${v.properties.accuracy}`, 1024) })
                 })
@@ -80,7 +80,7 @@ module.exports = {
             if (Number.isNaN(number) || !number) {
                 number = 1;
             }
-            let page = i.getPage(fields, 6, number);
+            let page = i.getPage(fields, k, number);
             embed = embed.setFooter(
                 i.trim(`Page ${page.page}/${page.pages} | ${embed.footer.text}`, 2048)
             );
