@@ -63,7 +63,7 @@ module.exports = {
                 }
                 if (!weaponStats[weapon]) return i.message.channel.send("There are no weapons with that name or id.");
                 embed = embed.setImage(`https://www.callofduty.com/cdn/app/weapons/mw/icon_cac_weapon_${weapon.slice(4)}.png`)
-                    .setTitle(`${weaponStats[weapon] || weapon} stats for ${embed.title}`)
+                    .setTitle(`${weapons[weapon] || weapon} stats for ${embed.title}`)
                 _.each(weaponStats[weapon].properties, (value, key) => {
                     return fields.push({ name: key, value: value, inline: true });
                 })
