@@ -51,11 +51,12 @@ module.exports = {
                  
                     let foobar = [];
                     for (const [key, value] of Object.entries(weapons)) {
-                        foobar.push({ key: key, value: value });
+                        if(value.toLowerCase() === i.argv.weapon.toLowerCase() || value.toLowerCase().split(i.argv.weapon.toLowerCase())[1]){
+                            foobar.push({ key: key, value: value });
+                        }
+
                     }
-                    foobar = foobar.filter((oj) => {
-                        return oj.value && (oj.value.toLowerCase() === i.argv.weapon.toLowerCase() || oj.value.toLowerCase().split(i.argv.weapon.toLowerCase())[1]);
-                    })
+            
                     if (!foobar.length) return i.message.channel.send("There are no gun with that name or id.");
                     weapon = foobar[0].key;
                     
