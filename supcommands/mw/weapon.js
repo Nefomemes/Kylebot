@@ -50,7 +50,7 @@ module.exports = {
                 } else {
                  
                     let foobar = [];
-                    for (const [key, value] of Object.entries(weaponStats)) {
+                    for (const [key, value] of Object.entries(weapons)) {
                         foobar.push({ key: key, value: value });
                     }
                     foobar = foobar.filter((oj) => {
