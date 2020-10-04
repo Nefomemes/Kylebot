@@ -48,7 +48,7 @@ module.exports = {
             var fields = [];
 
             _.each(o.lifetime.itemData, (value, key) => {
-                if(!key.statsWith("weapon_")) return;
+                if(!key.startsWith("weapon_")) return;
                 return _.each(value, (v, k) => {
                     fields.push({name: weapons[k] || k, value: i.trim(`**Kills**: ${v.properties.kills} kills\n**Deaths**: ${v.properties.deaths} deaths\n**KD ratio**: ${v.properties.kdRatio}\n**Shots**:${v.properties.shots} shots\n**Hits**:${v.properties.hits} hits\n**Accuracy**:${v.properties.accuracy}`, 1024)})
                 })
