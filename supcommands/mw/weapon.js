@@ -1,4 +1,4 @@
-const modes = require(require("path").join(process.cwd(), "assets/weapons.json"));
+const weapons = require(require("path").join(process.cwd(), "assets/weapons.json"));
 module.exports = {
     desc: 'Get the information of a Call of Duty: Modern Warfare player.',
     run: async i => {
