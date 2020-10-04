@@ -49,7 +49,7 @@ module.exports = {
                     weapon = i.argv.weapon
                 } else {
                     let foobar = [];
-                    for (const [key, value] of Object.entries(object1)) {
+                    for (const [key, value] of Object.entries(weaponStats)) {
                         foobar.push({ key: key, value: value });
                     }
                     foobar = foobar.filter((oj) => {
