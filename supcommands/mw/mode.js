@@ -1,3 +1,4 @@
+const supports = require("./platform.json");
 const modes = require(require("path").join(process.cwd(), "assets/gamemodes.json"));
 module.exports = {
 	desc: 'Get the information of a Call of Duty: Modern Warfare player.',
@@ -12,19 +13,6 @@ module.exports = {
 				"You haven't specified a platform to look for the player. Add `--platform=<platform>` or `-platform <platform>`."
 			);
 
-		const supports = {
-			activision: 'uno',
-			acti: 'uno',
-			psn: 'psn',
-			xbl: 'xbl',
-			battle: 'battle',
-			pc: 'battle',
-			ps4: 'psn',
-			ps5: 'psn',
-			xbox: 'xbl',
-			ps: 'psn',
-			uno: 'uno'
-		};
 		var platform = supports[i.argv.platform];
 		if (!platform)
 			return i.message.channel.send(

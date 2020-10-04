@@ -1,3 +1,4 @@
+const supports = require("./platform.json");
 const weapons = require(require("path").join(process.cwd(), "assets/weapons.json"));
 module.exports = {
     desc: 'Get the information of a Call of Duty: Modern Warfare player.',
@@ -12,19 +13,7 @@ module.exports = {
                 "You haven't specified a platform to look for the player. Add `--platform=<platform>` or `-platform <platform>`."
             );
 
-        const supports = {
-            activision: 'uno',
-            acti: 'uno',
-            psn: 'psn',
-            xbl: 'xbl',
-            battle: 'battle',
-            pc: 'battle',
-            ps4: 'psn',
-            ps5: 'psn',
-            xbox: 'xbl',
-            ps: 'psn',
-            uno: 'uno'
-        };
+
         var platform = supports[i.argv.platform];
         if (!platform)
             return i.message.channel.send(
@@ -47,12 +36,42 @@ module.exports = {
                 );
             var fields = [];
 
+            var weaponStats = {};
             _.each(o.lifetime.itemData, (value, key) => {
-                if(!key.startsWith("weapon_")) return;
+                if (!key.startsWith("weapon_")) return;
                 return _.each(value, (v, k) => {
-                    fields.push({name: weapons[k] || k, value: i.trim(`**Kills**: ${v.properties.kills} kills\n**Deaths**: ${v.properties.deaths} deaths\n**KD ratio**: ${v.properties.kdRatio}\n**Shots**:${v.properties.shots} shots\n**Hits**:${v.properties.hits} hits\n**Accuracy**:${v.properties.accuracy}`, 1024)})
+                    return weaponStats[k] = v;
                 })
             })
+            if (i.argv.weapon) {
+                var weapon;
+                if (weapons[i.argv.weapon] || weaponStats[i.argv.weapon]) {
+                    weapon = i.argv.weapon
+                } else {
+                    let foobar = [];
+                    for (const [key, value] of Object.entries(object1)) {
+                        foobar.push({ key: key, value: value });
+                    }
+                    foobar = foobar.filter((oj) => {
+                        return oj.value && (oj.value.toLowerCase() === i.argv.weapon.toLowerCase() || oj.value.toLowerCase().split(i.argv.weapon.toLowerCase())[1]);
+                    })
+                    if (!foobar.length) return i.message.channel.send("There are no gun with that name or id.");
+                    weapon = foobar[0].key;
+                }
+                if (weaponStats[weapon]) return i.message.channel.send("There are no weapons with that name or id.");
+                embed = embed.setImage(`https://www.callofduty.com/cdn/app/weapons/mw/icon_cac_weapon_${weapon.slice(4)}.png`)
+                    .setTitle(`${weaponStats[weapon] || weapon} stats for ${embed.title}`)
+                _.each(weaponStats[weapon].properties, (value, key) => {
+                    return fields.push({ name: key, value: value, inline: true });
+                })
+            } else {
+
+                _.each(weaponStats, (v, k) => {
+                    fields.push({ name: weapons[k] || k, value: i.trim(`**Kills**: ${v.properties.kills} kills\n**Deaths**: ${v.properties.deaths} deaths\n**KD ratio**: ${v.properties.kdRatio}\n**Shots**:${v.properties.shots} shots\n**Hits**:${v.properties.hits} hits\n**Accuracy**:${v.properties.accuracy}`, 1024) })
+                })
+
+            }
+
 
             let number = parseInt(i.argv.page);
             if (Number.isNaN(number) || !number) {
