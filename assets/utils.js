@@ -5,7 +5,7 @@ module.exports = {
     return `${string.slice(0, max - 3)}...`;
   },
   getRandomFunfact: (str) => {
-    const funfact = require("./configs/funfact").content;
+    const funfact = require("./configs/funfact.json");
     return "WIP Internal Alpha"+ " | "+ ( str || funfact[Math.floor(Math.random() * funfact.length)])
 
   },
