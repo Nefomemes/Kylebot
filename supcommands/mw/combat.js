@@ -81,7 +81,7 @@ var fields = [];
 				k = 6;
 			} else {
 				_.each(gamemodeStats, (value, key) => {
-					fields.push({name: modes[key] || key, value: `**Kills**: ${value.kills} kills\n**Deaths**: ${value.deaths} deaths\n**Wallbangs**: ${value.wallBangs}\n**Assists**: ${value.assists}\n**Headshots**: ${value.headshots}\n**Matches played**: ${value.matchesPlayed} matches\n**Kills per game**: ${value.killsPerGame}`, inline: true})
+					fields.push({name: modes[key] || key, value: `**Kills**: ${value.kills} kills\n**Deaths**: ${value.deaths} deaths\n**Wallbangs**: ${value.wallBangs}\n**Assists**: ${value.assists}\n**Headshots**: ${value.headshots}\n**Matches played**: ${value.matchesPlayed} matches`, inline: true})
 				})
 			} 
 			let number = parseInt(i.argv.page);
