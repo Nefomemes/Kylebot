@@ -1,7 +1,7 @@
 var modes = require(require("path").join(process.cwd(), "assets/gamemodes.json"));
 const supports = require("./platform.json");
 const branch = require("./branch.json")
-modes.all = "All";
+
 module.exports = {
 	desc: 'Get the information of a Call of Duty: Modern Warfare player.',
 	run: async i => {
