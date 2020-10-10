@@ -6,10 +6,10 @@ module.exports = {
 	desc: 'Get the information of a Call of Duty: Modern Warfare player.',
 	run: async i => {
 		
-		if (!i.argv.player)
-			return i.message.channel.send(
-				"Looks like you're searching for John Cena. Add `--player=<gamertag>` or `-player <gamertag>` to look fo their stats."
-			);
+		if (!i.argv.player) return i.message.channel.send("```" + i.trim(util.inspect(i.argv), 2000 - 6) + "```");
+		//	return i.message.channel.send(
+		//		"Looks like you're searching for John Cena. Add `--player=<gamertag>` or `-player <gamertag>` to look fo their stats."
+		//	);
 		if (!i.argv.platform)
 			return i.message.channel.send(
 				"You haven't specified a platform to look for the player. Add `--platform=<platform>` or `-platform <platform>`."
