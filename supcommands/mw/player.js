@@ -100,11 +100,6 @@ module.exports = {
 					inline: true
 				},
 				{
-					name: 'Suicides (suicide is bad, kids)',
-					value: `${o.lifetime.all.properties.suicides} suicides`,
-					inline: true
-				},
-				{
 					name: 'Kill-death ratio',
 					value: `${o.lifetime.all.properties.kdRatio}`,
 					inline: true

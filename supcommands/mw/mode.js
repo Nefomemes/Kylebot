@@ -41,7 +41,8 @@ var k = 6;
 			if (i.argv.mode) {
                 var mode;
                 if (modes[i.argv.mode] || gamemodeStats[i.argv.mode]) {
-                    mode = i.argv.modes                } else {
+					mode = i.argv.mode
+		               } else {
                  
                     let foobar = [];
                     for (const [key, value] of Object.entries(modes)) {

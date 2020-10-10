@@ -1,4 +1,7 @@
+var modes = require(require("path").join(process.cwd(), "assets/gamemodes.json"));
 const supports = require("./platform.json");
+const branch = require("./branch.json")
+modes.all = "All";
 module.exports = {
 	desc: 'Get the information of a Call of Duty: Modern Warfare player.',
 	run: async i => {
@@ -17,8 +20,26 @@ module.exports = {
 			return i.message.channel.send(
 				"Platform doesn't exist or isn't supported yet. Try again."
 			);
+		
+		if(!i.argv.branch) return i.message.channel.send("Add `--branch=<branch>` to specify the branch. For example `--branch=warzone` or `--branch=mp`");
+			
+		i.argv.branch = branch[i.argv.branch.toLowerCase()];
+		if(!i.argv.branch) return i.message.channel.send("That wasn't a valid branch.");
+		var combat;
+		
+		switch(i.argv.branch){
+			case "wz":
+				combat = codAPI.MWcombatwz;
+				break;
+			case "mp":
+				combat = codAPI.MWcombatmp;
+				break;
+			default:
+				return i.message.channel.send("Something happened.");
+		}
+		 
 
-		return codAPI.MWstats(i.argv.player, platform).then(o => {
+		return combat(i.argv.player, platform).then(o => {
 			if (typeof o === 'string') return i.message.channel.send('Message: ' + i);
 			var embed = new Discord.MessageEmbed()
 				.setColor(i.colors.BG_COLOR)
@@ -27,110 +48,40 @@ module.exports = {
 					'https://i.imgur.com/HMU8AmJ.png'
 				)
 				.setThumbnail('https://i.imgur.com/HMU8AmJ.png')
-				.setTitle(o.username)
 				.setFooter(
 					i.getRandomFunfact(),
 					client.user.displayAvatarURL({ format: 'png', dynamic: true })
 				);
 
-			var fields = [
-				{ name: 'Username', value: o.username, inline: true },
-				{
-					name: 'Platform',
-					value: (function() {
-						switch ((o.platform || 'unknown').toLowerCase()) {
-							case 'xbl':
-								return 'XBOX';
-							case 'psn':
-								return 'PlayStation Network';
-							case 'battle':
-								return 'Blizzard Battle.net';
-							default:
-								return 'unknown';
-						}
-					})(),
-					inline: true
-				},
-				{ name: 'Rank', value: `Rank ${o.level}`, inline: true },
-				{
-					name: 'Total Xp',
-					value: `${o.totalXp} xp`,
-					inline: true
-				},
-				{
-					name: 'Wins',
-					value: `${o.lifetime.all.properties.wins} wins`,
-					inline: true
-				},
-				{
-					name: 'Losses',
-					value: `${o.lifetime.all.properties.losses} losses`,
-					inline: true
-				},
-				{
-					name: 'Ties',
-					value: `${o.lifetime.all.properties.ties} ties`,
-					inline: true
-				},
-				{
-					name: 'Win-lost ratio',
-					value: `${o.lifetime.all.properties.winLossRatio}`,
-					inline: true
-				},
-				{
-					name: 'Kills',
-					value: `${o.lifetime.all.properties.kills} kills`,
-					inline: true
-				},
-				{
-					name: 'Deaths',
-					value: `${o.lifetime.all.properties.deaths} deaths`,
-					inline: true
-				},
-				{
-					name: 'Suicides (suicide is bad, kids)',
-					value: `${o.lifetime.all.properties.suicides} suicides`,
-					inline: true
-				},
-				{
-					name: 'Kill-death ratio',
-					value: `${o.lifetime.all.properties.kdRatio}`,
-					inline: true
-				},
-				{
-					name: 'Total scores',
-					value: `${o.lifetime.all.properties.score}`,
-					inline: true
-				},
+				var gamemodeStats = o.summary
+			if(i.argv.mode){
+				var mode = i.argv.mode;
+                if (gamemodeStats[i.argv.mode]) {
+					mode = i.argv.mode 
+			       } else {
+                 
+                    let foobar = [];
+                    for (const [key, value] of Object.entries(modes)) {
+                        if(value.toLowerCase() === i.argv.mode.toLowerCase() || value.toLowerCase().split(i.argv.mode.toLowerCase())[1]){
+                            foobar.push({ key: key, value: value });
+                        }
 
-				{
-					name: 'Accuraccy',
-					value: `${o.lifetime.all.properties.accuracy}`,
-					inline: true
-				},
-				{
-					name: `Games played`,
-					value: `${o.lifetime.all.properties.gamesPlayed} games`,
-					inline: true
-				},
-				{
-					name: 'Headshots',
-					value: `${o.lifetime.all.properties.headshots} headshots`,
-					inline: true
-				},
-
-				{
-					name: 'Score per minute',
-					value: `${o.lifetime.all.properties.scorePerMinute}`,
-					inline: true
-				},
-				{
-					name: `Score per game`,
-					value: `${o.lifetime.all.properties.scorePerGame}`,
-					inline: true
-				}
-			];
-
+                    }
+            
+                    if (!foobar.length) return i.message.channel.send("There are no gamemodes with that name or id.");
+                    mode = foobar[0].key;
+                    
+                }
+				if (!gamemodeStats[mode]) return i.message.channel.send("There are no gamemodes with that name or id.");	
+				embed = embed.setTitle(`${modes[mode]} combat statistics`);
+				_.each(gamemodeStats[mode], (value, key) => {
+					return fields.push({name: key, value: value, inline: true});
+				})
+			} else {
+				_.each(gamemodeStats, (value, key) => {
+					fields.push({name: modes[key] || key, value: `**Kills**: ${value.kills} kills\n**Deaths**: ${value.deaths} deaths\n**Wallbangs**:${value.wallBangs}\n**Assists**\n**Headshots**:${value.headshots}\n**Mathes played**:${value.matchesPlayed} matches\n**Win-loss ratio**: ${value.wlRatio}\n**SPM**: ${value.scorePerMinute}\n**KD Ratio**:${value.kdRatio}\n**Executions**:${value.executions}\n**Kills per game**: ${value.killsPerGame}\n**Damage done**:${value.damageDone}\n**Damage taken**:${value.damageTaken}`, inline: true})
+				})
+			} 
 			let number = parseInt(i.argv.page);
 			if (Number.isNaN(number) || !number) {
 				number = 1;
@@ -144,7 +95,7 @@ module.exports = {
 				if (!(index > page.end || index < page.start)) {
 					embed = embed.addField(
 						`${field.name}`,
-						`${field.value}`,
+						i.trim(`${field.value}`, 1024),
 						field.inline
 					);
 				}
