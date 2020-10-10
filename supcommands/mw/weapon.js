@@ -44,8 +44,9 @@ var k = 6;
                 })
             })
             if (i.argv.weapon) {
+
                 var weapon;
-                if (weapons[i.argv.weapon] || weaponStats[i.argv.weapon]) {
+                if (weaponStats[i.argv.weapon] || weaponStats[i.argv.weapon.slice("weapon_").length] || weaponStats["iw8_" + i.argv.weapon]) {
                     weapon = i.argv.weapon
                 } else {
                  

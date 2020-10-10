@@ -33,17 +33,36 @@ module.exports = {
 					i.getRandomFunfact(),
 					client.user.displayAvatarURL({ format: 'png', dynamic: true })
 				);
-
+var k = 6;
 			var fields = [];
+			var gamemodeStats = o.lifetime.mode
+			
+			
 			if (i.argv.mode) {
+                var mode;
+                if (modes[i.argv.mode] || gamemodeStats[i.argv.mode]) {
+                    mode = i.argv.modes                } else {
+                 
+                    let foobar = [];
+                    for (const [key, value] of Object.entries(modes)) {
+                        if(value.toLowerCase() === i.argv.mode.toLowerCase() || value.toLowerCase().split(i.argv.mode.toLowerCase())[1]){
+                            foobar.push({ key: key, value: value });
+                        }
 
-				if (!o.lifetime.mode[i.argv.mode]) return i.message.channel.send("That game mode does not exist in the API response.");
-				embed = embed.setTitle(`${modes[i.argv.mode] || i.argv.mode} stats for ${o.username}`);
-				_.each(o.lifetime.mode[i.argv.mode].properties, (value, key) => {
+                    }
+            
+                    if (!foobar.length) return i.message.channel.send("There are no gamemodes with that name or id.");
+                    mode = foobar[0].key;
+                    
+                }
+                if (!gamemodeStats[mode]) return i.message.channel.send("There are no gamemodes with that name or id.");
+				
+				embed = embed.setTitle(`${modes[mode] || mode} stats for ${o.username}`);
+				_.each(gamemodeStats[mode].properties, (value, key) => {
 					return fields.push({ name: key, value: value, inline: true });
 				})
 			} else {
-
+k = 4;
 				_.each(o.lifetime.mode, (value, key) => {
 					switch (key.toLowerCase()) {
 						case "kills":
@@ -57,7 +76,7 @@ module.exports = {
 						case "scorePerMinute":
 							
 							default:
-							return fields.push({ name: `${modes[key] || key}`, value: i.trim(`Refer this gamemode as \`${key}\`.\n\n**Kills**: ${value.properties.kills} kills\n**Deaths**: ${value.properties.deaths} deaths\n**Score**: ${value.properties.score} scores\n**KD**: ${value.properties.kdRatio}\n**SPM**: ${value.properties.scorePerMinute} scores/min`, 1024), inline: true });
+							return fields.push({ name: `${modes[key] || key}`, value: i.trim(`**Kills**: ${value.properties.kills} kills\n**Deaths**: ${value.properties.deaths} deaths\n**Score**: ${value.properties.score} scores\n**KD**: ${value.properties.kdRatio}\n**SPM**: ${value.properties.scorePerMinute} scores/min`, 1024), inline: true });
 					}
 
 				})
@@ -66,7 +85,7 @@ module.exports = {
 			if (Number.isNaN(number) || !number) {
 				number = 1;
 			}
-			let page = i.getPage(fields, 6, number);
+			let page = i.getPage(fields, k, number);
 			embed = embed.setFooter(
 				i.trim(`Page ${page.page}/${page.pages} | ${embed.footer.text}`, 2048)
 			);

@@ -1,4 +1,6 @@
 module.exports.run = async imports => {
+	
+	return imports.message.channel.send("No.")
 	imports.message
 		.react('<a:DiscordLoading:731124846234435585')
 		.then(reaction => {

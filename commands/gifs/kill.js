@@ -12,7 +12,7 @@ module.exports.run = async imports => {
 					mention = mention.slice(1);
 				}
 			}
-			return imports.message.mentions.users.get(mention);
+			return imports.message.mentions.users.cache.get(mention);
 		};
 
 		for (let arg of imports.args) {

@@ -10,7 +10,6 @@ global.colors = require('./assets/configs/color').content;
 
 global.fs = require('fs').promises;
 global.Discord = require('discord.js');
-global.commandList = require('./assets/commands/cmd-list').content;
 global.built_ins = require('./assets/utils');
 global._ = require('underscore');
 global.badwords = require('./assets/configs/badwords').contents;
@@ -106,22 +105,12 @@ async function registerCommands(
 		else if (file.endsWith('.js')) {
 			let commandCode = require(path.join(__dirname, dir, file));
 			let commandName = file.substring(0, file.indexOf('.js'));
-			let commandModule = commandList.filter(function(command) {
-				return (
-					(command.name &&
-						command.name.toLowerCase() === commandName.toLowerCase()) ||
-					(command.aliases &&
-						command.aliases.filter(alias => {
-							return alias.toLowerCase() === commandName.toLowerCase();
-						}).length)
-				);
-			})[0];
+
 
 			if (commandCode.run) {
 				let command = {
 					...defaultSettings,
-					...commandModule,
-					...commandCode,
+			...commandCode,
 					name: commandName,
 					type: type
 				};

@@ -1,7 +1,7 @@
+const modes = require(require("path").join(process.cwd(), "assets/gamemodes.json"));
 module.exports = {
-	desc: 'Get killstreak usage stats',
+	desc: 'Get the information of a Call of Duty: Modern Warfare player.',
 	run: async i => {
-		
 
 		if (!i.argv.player)
 			return i.message.channel.send(
@@ -11,7 +11,7 @@ module.exports = {
 			return i.message.channel.send(
 				"You haven't specified a platform to look for the player. Add `--platform=<platform>` or `-platform <platform>`."
 			);
-
+		
 		const supports = {
 			activision: 'uno',
 			acti: 'uno',
@@ -45,27 +45,22 @@ module.exports = {
 					i.getRandomFunfact(),
 					client.user.displayAvatarURL({ format: 'png', dynamic: true })
 				);
+
 			var fields = [];
+			if (i.argv.mode) {
+		
+				if (!o.lifetime.mode[i.argv.mode]) return i.message.channel.send("That game mode does not exist in the API response.");
+				embed = embed.setTitle(`${modes[i.argv.mode] || i.argv.mode} stats for ${o.username}`);
+				_.each(o.lifetime.mode[i.argv.mode].properties, (value, key) => {
+					return fields.push({ name: key, value: value, inline: true });
+				})
+			} else {
 
-var k = (value, key) => {
-					let item = i.getItem('killstreak', key);
-
-					fields.push({
-						name: (function() {
-							if (item) return item.name || item.id || key;
-							return key;
-						})(),
-						value: `Uses: ${value.properties.uses}`,
-						inline: true
-					});
-	
-};
-			_.forEach(
-				o.lifetime.scorestreakData.lethalScorestreakData,
-			k);
-			_.forEach(o.lifetime.scorestreakData.supportScorestreakData, k);
-			
-				let number = parseInt(i.argv.page);
+				_.each(o.lifetime.mode, (value, key) => {
+					fields.push({ name: `${modes[key] || key}`, value: i.trim(`Refer this gamemode as \`${key}\`.\n\n**Kills**: ${value.properties.kills} kills\n**Deaths**: ${value.properties.deaths} deaths\n**Score**: ${value.properties.score} scores\n**KD**: ${value.properties.kdRatio}\n**SPM**: ${value.properties.scorePerMinute} scores/min`, 1024), inline: true })
+				})
+			}
+			let number = parseInt(i.argv.page);
 			if (Number.isNaN(number) || !number) {
 				number = 1;
 			}
@@ -83,9 +78,8 @@ var k = (value, key) => {
 					);
 				}
 			}
+
 			return i.message.channel.send(embed);
-		}
-			);
-		
+		});
 	}
-}
+};
