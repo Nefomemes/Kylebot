@@ -52,7 +52,7 @@ module.exports = {
 					i.getRandomFunfact(),
 					client.user.displayAvatarURL({ format: 'png', dynamic: true })
 				);
-				var key = 4;
+				var k = 4;
 var fields = [];
 				var gamemodeStats = o.summary
 			if(i.argv.mode){
@@ -88,7 +88,7 @@ var fields = [];
 			if (Number.isNaN(number) || !number) {
 				number = 1;
 			}
-			let page = i.getPage(fields, 6, number);
+			let page = i.getPage(fields, k, number);
 			embed = embed.setFooter(
 				i.trim(`Page ${page.page}/${page.pages} | ${embed.footer.text}`, 2048)
 			);
