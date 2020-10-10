@@ -52,6 +52,7 @@ module.exports = {
 					i.getRandomFunfact(),
 					client.user.displayAvatarURL({ format: 'png', dynamic: true })
 				);
+				var key = 4;
 var fields = [];
 				var gamemodeStats = o.summary
 			if(i.argv.mode){
@@ -77,6 +78,7 @@ var fields = [];
 				_.each(gamemodeStats[mode], (value, key) => {
 					return fields.push({name: key, value: value, inline: true});
 				})
+				k = 6;
 			} else {
 				_.each(gamemodeStats, (value, key) => {
 					fields.push({name: modes[key] || key, value: `**Kills**: ${value.kills} kills\n**Deaths**: ${value.deaths} deaths\n**Wallbangs**:${value.wallBangs}\n**Assists**\n**Headshots**:${value.headshots}\n**Mathes played**:${value.matchesPlayed} matches\n**Win-loss ratio**: ${value.wlRatio}\n**SPM**: ${value.scorePerMinute}\n**KD Ratio**:${value.kdRatio}\n**Executions**:${value.executions}\n**Kills per game**: ${value.killsPerGame}\n**Damage done**:${value.damageDone}\n**Damage taken**:${value.damageTaken}`, inline: true})
