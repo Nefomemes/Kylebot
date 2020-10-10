@@ -24,12 +24,9 @@ module.exports.run = async (imports) => {
 	}
 
 	if (!targets.length) return imports.message.react('❌');
-	let gifs = [
-		'https://media.discordapp.net/attachments/717210048174096446/719403405625524386/tenor_4.gif',
-		'https://media.discordapp.net/attachments/717210048174096446/719398381985726524/tenor_3.gif',
-		'https://media.discordapp.net/attachments/717210048174096446/719398360624267324/tenor_1.gif',
-		'https://media.discordapp.net/attachments/717210048174096446/719398334120329296/tenor_2.gif'
-	];
+let gifs = [
+	
+]
 	gifs = gifs[Math.floor(Math.random() * gifs.length)];
 	var the_reason = imports.args.join(' ');
 	if (the_reason) {

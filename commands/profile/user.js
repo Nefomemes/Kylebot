@@ -14,7 +14,7 @@ var embed = new imports.Discord.MessageEmbed()
       .setTitle(`${user.username}#${user.discriminator}`)
       .setAuthor(imports.client.user.username.split(" ")[0], imports.client.user.displayAvatarURL({ format: "png", dynamic: true }), process.env.WEBSITE)
       .setThumbnail(user.displayAvatarURL({ format: "png", dynamic: true }))
-      .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`, imports.client.user.displayAvatarURL({ format: "png", dynamic: true })).setTimestamp()
+      .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`, client.user.displayAvatarURL({ format: "png", dynamic: true })).setTimestamp()
 var fields = [ { name: "ID", value: `${user.id}`, inline: true },
         { name: "Accout created at", value: user.createdAt, inline: true},
         { name: "Bot", value: user.bot }]

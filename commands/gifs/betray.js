@@ -26,11 +26,11 @@ module.exports.run = async (imports) => {
 		if (!targets.length) return imports.message.react('❌');
 		if (targets.length === 1) {
 			gifs = [
-				'https://media.discordapp.net/attachments/665442594335096832/714676860067250518/codmw2cr_shepherd-betrayal_1person.gif'
+				
 			];
 		} else {
 			gifs = [
-				'https://media.discordapp.net/attachments/665442594335096832/714676888819466250/codmw2cr_shepherd-betrayal_2personormore.gif '
+				
 			];
 		}
 

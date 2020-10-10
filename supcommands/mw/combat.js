@@ -1,7 +1,8 @@
 var modes = require(require("path").join(process.cwd(), "assets/gamemodes.json"));
 const supports = require("./platform.json");
-const branch = require("./branch.json")
-
+const branch = require("./branch.json");
+const parsestats = require("../parsestats");
+const gamemodes = require("./gamemodes.json");
 module.exports = {
 	desc: 'Get the information of a Call of Duty: Modern Warfare player.',
 	run: async i => {
@@ -79,9 +80,7 @@ var fields = [];
 				})
 				k = 9;
 			} else {
-				_.each(gamemodeStats, (value, key) => {
-					fields.push({name: modes[key] || key, value: `**Kills**: ${value.kills} kills\n**Deaths**: ${value.deaths} deaths\n**Wallbangs**: ${value.wallBangs}\n**Assists**: ${value.assists}\n**Headshots**: ${value.headshots}\n**Matches played**: ${value.matchesPlayed} matches`, inline: true})
-				})
+				_.each(gamemodeStats, (value, key) => parsestats(value, key, fields));
 			} 
 			let number = parseInt(i.argv.page);
 			if (Number.isNaN(number) || !number) {

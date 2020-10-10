@@ -1,5 +1,6 @@
+const parsestats = require("../parsestats");
 const supports = require("./platform.json");
-const modes = require(require("path").join(process.cwd(), "assets/gamemodes.json"));
+const gamemodes = require("./gamemodes.json");
 module.exports = {
 	desc: 'Get the information of a Call of Duty: Modern Warfare player.',
 	run: async i => {
@@ -64,23 +65,7 @@ var k = 6;
 				})
 			} else {
 k = 4;
-				_.each(o.lifetime.mode, (value, key) => {
-					switch (key.toLowerCase()) {
-						case "kills":
-							return fields.push({ name: 'Kills', value: `${value} kills`, inline: true });
-						case "deaths":
-							return fields.push({ name: 'Deaths', value: `${value} deaths`, inline: true });
-						case "score":
-							return fields.push({name: "Score", value: `${value}`, inline: true});
-						case "timePlayed":
-							return fields.push({name: "Time played", value: `${value}`, inline: true});
-						case "scorePerMinute":
-							
-							default:
-							return fields.push({ name: `${modes[key] || key}`, value: i.trim(`**Kills**: ${value.properties.kills} kills\n**Deaths**: ${value.properties.deaths} deaths\n**Score**: ${value.properties.score} scores\n**KD**: ${value.properties.kdRatio}\n**SPM**: ${value.properties.scorePerMinute} scores/min`, 1024), inline: true });
-					}
-
-				})
+				_.each(o.lifetime.mode, (value, key) => parsestats(value, key, fields));
 			}
 			let number = parseInt(i.argv.page);
 			if (Number.isNaN(number) || !number) {

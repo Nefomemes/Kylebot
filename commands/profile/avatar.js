@@ -1,31 +1,16 @@
-module.exports.run = async (imports) => {
+module.exports.run = async (i) => {
 const supported =["webp", "png", "jpg", "jpeg", "gif"]
-var user = await imports.getUserFromMention(imports.args[0], imports.client.users);
-var ok = false;
-var type;
-if(!user) {
-user = await imports.getUserFromMention(imports.args[1], imports.client.users);
-if(user){
- type = (imports.args[0]  || "png").toLowerCase();
-
-} else {
-    user = imports.message.author;
-    ok = true; 
-} 
-} else { ok = true; }
-if(ok){
-     type = (imports.args[1]  || "png").toLowerCase();
-}
-if (!supported.includes(type))return imports.message.channel.send("Invalid file type.")
-if(!user) return imports.message.channel.send("Invalid user, sir.");
+i.argv.user = await i.getUserFromMention(i.argv.user, client.users);
+if (!supported.includes(i.argv.format))return i.message.channel.send("Invalid file type.");
+if(!i.argv.user) return i.message.channel.send("Invalid user.");
 
 var embed = new imports.Discord.MessageEmbed()
-.setColor(imports.colors.BG_COLOR)
-.setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({format : "png", dynamic: true}), imports.website)
+.setColor(i.colors.BG_COLOR)
+.setAuthor(i.client.user.username, client.user.displayAvatarURL({format : "png", dynamic: true}), i.website)
 .setDescription(`You can change the file type of the image by adding the file type as the argument. Note that animated avatars will remain a GIF. Default set to PNG.`)
-.setImage(user.displayAvatarURL({format: type || "png", dynamic: true}))
+.setImage(i.argv.user.displayAvatarURL({format: type || "png", dynamic: true}))
 .setTimestamp()
-.setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`, imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
+.setFooter(`Prefix: ${i.prefix} | ${i.getRandomFunfact()}`, client.user.displayAvatarURL({format: "png", dynamic: true}))
     
     imports.message.channel.send(embed)
 }

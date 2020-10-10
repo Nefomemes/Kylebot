@@ -6,7 +6,7 @@ module.exports.run = async imports => {
 			the_reason = '.';
 		}
 		const gifs = [
-			'https://media.discordapp.net/attachments/717210048174096446/717210623414370314/Heavy_is_Dead.gif'
+			
 		];
 		const selectedGIF = gifs[Math.floor(Math.random() * gifs.length)];
 		const embed = new imports.Discord.MessageEmbed()
