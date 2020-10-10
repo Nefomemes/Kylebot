@@ -1,3 +1,4 @@
+
 module.exports = {
 	description: "Configure the message that will be sent when a member joined.",
 	run: async i => {
