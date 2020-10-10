@@ -28,9 +28,7 @@ var i = {
     i.command = i.getCommand(i.commandName, i.client.commands.cache);
     if(!i.command) return;
     if(i.command.type && i.command.type === "supcommand"){
-    	i.rawArgv = require("string-argv").parseArgsStringToArgv(i.args.join(" "))
-      
-        i.argv = require("minimist")(i.rawArgv);
+    
         
         _.forEach(i.argv, (value, key) => {
             if(!key) return;
