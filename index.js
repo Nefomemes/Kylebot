@@ -12,7 +12,7 @@ global.fs = require('fs').promises;
 global.Discord = require('discord.js');
 global.built_ins = require('./assets/utils');
 global._ = require('underscore');
-
+global.util = require('util');
 const client = new global.Discord.Client({
 	partials: ['REACTION', 'MESSAGE'],
 	ws: {
