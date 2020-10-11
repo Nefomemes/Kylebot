@@ -1,6 +1,6 @@
 const parsestats = require("../parsestats");
 const supports = require("./platform.json");
-const gamemodes = require("./gamemodes.json");
+const modes = require("./gamemodes.json");
 module.exports = {
 	desc: 'Get the information of a Call of Duty: Modern Warfare player.',
 	run: async i => {
@@ -60,12 +60,10 @@ var k = 6;
                 if (!gamemodeStats[mode]) return i.message.channel.send("There are no gamemodes with that name or id.");
 				
 				embed = embed.setTitle(`${modes[mode] || mode} stats for ${o.username}`);
-				_.each(gamemodeStats[mode].properties, (value, key) => {
-					return fields.push({ name: key, value: value, inline: true });
-				})
+				_.each(gamemodeStats[mode].properties, (value, key) => parsestats(value, key, fields))
 			} else {
-k = 4;
-				_.each(o.lifetime.mode, (value, key) => parsestats(value, key, fields));
+
+				_.each(o.lifetime.mode, (value, key) => fields.push({name: modes[key] || key, value: `**Kills**:${value.properties.kills} kills\n**Deaths**:${value.properties.deaths} deaths\n**Wins**:${value.properties.wins} wins\nLosses: ${value.properties.losses} losses`, inline: true }));
 			}
 			let number = parseInt(i.argv.page);
 			if (Number.isNaN(number) || !number) {
