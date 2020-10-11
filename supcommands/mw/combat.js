@@ -52,7 +52,7 @@ module.exports = {
 					i.getRandomFunfact(),
 					client.user.displayAvatarURL({ format: 'png', dynamic: true })
 				);
-				var k = 3;
+				var k = 2;
 var fields = [];
 				var gamemodeStats = o.summary
 			if(i.argv.mode){
