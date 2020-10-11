@@ -21,7 +21,7 @@ module.exports = (value, key, fields) => {
         case "killspergame":
             return fields.push({name: "Kills per game", value: `${value} kills`, inline: true});
         case "wallbangs":
-            return fields.push({name: "Wallbangs", value: `${value} times`, inline: true});
+            return fields.push({name: "Wallbangs", value: `$ {value} times`, inline: true});
             default:
            return fields.push({name: key, value: value, inline: true});
     }
