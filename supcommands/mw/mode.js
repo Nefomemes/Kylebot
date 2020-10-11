@@ -63,7 +63,12 @@ var k = 6;
 				_.each(gamemodeStats[mode].properties, (value, key) => parsestats(value, key, fields))
 			} else {
 
-				_.each(o.lifetime.mode, (value, key) => fields.push({name: modes[key] || key, value: `**Kills**:${value.properties.kills} kills\n**Deaths**:${value.properties.deaths} deaths\n**Wins**:${value.properties.wins} wins\nLosses: ${value.properties.losses} losses`, inline: true }));
+				_.each(o.lifetime.mode, (value, key) => fields.push({ name: `${modes[key] || key}`, value: i.trim(
+			   `**Kills**: ${value.properties.kills} kills
+				**Deaths**: ${value.properties.deaths} deaths
+				**Score**: ${value.properties.score} scores
+				**KD**: ${value.properties.kdRatio}
+				**SPM**: ${value.properties.scorePerMinute} scores/min`, 1024), inline: true }));
 			}
 			let number = parseInt(i.argv.page);
 			if (Number.isNaN(number) || !number) {

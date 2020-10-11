@@ -1,3 +1,5 @@
+
+
 module.exports = (value, key, fields) => {
     switch (key.toLowerCase()) {
         case "kills":
@@ -21,6 +23,6 @@ module.exports = (value, key, fields) => {
         case "killsPerGame":
             return fields.push({name: "Kills per game", value: `${value} kills`, inline: true});
             default:
-            return fields.push({ name: `${modes[key] || key}`, value: i.trim(`**Kills**: ${value.properties.kills} kills\n**Deaths**: ${value.properties.deaths} deaths\n**Score**: ${value.properties.score} scores\n**KD**: ${value.properties.kdRatio}\n**SPM**: ${value.properties.scorePerMinute} scores/min`, 1024), inline: true });
+           return fields.push({name: key, value: value, inline: true});
     }
 }
