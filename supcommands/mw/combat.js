@@ -76,7 +76,7 @@ var fields = [];
 				if (!gamemodeStats[mode]) return i.message.channel.send("There are no gamemodes with that name or id.");	
 				embed = embed.setTitle(`${modes[mode]} combat statistics`);
 				_.each(gamemodeStats[mode], (value, key) => parsestats(value, key, fields))
-				k = 6;
+				k = 9;
 			} else {
 				_.each(gamemodeStats, (value, key) => fields.push({name: modes[key] || key, value: 
 			   `**Kills**: ${value.kills} kills
