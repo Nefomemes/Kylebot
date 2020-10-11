@@ -81,7 +81,7 @@ var fields = [];
 				_.each(gamemodeStats, (value, key) => fields.push({name: modes[key] || key, value: 
 			   `**Kills**: ${value.kills} kills
 				**Deaths**: ${value.deaths} deaths
-				**Wallbangs**: ${value.wallbangs} times
+				**Wallbangs**: ${value.wallBangs} times
 				**Assists**: ${value.assists} times
 				**Headshots**: ${value.headshots} times
 				**Matches played**: ${value.matchesPlayed} matches`, inline: true}));
