@@ -22,7 +22,7 @@ var args = imports.args;
 			let user = getUserFromMention(arg);
 			if (user) {
 				targets.push(user);
-				imports.args.shift();
+				
 			} else {
 				break;
 			}
