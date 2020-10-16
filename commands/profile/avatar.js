@@ -13,5 +13,5 @@ var embed = new Discord.MessageEmbed()
 .setTimestamp()
 .setFooter(`Prefix: ${i.prefix} | ${i.getRandomFunfact()}`, client.user.displayAvatarURL({format: "png", dynamic: true}))
     
-    imports.message.channel.send(embed)
+    i.message.channel.send(embed)
 }
