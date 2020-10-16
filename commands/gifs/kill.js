@@ -18,14 +18,18 @@ module.exports = {
 			return imports.message.mentions.users.get(mention);
 		};
 var args = imports.args;
+var i = 0;
 		for (let arg of args) {
 			let user = getUserFromMention(arg);
 			if (user) {
 				targets.push(user);
-				
+				i++;
 			} else {
 				break;
 			}
+		}
+		for(let x; x <= i; x++){
+			imports.args.shift();
 		}
 
 		if (!targets.length) return imports.message.react('❌');
