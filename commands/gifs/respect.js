@@ -1,28 +1,31 @@
 module.exports.run = async (imports) => {
 	var a = 0,
 		targets = [];
-	const getUserFromMention = mention => {
-		if (!mention || !imports.message) return;
+		const getUserFromMention = mention => {
+			if (!mention) return;
 
-		if (mention.startsWith('<@') && mention.endsWith('>')) {
-			mention = mention.slice(2, -1);
-			if (mention.startsWith('!')) {
-				mention = mention.slice(1);
+			if (mention.startsWith('<@') && mention.endsWith('>')) {
+				mention = mention.slice(2, -1);
+				if (mention.startsWith('!')) {
+					mention = mention.slice(1);
+				}
+			}
+			return imports.message.mentions.users.get(mention);
+		};
+var args = imports.args;
+var i = 0;
+		for (let arg of args) {
+			let user = getUserFromMention(arg);
+			if (user) {
+				targets.push(user);
+				i++;
+			} else {
+				break;
 			}
 		}
-		return imports.message.mentions.users.get(mention);
-	};
-
-	for (let arg of imports.args) {
-		let user = getUserFromMention(arg);
-		if (user) {
-			targets.push(user);
+		for(let x = 0; x < i; x++){
 			imports.args.shift();
-		} else {
-			break;
 		}
-	}
-
 	if (!targets.length) return imports.message.react('❌');
 let gifs = [
 	
