@@ -28,7 +28,7 @@ var i = 0;
 				break;
 			}
 		}
-		for(let x; x <= i; x++){
+		for(let x = 0; x <= i; x++){
 			imports.args.shift();
 		}
 
