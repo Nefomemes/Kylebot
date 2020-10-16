@@ -6,7 +6,7 @@ process.on('uncaughtException', err => {
 	console.error('There was an uncaught error', err);
 	process.exit(1); //mandatory (as per the Node docs)
 });
-global.colors = require('./assets/configs/color').content;
+global.colors = require('./assets/color.json');
 
 global.fs = require('fs').promises;
 global.Discord = require('discord.js');
@@ -29,12 +29,12 @@ const client = new global.Discord.Client({
 	}
 });
 global.client = client;
-global.configs = require('./assets/configs/configs');
+global.configs = require('./assets/configs.json');
 global.xml2js = require('xml2js');
 global.querystring = require('querystring');
 global.fetch = require('node-fetch');
 const { mongodb } = require('node-grau');
-
+global.process_argv = require("minimist")(process.argv);
 const { MongoClient } = mongodb;
 const db = new MongoClient(process.env.DB);
 
@@ -98,11 +98,20 @@ async function registerCommands(
 	type = 'command',
 	defaultSettings = {}
 ) {
-	var files = await fs.readdir(path.join(__dirname, dir));
+	var path_idk = path.join(__dirname, dir)
+	var files = await fs.readdir(path_idk);
+	if(process_argv.dev && process.argv.dev === true) console.log(`Registering ${type}s of ${path_idk}`);
 	for (let file of files) {
-		let stat = await fs.lstat(path.join(__dirname, dir, file));
-		if (stat.isDirectory()) registerCommands(global.path.join(dir, file), commandCache, type, defaultSettings);
+		let path_idkb = path.join(__dirname, dir, file);
+	
+		let stat = await fs.lstat(path_idkb);
+		if (stat.isDirectory()) {
+			if(process_argv.dev && process.argv.dev === true) console.log(`${path_idkb} is a folder. Registering commands inside of it.`);
+			registerCommands(path.join(dir, file), commandCache, type, defaultSettings);
+			}
+
 		else if (file.endsWith('.js')) {
+			if(process_argv.dev && process.argv.dev === true) console.log(`${path_idkb} is a JS file. Checking if it's a valid command.`);
 			let commandCode = require(path.join(__dirname, dir, file));
 			let commandName = file.substring(0, file.indexOf('.js'));
 
@@ -115,8 +124,9 @@ async function registerCommands(
 					type: type
 				};
 				commandCache.set(commandName, command);
-			}
-		}
+			} else if(process_argv.dev && process.argv.dev === true) console.log(`${path_idkb} doesn't have a run property. Ignoring.`);
+			
+		} else if(process_argv.dev && process.argv.dev === true) console.log(`${path_idkb} is neither a JS file or a folder. Ignoring.`);
 	}
 }
 registerCommands();
@@ -125,10 +135,14 @@ async function registerSuperCommands(
 	commandCache = client.commands.cache,
 	type = 'supcommand'
 ) {
-	var files = await fs.readdir(path.join(__dirname, dir));
+	let path_idk = path.join(__dirname, dir);
+	var files = await fs.readdir(path_idk);
+	if(process_argv.dev && process.argv.dev === true) console.log(`Registering ${type}s of ${path_idk}.`);
 	for (let file of files) {
-		let stat = await fs.lstat(path.join(__dirname, dir, file));
+		var path_idkb = path.join(__dirname, dir, file);
+		let stat = await fs.lstat(path_idkb);
 		if (stat.isDirectory()) {
+		if(process_argv.dev && process.argv.dev === true) console.log(`${path_idkb} is a folder. Registering it.`);
 			let supcommand = {};
 			var settings = {};
 			try {
@@ -143,29 +157,34 @@ async function registerSuperCommands(
 			};
 
 			await registerCommands(
-				'supcommands',
+				path.join("supcommands", file),
 				supcommand.commands,
 				'childcommand',
 				settings
 			);
 			await commandCache.set(file, supcommand);
-		}
+		} else if(process_argv.dev && process.argv.dev === true) console.log(`${path_idkb} is not a folder. Ignoring.`);
 	}
 }
 registerSuperCommands();
 async function registerEvents() {
-	let files = await global.fs.readdir(global.path.join(__dirname, 'events'));
+var path_idk = path.join(__dirname, 'events');
+	let files = await fs.readdir(path_idk);
+	if(process_argv.dev && process.argv.dev === true) console.log(`Registering events for ${path_idk}.`);
 	for (let file of files) {
-		let stat = await global.fs.lstat(
-			global.path.join(__dirname, 'events', file)
+var path_idkb = path.join(__dirname, 'events', file);
+		let stat = await fs.lstat(
+		path_idkb
 		);
+		
 		if (!stat.isDirectory() && file.endsWith('.js')) {
+			if(process_argv.dev && process.argv.dev === true) console.log(`Registering ${path_idkb} as an event.`);
 			let eventName = file.substring(0, file.indexOf('.js'));
 			client.on(
 				eventName,
 				require(global.path.join(__dirname, 'events', eventName))
 			);
-		}
+		} else if(process_argv.dev && process.argv.dev === true) console.log(`${path_idkb} is not a JS file. Ignoring.`);
 	}
 }
 

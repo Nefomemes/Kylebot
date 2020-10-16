@@ -1,5 +1,6 @@
 {
     "guild": true,
     "perms": 7,
-    "desc": "Modify server settings"
+    "desc": "Modify server settings",
+    "docs":"https://github.com/Nefomemes/docs/blob/main/Kylebot/super-commands/configs.md"
 }

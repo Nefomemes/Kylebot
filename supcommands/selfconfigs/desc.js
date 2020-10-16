@@ -1,5 +1,6 @@
 module.exports = {
     desc: "Modify your profile description.",
+    docs: "https://github.com/Nefomemes/docs/blob/main/Kylebot/super-commands/selfconfigs.md#prefixselfconfigs-desc-description-",
     run: async (i) => {
         var opt = i.args.join(" ");
         if (!opt) return i.message.channel.send('Not enough parameters, sir.');

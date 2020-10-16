@@ -1,5 +1,6 @@
 module.exports = {
     desc: "Change the calling card you use.",
+    docs: "https://github.com/Nefomemes/docs/blob/main/Kylebot/super-commands/selfconfigs.md#prefixselfconfigs-callingcard-callingcard-",
     run: async (i) => {
         const name = i.args.shift();
         if(!name) return i.message.react("❌");

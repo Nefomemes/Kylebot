@@ -2,6 +2,7 @@ const mwstarter = require("../mwstarter");
 
 module.exports = {
 	desc: 'Get the information of a Call of Duty: Modern Warfare player.',
+	docs: "https://github.com/Nefomemes/docs/blob/main/Kylebot/super-commands/mw.md",
 	run: async (i) => mwstarter(i, async i => {
 		
 

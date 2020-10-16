@@ -21,7 +21,8 @@ module.exports = {
 	let categories = require(path.join(
 		process.cwd(),
 		'assets/categories'
-	)).content;
+	));
+	var k = 6;
 	function getCategory(name) {
 		if (!name) return;
 		let modules = categories.filter(function(category) {
@@ -35,12 +36,12 @@ module.exports = {
 		return modules[0];
 	}
 	function getDesc(command){
-		return (command.desc || command.description || "No description.") + `[]Read the documentation.](${command.docs || "https://github.com/Nefomemes/docs"})`
+		return (command.desc || command.description || "No description.") + ` [Read the documentation.](${command.docs || "https://github.com/Nefomemes/docs/trees/master/Kylebot"})`
 	}
 	function pushToFields(command){
 		return fields.push({	name: command.name,
 					value: getDesc(command),
-					inline: true
+					inline: false
 						})
 	}
 	if (i.getCommand(i.args[0], client.commands.cache)) {
@@ -74,17 +75,18 @@ module.exports = {
 			commands.forEach(pushToFields);
 		}
 	} else {
+		k = 2; 
 		embed = embed.setImage('https://i.imgur.com/q3EWSPl.gif');
 		categories.forEach(pushToFields);
 	}
 
-	let number = parseInt(imports.args.pop());
+	let number = parseInt(i.args.pop());
 	if (Number.isNaN(number) || !number) {
 		number = 1;
 	}
-	let page = imports.getPage(fields, 4, number);
+	let page = i.getPage(fields, k, number);
 	embed = embed.setFooter(
-		imports.trim(`Page ${page.page}/${page.pages} | ${embed.footer.text}`, 2048)
+		i.trim(`Page ${page.page}/${page.pages} | ${embed.footer.text}`, 2048)
 	);
 	for (let field of fields) {
 		let index = fields.indexOf(field);
@@ -95,6 +97,6 @@ module.exports = {
 			);
 		}
 	}
-	return imports.message.channel.send(embed);
+	return i.message.channel.send(embed);
 }
 }

@@ -1,5 +1,4 @@
-const { Channel } = require("discord.js");
-const { content } = require("../../assets/configs/funfact");
+
 
 module.exports.run = async (i) => {
     const bundle = i.getItem("bundle", i.args.shift())

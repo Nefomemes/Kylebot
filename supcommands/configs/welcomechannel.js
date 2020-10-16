@@ -1,5 +1,6 @@
 module.exports = {
     desc: "Update your welcome channel.",
+    docs: "https://github.com/Nefomemes/docs/blob/main/Kylebot/super-commands/configs.md#prefixconfigs-welcomechannel-welcomechannel",
     run: async (i) => {
         const channel = i.getChannelFromMention(i.args.shift(), i.message.guild.channels);
         if (!channel) return i.message.channel.send("Invalid channel.");

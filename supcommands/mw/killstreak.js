@@ -2,6 +2,7 @@ const mwstarter = require("../mwstarter");
 
 module.exports = {
 	desc: 'Get killstreak usage stats',
+	docs: "https://github.com/Nefomemes/docs/blob/main/Kylebot/super-commands/mw.md#prefixmw-killstreak-options-",
 	run: async (i) => mwstarter(i, async (i) => {
 
 		

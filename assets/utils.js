@@ -5,7 +5,7 @@ module.exports = {
     return `${string.slice(0, max - 3)}...`;
   },
   getRandomFunfact: (str) => {
-    const funfact = require("./configs/funfact.json");
+    const funfact = require("./funfact.json");
     return "WIP Internal Alpha"+ " | "+ ( str || funfact[Math.floor(Math.random() * funfact.length)])
 
   },
@@ -46,10 +46,10 @@ module.exports = {
     }
   },
   freshActivity: (client) => {
-    activities = require("./configs/activities").content;
+    var activities = require("./activities.json");
     let activity = activities[Math.floor(Math.random() * activities.length)];
 
-    return client.user.setActivity(activity.content + ` | ${require("./configs/configs").prefix}help`, { type: activity.type }).catch(error => console.error(error));
+    return client.user.setActivity(activity.content + ` | ${require("./configs.json").prefix}help`, { type: activity.type }).catch(error => console.error(error));
   },
   avoidBreak: (str) => {
     if (str.constructor !== String || !str) return;

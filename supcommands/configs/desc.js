@@ -1,5 +1,6 @@
 module.exports = {
     desc: "Change the description of your server.",
+    docs: "https://github.com/Nefomemes/docs/blob/main/Kylebot/super-commands/configs.md#prefixconfigs-desc--description",
     run: async (i) => {
         var opt = i.args.join();
         if (!opt) return i.message.channel.send('Not enough parameters, sir.');

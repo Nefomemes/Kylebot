@@ -4,6 +4,7 @@ const parsestats = require("../parsestats");
 const modes = require("./gamemodes.json");
 module.exports = {
 	desc: 'Get the information of a Call of Duty: Modern Warfare player.',
+	docs: "https://github.com/Nefomemes/docs/blob/main/Kylebot/super-commands/mw.md#prefixmw-mode-option-",
 	run: async (i) => mwstarter(i, async i => {
 
 
