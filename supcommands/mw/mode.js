@@ -45,7 +45,7 @@ var k = 6;
 			}
 			if (!gamemodeStats[mode]) return i.message.channel.send("There are no gamemodes with that name or id.");
 			
-			embed = embed.setTitle(`${modes[mode] || mode} stats for ${o.username}`);
+			embed = embed.setTitle(`${modes[mode] || mode} stats for ${i.player.username}`);
 			_.each(gamemodeStats[mode].properties, (value, key) => parsestats(value, key, fields))
 		} else {
 

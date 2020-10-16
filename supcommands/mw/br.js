@@ -36,7 +36,7 @@ module.exports = {
 			}
 			if (!res[mode]) return i.message.channel.send("There are no gamemodes with that name or id.");
 			
-			embed = embed.setTitle(`${modes[mode] || mode} stats for ${o.username}`);
+			embed = embed.setTitle(`${gamemodes[mode] || mode} stats for ${i.player.username}`);
 			_.each(res[mode], (value, key) => parsestats(value, key, fields))
 		} else {
 			k = 4;
@@ -47,7 +47,7 @@ module.exports = {
 					 **Wins**: ${value.wins} wins
 					 **Revives**: ${value.revives} revives
 					 **Contracts**: ${value.contracts} contracts
-					 **Matches played**: ${value.matchesPlayed} matches`})	
+					 **Matches played**: ${value.gamesPlayed} matches`})	
 			})
 		}
 	
