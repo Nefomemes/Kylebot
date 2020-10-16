@@ -24,5 +24,6 @@ module.exports = (value, key, fields) => {
             return fields.push({name: "Wallbangs", value: `$ {value} times`, inline: true});
             default:
            return fields.push({name: key, value: value, inline: true});
+    
     }
 }

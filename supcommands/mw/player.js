@@ -10,7 +10,7 @@ module.exports = {
 		var embed = new Discord.MessageEmbed()
 			.setColor(i.colors.BG_COLOR)
 			.setAuthor(
-				'Call of Duty: Modern Warfare',
+				'Call of Duty™: Modern Warfare™',
 				'https://i.imgur.com/HMU8AmJ.png'
 			)
 			.setThumbnail('https://i.imgur.com/HMU8AmJ.png')

@@ -19,7 +19,7 @@ if (!i.argv.platform)
 
     i.player = await codAPI.MWstats(i.argv.player, i.argv.platform);
     if(!callback) return;
-    return callback().catch(i => {
-        return i.message.channel.send(i.errorEmbed())
+    return callback().catch(e => {
+        return i.message.channel.send(i.errorEmbed(e))
     })
 }
