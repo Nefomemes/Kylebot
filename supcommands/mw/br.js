@@ -1,6 +1,6 @@
-const gamemodes = require("./gamemodes.json")
+const gamemodes = require("./gamemodes.json");
 const mwstarter = require("../mwstarter");
-
+const parsestats = require("../parsestats");
 module.exports = {
 	desc: "Display your Warzone stats.",
 	run: async (i) => mwstarter(i, async (i) => {
