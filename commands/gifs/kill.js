@@ -17,8 +17,8 @@ module.exports = {
 			}
 			return imports.message.mentions.users.get(mention);
 		};
-
-		for (let arg of imports.args) {
+var args = imports.args;
+		for (let arg of args) {
 			let user = getUserFromMention(arg);
 			if (user) {
 				targets.push(user);
