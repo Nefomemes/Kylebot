@@ -20,11 +20,7 @@ module.exports = {
 
 		for (let arg of imports.args) {
 			let user = getUserFromMention(arg);
-			if (
-				user &&
-				user.constructor &&
-				user.constructor === require('discord.js').User
-			) {
+			if (user) {
 				targets.push(user);
 				imports.args.shift();
 			} else {
