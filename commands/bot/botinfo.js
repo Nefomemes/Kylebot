@@ -1,5 +1,7 @@
-module.exports.run = async(imports)=> {
-    try {
+module.exports = {
+	"category":"bot",
+run: async(imports)=> {
+ 
    
         const uptime = imports.client.uptime /3600000;
         var embed = new imports.Discord.MessageEmbed()
@@ -42,7 +44,7 @@ module.exports.run = async(imports)=> {
               }
             }
            
-      let number = parseInt(imports.args.pop());
+      let number = parseInt(imports.argv.page);
             if (Number.isNaN(number) || !number){
                 number = 1;
             }
@@ -57,7 +59,5 @@ module.exports.run = async(imports)=> {
        return imports.message.channel.send(embed)
         
 
-    } catch (error) {
-      imports.message.channel.send(error);
-    }
   }
+}

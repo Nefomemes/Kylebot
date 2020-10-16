@@ -1,4 +1,7 @@
-module.exports.run = async (imports) => {
+module.exports = {
+	desc: "Walk like a Putin.",
+	category: "rp",
+	run: async (imports) => {
 		var the_reason = imports.args.join(' ');
 		if (the_reason) {
 			the_reason = ` 'cuz "` + imports.args.join(' ') + `".`;
@@ -29,3 +32,6 @@ module.exports.run = async (imports) => {
 			);
 		imports.message.channel.send(embed);
 	}
+
+}
+ 

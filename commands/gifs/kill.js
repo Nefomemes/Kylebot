@@ -1,4 +1,7 @@
-module.exports.run = async imports => {
+module.exports = {
+	desc: "Kill a person",
+	category: "rp",
+	run: async imports => {
 		var gifs,
 			a = 0,
 			targets = [];
@@ -75,3 +78,5 @@ module.exports.run = async imports => {
 			.setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`);
 		imports.message.channel.send(embedkill);
 	}
+
+} 

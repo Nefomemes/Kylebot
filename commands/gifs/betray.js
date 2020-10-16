@@ -1,4 +1,7 @@
-module.exports.run = async (imports) => {
+module.exports = {
+category: "rp",
+desc: "Betray a friend.",
+run: async (imports) => {
 		var gifs;
 		var targets = [];
 		const getUserFromMention = mention => {
@@ -66,3 +69,6 @@ module.exports.run = async (imports) => {
 
 		imports.message.channel.send(embed);
 	}
+
+}
+

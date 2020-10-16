@@ -1,4 +1,7 @@
-module.exports.run = async imports => {
+module.exports = {
+	category: "rp",
+	desc: "If you happy and you know it, run this command.",
+	run: async imports => {
 		var the_reason = imports.args.join(' ');
 		if (the_reason) {
 			the_reason = ` because "` + imports.args.join(' ') + `".`;
@@ -24,4 +27,5 @@ module.exports.run = async imports => {
 			.setTimestamp()
 			.setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`);
 		imports.message.channel.send(embed);
+	}
 	}

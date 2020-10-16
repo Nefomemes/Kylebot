@@ -1,5 +1,8 @@
-module.exports.aliases = ["e"];
-module.exports.run = async i => {
+module.exports = {
+ 	aliases: ["e"],
+	desc: "Run a code.",
+	category: "b",
+	run: async i => {
 	const now = Date.now();
 	if (!client.owners.cache.get(i.message.author.id)) return;
 
@@ -37,4 +40,4 @@ module.exports.run = async i => {
 				'\n```'
 		);
 	});
-};
+}}

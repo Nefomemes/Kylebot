@@ -1,62 +1,67 @@
-module.exports.perms = 4;
-module.exports.run = async (imports) => {
-    if(!imports.args.length) return imports.message.channel.send("Arguments required here. Try again, yeah.");
-    const user = await imports.getMemberFromMention(imports.args.shift(), imports.message.guild.members);
-    if(!user) return imports.message.channel.send("Target doesn't exist or invalid, sir.");
-    if(user.deleted) return imports.message.channel.send("Target is no longer a member of this server, sir.");
-    if(!user.bannable) return imports.message.channel.send("Sorry, sir. I was unable to :b:an target. Try to give me the **Kick Members** permission or higher my role a little bit higher than target.");
-    if(imports.message.author.id !== imports.message.guild.ownerID && imports.message.member.roles.highest.position <= user.roles.highest.position) return imports.message.channel.send("Sorry, sir. Target have the same or even a higher highest role position than you. Try reporting target to someone whose highest role is higher than them, yeah.");
-    const guildDB = await imports.db.collection("guilds").getDoc({docID: imports.message.guild.id});
-    var embed = new imports.Discord.MessageEmbed()
-    .setColor(imports.color.BG_COLOR)
-    .setTitle(`Banned from ${imports.message.guild.name}`)
-    .setDescription(`You have been :b:anned by ${imports.message.author.username}#${imports.message.author.discriminator} (${imports.message.member.displayName }) from ${imports.message.guild.name} for "${imports.args.join(" ") || "none"}".`)
-    .setAuthor(imports.message.author.displayAvatarURL({format: "png", dynamic: true}), imports.message.author.username)
-    .setThumbnail(imports.message.guild.iconURL({format: "png", dynamic: true}))
-    .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`)
-    .setTimestamp()
-    .addFields(
-        {
-            "name": "Issued by",
-            "value": `${imports.message.author.username}#${imports.message.author.discriminator} (${imports.message.member.displayName }). ID: ${imports.message.author.id}`,
-            "inline": true
-        },
-        {
-            "name":"Issued to",
-            "value": `${user.user.username}#${user.user.discriminator} (${user.displayName}). ID: ${user.user.id}`,
-            "inline": true
-        },
-        {
-            "name":"Reason",
-            "value":`${imports.args.join(" ") || "none"}`,
-            "inline": true
-        },
-        {
-            "name":"Server",
-            "value":`${imports.message.guild.name} (ID: ${imports.message.guild.id})`,
-            "inline": true
-        },
-        {
-            "name":"Date",
-            "value":`${new Date(Date.now()).toUTCString()} (${Date.now()})`,
-            "inline": true
-        },
-        {
-            "name":"Action",
-            "value":":b:an",
-            "inline":true
-        }
-    )    
+module.exports = {
+	perms: 4,
+	run: async (i) => {
+	if(!i.argv.member) return i.message.channel.send("Add `--member=<member>` to choose the target you want to 🅱an.`");
+	if(!i.argv.reason) return i.message.channel.send("Add `--reason=<reason>` to write the reason of you banning the target.");
 
-    if(guildDB.appealLink){
-        embed = embed.addField("‎", `[Appeal Action](${guildDB.appealLink})`, true)
-    }
-if(!user.user.bot){
-    user.user.send(embed).catch(e => e);
-}
-await user.ban(`Reason: ${imports.args.join(" ") || "none"} ModID: ${imports.message.author.id} ModUsername: ${imports.message.author.username}#${imports.message.author.discriminator}`);
-return imports.message.channel.send("Nicely done. Ez pz.");
+	const user = await i.getMemberFromMention(i.argv.member, i.message.guild.members);
+	if (!user) return i.message.channel.send("Target doesn't exist or invalid, sir.");
+	if (user.deleted) return i.message.channel.send("Target is no longer a member of this server.");
+	if (!user.bannable) return i.message.channel.send("Ugh, I'm unable to ban this guy. Try to give me the **Ban Members** permission or higher my role a little bit higher than target.");
+	if (i.message.author.id !== i.message.guild.ownerID && i.message.member.roles.highest.position <= user.roles.highest.position) return i.message.channel.send("Sorry, sir. Target have the same or even a higher highest role position than you. Try reporting target to someone whose highest role is higher than them, yeah.");
+		if (!user.user.bot) {
+	const guildDB = await db.collection("guilds").getDoc({ docID: imports.message.guild.id });
+	var embed = new Discord.MessageEmbed()
+		.setColor(color.BG_COLOR)
+		.setTitle(`Banned from ${i.message.guild.name}`)
+		.setDescription(`You have been :b:anned by ${i.message.author.username}#${i.message.author.discriminator} (${i.message.member.displayName}) from ${i.message.guild.name} for "${i.args.join(" ") || "none"}".`)
+		.setAuthor(i.message.author.displayAvatarURL({ format: "png", dynamic: true}), i.message.author.username)
+		.setThumbnail(i.message.guild.iconURL({ format: "png", dynamic: true }))
+		.setFooter(`Prefix: ${i.prefix} | ${i.getRandomFunfact()}`)
+		.setTimestamp()
+		.addFields(
+			{
+				"name": "Issued by",
+				"value": `${i.message.author.username}#${i.message.author.discriminator} (${i.message.member.displayName}). ID: ${i.message.author.id}`,
+				"inline": true
+			},
+			{
+				"name": "Issued to",
+				"value": `${user.user.username}#${user.user.discriminator} (${user.displayName}). ID: ${user.user.id}`,
+				"inline": true
+			},
+			{
+				"name": "Reason",
+				"value": `${i.argv.reason || "none"}`,
+				"inline": true
+			},
+			{
+				"name": "Server",
+				"value": `${imports.message.guild.name} (ID: ${imports.message.guild.id})`,
+				"inline": true
+			},
+			{
+				"name": "Date",
+				"value": `${new Date(Date.now()).toUTCString()} (${Date.now()})`,
+				"inline": true
+			},
+			{
+				"name": "Action",
+				"value": ":b:an",
+				"inline": true
+			}
+		)
 
-    
+	if (guildDB.appealLink) {
+		embed = embed.addField("‎", `[Appeal Action](${guildDB.appealLink})`, true)
+	}
+
+		user.user.send(embed).catch(e => e);
+	}
+	await user.ban(`Reason: ${i.argv.reason || "none"} ModID: ${i.message.author.id} ModUsername: ${i.message.author.username}#${imports.message.author.discriminator}`);
+	return i.message.channel.send("Nicely done. Ez pz.");
+
+
 }
-module.exports.category = "mod";
+}
+
