@@ -2,16 +2,42 @@ module.exports = {
     desc: "Change the description of your server.",
     docs: "https://github.com/Nefomemes/docs/blob/main/Kylebot/super-commands/configs.md#prefixconfigs-desc--description",
     run: async (i) => {
-        var opt = i.args.join();
-        if (!opt) return i.message.channel.send('Not enough parameters, sir.');
-        if (opt.toLowerCase === '-none') {
-            opt = null;
+        
+       if(i.argv.desc){
+         if(typeof i.argv.desc !== "string")   return i.message.channel.send(
+             `The \`desc\` option must be a string.`
+         );
+
+        if(i.argv.desc.length > 141) return i.message.channel.send(
+            `Profile escriptions are limited to **141** characters.`
+        );
+        await db.collection("guilds").updateDoc(
+            {
+                docID: i.message.guild.id
+            },
+            {
+                $set: {desc: i.argv.desc}
+            }
+        );
+        } else if(i.argv.remove_description && i.argv.remove_description === true){
+            await db.collection("guilds").updateDoc(
+                {docID: i.message.guild.id},
+                {
+                    $unset: {desc: ""}
+                }
+            );
         } else {
-            opt = i.trim(opt.toString(), 41);
+            const guildDB = await db.collection("guilds").getDoc({docID: i.message.guild.id});
+            return i.message.channel.send(
+               `Current description: ${guildDB.desc || "none"}
+
+                To change the description add the \`desc\` option with the description you want.
+                To get rid of the description. Add the \`remove_description\` option like this: \`--remove_description\`.
+                `
+            );
         }
-        await db
-            .collection('guilds')
-            .updateDoc({ docID: i.message.guild.id }, { $set: { desc: opt } });
         return i.message.channel.send("Nicely done. Ez pz.");
+        
+       
     }
 }

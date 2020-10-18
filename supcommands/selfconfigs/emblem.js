@@ -2,7 +2,9 @@ module.exports = {
     desc: "Change your profie emblem.",
     docs: "https://github.com/Nefomemes/docs/blob/main/Kylebot/super-commands/selfconfigs.md#prefixselfconfigs-emblem-emblem-",
     run: async (i) => {
-        const name = i.args.shift();
+        if(!i.argv.emblem) return i.message.channel.send("Add the `emblem` option with the emblem you want to use.");
+        if(typeof i.argv.emblem !== "string") return i.message.channel.send("The `emblem` option must be a string.");
+        const name = i.argv.emblem;
         if(!name) return i.message.react("❌");
         const emblem = i.getItem("emblem", name);
         if(!emblem) return i.message.react("❌");

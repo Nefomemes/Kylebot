@@ -2,7 +2,8 @@ module.exports = {
     desc: "Change the calling card you use.",
     docs: "https://github.com/Nefomemes/docs/blob/main/Kylebot/super-commands/selfconfigs.md#prefixselfconfigs-callingcard-callingcard-",
     run: async (i) => {
-        const name = i.args.shift();
+        if(!i.argv.c) return i.message.channel.send("Add the `c` option with the calling card you want to use to change your calling card.");
+        const name = i.argv.c;
         if(!name) return i.message.react("❌");
         const playercard = i.getItem('playercard', name);
         if(!playercard) return i.message.react("❌");

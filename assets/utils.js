@@ -138,7 +138,25 @@ if(pages_length <= 0) pages_length = 1;
       if(!mention || !EmojiManager) return;
       mention = mention.toString();
       
-    
-      return EmojiManager.resolve(mention.match(/^<a?:(\w+):(\d+)>$/)[2])
+      mention = mention.match(/^<a?:(\w+):(\d+)>$/);
+      if(!mention) return;
+      return EmojiManager.resolve(mention[2]);
+      },
+      parseOptions: (o) => {
+        var rawArgv;
+        if(typeof o === "string"){
+        rawArgv = require("shell-quote").parse(o)
+        }
+        var argv = require("minimist")(i.rawArgv);
+        for(let [key, value] of Object.entries(argv)){
+          if(typeof value === "string"){
+          if(value.toLowerCase() === "true"){
+            argv[key] = true;
+          } else if(value.toLowerCase() === "false"){
+            argv[key] = false;
+          }
+          }
+        }
+        return argv;
       }
 }
