@@ -4,7 +4,8 @@ module.exports = {
     run: async (i) => {
         if(!i.argv.c) return i.message.channel.send("Add the `c` option with the calling card you want to use to change your calling card.");
         const name = i.argv.c;
-        if(!name) return i.message.react("❌");
+        if(!name) return i.message.chanel.si.message.channel.send("Change your equipped calling card by setting the `c` option wih the name of your calling card.");
+        if(typeof name !== "string") return i.message.channel.send("The `c` option must be a string.");
         const playercard = i.getItem('playercard', name);
         if(!playercard) return i.message.react("❌");
         const userDB = await db.collection("users").getDoc({docID: i.message.author.id});
