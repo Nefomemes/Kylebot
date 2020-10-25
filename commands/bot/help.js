@@ -26,9 +26,7 @@ module.exports = {
 	function getCategory(name) {
 		if (!name) return;
 		let modules = categories.filter(function(category) {
-			return 
-				category.name.toLowerCase().split(name.toLowerCase())[1] || category.name.toLowerCase() === name.toLowerCase()||
-				category.id === name;
+			return category.name.toLowerCase().split(name.toLowerCase())[1] || category.id === name;
 		});
 		if (!modules.length) return;
 		if (modules.length > 1) return;
@@ -62,17 +60,13 @@ module.exports = {
 			embed = embed.setDescription(getDesc(command));
 			
 	} else if (getCategory(i.argv._[0])) {
-		const category = getCategory(imports.argv._.shift());
-		if (category) {
+		const category = getCategory(i.argv._[0]);
+embed = embed.setDescription(getDesc(category));
 			let commands = await i.client.commands.cache
-				.filter(command => {
-					if (command.category && command.category === category.id) return true;
-
-					if (!command.category && category.id === 'misc') return true;
-				})
+				.filter(command => command.category === category.id)
 				.map(i => i);
 			commands.forEach(pushToFields);
-		}
+		
 	} else {
 		k = 2; 
 		embed = embed.setImage('https://i.imgur.com/q3EWSPl.gif');
