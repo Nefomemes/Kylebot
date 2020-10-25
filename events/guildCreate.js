@@ -9,7 +9,7 @@ module.exports = async guild => {
 					user.username,
 					user.displayAvatarURL({ format: 'png', dynamic: true })
 				)
-				.setTitle('Server invited Kylebot')
+				.setTitle(`${guild.name} invited the bot`)
 				.setThumbnail(
 					global.built_ins.getItem('emblem', userDB.emblem).assets[0].asset
 				)

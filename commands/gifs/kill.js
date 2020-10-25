@@ -1,10 +1,13 @@
-module.exports.run = async imports => {
+module.exports = {
+	desc: "Kill a person",
+	category: "rp",
+	run: async imports => {
 		var gifs,
 			a = 0,
 			targets = [];
 
 		const getUserFromMention = mention => {
-			if (!mention || !imports.message) return;
+			if (!mention) return;
 
 			if (mention.startsWith('<@') && mention.endsWith('>')) {
 				mention = mention.slice(2, -1);
@@ -14,16 +17,12 @@ module.exports.run = async imports => {
 			}
 			return imports.message.mentions.users.get(mention);
 		};
-
-		for (let arg of imports.args) {
+var args = imports.args;
+		for (let arg of args) {
 			let user = getUserFromMention(arg);
-			if (
-				user &&
-				user.constructor &&
-				user.constructor === require('discord.js').User
-			) {
+			if (user) {
 				targets.push(user);
-				imports.args.shift();
+				
 			} else {
 				break;
 			}
@@ -75,3 +74,5 @@ module.exports.run = async imports => {
 			.setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`);
 		imports.message.channel.send(embedkill);
 	}
+
+} 

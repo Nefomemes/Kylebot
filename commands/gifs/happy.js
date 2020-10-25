@@ -1,4 +1,7 @@
-module.exports.run = async imports => {
+module.exports = {
+	category: "rp",
+	desc: "If you happy and you know it, run this command.",
+	run: async imports => {
 		var the_reason = imports.args.join(' ');
 		if (the_reason) {
 			the_reason = ` because "` + imports.args.join(' ') + `".`;
@@ -6,7 +9,7 @@ module.exports.run = async imports => {
 			the_reason = '.';
 		}
 		const gifs = [
-			'https://media.discordapp.net/attachments/717210048174096446/717210623414370314/Heavy_is_Dead.gif'
+			
 		];
 		const selectedGIF = gifs[Math.floor(Math.random() * gifs.length)];
 		const embed = new imports.Discord.MessageEmbed()
@@ -24,4 +27,5 @@ module.exports.run = async imports => {
 			.setTimestamp()
 			.setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`);
 		imports.message.channel.send(embed);
+	}
 	}

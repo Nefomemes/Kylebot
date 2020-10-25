@@ -1,24 +1,24 @@
 module.exports = {
   name: "user",
-  run: async (imports) => {
+  run: async (i) => {
     var user, member, userDB;
- user  = imports.getUserFromMention(imports.args[0], imports.client.users) || imports.message.author;
- if(imports.message.guild){
-     member = await imports.getMemberFromMention(user.id, imports.message.guild.members) || imports.message.member;
+ user  = await i.getUserFromMention(i.argv.user, i.client.users) || i.message.author;
+ if(i.message.guild){
+     member = await i.getMemberFromMention(user.id, i.message.guild.members) || i.message.member;
      user = member.user;
  }
  
 
-var embed = new imports.Discord.MessageEmbed()
-      .setColor(imports.colors.BG_COLOR)
+var embed = new Discord.MessageEmbed()
+      .setColor(colors.BG_COLOR)
       .setTitle(`${user.username}#${user.discriminator}`)
-      .setAuthor(imports.client.user.username.split(" ")[0], imports.client.user.displayAvatarURL({ format: "png", dynamic: true }), process.env.WEBSITE)
+      .setAuthor(client.user.username, client.user.displayAvatarURL({ format: "png", dynamic: true }), i.website)
       .setThumbnail(user.displayAvatarURL({ format: "png", dynamic: true }))
-      .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`, imports.client.user.displayAvatarURL({ format: "png", dynamic: true })).setTimestamp()
+      .setFooter(`Prefix: ${i.prefix} | ${i.getRandomFunfact()}`, client.user.displayAvatarURL({ format: "png", dynamic: true })).setTimestamp()
 var fields = [ { name: "ID", value: `${user.id}`, inline: true },
         { name: "Accout created at", value: user.createdAt, inline: true},
         { name: "Bot", value: user.bot }]
-    if (imports.message.guild) {
+    if (i.message.guild) {
       fields.push({ name: "Joined the server since", value: member.joinedAt, inline: true },
         { name: "Display name", value: member.displayName })
       if (member.displayColor) {
@@ -42,24 +42,24 @@ var fields = [ { name: "ID", value: `${user.id}`, inline: true },
       }
     }
     if(!user.bot){
-      userDB = await imports.db.collection("users").getDoc({docID: user.id});
+      userDB = await i.db.collection("users").getDoc({docID: user.id});
       if(userDB.desc){
         embed = embed.setDescription(userDB.desc);
       }
    fields.unshift({name: "COD Points", value: `${userDB.cp || 0} <:cp:744403130594230313>`, inline:true},
                                 {name: "Cash", value: userDB.cash || 0, inline:true});
       try{
-      embed = embed.setThumbnail(imports.getItem("emblem", userDB.emblem).assets[0].asset).setImage(imports.getItem("playercard", userDB.playercard).assets[0].asset); 
+      embed = embed.setThumbnail(i.getItem("emblem", userDB.emblem).assets[0].asset).setImage(i.getItem("playercard", userDB.playercard).assets[0].asset); 
       } finally {
           
       }
     }
-      let number = parseInt(imports.args.pop());
+      let number = parseInt(i.argv.page);
             if (Number.isNaN(number) || !number){
                 number = 1;
             }
-            let page = imports.getPage(fields, 6, number);
-               embed = embed.setFooter(imports.trim(`Page ${page.page}/${page.pages} | ${ embed.footer.text}`, 2048));
+            let page = i.getPage(fields, 6, number);
+               embed = embed.setFooter(i.trim(`Page ${page.page}/${page.pages} | ${ embed.footer.text}`, 2048));
         for(let field  of fields){
             let index = fields.indexOf(field);
                 if(!(index > page.end || index < page.start)){
@@ -67,6 +67,6 @@ var fields = [ { name: "ID", value: `${user.id}`, inline: true },
                     }
             }
 
-    imports.message.channel.send(embed);
+    i.message.channel.send(embed);
   }
 };

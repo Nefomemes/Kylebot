@@ -1,6 +1,4 @@
-module.exports = {
-    "type": "activityList",
-    "content": [
+[
         {
             "type": "LISTENING",
             "content": "Modern Warfare Main Theme by Sarah Schachner"
@@ -78,4 +76,3 @@ module.exports = {
             "content":"gunshots"
         }
     ]
-}

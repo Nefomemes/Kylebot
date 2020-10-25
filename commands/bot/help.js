@@ -1,80 +1,102 @@
-module.exports.run = async (imports) => {
-var embed = new imports.Discord.MessageEmbed()
-.setColor(imports.colors.BG_COLOR)
-.setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({dynamic: true, format: "png"}))
-.setThumbnail(imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
-.setFooter("Prefix: " + imports.prefix + " | " + imports.getRandomFunfact(), imports.client.user.displayAvatarURL({"dynamic": true, "format": "png"}))
-.setTimestamp()
+module.exports = {
+	aliases: ["h"],
+	category: "bot",
+	run: async i => {
+	var embed = new Discord.MessageEmbed()
+		.setColor(colors.BG_COLOR)
+		.setAuthor(
+			client.user.username,
+			client.user.displayAvatarURL({ dynamic: true, format: 'png' })
+		)
+		.setThumbnail(
+			client.user.displayAvatarURL({ format: 'png', dynamic: true })
+		)
+		.setFooter(
+			'Prefix: ' + i.prefix + ' | ' + i.getRandomFunfact(),
+			i.client.user.displayAvatarURL({ dynamic: true, format: 'png' })
+		)
+		.setTimestamp();
 
+	var fields = [];
+	let categories = require(path.join(
+		process.cwd(),
+		'assets/categories'
+	));
+	var k = 6;
+	function getCategory(name) {
+		if (!name) return;
+		let modules = categories.filter(function(category) {
+			return (
+				category.name.toLowerCase().split(name.toLowerCase())[1] ||
+				category.id === name
+			);
+		});
+		if (!modules.length) return;
+		if (modules.length > 1) return;
+		return modules[0];
+	}
+	function getDesc(command){
+		return (command.desc || command.description || "No description.") + ` [Read the documentation.](${command.docs || "https://github.com/Nefomemes/docs/trees/master/Kylebot"})`
+	}
+	function pushToFields(command){
+		return fields.push({	name: command.name,
+					value: getDesc(command),
+					inline: false
+						})
+	}
+	if (i.getCommand(i.argv._[0], client.commands.cache)) {
+		var command = i.getCommand(
+			i.argv._.shift(),
+			client.commands.cache
+		); 
+		if(command.commands){
+			if(i.getCommand(i.argv._[0], command.commands)){
+					command = i.getCommand(
+					i.argv._.shift(),
+					command.commands
+				)
+		
+			} else {
+				command.commands.forEach(pushToFields);
+			}
+		} 
+			embed = embed.setDescription(getDesc(command));
+			
+	} else if (getCategory(i.argv._[0])) {
+		const category = getCategory(imports.argv._.shift());
+		if (category) {
+			let commands = await i.client.commands.cache
+				.filter(command => {
+					if (command.category && command.category === category.id) return true;
 
-var fields = [];
-let categories = require(require("path").join(process.cwd(), "assets/commands/categories")).content;
-function getCategory(name) {
-    if (!name) return; 
-    let modules = categories.filter(function (category) { 
-    return category.name.toLowerCase() === name.toLowerCase() || category.id === name;
-    });
-    if (!modules.length) return;
-if (modules.length > 1) return;
-return modules[0];
+					if (!command.category && category.id === 'misc') return true;
+				})
+				.map(i => i);
+			commands.forEach(pushToFields);
+		}
+	} else {
+		k = 2; 
+		embed = embed.setImage('https://i.imgur.com/q3EWSPl.gif');
+		categories.forEach(pushToFields);
+	}
+
+	let number = parseInt(i.argv.p);
+	if (Number.isNaN(number) || !number) {
+		number = 1;
+	}
+	let page = i.getPage(fields, k, number);
+	embed = embed.setFooter(
+		i.trim(`Page ${page.page}/${page.pages} | ${embed.footer.text}`, 2048)
+	);
+	for (let field of fields) {
+		let index = fields.indexOf(field);
+		if (!(index > page.end || index < page.start)) {
+			embed = embed.addField(
+				(field.name || 'unknown').toString(), (field.value || 'redacted').toString(),
+				field.inline
+			);
+		}
+	}
+	return i.message.channel.send(embed);
 }
-
-   if(imports.getCommand(imports.args[0], imports.client)){
-       const command = imports.getCommand(imports.args.shift(), imports.client);
-       if(command){
-           imports._.each(command, (value, key) => {
-               if(key === "run") return;
-               if(key == "type")return;
-               if(key === "category") return fields.push({name: key, value: (function(){  const ok = getCategory(key)
-               if(ok){
-                   return ok.name               } else {
-                       return;
-                   }
-                   
-               })()
-               , inline: true});
-               return fields.push({name: key, value: value, inlime: true});
-           })
-       }
-   } else if(getCategory(imports.args[0])){
-       const category = getCategory(imports.args.shift())
-       if(category){
-          let commands = await imports.client.commands.cache.filter((command) => {
-              if(command.category && command.category === category.id)return true;
-              
-              if(!command.category && category.id === "misc") return true;
-                        }).map(i => i);
-        for(let command of commands){
-            fields.push({name: command.name, 
-                value: command.desc || command.description,
-                inline: true
-            
-            })
-            }    
-        }
-       
-   } else { 
-embed = embed.setImage("https://i.imgur.com/q3EWSPl.gif");
-let categoriess = require(require("path").join(process.cwd(), "assets/commands/categories")).content;
-
-for(let category of categoriess){
-fields.push({name: category.name, value: `ID: \`${category.id || "<redacted>"}\`\n${category.desc || "Unknown."}`, inline: true});
-}
-       
-   }
-   
-   
-    let number = parseInt(imports.args.pop());
-            if (Number.isNaN(number) || !number){
-                number = 1;
-            }
-            let page = imports.getPage(fields, 6, number);
-            embed = embed.setFooter(imports.trim(`Page ${page.page}/${page.pages} | ${ embed.footer.text}`,2048))
-        for(let field  of fields){
-            let index = fields.indexOf(field);
-                if(!(index > page.end || index < page.start)){
-                    embed = embed.addField((field.name || "unknown").toString(), "||" + (field.value || "redacted").toString() + "||", field.inline);
-                    }
-            }
-       return imports.message.channel.send(embed)
 }

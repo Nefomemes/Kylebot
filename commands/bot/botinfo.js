@@ -1,5 +1,7 @@
-module.exports.run = async(imports)=> {
-    try {
+module.exports = {
+	"category":"bot",
+run: async(imports)=> {
+ 
    
         const uptime = imports.client.uptime /3600000;
         var embed = new imports.Discord.MessageEmbed()
@@ -42,11 +44,11 @@ module.exports.run = async(imports)=> {
               }
             }
            
-      let number = parseInt(imports.args.pop());
+      let number = parseInt(imports.argv.page);
             if (Number.isNaN(number) || !number){
                 number = 1;
             }
-            let page = imports.getPage(fields, 6, number);
+            let page = imports.getPage(fields, 4, number);
             embed = embed.setFooter(imports.trim(`Page ${page.page}/${page.pages} | ${ embed.footer.text}`,2048))
         for(let field  of fields){
             let index = fields.indexOf(field);
@@ -57,7 +59,5 @@ module.exports.run = async(imports)=> {
        return imports.message.channel.send(embed)
         
 
-    } catch (error) {
-      imports.message.channel.send(error);
-    }
   }
+}
