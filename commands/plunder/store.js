@@ -80,13 +80,10 @@ embed = embed.setTitle(item.name + " - " + embed.title);
 				user.cp - bundle.price >= 0
 			) {
 				user_can_buy = '';
-			} else if(user.bundles && user.bundles.includes(bundle.id)) {
-				user_can_buy = 'You owned this bundle.';
 			} else {
 				user_can_buy = "**Sadly, you doesn't have enough funds. :cry:**\n";
 			}
-		
-			;
+
 			fields.push({
 				name: bundle.name || 'Unknown',
 				value: imports.trim(
@@ -103,7 +100,7 @@ embed = embed.setTitle(item.name + " - " + embed.title);
 	if (Number.isNaN(number) || !number) {
 		number = 1;
 	}
-	let page = imports.getPage(fields, 4, number);
+	let page = imports.getPage(fields, 6, number);
 	               embed = embed.setFooter(imports.trim(`Page ${page.page}/${page.pages} | ${ embed.footer.text}`, 2048));
 	for (let field of fields) {
 		let index = fields.indexOf(field);

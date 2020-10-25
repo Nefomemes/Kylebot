@@ -5,7 +5,7 @@ run: async (imports) => {
 		var gifs;
 		var targets = [];
 		const getUserFromMention = mention => {
-			if (!mention) return;
+			if (!mention || !imports.message) return;
 
 			if (mention.startsWith('<@') && mention.endsWith('>')) {
 				mention = mention.slice(2, -1);
@@ -15,19 +15,15 @@ run: async (imports) => {
 			}
 			return imports.message.mentions.users.get(mention);
 		};
-var args = imports.args;
-var i = 0;
-		for (let arg of args) {
+
+		for (let arg of imports.args) {
 			let user = getUserFromMention(arg);
 			if (user) {
 				targets.push(user);
-				i++;
+				imports.args.shift();
 			} else {
 				break;
 			}
-		}
-		for(let x = 0; x < i; x++){
-			imports.args.shift();
 		}
 
 		if (!targets.length) return imports.message.react('❌');

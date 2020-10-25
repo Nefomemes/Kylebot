@@ -1,0 +1,4 @@
+module.exports = {
+    "type": "funfact_list",
+    "content": ["Switching to your secondary is always faster than reloading. Switching to your knife is even faster.", "You can join the support server here api.nefomemes.repl.co/links/kylebot/support", "You can add a numerical value to the end of the syntax to view a certain page.", "eColiEspresso, The Xclusive Ace, and NoahJ456 can be found in Doughisraw's leaked Call of Duty: Black Ops Cold War stream.", "\Nefomemes can be found issuing no anime violation tickets in Twitter.", "There are two version of the bot, one is stable and one is \Internal Alpha.", "You can find Hadir's sniper rifle in the last mission of  \Call of \Duty: Modern Warfare. It have an awesome accuracy, yeah?"]
+}

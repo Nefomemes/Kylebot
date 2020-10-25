@@ -22,7 +22,7 @@ if(!guild) return i.message.channel.send("Unknown server. Add the `g` option wit
 			.setThumbnail(guild.iconURL({ format: 'png', dynamic: true }))
 			.setTimestamp()
 			.setFooter(
-				`Prefix: ${imports.prefix} | ${i.getRandomFunfact()}`,
+				`Prefix: ${i.prefix} | ${i.getRandomFunfact()}`,
 				i.client.user.displayAvatarURL({ format: 'png', dynamic: true })
 			);
 

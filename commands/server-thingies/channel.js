@@ -2,7 +2,7 @@ module.exports.run = async (i) => {
       
         var channel;
       if(i.message.guild){
-            i.getChannelFromMention(imports.argv.c, i.message.guild.channels);
+            i.getChannelFromMention(i.argv.c, i.message.guild.channels);
             }
 
     if(!channel) channel = i.message.channel;
