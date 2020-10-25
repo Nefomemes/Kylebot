@@ -15,7 +15,7 @@ module.exports = {
 		i.argv.d = 0;
 	}
 	async function evall() {
-		return await eval(i.argv._.join(" "));
+		return await eval(i.argv.c || "");
 
 	}
 	async function evaluate() {
@@ -27,8 +27,8 @@ module.exports = {
 		const noww = Date.now();
 		i.message.channel.send(`Process executed within ${noww - now}ms.`);
 		i.message.channel.send(
-			'```js\n' + i.trim(i.avoidBreak(i.argv._.join()), 2000 - 12) + '\n```'
-		);
+			'```js\n' + i.trim(i.avoidBreak(i.argv.c, 2000 - 12) + '\n```'
+		));
 		i.message.channel.send(
 			'```js\n' +
 				i.trim(
