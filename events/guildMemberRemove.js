@@ -18,7 +18,7 @@ try {
     .setFooter(`Prefix: ${global.configs.prefix} | ${global.built_ins.getRandomFunfact()}`)
     } 
     if(guildDB.welcomeMessage && guildDB.welcomeMessage !== null && guildDB.welcomeMessage.constructor === String){
-      content = "*The content of this message is managed by an end user. We do not take responsibility of any content in this message.*\n\n" + guildDB.welcomeMessage.split("${user}").join(`${user}`).split("${username}").join(user.username).split("${count}").join(member.guild.memberCount).split("${discriminator}").join(`${user.discriminator}`);
+      content = "*The content of this message is managed by an end user. We do not take responsibility of any content in this message.*\n\n" + guildDB.welcomeMessage.split("{user}").join(`${user}`).split("{username}").join(user.username).split("{count}").join(member.guild.memberCount).split("{discriminator}").join(`${user.discriminator}`);
     }
     if(content || embed){
       client.channels.cache.get(guildDB.welcomeChannel).send(content, embed);
