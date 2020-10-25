@@ -4,6 +4,7 @@ module.exports = {
     if (string.length <= max) return string;
     return `${string.slice(0, max - 3)}...`;
   },
+
   getRandomFunfact: (str) => {
     const funfact = require("./funfact.json");
     return "WIP Internal Alpha"+ " | "+ ( str || funfact[Math.floor(Math.random() * funfact.length)])
