@@ -7,7 +7,7 @@ module.exports = {
 
   getRandomFunfact: (str) => {
     const funfact = require("./funfact.json");
-    return "WIP Internal Alpha"+ " | "+ ( str || funfact[Math.floor(Math.random() * funfact.length)])
+    return "WIP Public Alpha"+ " | "+ ( str || funfact[Math.floor(Math.random() * funfact.length)])
 
   },
   customSplit: (str, maxLength) => {
