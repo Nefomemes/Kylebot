@@ -26,10 +26,9 @@ module.exports = {
 	function getCategory(name) {
 		if (!name) return;
 		let modules = categories.filter(function(category) {
-			return (
-				category.name.toLowerCase().split(name.toLowerCase())[1] ||
-				category.id === name
-			);
+			return 
+				category.name.toLowerCase().split(name.toLowerCase())[1] || category.name.toLowerCase() === name.toLowerCase()||
+				category.id === name;
 		});
 		if (!modules.length) return;
 		if (modules.length > 1) return;
