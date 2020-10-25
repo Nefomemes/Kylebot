@@ -27,12 +27,12 @@ module.exports = {
 		const noww = Date.now();
 		i.message.channel.send(`Process executed within ${noww - now}ms.`);
 		i.message.channel.send(
-			'```js\n' + i.trim(i.avoidBreak(i.argv.c, 2000 - 12) + '\n```'
-		));
+			'```js\n' + i.trim(i.avoidBreak(i.argv.c || ""), 2000 - 12) + '\n```'
+		);
 		i.message.channel.send(
 			'```js\n' +
 				i.trim(
-					i.avoidBreak(require('util').inspect(result, { depth: i.argv.d })),
+					i.avoidBreak(require('util').inspect(result || null, { depth: i.argv.d })),
 					2000 - 12
 				) +
 				'\n```'
