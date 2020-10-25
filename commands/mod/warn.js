@@ -70,3 +70,4 @@ module.exports = {
 */
 	}
 }
+module.exports.category = "mod";

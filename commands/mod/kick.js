@@ -1,5 +1,6 @@
 module.exports = {
 	perms: 3,
+	category: "mod",
 	run: async (i) => {
 	if(!i.argv.m) return i.message.channel.send("Add the `m` option with the user to kick`");
 	if(!i.argv.r) return i.message.channel.send("Add the `r` option with the reason of you kicking the target.");
