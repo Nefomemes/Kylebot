@@ -1,10 +1,10 @@
 module.exports = {
 	perms: 3,
 	run: async (i) => {
-	if(!i.argv.member) return i.message.channel.send("Add `--member=<member>` to choose the target you want to kick.`");
-	if(!i.argv.reason) return i.message.channel.send("Add `--reason=<reason>` to write the reason of you kick the target.");
+	if(!i.argv.m) return i.message.channel.send("Add the `m` option with the user to kick`");
+	if(!i.argv.r) return i.message.channel.send("Add the `r` option with the reason of you kicking the target.");
 
-	const user = await i.getMemberFromMention(i.argv.member, i.message.guild.members);
+	const user = await i.getMemberFromMention(i.argv.m, i.message.guild.members);
 	if (!user) return i.message.channel.send("Target doesn't exist or invalid, sir.");
 	if (user.deleted) return i.message.channel.send("Target is no longer a member of this server.");
 	if (!user.bannable) return i.message.channel.send("Ugh, I'm unable to kick this guy. Try to give me the **Kick Members** permission or higher my role a little bit higher than target.");
@@ -14,8 +14,8 @@ module.exports = {
 	var embed = new Discord.MessageEmbed()
 		.setColor(color.BG_COLOR)
 		.setTitle(`Kicked from ${i.message.guild.name}`)
-		.setDescription(`You have been kicked by ${i.message.author.username}#${i.message.author.discriminator} (${i.message.member.displayName}) from ${i.message.guild.name} for "${i.args.join(" ") || "none"}".`)
-		.setAuthor(i.message.author.displayAvatarURL({ format: "png", dynamic: true}), i.message.author.username)
+		.setDescription(`You have been kicked by ${i.message.author.username}#${i.message.author.discriminator} (${i.message.member.displayName}) from ${i.message.guild.name} for "${i.argv.r || "none"}".`)
+			.setAuthor(i.message.author.username, i.message.author.displayAvatarURL({ format: "png", dynamic: true}))
 		.setThumbnail(i.message.guild.iconURL({ format: "png", dynamic: true }))
 		.setFooter(`Prefix: ${i.prefix} | ${i.getRandomFunfact()}`)
 		.setTimestamp()
@@ -32,12 +32,12 @@ module.exports = {
 			},
 			{
 				"name": "Reason",
-				"value": `${i.argv.reason || "none"}`,
+				"value": `${i.argv.r || "none"}`,
 				"inline": true
 			},
 			{
 				"name": "Server",
-				"value": `${imports.message.guild.name} (ID: ${imports.message.guild.id})`,
+				"value": `${i.message.guild.name} (ID: ${i.message.guild.id})`,
 				"inline": true
 			},
 			{

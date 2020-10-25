@@ -1,7 +1,5 @@
-module.exports = async () => {
+module.exports = async (guild) => {
 	global.client.channels.cache
-		.get('730374154569646091')
-		.send(
-			'A server have kicked the bot. Press F to pay respect for Nefomemes.'
-		);
+		.get(configs.logs)
+		.send(`${guild.name} have kicked the bot. F for Nefomemes.`);
 }

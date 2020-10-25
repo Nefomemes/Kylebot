@@ -16,8 +16,7 @@ module.exports = {
                 `Current welcome channel: ${guildDB.welcomeChannel || "none"}
 
                 To change the channel, add the \`c\` option with the channel you want it to be the welcome channel.
-                To get rid of it, set the \`rc\` option to true`.
-                `
+                To get rid of it, set the \`rc\` option to true.`
             )
         }
       

@@ -1,17 +1,17 @@
-module.exports.run = async (imports) => {
+module.exports.run = async (i) => {
       
         var channel;
-      if(imports.message.guild){
-            imports.getChannelFromMention(imports.args[0]);
+      if(i.message.guild){
+            i.getChannelFromMention(imports.argv.c, i.message.guild.channels);
             }
-if(channel) imports.args.shift();
-    if(!channel) channel = imports.message.channel;
+
+    if(!channel) channel = i.message.channel;
     
-    var embed = new imports.Discord.MessageEmbed()
-    .setColor(imports.colors.BG_COLOR)
+    var embed = new Discord.MessageEmbed()
+    .setColor(colors.BG_COLOR)
    .setTitle("Channel Insights - Kylebot")
-    .setAuthor(imports.client.user.username, imports.client.user.displayAvatarURL({format: "png", dynamic: true})).setTimestamp()
-    .setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`, imports.client.user.displayAvatarURL({format: "png", dynamic: true}))
+    .setAuthor(client.user.username, client.user.displayAvatarURL({format: "png", dynamic: true})).setTimestamp()
+    .setFooter(`Prefix: ${i.prefix} | ${i.getRandomFunfact()}`, i.client.user.displayAvatarURL({format: "png", dynamic: true}))
      var fields       =   [{name: "Channel ID", value: channel.id, inline: true},
                            {name: "Created at", value: new Date(channel.createdTimestamp).toUTCString(), inline: true},
                            {name: "Type", value: channel.type, inline: true}];
@@ -27,19 +27,19 @@ if(channel.name){
     }
     
        
-                 let number = parseInt(imports.args[0]);
-            if (Number.isNaN(number) || !number){
+                 let number = parseInt(i.argv.p);
+            if (Number.isNaN(number)){
                 number = 1;
             }
-            let page = imports.getPage(fields, 6, number);
-               embed = embed.setFooter(imports.trim(`Page ${page.page}/${page.pages} | ${ embed.footer.text}`,2048));
+            let page = i.getPage(fields, 6, number);
+               embed = embed.setFooter(i.trim(`Page ${page.page}/${page.pages} | ${ embed.footer.text}`,2048));
         for(let field  of fields){
             let index = fields.indexOf(field);
                 if(!(index > page.end || index < page.start)){
                     embed = embed.addField(field.name, field.value, field.inline);
                     }
             }
-return imports.message.channel.send(embed)
+return i.message.channel.send(embed)
               
     }
     

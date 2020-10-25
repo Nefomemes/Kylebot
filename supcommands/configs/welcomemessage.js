@@ -13,14 +13,13 @@ module.exports = {
  	
  	if(typeof message !== "string") return i.message.channel.send("The `m` option is required to be a string.");
  	if(message.length > 500) return i.message.channel.send("To prevent abuse and to save database resources, we restrict message content to only 500 characters.");
- 	await db collection("guilds").updateDoc({docID: i.message.guild.id}, {$set: {welcomeMessage: message}});
- } else if(i.argv.rm && i.argv.rm = true){
+ 	await db.collection("guilds").updateDoc({docID: i.message.guild.id}, {$set: {welcomeMessage: message}});
+ } else if(i.argv.rm && i.argv.rm === true){
  	await db.collection("guilds").updateDoc({docID: i.message.guild.id}, {$unset: {welcomeMessage: ""}});
  } else {
- 	const guildDB = await db collection("guilds").getDoc({docID: i.message.guild.id});
+ 	const guildD  = await db.collection ("guilds").getDoc({docID: i.message.guild.id});
  	
- 	return i.message.channel.send(`Welcome message: ${guildDB.welcomeMessage || "none"}\n\nTo change the welcome message add the \`m\` option with the message.\nTo get rid of it, set the \`rm\` option to true.`);
- 
+  return i.message.channel.send(`Current welcome message: ${guildDB.welcomemeMessage || "none"}\n\nTo change the welcome message, add the \`m\` option with the message.\nTo get rid of it set the \`rm\` option to true.`);
  	
  }
  	

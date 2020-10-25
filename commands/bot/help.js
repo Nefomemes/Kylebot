@@ -44,15 +44,15 @@ module.exports = {
 					inline: false
 						})
 	}
-	if (i.getCommand(i.args[0], client.commands.cache)) {
+	if (i.getCommand(i.argv._[0], client.commands.cache)) {
 		var command = i.getCommand(
-			i.args.shift(),
+			i.argv._.shift(),
 			client.commands.cache
 		); 
 		if(command.commands){
-			if(i.getCommand(i.args[0], command.commands)){
+			if(i.getCommand(i.argv._[0], command.commands)){
 					command = i.getCommand(
-					i.args.shift(),
+					i.argv._.shift(),
 					command.commands
 				)
 		
@@ -62,8 +62,8 @@ module.exports = {
 		} 
 			embed = embed.setDescription(getDesc(command));
 			
-	} else if (getCategory(i.args[0])) {
-		const category = getCategory(imports.args.shift());
+	} else if (getCategory(i.argv._[0])) {
+		const category = getCategory(imports.argv._.shift());
 		if (category) {
 			let commands = await i.client.commands.cache
 				.filter(command => {
@@ -80,7 +80,7 @@ module.exports = {
 		categories.forEach(pushToFields);
 	}
 
-	let number = parseInt(i.args.pop());
+	let number = parseInt(i.argv.p);
 	if (Number.isNaN(number) || !number) {
 		number = 1;
 	}

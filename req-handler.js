@@ -1,8 +1,23 @@
-module.exports = {
-    execute(imports) {
+module.exports.execute = async (i) => {
+	
+	i.app.get("/", (req, res) => {
+		try {
+		var obj = {
+			username: client.user.username,
+			discriminator: client.user.discriminator,
+			client: client.user.id,
+			readyAt: client.readyAt.getTime(),
+			ping: client.ws.ping,
+			users: client.users.cache.size,
+			guilds: client.users.cache.guilds,
+			avatar: client.user.displayAvatarURL({format: "png", dynamic: true})
+		}
+		return res.send(obj);
+		} catch {
+			return res.send("200 - OK");
+		}
+	})
 
-        imports.app.get("*", (req, res) => {
-            res.send("200 - OK");
-        });
-    }
+
+	i.app.all("*", (req, res) => res.status(404).send("404 - Not Found"));
 }

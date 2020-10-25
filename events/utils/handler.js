@@ -12,7 +12,13 @@ var i = {
    opt: {}
   }
     i.message = message;
-    if ((!i.message.author || i.message.author.bot)) return;
+
+	if(!i.message.author) {
+		i.message = await i.message.channel.messages.fetch(i.message.id);
+	}
+
+
+    if (i.message.author.bot) return;
 
    // i.filter = require("./filter").run(i).catch(console.error);
 
