@@ -30,6 +30,7 @@ const client = new global.Discord.Client({
 });
 global.client = client;
 global.configs = require('./assets/configs.json');
+configs.prefix = process.env.prefix || configs.prefix;
 global.xml2js = require('xml2js');
 global.querystring = require('querystring');
 global.fetch = require('node-fetch');
