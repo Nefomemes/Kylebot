@@ -9,7 +9,7 @@ module.exports.execute = async (i) => {
 			readyAt: client.readyAt.getTime(),
 			ping: client.ws.ping,
 			users: client.users.cache.size,
-			guilds: client.users.cache.guilds,
+			guilds: client.guilds.cache.size,
 			avatar: client.user.displayAvatarURL({format: "png", dynamic: true})
 		}
 		return res.send(obj);
