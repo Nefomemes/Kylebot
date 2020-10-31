@@ -7,7 +7,7 @@
     "node": "12.x"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
     "cheerio": "^1.0.0-rc.3",
     "discord.js": "^12.2.0",
     "express": "^4.17.1",
-    "minimist": "^1.2.5",
+    "lodash": "^4.17.20",
     "mongodb": "^3.6.2",
     "mri": "^1.1.6",
     "node-fetch": "^2.6.1",

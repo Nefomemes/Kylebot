@@ -29,11 +29,11 @@ module.exports.run = async (i) => {
 					'unknown'}**.`,
 				inline: true
 			});
-			if (opts) {
+		if(opts){
 				try {
-					embed = embed.setImage(item.assets[0].asset);
+					embed = embed.setImage(content.assets[0].asset);
 				} catch { }
-			}
+		}
 			return embed;
 		} else {
 			embed.setDescription("There is no item in the bundle with this name.");
@@ -50,8 +50,7 @@ module.exports.run = async (i) => {
 			.setTimestamp()
 			.setFooter(
 				`Prefix: ${i.prefix} | You have ${user.cp ||
-				0} CP and  ${user.cash || 0} Plunder cash.`
-			);
+				0} CP and  ${user.cash || 0} Plunder cash.`		);
 
 		var fields = [];
 		if (
@@ -62,12 +61,14 @@ module.exports.run = async (i) => {
 			const item = i.getItem('bundle', i.argv.b.toLowerCase());
 			embed = embed.setTitle(item.name + " - " + embed.title);
 			item.content = item.content.map((c) => {
+				if(c){
 				return i.getItem(c.type, c.id);
+				}
 			});
 			if (i.argv.c && i.argv.c === true) {
 				item.content.forEach((smh) => seeItem(smh, item, fields, embed, false))
-			} else if (i.argv.c && item.content.find((c) => i.search(c, i.argv.c))) {
-			embed =	seeItem(item.content.find((c) => i.search(c, i.argv.c)), item, fields, embed, true);
+			} else if (i.argv.c && i.search(item.content, i.argv.c)) {
+			embed =	seeItem(i.search(item.content, i.argv.c), item, fields, embed, true);
 			} else {
 				_.each(item, (value, key) => {
 					if (key === 'content') {

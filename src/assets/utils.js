@@ -1,57 +1,6 @@
-const search = (value, item) => {
-          return value.id && value.id === item || value.name && (value.name.toLowerCase().startsWith(item) || value.name.toLowerCase().endsWith(item) || value.name.split(item)[1]) || item.split(value.name)[1];
-        };
+
 module.exports = {
-  trim: (string, max) => {
-	  string = `${string}`;
-    if (string.length <= max) return string;
-    return `${string.slice(0, max - 3)}...`;
-  },
 
-  getFooter: (str) => {
-    const funfact = require("./funfact.json");
-    return `Prefix: ${configs.prefix} | ` + configs.status + " | "+ ( str || funfact[Math.floor(Math.random() * funfact.length)])
-
-  },
-  customSplit: (str, maxLength) => {
-    if (str.length <= maxLength) return [str];
-    var parts = str.match(new RegExp(".{1," + maxLength + "}", "g"));
-    return parts;
-  },
-  getMemberFromMention: (mention, GuildMemberManager) => {
-
-    if (!mention || !GuildMemberManager) return;
- mention = mention.toString();
-
-    if (mention.startsWith("<@") && mention.endsWith(">")) {
-      mention = mention.slice(2, -1);
-      if (mention.startsWith("!")) {
-        mention = mention.slice(1);
-      }
-    }
-    try {
-    return GuildMemberManager.fetch(mention).catch(e => null);
-} catch {
-    return;
-}
-  },
-  getChannelFromMention: (mention, ChannelManager) => {
-
-    if (!mention || !ChannelManager) return;
-   mention = mention.toString();
-    
-    if (mention.startsWith("<#") && mention.endsWith(">")) mention = mention.slice(2, -1);
-    try {
-        if(ChannelManager.fetch){
-   return ChannelManager.fetch(mention).catch(i => null);
-        } else if(ChannelManager.resolve){
-               return ChannelManager.resolve(mention)
-        }
- 
-    } catch {
-        return null;
-    }
-  },
   freshActivity: (client) => {
     var activities = require("./activities.json");
     let activity = activities[Math.floor(Math.random() * activities.length)];
@@ -86,8 +35,7 @@ module.exports = {
         if (!result.length) return;
         return result[Math.floor(Math.random() * result.length)];
       } else {
-        let result = items.find((i) => search(i, item))
-    return result;
+    return search(items, item);
       }
   },
   getCommand: (str, commandCache) => {
@@ -136,15 +84,7 @@ if(pages_length <= 0) pages_length = 1;
  return run().then(i => i);
   },
   errorEmbed: (error) => {
-      
-        const embed = new Discord.MessageEmbed()
-    .setColor(colors.BG_COLOR)
-    .setAuthor("Report Issue on GitHub", "https://raw.githubusercontent.com/Nefomemes/Kylebot/master/assets/GitHub-Mark-Light-120px-plus.png", "https://github.com/Nefomemes/Kylebot/issues/new")
-    .setDescription("```" + built_ins.trim(require("util").inspect(error), 2048 - 6) + "```")
-    .setFooter("Please make sure noone have ever posted a similar issue and please provide reproduction steps.", global.client.user.displayAvatarURL({dynamic: true, format: "png"}))
-    .setTimestamp()
-    .setTitle("An error occured!")
-    return embed;
+    
   },
   getEmojiFromMention: (mention, EmojiManager) => {
       if(!mention || !EmojiManager) return;
@@ -154,26 +94,6 @@ if(pages_length <= 0) pages_length = 1;
       if(!mention) return;
       return EmojiManager.resolve(mention[2]);
       },
-      parseOptions: (o, opts) => {
-        var rawArgv;
-        if(typeof o === "string"){
-        rawArgv = require("shell-quote").parse(o)
-        }
-	
-        var argv = require("mri")(rawArgv, opts);
-        for(let [key, value] of Object.entries(argv)){
-          if(typeof value === "string"){
-          if(value.toLowerCase() === "true"){
-            argv[key] = true;
-          } else if(value.toLowerCase() === "false"){
-            argv[key] = false;
-          }
-          } 
-        }
-
-        return argv;
-      },
-      search: search
 }
 
 module.exports.getRandomFunfact = module.exports.getFooter;
