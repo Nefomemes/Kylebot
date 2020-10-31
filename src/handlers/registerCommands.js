@@ -1,10 +1,10 @@
 module.exports = async function registerCommands(
-	dir = path.join(__dirname, 'commands'),
+	dir = path.join(process.pwd(), 'commands'),
 	commandCache = client.commands.cache,
 	type = 'command',
 	defaultSettings = {}
 ) {
-	var path_idk = path.join(__dirname, dir)
+	var path_idk = dir;
 	var files = await fs.readdir(path_idk);
 	if(process_argv.dev && process.argv.dev === true) console.log(`Registering ${type}s of ${path_idk}`);
 	for (let file of files) {

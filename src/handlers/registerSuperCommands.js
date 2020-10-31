@@ -27,7 +27,7 @@ module.exports = async function registerSuperCommands(
 			};
 
 			await registerCommands(
-				path.join("supcommands", file),
+				path.join(process.pwd(), "supcommands", file),
 				supcommand.commands,
 				'childcommand',
 				settings
