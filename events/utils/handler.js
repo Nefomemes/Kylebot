@@ -27,7 +27,7 @@ var i = {
     i.args = i.message.content.slice(i.prefix.length).split(/ +/);
     
     i.commandName = i.args.shift().toLowerCase();
-    i.argv = i.parseOptions(i.args.join(" "));
+
     if (!i.commandName) return;
     
     i.command = i.getCommand(i.commandName, i.client.commands.cache);
@@ -83,13 +83,11 @@ var i = {
     i.cooldownAmount = (i.command.cooldown || 5) * 1000;
     i.expirationTime = i.timestamps.get(i.message.author.id) + i.cooldownAmount;
     i.timeLeft = (i.expirationTime - i.now) / 1000;
-
+    i.argv = i.parseOptions(i.args.join(" "), i.command.argvOpt);
     if (i.timestamps.has(i.message.author.id) && i.now < i.expirationTime) {
-        if (i.options && i.opt.bypassSlowmode && i.opt.bypassSlowmode === true && i.message.author.id === "") {
-            // Bypass
-        } else {
+     
             return i.message.channel.send(`Slowmode! Please wait another ${i.timeLeft.toFixed(2)} seconds.`);
-        }
+        
     }
 
     i.timestamps.set(i.message.author.id, i.now);

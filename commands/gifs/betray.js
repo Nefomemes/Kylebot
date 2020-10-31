@@ -1,11 +1,11 @@
 module.exports = {
 category: "rp",
 desc: "Betray a friend.",
-run: async (imports) => {
+run: async (i) => {
 		var gifs;
 		var targets = [];
-		const getUserFromMention = mention => {
-			if (!mention || !imports.message) return;
+		const getUserFromMessageMention = mention => {
+			if (!mention || !i.message) return;
 
 			if (mention.startsWith('<@') && mention.endsWith('>')) {
 				mention = mention.slice(2, -1);
@@ -13,20 +13,20 @@ run: async (imports) => {
 					mention = mention.slice(1);
 				}
 			}
-			return imports.message.mentions.users.get(mention);
+			return i.message.mentions.users.get(mention);
 		};
 
 		for (let arg of imports.args) {
-			let user = getUserFromMention(arg);
+			let user = getUserFromMessageMention(arg);
 			if (user) {
 				targets.push(user);
-				imports.args.shift();
+				i.args.shift();
 			} else {
 				break;
 			}
 		}
 
-		if (!targets.length) return imports.message.react('❌');
+		if (!targets.length) return i.message.react('❌');
 		if (targets.length === 1) {
 			gifs = [
 				
@@ -37,23 +37,23 @@ run: async (imports) => {
 			];
 		}
 
-		var the_reason = imports.args.join(' ');
+		var the_reason = i.args.join(' ');
 		if (the_reason) {
-			the_reason = ` because "` + imports.args.join(' ') + `".`;
+			the_reason = ` because "` + i.args.join(' ') + `".`;
 		} else {
 			the_reason = '.';
 		}
 
-		const embed = new imports.Discord.MessageEmbed()
-			.setColor(imports.colors.BG_COLOR)
+		const embed = new Discord.MessageEmbed()
+			.setColor(colors.BG_COLOR)
 			.setAuthor(
-				imports.client.user.username,
-				imports.client.user.displayAvatarURL({ format: 'png', dynamic: true }),
-				process.env.WEBSITE
+				client.user.username,
+			client.user.displayAvatarURL({ format: 'png', dynamic: true }),
+			i.website
 			)
 			.setDescription(
-				imports.trim(
-					`${imports.message.author}` +
+			i.trim(
+					`${i.message.author}` +
 						' betrayed ' +
 						targets.join(', ') +
 						the_reason,
@@ -62,12 +62,11 @@ run: async (imports) => {
 			)
 			.setImage(gifs[Math.floor(Math.random() * gifs.length)])
 			.setTimestamp()
-			.setFooter(
-				`Prefix: ${imports.prefix} | ` + imports.getRandomFunfact(),
+			.setFooter(i.getFooter(),
 				imports.client.user.displayAvatarURL({ format: 'png', dynamic: true })
 			);
 
-		imports.message.channel.send(embed);
+		return i.message.channel.send(embed);
 	}
 
 }

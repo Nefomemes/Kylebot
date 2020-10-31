@@ -1,7 +1,7 @@
 module.exports.run = async (i) => {
 const supported =["webp", "png", "jpg", "jpeg", "gif"]
-i.argv.user = await i.getUserFromMention(i.argv.user, client.users) || i.message.author;
-i.argv.format = i.argv.format || "png";
+i.argv.user = await i.getUserFromMention(i.argv.u, client.users) || i.message.author;
+i.argv.format = i.argv.f || "png";
 if (!supported.includes(i.argv.format))return i.message.channel.send("Invalid file type.");
 if(!i.argv.user) return i.message.channel.send("Invalid user.");
 

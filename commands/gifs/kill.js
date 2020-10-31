@@ -28,10 +28,10 @@ var args = imports.args;
 			}
 		}
 
-		if (!targets.length) return imports.message.react('❌');
-		if (targets.includes(imports.message.author))
-			return imports.message.react('❌');
-		var the_reason = imports.args.join(' ');
+		if (!targets.length) return i.message.react('❌');
+		if (targets.includes(i.message.author))
+			return i.message.react('❌');
+		var the_reason = i.args.join(' ');
 		if (the_reason) {
 			the_reason = ` because "` + imports.args.join(' ') + `".`;
 		} else {
@@ -56,23 +56,23 @@ var args = imports.args;
 		}
 
 		gifs = gifs[Math.floor(Math.random() * gifs.length)];
-		let embedkill = new imports.Discord.MessageEmbed()
-			.setColor(imports.colors.BG_COLOR)
+		let embedkill = new Discord.MessageEmbed()
+			.setColor(colors.BG_COLOR)
 			.setAuthor(
-				imports.client.user.username,
-				imports.client.user.displayAvatarURL({ format: 'png', dynamic: true }),
-				imports.website
+				client.user.username,
+			client.user.displayAvatarURL({ format: 'png', dynamic: true }),
+				i.website
 			)
 			.setDescription(
-				imports.trim(
-					`${imports.message.author} killed ${targets.join(', ')}${the_reason}`,
+				i.trim(
+					`${i.message.author} killed ${targets.join(', ')}${the_reason}`,
 					2048
 				)
 			)
 			.setImage(gifs)
 			.setTimestamp()
-			.setFooter(`Prefix: ${imports.prefix} | ${imports.getRandomFunfact()}`);
-		imports.message.channel.send(embedkill);
+			.setFooter(i.getFooter(), client.user.displayAvatarURL({format: "png", dynamic: true}));
+	return i.message.channel.send(embedkill);
 	}
 
 } 

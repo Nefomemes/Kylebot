@@ -1,1 +1,51 @@
-[{"id":"alex_scape_goat","type":"emblem","name":"Scape Goat","default":true,"assets":[{"type":"png","asset":"https://i.imgur.com/Nswe0nQ.png"}]},{"id":"ghost_classic","type":"emblem","name":"Ghost","desc":"In game, get this emblem by buying Call of Duty: Modern Warfare 2 Campaign Remastered.","rarity":3,"assets":[{"type":"png","asset":"https://i.imgur.com/FkGaDL9.png"}]},{"id":"ghost_ghost_com","type":"emblem","name":"Ghost Com","desc":"Ghost have a lot of cosmetics. Pretty much stonks for Activision.","rarity":3,"assets":[{"type":"png","asset":"https://i.imgur.com/W6Sh2Z5.png"}]}]
+[
+	{
+		"id": "mw",
+		"type": "emblem",
+		"name": "MW Default",
+		"default": true,
+		"assets": [
+			{
+				"type": "png",
+				"asset": "https://i.imgur.com/HMU8AmJ.png"
+			}
+		]
+	},
+	{
+		"id": "alex_scape_goat",
+		"type": "emblem",
+		"name": "Scape Goat",
+		"assets": [
+			{
+				"type": "png",
+				"asset": "https://i.imgur.com/Nswe0nQ.png"
+			}
+		]
+	},
+	{
+		"id": "ghost_classic",
+		"type": "emblem",
+		"name": "Ghost",
+		"desc": "In game, get this emblem by buying Call of Duty: Modern Warfare 2 Campaign Remastered.",
+		"rarity": 3,
+		"assets": [
+			{
+				"type": "png",
+				"asset": "https://i.imgur.com/FkGaDL9.png"
+			}
+		]
+	},
+	{
+		"id": "ghost_ghost_com",
+		"type": "emblem",
+		"name": "Ghost Com",
+		"desc": "Ghost have a lot of cosmetics. Pretty much stonks for Activision.",
+		"rarity": 3,
+		"assets": [
+			{
+				"type": "png",
+				"asset": "https://i.imgur.com/W6Sh2Z5.png"
+			}
+		]
+	}
+]

@@ -18,7 +18,7 @@ var id;
 		.setDescription(`You have been :b:anned by ${i.message.author.username}#${i.message.author.discriminator} (${i.message.member.displayName}) from ${i.message.guild.name} for "${i.argv.r || "none"}".`)
 		.setAuthor(i.message.author.username, i.message.author.displayAvatarURL({ format: "png", dynamic: true}))
 		.setThumbnail(i.message.guild.iconURL({ format: "png", dynamic: true }))
-		.setFooter(`Prefix: ${i.prefix} | ${i.getRandomFunfact()}`)
+		.setFooter(i.getFooter(), client.user.displayAvatarURL({format: "png", dynamic: true}))
 		.setTimestamp()
 		.setThumbnail(i.message.guild.iconURL({format: "png", dynamic: "true"}))
 		.addFields(

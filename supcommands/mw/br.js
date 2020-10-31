@@ -11,7 +11,7 @@ module.exports = {
 		.setTitle(`Warzone stats for ${i.player.username}`)
 		.setAuthor("Call of Duty™: Modern Warfare™", 'https://i.imgur.com/HMU8AmJ.png')
 		.setThumbnail('https://i.imgur.com/HMU8AmJ.png')
-		.setFooter(i.getRandomFunfact(),
+		.setFooter(i.getFooter(),
 		client.user.displayAvatarURL({format: "png", dynamic: true}))
 		.setTimestamp()
 		var k = 6;

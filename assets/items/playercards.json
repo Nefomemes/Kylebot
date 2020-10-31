@@ -2,9 +2,7 @@
 	{
 		"id": "one_four_one",
 		"name": "141",
-	
-		"desc":
-			"It's very hard to obtain this calling card in-game. Use this calling card and experience the 141 vibe.",
+		"desc": "It's very hard to obtain this calling card in-game. Use this calling card and experience the 141 vibe.",
 		"assets": [
 			{
 				"type": "gif",
@@ -15,9 +13,7 @@
 	{
 		"id": "all_ghillied_up_cod_four",
 		"name": "All Ghillied Up",
-		
-		"desc":
-			"Use this calling card and experience the Kylebot web design experience lol.",
+		"desc": "Use this calling card and experience the Kylebot web design experience lol.",
 		"assets": [
 			{
 				"type": "png",
@@ -68,12 +64,10 @@
 			}
 		]
 	},
-
 	{
 		"id": "default",
 		"name": "default",
 		"default": true,
-	
 		"desc": "It's the budget Price calling card.",
 		"assets": [
 			{
@@ -85,8 +79,7 @@
 	{
 		"id": "gaz_snow",
 		"name": "For Her Majesty",
-		"desc":
-			"Not like as you expected. This calling card is just Kyle engagin' some enemies.",
+		"desc": "Not like as you expected. This calling card is just Kyle engagin' some enemies.",
 		"assets": [
 			{
 				"type": "gif",
@@ -120,7 +113,7 @@
 		"id": "faction_allegiance",
 		"type": "calling_card",
 		"name": "Allegiance",
-		"desc":null,
+		"desc": null,
 		"assets": [
 			{
 				"type": "png",
@@ -131,8 +124,7 @@
 	{
 		"id": "tac_insert",
 		"name": "Tactical Insertion",
-		"desc":
-			"The field upgrade you need in Warzone Rumble. Sadly the mode is LTM.",
+		"desc": "The field upgrade you need in Warzone Rumble. Sadly the mode is LTM.",
 		"assets": [
 			{
 				"type": "gif",
@@ -142,10 +134,8 @@
 	},
 	{
 		"id": "looking_ahead_alex",
-
 		"name": "Looking Ahead",
-		"desc":
-			"What if you are going to blow a gas factory but the devs forgot to fix the detonator bug.",
+		"desc": "What if you are going to blow a gas factory but the devs forgot to fix the detonator bug.",
 		"assets": [
 			{
 				"type": "png",
@@ -177,7 +167,6 @@
 	},
 	{
 		"id": "ghost_ink_spiller",
-
 		"name": "Ink Spiller",
 		"desc": "Ghost has a lot of calling cards ngl.",
 		"rarity": 3,

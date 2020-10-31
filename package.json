@@ -22,6 +22,7 @@
     "express": "^4.17.1",
     "minimist": "^1.2.5",
     "mongodb": "^3.6.2",
+    "mri": "^1.1.6",
     "node-fetch": "^2.6.1",
     "node-grau": "^1.0.21",
     "shell-quote": "^1.7.2",

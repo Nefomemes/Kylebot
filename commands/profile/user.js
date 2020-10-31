@@ -2,10 +2,10 @@ module.exports = {
   name: "user",
   run: async (i) => {
     var user, member, userDB;
- user  = await i.getUserFromMention(i.argv.user, i.client.users) || i.message.author;
+ user  = await i.getUserFromMention(i.argv.u, i.client.users) || i.message.author;
  if(i.message.guild){
-     member = await i.getMemberFromMention(user.id, i.message.guild.members) || i.message.member;
-     user = member.user;
+     member = await i.getMemberFromMention(user.id, i.message.guild.members);
+     
  }
  
 
@@ -18,7 +18,7 @@ var embed = new Discord.MessageEmbed()
 var fields = [ { name: "ID", value: `${user.id}`, inline: true },
         { name: "Accout created at", value: user.createdAt, inline: true},
         { name: "Bot", value: user.bot }]
-    if (i.message.guild) {
+    if (member) {
       fields.push({ name: "Joined the server since", value: member.joinedAt, inline: true },
         { name: "Display name", value: member.displayName })
       if (member.displayColor) {

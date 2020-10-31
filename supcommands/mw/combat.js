@@ -49,7 +49,7 @@ module.exports = {
 				)
 				.setThumbnail('https://i.imgur.com/HMU8AmJ.png')
 				.setFooter(
-					i.getRandomFunfact(),
+					i.getFooter(),
 					client.user.displayAvatarURL({ format: 'png', dynamic: true })
 				);
 				var k = 2;

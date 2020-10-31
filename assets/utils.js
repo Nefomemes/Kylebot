@@ -1,13 +1,16 @@
-
+const search = (value, item) => {
+          return value.id && value.id === item || value.name && (value.name.toLowerCase().startsWith(item) || value.name.toLowerCase().endsWith(item) || value.name.split(item)[1]) || item.split(value.name)[1];
+        };
 module.exports = {
   trim: (string, max) => {
+	  string = `${string}`;
     if (string.length <= max) return string;
     return `${string.slice(0, max - 3)}...`;
   },
 
-  getRandomFunfact: (str) => {
+  getFooter: (str) => {
     const funfact = require("./funfact.json");
-    return configs.status + " | "+ ( str || funfact[Math.floor(Math.random() * funfact.length)])
+    return `Prefix: ${configs.prefix} | ` + configs.status + " | "+ ( str || funfact[Math.floor(Math.random() * funfact.length)])
 
   },
   customSplit: (str, maxLength) => {
@@ -18,6 +21,7 @@ module.exports = {
   getMemberFromMention: (mention, GuildMemberManager) => {
 
     if (!mention || !GuildMemberManager) return;
+ mention = mention.toString();
 
     if (mention.startsWith("<@") && mention.endsWith(">")) {
       mention = mention.slice(2, -1);
@@ -34,6 +38,8 @@ module.exports = {
   getChannelFromMention: (mention, ChannelManager) => {
 
     if (!mention || !ChannelManager) return;
+   mention = mention.toString();
+    
     if (mention.startsWith("<#") && mention.endsWith(">")) mention = mention.slice(2, -1);
     try {
         if(ChannelManager.fetch){
@@ -60,12 +66,14 @@ module.exports = {
     if (!collection) return;
     var items;
     try {
-       items = require(require("path").join(process.cwd(), `assets/items/${collection}s`));
+       items = require(`./items/${collection}s`);
       
-  } catch {
+  } catch (e){
+	  console.error(e);
   	try {
-  		items = require(require("path").join(process.cwd(), `assets/items/${collection}s.json`));
-  	} catch {
+  		items = require(`./items/${collection}s.json`);
+  	} catch (e) {
+		  console.error(e);
     return null;
   	}
     }
@@ -78,11 +86,8 @@ module.exports = {
         if (!result.length) return;
         return result[Math.floor(Math.random() * result.length)];
       } else {
-        let result = items.filter((value) => {
-          return value.id && value.id === item || value.name && (value.name.toLowerCase().startsWith(item) || value.name.toLowerCase().endsWith(item) || value.name.split(item)[1]);
-        })
-        if (!result.length) return;
-        return result[Math.floor(Math.random() * result.length)];
+        let result = items.find((i) => search(i, item))
+    return result;
       }
   },
   getCommand: (str, commandCache) => {
@@ -111,44 +116,51 @@ if(pages_length <= 0) pages_length = 1;
     return { start: start, end: end, array:  array, length: length, page: page, pages: pages_length};
   },
   getUserFromMention: (mention, UserManager) => {
+	async function run(){
     if (!mention ||!UserManager) return;
-    if (mention.startsWith("<@") && mention.endsWith(">")) {
+    mention =  `${mention}`
+
+
+           if (mention.startsWith("<@") && mention.endsWith(">")) {
       mention = mention.slice(2, -1);
       if (mention.startsWith("!")) {
         mention = mention.slice(1);
       }
     }
   try {
-  return UserManager.fetch(mention).catch(e => null) ;
- } catch {
-     return;
+  return UserManager.fetch().catch(e => e) ;
+ } catch (e) {
+     return console.error(e);
  }
+ }
+ return run().then(i => i);
   },
   errorEmbed: (error) => {
-      const { MessageEmbed } = require("discord.js");
-        const embed = new MessageEmbed()
-    .setColor(global.colors.BG_COLOR)
+      
+        const embed = new Discord.MessageEmbed()
+    .setColor(colors.BG_COLOR)
     .setAuthor("Report Issue on GitHub", "https://raw.githubusercontent.com/Nefomemes/Kylebot/master/assets/GitHub-Mark-Light-120px-plus.png", "https://github.com/Nefomemes/Kylebot/issues/new")
-    .setDescription("```" + global.built_ins.trim(require("util").inspect(error), 2048 - 6) + "```")
-    .setFooter(`Prefix: ${global.configs.prefix} | WIP Internal Alpha | ` + "Please make sure noone have ever posted a similar issue and please provide reproduction steps.", global.client.user.displayAvatarURL({dynamic: true, format: "png"}))
+    .setDescription("```" + built_ins.trim(require("util").inspect(error), 2048 - 6) + "```")
+    .setFooter("Please make sure noone have ever posted a similar issue and please provide reproduction steps.", global.client.user.displayAvatarURL({dynamic: true, format: "png"}))
     .setTimestamp()
     .setTitle("An error occured!")
     return embed;
   },
   getEmojiFromMention: (mention, EmojiManager) => {
       if(!mention || !EmojiManager) return;
-      mention = mention.toString();
+      mention = `${mention}`;
       
       mention = mention.match(/^<a?:(\w+):(\d+)>$/);
       if(!mention) return;
       return EmojiManager.resolve(mention[2]);
       },
-      parseOptions: (o) => {
+      parseOptions: (o, opts) => {
         var rawArgv;
         if(typeof o === "string"){
         rawArgv = require("shell-quote").parse(o)
         }
-        var argv = require("minimist")(rawArgv);
+	
+        var argv = require("mri")(rawArgv, opts);
         for(let [key, value] of Object.entries(argv)){
           if(typeof value === "string"){
           if(value.toLowerCase() === "true"){
@@ -156,8 +168,12 @@ if(pages_length <= 0) pages_length = 1;
           } else if(value.toLowerCase() === "false"){
             argv[key] = false;
           }
-          }
+          } 
         }
+
         return argv;
-      }
+      },
+      search: search
 }
+
+module.exports.getRandomFunfact = module.exports.getFooter;

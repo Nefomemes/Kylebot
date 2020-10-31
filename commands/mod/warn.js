@@ -16,7 +16,16 @@ module.exports = {
 		silent = true;
 	}
 	var user = member;
-				if(i.argv.dri && i.argv.dri === true && silent) return i.message.channel.send("DRI mode can not be turned on if the `s` (silent) option is turned on.");
+	var dri = false;
+		var pts = 0;
+
+		if(!dri && !Number.isNaN(parseInt(i.argv.pts))){
+				pts = parseInt(i.argv.pts);
+				
+			};
+	if(i.argv.dri && i.argv.dri === true)  dri = true;
+
+				if(dri && silent) return i.message.channel.send("DRI mode can not be turned on if the `s` (silent) option is turned on.");
 				if(!silent){ 
 		var embed = new Discord.MessageEmbed()
 		.setColor(colors.BG_COLOR)
@@ -56,18 +65,26 @@ module.exports = {
 				"name": "Action",
 				"value": "warn",
 				"inline": true
+			},
+			{
+				"name":"Recorded as an infraction",
+				"value": `${(() => {if(!dri) return "Yes";})() || "No"}`
 			}
 			);
-				member.user.send(embed).catch(o => i.message.channel.send("Unable to send the warning to the user. I got blocked or their DM was closed.f"));
+		
+			if(!dri){
+				embed = embed.addField("Infraction points", pts + " points", true);
+			}
+			
 
-				}
+				member.user.send(embed).catch(o => i.message.channel.send("Unable to send the warning to the user. I got blocked or their DM was closed. "));
 
-			return i.message.channel.send(`${i.message.author} have warned ${member} for "${i.argv.r}".`);	
-/*
-	if(!i.argv.dri || i.argv.dri !== true){
-		db.collection("gmembers").updateDoc({docID: member.user.id, guildID: member.guild.id}, )
+				};
+	if(!dri){
+		await db.collection("gmembers").updateDoc({docID: member.user.id, guildID: member.guild.id}, {$push: {infractions: {"action":"warn", "desc":i.argv.r, "points": pts}}});
+
 	} 
-*/
+	return i.message.channel.send(`${i.message.author} have warned ${member} for "${i.argv.r}".`);
 	}
 }
 module.exports.category = "mod";
