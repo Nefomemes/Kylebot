@@ -83,7 +83,7 @@ var i = {
     i.cooldownAmount = (i.command.cooldown || 5) * 1000;
     i.expirationTime = i.timestamps.get(i.message.author.id) + i.cooldownAmount;
     i.timeLeft = (i.expirationTime - i.now) / 1000;
-    i.argv = i.parseOptions(i.args.join(" "), i.command.argvOpt);
+    i.argv = i.parseCLIOptions(i.args.join(" "), i.command.argvOpt);
     if (i.timestamps.has(i.message.author.id) && i.now < i.expirationTime) {
      
             return i.message.channel.send(`Slowmode! Please wait another ${i.timeLeft.toFixed(2)} seconds.`);

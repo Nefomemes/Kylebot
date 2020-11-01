@@ -1,7 +1,7 @@
 const registerCommands = require("./registerCommands");
 
 module.exports = async function registerSuperCommands(
-	dir = path.join(process.cwd(), 'src', 'supcommands'),
+	dir = path.join(process.__maindir, 'supcommands'),
 	commandCache = client.commands.cache,
 	type = 'supcommand'
 ) {
@@ -22,7 +22,7 @@ module.exports = async function registerSuperCommands(
 			supcommand = {
 				...settings,
 				type: type,
-				name: file,
+				name: file.slice(0, -3),
 				commands: new Discord.Collection()
 			};
 

@@ -1,7 +1,7 @@
-global.__ = {}
+
 module.exports = async function registerUtils(
-	dir = path.join(process.cwd(), "src/util"),
-	obj = global.__,
+	dir = path.join(process.__maindir, "util"),
+	obj = {},
 ){
 	var files = await fs.readdir(dir);
 
@@ -12,9 +12,10 @@ module.exports = async function registerUtils(
 			registerUtils(path1);
 		} else {
 			if(file.endsWith(".js")){
-				file = file.slice(0, -2);
+				file = file.slice(0, -3);
 				obj[file] = require(path1);
 			}
 		}
 	}
+	return obj;
 }

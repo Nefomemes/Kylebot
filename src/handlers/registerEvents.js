@@ -1,7 +1,9 @@
-module.exports = async function registerEvents() {
-var path_idk = path.join(process.cwd(), 'src','events');
-	let files = await fs.readdir(path_idk);
-	if(process_argv.dev && process.argv.dev === true) console.log(`Registering events for ${path_idk}.`);
+module.exports = async function registerEvents(
+	dir = path.join(process.__maindir, 'events')
+) {
+
+	let files = await fs.readdir(dir);
+	if(process_argv.dev && process.argv.dev === true) console.log(`Registering events for ${dir}.`);
 	for (let file of files) {
 var path_idkb = path.join(dir, file);
 		let stat = await fs.lstat(
@@ -10,7 +12,7 @@ var path_idkb = path.join(dir, file);
 		
 		if (!stat.isDirectory() && file.endsWith('.js')) {
 			if(process_argv.dev && process.argv.dev === true) console.log(`Registering ${path_idkb} as an event.`);
-			let eventName = file.substring(0, file.indexOf('.js'));
+			let eventName = file.slice(0, -3);
 			client.on(
 				eventName,
 				require(path.join(dir, eventName))

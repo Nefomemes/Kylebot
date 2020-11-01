@@ -1,5 +1,5 @@
 module.exports = async function registerCommands(
-	dir = path.join(process.cwd(), 'src', 'commands'),
+	dir = path.join(process.__maindir, 'commands'),
 	commandCache = client.commands.cache,
 	type = 'command',
 	defaultSettings = {}

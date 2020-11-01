@@ -1,3 +1,5 @@
+(async function(){
+
 process.on('unhandledRejection', function(reason, promise) {
 	console.error('Unhandled rejection', { reason: reason, promise: promise });
 });
@@ -6,12 +8,18 @@ process.on('uncaughtException', err => {
 	console.error('There was an uncaught error', err);
 	process.exit(1); //mandatory (as per the Node docs)
 });
+global.path = require('path');
+process.__maindir = __dirname;
+global.fs = require('fs').promises;
+
+global.__ = await require("./handlers/registerUtils")();
+
 global.colors = require('./assets/color.json');
 
-global.fs = require('fs').promises;
+
 global.Discord = require('discord.js');
-global.built_ins = require('./assets/utils');
-global._ = require('underscore');
+
+global._ = require('lodash');
 global.util = require('util');
 const client = new global.Discord.Client({
 	partials: ['REACTION', 'MESSAGE'],
@@ -35,7 +43,7 @@ global.xml2js = require('xml2js');
 global.querystring = require('querystring');
 global.fetch = require('node-fetch');
 const { mongodb } = require('node-grau');
-global.process_argv = require("minimist")(process.argv);
+global.process_argv = require("mri")(process.argv);
 const { MongoClient } = mongodb;
 const db = new MongoClient(process.env.DB);
 
@@ -62,9 +70,10 @@ client.commands = new CommandsManager(new global.Discord.Collection());
 client.admins = new ClientAdminsManager(new global.Discord.Collection());
 client.owners = new ClientOwnersManager(new global.Discord.Collection());
 client.cooldowns = new CooldownsManager(new global.Discord.Collection());
-global.path = require('path');
+
 global.express = require('express');
 const app = global.express();
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
@@ -82,20 +91,20 @@ client.once('ready', () => {
 		return client.owners.cache.set(owner, user);
 	});
 
-	global.built_ins.freshActivity(client);
+__.refreshActivity(client);
 });
 client.on('ready', () => {
 	setInterval(() => {
-		global.built_ins.freshActivity(client);
+		__.refreshActivity(client);
 	}, 150000);
 });
 client.on('error', err => {
 	console.err(err);
 });
 
-
 require("./handlers/registerCommands")();
 require("./handlers/registerEvents")();
 require("./handlers/registerSuperCommands")();
-require("./handlers/registerUtils")();
+
 client.login();
+})()

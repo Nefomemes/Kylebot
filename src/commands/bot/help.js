@@ -11,16 +11,15 @@ module.exports = {
 		.setThumbnail(
 			client.user.displayAvatarURL({ format: 'png', dynamic: true })
 		)
-		.setFooter(
-			'Prefix: ' + i.prefix + ' | ' + i.getRandomFunfact(),
+		.setFooter(__.getFooter(),
 			i.client.user.displayAvatarURL({ dynamic: true, format: 'png' })
 		)
 		.setTimestamp();
 
-	var fields = [];
+
 	let categories = require(path.join(
-		process.cwd(),
-		'assets/categories'
+		process.__maindir,
+		'assets', 'categories.json'
 	));
 	var k = 6;
 	function getCategory(name) {
@@ -36,10 +35,7 @@ module.exports = {
 		return (command.desc || command.description || "No description.") + ` [Read the documentation.](${command.docs || "https://github.com/Nefomemes/docs/trees/master/Kylebot"})`
 	}
 	function pushToFields(command){
-		return fields.push({	name: command.name,
-					value: getDesc(command),
-					inline: false
-						})
+		return embed = embed.addField(command.name, getDesc(command), false)
 	}
 	if (i.getCommand(i.argv._[0], client.commands.cache)) {
 		var command = i.getCommand(
@@ -72,24 +68,13 @@ embed = embed.setDescription(getDesc(category));
 		embed = embed.setImage('https://i.imgur.com/q3EWSPl.gif');
 		categories.forEach(pushToFields);
 	}
-
-	let number = parseInt(i.argv.p);
-	if (Number.isNaN(number) || !number) {
-		number = 1;
+console.log(embed.fields);
+	embed = __.embedPagify(embed, 
+	{
+		page: i.argv.p,
+		length: k
 	}
-	let page = i.getPage(fields, k, number);
-	embed = embed.setFooter(
-		i.trim(`Page ${page.page}/${page.pages} | ${embed.footer.text}`, 2048)
 	);
-	for (let field of fields) {
-		let index = fields.indexOf(field);
-		if (!(index > page.end || index < page.start)) {
-			embed = embed.addField(
-				(field.name || 'unknown').toString(), (field.value || 'redacted').toString(),
-				field.inline
-			);
-		}
-	}
 	return i.message.channel.send(embed);
 }
 }
