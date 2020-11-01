@@ -68,13 +68,14 @@ embed = embed.setDescription(getDesc(category));
 		embed = embed.setImage('https://i.imgur.com/q3EWSPl.gif');
 		categories.forEach(pushToFields);
 	}
-console.log(embed.fields);
+
 	embed = __.embedPagify(embed, 
 	{
 		page: i.argv.p,
 		length: k
 	}
 	);
+	
 	return i.message.channel.send(embed);
 }
 }

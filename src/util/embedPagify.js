@@ -2,11 +2,12 @@ const trim = require("./trim");
 
 module.exports = function embedPagify(embed, opts = {}){
 	let number = parseInt(opts.page);
-	embed.fields = [];
-	if (Number.isNaN(number) || !number) {
+
+	if (Number.isNaN(number)) {
 		number = 1;
 	}
 	let pages = _.chunk(embed.fields, opts.length || 6);
+		embed.fields = [];
 	
 	embed = embed.setFooter(
 		trim(`Page ${number}/${pages.length} ${(() => {
