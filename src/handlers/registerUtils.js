@@ -12,8 +12,15 @@ module.exports = async function registerUtils(
 			registerUtils(path1);
 		} else {
 			if(file.endsWith(".js")){
+				let fnc = require(path1);
 				file = file.slice(0, -3);
-				obj[file] = require(path1);
+				obj[file] = fnc;
+
+				if(fnc.aliases && fnc.aliases.length){
+					for(let alias of fnc.aliases){
+						obj[alias] = fnc;
+					}
+				}
 			}
 		}
 	}

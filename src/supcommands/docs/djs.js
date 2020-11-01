@@ -9,7 +9,7 @@ if(!i.argv.d) return i.message.channel.send()
     var embed = new i.Discord.MessageEmbed()
     .setColor(colors.BG_COLOR)
     .setAuthor(`Discord.js (${i.argv.b || "master"})`, "https://avatars0.githubusercontent.com/u/26492485?s=200&v=4", "https://discord.js.org/")
-    .setFooter(`Prefix: ${i.prefix} | | ${i.getRandomFunfact()}`, client.user.displayAvatarURL({format: "png", dynamic: true}))
+    .setFooter(__.getFooter(), client.user.displayAvatarURL({format: "png", dynamic: true}))
     .setTimestamp();
 var fields = [];
     const res = await fetch(`https://raw.githubusercontent.com/discordjs/discord.js/docs/${i.argv.b || "master"}.json`).then(i => i.json());
@@ -99,7 +99,7 @@ search = true;
 }
 
 if(search){
-	return i.message.channel.send("For the timr being y")
+	return i.message.channel.send("For the time being, the search feature is not available.")
 }
 
 if(JSON.stringify(embed).length > 6000){

@@ -1,13 +1,14 @@
+
 module.exports =  function getItem(collection, item, type) {
     if (!collection) return;
     var items;
     try {
-       items = require(`./items/${collection}s`);
+       items = require(`../assets/items/${collection}s`);
       
   } catch (e){
 	  console.error(e);
   	try {
-  		items = require(`./items/${collection}s.json`);
+  		items = require(`../assets/items/${collection}s.json`);
   	} catch (e) {
 		  console.error(e);
     return null;
@@ -22,6 +23,6 @@ module.exports =  function getItem(collection, item, type) {
         if (!result.length) return;
         return result[Math.floor(Math.random() * result.length)];
       } else {
-    return search(items, item);
+    return __.search(items, item);
       }
   }

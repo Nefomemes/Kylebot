@@ -11,7 +11,7 @@ module.exports = function getUserFromMention(mention, UserManager) {
       }
     }
   try {
-  return UserManager.fetch().catch(e => e) ;
+  return UserManager.fetch(mention).catch(e => null) ;
  } catch (e) {
      return console.error(e);
  }

@@ -1,4 +1,4 @@
-const trim = require("./trim");
+
 
 module.exports = function embedPagify(embed, opts = {}){
 	let number = parseInt(opts.page);
@@ -10,7 +10,7 @@ module.exports = function embedPagify(embed, opts = {}){
 		embed.fields = [];
 	
 	embed = embed.setFooter(
-		trim(`Page ${number}/${pages.length} ${(() => {
+		__.trim(`Page ${number}/${pages.length} ${(() => {
 			if(embed.footer && embed.footer.text) return ` | ${embed.footer.text}`
 
 			return "";

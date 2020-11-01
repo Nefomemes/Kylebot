@@ -14,59 +14,62 @@ var embed = new Discord.MessageEmbed()
       .setTitle(`${user.username}#${user.discriminator}`)
       .setAuthor(client.user.username, client.user.displayAvatarURL({ format: "png", dynamic: true }), i.website)
       .setThumbnail(user.displayAvatarURL({ format: "png", dynamic: true }))
-      .setFooter(`Prefix: ${i.prefix} | ${i.getRandomFunfact()}`, client.user.displayAvatarURL({ format: "png", dynamic: true })).setTimestamp()
-var fields = [ { name: "ID", value: `${user.id}`, inline: true },
-        { name: "Accout created at", value: user.createdAt, inline: true},
-        { name: "Bot", value: user.bot }]
-    if (member) {
-      fields.push({ name: "Joined the server since", value: member.joinedAt, inline: true },
-        { name: "Display name", value: member.displayName })
-      if (member.displayColor) {
-        fields.push({name: "Display color (Base 10)", value: member.displayColor,inline: true});
-      }
-      if(member.voice){
-          
-      }
-      if (member.displayHexColor) {
-        embed = embed.setColor(member.displayHexColor)
-        fields.push({name: "Display color(Hex)", value: member.displayHexColor, inline: true});
-      }
-      if (member.premiumSince) {
-        fields.push({name: "Boosting the server since", value: member.premiumSince, inline: true });
-      }
-      if (member.roles) {
-        fields.push({name: "Highest roles", value: member.roles.highest, inline: true});
-        if (member.roles.hoist) {
-          fields.push({name: "Hoist role (the role that separate the user from other online users)", value: member.roles.hoist, inline: true});
-        }
-      }
-    }
-    if(!user.bot){
-      userDB = await i.db.collection("users").getDoc({docID: user.id});
-      if(userDB.desc){
-        embed = embed.setDescription(userDB.desc);
-      }
-   fields.unshift({name: "COD Points", value: `${userDB.cp || 0} <:cp:744403130594230313>`, inline:true},
-                                {name: "Cash", value: userDB.cash || 0, inline:true});
-      try{
-      embed = embed.setThumbnail(i.getItem("emblem", userDB.emblem).assets[0].asset).setImage(i.getItem("playercard", userDB.playercard).assets[0].asset); 
-      } finally {
-          
-      }
-    }
-      let number = parseInt(i.argv.page);
-            if (Number.isNaN(number) || !number){
-                number = 1;
-            }
-            let page = i.getPage(fields, 6, number);
-               embed = embed.setFooter(i.trim(`Page ${page.page}/${page.pages} | ${ embed.footer.text}`, 2048));
-        for(let field  of fields){
-            let index = fields.indexOf(field);
-                if(!(index > page.end || index < page.start)){
-                    embed = embed.addField(field.name, field.value, field.inline);
-                    }
-            }
+      .setFooter(`Prefix: ${i.prefix} | ${__.getFooter()}`, client.user.displayAvatarURL({ format: "png", dynamic: true })).setTimestamp()
 
+var pages = [];
+
+if(!user.bot){
+	const userDB = await db.collection("users").getDoc({docID: i.message.author.id});
+	pages.push(`
+	${__.trim(userDB.desc, 141)}
+	**COD points**: ${userDB.cp || 0} <:cp:744403130594230313>
+	**Plunder cash**: $${userDB.cash || 0}
+	`)
+}
+var o = (key, value) => {
+	switch(value){
+		case "offline":
+		return `<:Kylebot_Online:772398116766482434> Offline`
+
+		case "idle":
+
+		return `<:Kylebot_Idle:772398116921409547> Idle`
+
+		case "dnd":
+
+		return `<:Kylebot_DND:772398936295866370> Do not disturb`
+
+		case "online":
+
+		if(key === "mobile"){
+			return `<:Kylebot_Mobile_Online:772398116716150796> Online`
+		} else {
+			return `<:Kylebot_Online:772398117260754944> Online`
+		}
+	}
+}
+pages.push(`
+**Presence**: 
+${Object.entries(user.presence.clientStatus).map((client) => (() => {return client[0][0].toUpperCase() + client[0].slice(1);})() + ": " + o(client[0], client[1])).join("\n")}
+**ID**: ${user.id}
+**Username**: ${user.username}#${user.discriminator}
+**Account type**: ${(() => { 
+	if(user.bot){
+		return "This user is a bot."
+	} else {
+		return "This user is not a bot."
+	}
+
+})()}
+`)
+
+	i.argv.p = parseInt(i.argv.p);
+	if(Number.isNaN(i.argv.p)){
+		i.argv.p = 1;
+	}
+	embed = embed.setDescription(pages[i.argv.p - 1] || "Uh oh, the page doesn't exist.");
+	embed = embed.setFooter(`Page ${i.argv.p}/${pages.length} | ${embed.footer.text}`, embed.footer.iconURL);
+       return i.message.channel.send(embed);
     i.message.channel.send(embed);
   }
 };
