@@ -1,43 +1,11 @@
 
 module.exports = {
 
-  freshActivity: (client) => {
-    var activities = require("./activities.json");
-    let activity = activities[Math.floor(Math.random() * activities.length)];
 
-    return client.user.setActivity(activity.content + ` | ${require("./configs.json").prefix}help`, { type: activity.type }).catch(error => console.error(error));
-  },
   avoidBreak: (str) => {
-    if (str.constructor !== String || !str) return;
-    return str.split("```").join("`‎`‎`‎");
+ 
   },
-  getItem: (collection, item, type) => {
-    if (!collection) return;
-    var items;
-    try {
-       items = require(`./items/${collection}s`);
-      
-  } catch (e){
-	  console.error(e);
-  	try {
-  		items = require(`./items/${collection}s.json`);
-  	} catch (e) {
-		  console.error(e);
-    return null;
-  	}
-    }
-      if(type && type.toLowerCase() === "all") return items;
-      item = (item || "default").toLowerCase();
-      if (item === "default") {
-        let result = items.filter((value) => {
-          return value.default && value.default === true;
-        })
-        if (!result.length) return;
-        return result[Math.floor(Math.random() * result.length)];
-      } else {
-    return search(items, item);
-      }
-  },
+  getItem:,
   getCommand: (str, commandCache) => {
     if (!str || !commandCache) return;
     return commandCache.get(str.toLowerCase()) || commandCache.find((command) => { return command.aliases && command.aliases.includes(str.toLowerCase()) });

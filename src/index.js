@@ -94,10 +94,8 @@ client.on('error', err => {
 });
 
 
-registerCommands();
-
-registerSuperCommands();
-
-
-registerEvents();
+require("./handlers/registerCommands")();
+require("./handlers/registerEvents")();
+require("./handlers/registerSuperCommands")();
+require("./handlers/registerUtils")();
 client.login();

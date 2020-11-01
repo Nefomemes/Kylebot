@@ -1,6 +1,6 @@
 const mwstarter = require("../mwstarter");
 
-const weapons = require(require("path").join(process.cwd(), "assets/weapons.json"));
+const weapons = require(".../assets/");
 module.exports = {
     desc: 'Get the information of a Call of Duty: Modern Warfare player.',
     docs: "https://github.com/Nefomemes/docs/blob/main/Kylebot/super-commands/mw.md#prefixmw-mode-option-",

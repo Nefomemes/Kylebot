@@ -2,7 +2,7 @@
   "name": "kylebot",
   "version": "0.0.4",
   "description": "The first Call of Duty roleplay Discord bot.",
-  "main": "index.js",
+  "main": "src/index.js",
   "engines": {
     "node": "12.x"
   },
@@ -21,6 +21,7 @@
     "discord.js": "^12.2.0",
     "express": "^4.17.1",
     "lodash": "^4.17.20",
+    "minimist": "^1.2.5",
     "mongodb": "^3.6.2",
     "mri": "^1.1.6",
     "node-fetch": "^2.6.1",

@@ -8,19 +8,19 @@ async function handleMessage( message, oldMessage) {
 var i = {
     ...global.configs,
     ...global,
-    ...global.built_ins,
+    ...global.__,
    opt: {}
   }
     i.message = message;
 
-	if(!i.message.author) {
+	if(oldMessage && oldMessage.content !== message.content) {
 		i.message = await i.message.channel.messages.fetch(i.message.id);
 	}
 
 
     if (i.message.author.bot) return;
 
-   // i.filter = require("./filter").run(i).catch(console.error);
+ 
 
     if (!i.message.content.startsWith(i.prefix)) return;
     if(oldMessage && oldMessage.content === message.content)return;

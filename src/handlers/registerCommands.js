@@ -1,15 +1,15 @@
 module.exports = async function registerCommands(
-	dir = path.join(process.pwd(), 'commands'),
+	dir = path.join(process.cwd(), 'src', 'commands'),
 	commandCache = client.commands.cache,
 	type = 'command',
 	defaultSettings = {}
 ) {
-	var path_idk = dir;
-	var files = await fs.readdir(path_idk);
-	if(process_argv.dev && process.argv.dev === true) console.log(`Registering ${type}s of ${path_idk}`);
+
+	var files = await fs.readdir(dir);
+	if(process_argv.dev && process.argv.dev === true) console.log(`Registering ${type}s of ${dir}`);
 	for (let file of files) {
 	
-	
+		let path_idkb = path.join(dir, file);
 		let stat = await fs.lstat(path_idkb);
 		if (stat.isDirectory()) {
 			if(process_argv.dev && process.argv.dev === true) console.log(`${path_idkb} is a folder. Registering commands inside of it.`);
@@ -18,8 +18,8 @@ module.exports = async function registerCommands(
 
 		else if (file.endsWith('.js')) {
 			if(process_argv.dev && process.argv.dev === true) console.log(`${path_idkb} is a JS file. Checking if it's a valid command.`);
-			let commandCode = require(path.join(__dirname, dir, file));
-			let commandName = file.substring(0, file.indexOf('.js'));
+			let commandCode = require(path.join( dir, file));
+			let commandName = file.slice(0, -3);
 
 
 			if (commandCode.run) {
