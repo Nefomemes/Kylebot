@@ -1,7 +1,7 @@
 # Temporarily no longer maintained
 This repository will temporarily no longer be maintained. This means:
 
-- All issues (although not all) will be rejected and will be given the `wont-fix` flair. Will still be keep open though.
+- All issues (although not all) will be rejected and will be given the `wontfix` flair. Will still be keep open though.
 - Development will be paused.
 - Pull request will be straight away merged after Trust & Safety inspection (to prevent malicious codes such as backdoors).
 
