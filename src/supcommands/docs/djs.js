@@ -199,9 +199,6 @@ module.exports.run = async i => {
 				search = true;
 			}
 		}
-	} else {
-		search = true;
-	}
 
 	if (search) {
 		return i.message.channel.send(

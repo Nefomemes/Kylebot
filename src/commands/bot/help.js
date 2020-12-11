@@ -65,7 +65,7 @@ embed = embed.setDescription(getDesc(category));
 		
 	} else {
 		k = 2; 
-		embed = embed.setImage('https://i.imgur.com/q3EWSPl.gif');
+		embed = embed.setImage('');
 		categories.forEach(pushToFields);
 	}
 
