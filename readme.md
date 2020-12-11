@@ -1,11 +1,5 @@
-# Temporarily no longer maintained
-This repository will temporarily no longer be maintained. This means:
 
-- All issues (although not all) will be rejected and will be given the `wontfix` flair. Will still be keep open though.
-- Development will be paused.
-- Pull request will be straight away merged after Trust & Safety inspection (to prevent malicious codes such as backdoors).
-
-# Kyle "Gaz" Garrick
+# Project Fortress
 
 ![GitHub](https://img.shields.io/github/license/Nefomemes/Kylebot?style=flat-square) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Nefomemes/Kylebot?style=flat-square) ![GitHub issues](https://img.shields.io/github/issues/Nefomemes/Kylebot?style=flat-square) ![GitHub pull requests](https://img.shields.io/github/issues-pr/Nefomemes/Kylebot?style=flat-square)
 
