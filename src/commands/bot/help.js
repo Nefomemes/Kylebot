@@ -65,7 +65,7 @@ embed = embed.setDescription(getDesc(category));
 		
 	} else {
 		k = 2; 
-		embed = embed.setImage('');
+		embed = embed.setImage('https://repository-images.githubusercontent.com/279806668/f10a8b80-3b98-11eb-8a43-cfae4e8c46bd');
 		categories.forEach(pushToFields);
 	}
 

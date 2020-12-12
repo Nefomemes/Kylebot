@@ -26,7 +26,7 @@ run: async (i) => {
 			}
 		}
 
-		if (!targets.length) return i.message.react('❌');
+		if (!targets.length) return i.message.channel.send("Please ping people you would like to betray.");
 		if (targets.length === 1) {
 			gifs = [
 				
@@ -39,7 +39,7 @@ run: async (i) => {
 
 		var the_reason = i.args.join(' ');
 		if (the_reason) {
-			the_reason = ` because "` + i.args.join(' ') + `".`;
+			the_reason = `. "` + i.args.join(' ') + `".`;
 		} else {
 			the_reason = '.';
 		}

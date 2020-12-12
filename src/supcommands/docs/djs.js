@@ -27,6 +27,15 @@ module.exports.run = async i => {
 	).then(i => i.json());
 
 	var values = [];
+for(let e of res.classes){
+	e._type = "class";
+	values.push(e);
+}
+
+for(let e of res.typedefs){
+	e._type = "typedef";
+	values.push(e);
+}
 	var loadProps = (e, o) => {
 		var queries = [];
 		if (!o.endsWith('()')) {
@@ -74,6 +83,8 @@ module.exports.run = async i => {
 		return str;
 }
 
+
+var e = values.find(e => e.name.toLowerCase() === query[0]);
 	if (e) {
 		if (!query[1]) {
 			embed = embed.setDescription(
@@ -140,6 +151,7 @@ module.exports.run = async i => {
 			);
 		}
 		} else {
+			console.log(query)
 			var o = loadProps(e, query[1]);
 			if (o) {
 				embed = embed.setDescription(
@@ -177,7 +189,7 @@ module.exports.run = async i => {
 								.join(', ')})`
 						);
 					}
-
+					
 					if (o.examples) {
 						for (let example of o.examples) {
 							let emb = new Discord.MessageEmbed(embedTemplate).setDescription(
@@ -211,9 +223,13 @@ module.exports.run = async i => {
 	}
 
 	i.message.channel.send(embed);
-	for (let emb of embeds) {
-		emb.footer.text = __.getFooter();
-		i.message.channel.send(emb);
-		await setTimeout(() => {}, 100000);
+	
+
+	if(embeds.length){
+		var pageNumber = parseInt(i.argv.p);
+		if(Number.isNaN(pageNumber)) pageNumber = 1;
+		var embedNew = embeds[pageNumber - 1];
+		if(!embedNew) embedNew = embeds[0];
+		i.message.channel.send(embedNew);
 	}
 };
