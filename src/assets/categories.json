@@ -10,11 +10,7 @@
             "id": "rp",
             "desc": "GIF commands for roleplay purposes."
         },
-	        {
-            "name": "Economy",
-            "id": "plunder",
-            "desc": "Call of Duty: Warzone-themed Economy.."
-        },
+
 	   {
             "name": "Moderation",
             "id": "mod",
