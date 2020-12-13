@@ -16,7 +16,7 @@ global.__ = await require("./handlers/registerUtils")();
 
 global.colors = require('./assets/color.json');
 
-
+global.quickdb = require("quick.db");
 global.Discord = require('discord.js');
 
 global._ = require('lodash');

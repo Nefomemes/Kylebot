@@ -26,6 +26,7 @@
     "mri": "^1.1.6",
     "node-fetch": "^2.6.1",
     "node-grau": "^1.0.21",
+    "quick.db": "^7.1.3",
     "shell-quote": "^1.7.2",
     "underscore": "^1.10.2",
     "xml2js": "^0.4.23"
