@@ -44,8 +44,9 @@ var scanName = (io, n = i.argv.n) => io.name.toLowerCase() === n.toLowerCase() |
 		name: i.argv.n,
 		content: i.argv.t,
 		aliases: i.argv.a || [],
-		id: `TAG` + tags.length + 1,
-		author: i.message.author.id
+		id: `TAG${tags.length + 1}`,
+		author: i.message.author.id,
+		createdAt: Date.now()
 	})
 
 	return i.message.channel.send("Done!");
