@@ -19,10 +19,12 @@ module.exports = async function registerSuperCommands(
 				settings = require(path.join(dir, file, 'settings.json'));
 				delete settings.name;
 			} catch {}
+			
+			var name  = file;
 			supcommand = {
 				...settings,
 				type: type,
-				name: file.slice(0, -3),
+				id:  name,		name: name,
 				commands: new Discord.Collection()
 			};
 
@@ -32,7 +34,13 @@ module.exports = async function registerSuperCommands(
 				'childcommand',
 				settings
 			);
-			await commandCache.set(file, supcommand);
+
+		supcommand.commands = supcommand.commands.map(childcommand => {
+			childcommand.id = `${supcommand.name}#${childcommand.name}`;
+			return childcommand;
+		})
+
+			await commandCache.set( file.toLowerCase(), supcommand);
 		} else if(process_argv.dev && process.argv.dev === true) console.log(`${path_idkb} is not a folder. Ignoring.`);
 	}
 }

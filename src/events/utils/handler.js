@@ -3,111 +3,95 @@
 
 async function handleMessage( message, oldMessage) {
     
-    try  {
-        
-var i = {
-    ...global.configs,
-    ...global,
-    ...global.__,
-   opt: {}
-  }
-    i.message = message;
+    try {
 
-	if(oldMessage && oldMessage.content !== message.content) {
-		i.message = await i.message.channel.messages.fetch(i.message.id);
+    var i = {
+	    ...global.__
+    };
+
+
+
+    if(oldMessage && oldMessage.content === message.content) {
+	    return;
+    } else {
+	 message = await message.channel.messages.fetch(message.id);
+    }
+    if(!message.content.startsWith(configs.prefix) || message.author.bot) return;
+
+    i.message = message;
+	i.args = message.content.split(" ");
+	
+	
+	let commandName = i.args.shift();
+	if(!commandName) return;
+	commandName = commandName.slice(configs.prefix.length);
+	
+	let command = __.getCommand(commandName.toLowerCase(), client.commands.cache);
+	if(!command){
+		// Filter commands;
+	return message.channel.send("No command with that name");
+	}
+	if(command.type === "supcommand"){
+console.log(command.commands);
+let childcommand = __.getCommand((i.args.shift() || `index`).toLowerCase(), command.commands);
+
+		if(!childcommand){
+			// Filter commands
+			return;
+		}
+
+		command = childcommand;
+		
+
+	} 
+
+	if((command.guild || typeof command.perms === "number") && !i.message.guild) return message.channel.send("This is a DM-only command.");
+
+	if(message.member && typeof command.perms === "number"){
+		var hasAccess = require("./perms").checkPermission(command.perms, message.member);
+
+		if(!hasAccess) return i.message.channel.send("You don't have access to this command.");
+
 	}
 
+	if(command.dev && !configs.owners.includes(message.author.id)) return i.message.channel.send("This command is not available for public.");
+	
+	if(!client.cooldowns.cache.has(command.id)){
+		client.cooldowns.cache.set(command.id, new Discord.Collection())
+	}
+i.argv = require("mri")(require('shell-quote').parse(i.args.join(" ")));
+	var now = Date.now();
+	const timestamps = client.cooldowns.cache.get(command.id);
+const cooldownAmount = (command.cooldown || 5) * 1000;
 
-    if (i.message.author.bot) return;
+if (timestamps.has(message.author.id)) {
+	const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
 
- 
+	if (now < expirationTime) {
+		const timeLeft = (expirationTime - now) / 1000;
+		return message.channel.send(`Please wait ${timeLeft.toFixed(1)} more seconds to be able to use this command again.`);
+	}
+}
+timestamps.set(message.author.id, now);
+setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
-    if (!i.message.content.startsWith(i.prefix)) return;
-    if(oldMessage && oldMessage.content === message.content)return;
-    i.args = i.message.content.slice(i.prefix.length).split(/ +/);
-    
-    i.commandName = i.args.shift().toLowerCase();
+	i.command = command;
+	command.run(i).catch(e => {
+	 const embed = __.errorEmbed(e);
+ console.error(e);
+    return message.channel.send(embed);
+	});
 
-    if (!i.commandName) return;
-    
-    i.command = i.getCommand(i.commandName, i.client.commands.cache);
-    if(!i.command) return;
-    if(i.command.type && i.command.type === "supcommand"){
-    
-        var cmdname = i.args[0]
-        if(cmdname && i.getCommand(cmdname, i.command.commands)){
-            var name = i.command.name;
-            i.command = i.getCommand(cmdname, i.command.commands);
-           if(!i.command) return;
-            i.command.name = `${name}#${i.command.name}`;
-            i.args.shift()
-        } else {
-            var foobar = e => {
-                return i.message.channel.send(i.errorEmbed(e));
-            }
 
-            let indexcmd = i.getCommand("index", i.command.commands);
-            if(indexcmd) {
-                i.oldCommand = i.command;
-                i.command = indexcmd;
-                i.commandname = `${i.oldCommand.name}#${i.command.name}`;
-            } else {
-            i.args = [i.command.name, i.args.pop()];
-            return client.commands.cache.get("help").run(i).catch(foobar)
-            }
-        };
-    }
-    if (!i.command || i.command.disabled && i.command.disabled === true) return;
-    if (i.filter && i.filter === true) return;
-    if (i.command.dev && i.command.dev === true && !(i.admins.includes(i.message.author.id) || i.admins === i.message.author.id)) return;
-    if (!i.message.guild && (i.command.av && (i.command.av === "guild") || i.command.wbh || i.command.perms || i.command.bot_perms)) return i.message.channel.send("That command is only available in servers!");
-
-    if (i.message.guild) {
-        if (i.command.av && i.command.av === "dm") return i.message.channel.send("This command is only available in DM! Perhaps due to privacy reasons?");
-        if (i.command.perms && !Number.isNaN(parseInt(i.command.perms))) {
-            const permission = require("./perms").checkPermission(i.command.perms, i.message.member);
-            if(permission !== true) return i.message.channel.send("Missing permissions. Permission level " + i.command.perms + ".")
-        }
-
-        if (i.command.bot_perms) {
-            let permits = i.command.bot_permissions.filter((perm) => { return !i.message.guild.me.hasPermission(perm) });
-            if (permits.length) return i.message.channel.send(imports.trim("The bot need these permissions before proceeding: " + permits.join(", "), 2000));
-        }
-        if (i.command.wbh && i.message.channel.fetchWebhooks().then(wbh => wbh.length) > 10 - i.command.wbh) return i.message.channel.send(`This channel have reached it's maximum amount of webhooks possible. Please clear them up before proceeding.`);
-    }
-    if (!i.client.cooldowns.cache.has(i.command.name)) {
-        i.client.cooldowns.cache.set(i.command.name, new Discord.Collection());
-    }
-    i.now = Date.now();
-    i.timestamps = client.cooldowns.cache.get(i.command.name);
-    i.cooldownAmount = (i.command.cooldown || 5) * 1000;
-    i.expirationTime = i.timestamps.get(i.message.author.id) + i.cooldownAmount;
-    i.timeLeft = (i.expirationTime - i.now) / 1000;
-    i.argv = i.parseCLIOptions(i.args.join(" "), i.command.argvOpt);
-    if (i.timestamps.has(i.message.author.id) && i.now < i.expirationTime) {
-     
-            return i.message.channel.send(`Slowmode! Please wait another ${i.timeLeft.toFixed(2)} seconds.`);
-        
-    }
-
-    i.timestamps.set(i.message.author.id, i.now);
-    setTimeout(() => {
-        if (i.timestamps.has((i.message.author || {id: 141}).id)) {
-            i.timestamps.delete(i.message.author.id);
-        }
-    }, i.cooldownAmount);
-
-        i.command.run(i).catch(e => {
-           const embed = i.errorEmbed(e);
-    return i.message.channel.send(embed);
-
-        })
-    
     
 } catch(e){
- const embed = i.errorEmbed(e);
-    return i.message.channel.send(embed);
+ const embed = __.errorEmbed(e);
+ console.error(e);
+    return message.channel.send(embed);
 }
+
+
+
     
 }
 

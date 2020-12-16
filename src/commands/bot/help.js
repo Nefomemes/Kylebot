@@ -12,7 +12,7 @@ module.exports = {
 			client.user.displayAvatarURL({ format: 'png', dynamic: true })
 		)
 		.setFooter(__.getFooter(),
-			i.client.user.displayAvatarURL({ dynamic: true, format: 'png' })
+			client.user.displayAvatarURL({ dynamic: true, format: 'png' })
 		)
 		.setTimestamp();
 

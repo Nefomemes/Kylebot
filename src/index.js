@@ -101,10 +101,14 @@ client.on('ready', () => {
 client.on('error', err => {
 	console.err(err);
 });
+ try {
+await require("./handlers/registerCommands")();
+await require("./handlers/registerEvents")();
+await require("./handlers/registerSuperCommands")();
+ } catch(e) {
+	 console.warn(e);
+ }
 
-require("./handlers/registerCommands")();
-require("./handlers/registerEvents")();
-require("./handlers/registerSuperCommands")();
 
 client.login();
 })()
