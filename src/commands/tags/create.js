@@ -44,7 +44,7 @@ var id = `TAG${tags.length + 1}`;
 
 	tagsTable.set(id.slice(2),
 	{
-		name: i.argv.n,
+		name: i.argv.n.toLowerCase(),
 		content: i.argv.t,
 		aliases: i.argv.a || [],
 		id: id,

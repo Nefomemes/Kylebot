@@ -11,7 +11,6 @@ module.exports = {
 	
 	var tag = tags.find(io => scanName(io, i.argv.t));
 
-	// okkkkkkkkkkkkkkkkkkkk
 	if(tag){
 
 		return i.message.channel.send(new Discord.MessageEmbed()
