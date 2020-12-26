@@ -16,6 +16,7 @@
   "author": "Nefomemes#3927",
   "license": "MIT",
   "dependencies": {
+    "better-sqlite3": "^7.1.2",
     "call-of-duty-api": "^1.2.16",
     "cheerio": "^1.0.0-rc.3",
     "discord.js": "^12.5.1",
