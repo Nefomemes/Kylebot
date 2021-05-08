@@ -12,7 +12,11 @@ module.exports = {
 			client.user.displayAvatarURL({ format: 'png', dynamic: true })
 		)
 		.setFooter(__.getFooter(),
+<<<<<<< HEAD:src/commands/bot/help.js
 			client.user.displayAvatarURL({ dynamic: true, format: 'png' })
+=======
+			i.client.user.displayAvatarURL({ dynamic: true, format: 'png' })
+>>>>>>> origin/dev:src/commands/bot/help.js
 		)
 		.setTimestamp();
 
@@ -65,8 +69,12 @@ embed = embed.setDescription(getDesc(category));
 		
 	} else {
 		k = 2; 
+<<<<<<< HEAD:src/commands/bot/help.js
 		embed = embed.setImage('https://repository-images.githubusercontent.com/279806668/f10a8b80-3b98-11eb-8a43-cfae4e8c46bd').setThumbnail();
 		
+=======
+		embed = embed.setImage('https://repository-images.githubusercontent.com/279806668/f10a8b80-3b98-11eb-8a43-cfae4e8c46bd');
+>>>>>>> origin/dev:src/commands/bot/help.js
 		categories.forEach(pushToFields);
 	}
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [
 	{
 		"type":"LISTENING",
@@ -7,4 +8,15 @@
 		"type":"PLAYING",
 		"content":"Battlefield 3"
 	}
+=======
+[
+	{
+		"type":"LISTENING",
+		"content":"Battlefield 4 OST - Warsaw"
+	},
+	{
+		"type":"PLAYING",
+		"content":"Battlefield 3"
+	}
+>>>>>>> origin/dev
 ]

@@ -1,0 +1,250 @@
+{
+    "type": "killstreaks",
+    "content": [
+        {
+            "name": "Coalition",
+            "killstreaks": {
+                "nuke": {
+                    "accepted": "This is Citadel. Passcode accepted. Starting launch sequence"
+                },
+                "adv_uav": {
+                    "copy": "Copy! Advanced UAV entering the AO. Scanning for hostiles.",
+                    "fuel": "Be adviced. Advanced UAV is bingo fuel. Returning to base."
+                },
+                "gunship": {
+                    "copy": [
+                        "Dropkick 2-1 arriving on station. Passing fire control to you.",
+                        "Dropkick 2-2 arriving in the AO. Transferring fire control.",
+                        "Dropkick 2-3 on station. Let's kill them all this time."
+                    ],
+                    "fuel": [
+                        "We're RTB to refuel. Good luck guys.",
+                        "We're out of time. We're RTB for resupply.",
+                        "We are bingo fuel. Heading back to base."
+                    ],
+                    "found_one": [
+                        "Target's in the open.",
+                        "Eyes on target.",
+                        "There is a guy running.",
+                        "We got a runner.",
+                        "Smoke 'em"
+                    ],
+                    "ammo": {
+                        "one_hundred_five": {
+                            "ready": "105 ready!",
+                            "set": "105 all set! Fire away.",
+                            "locked": "105 locked!"
+                        },
+                        "twenty_five": {
+                            "ready": "25 ready!",
+                            "set": "25 all set! Fire away.",
+                            "locked": "25 locked!"
+                        },
+                        "fourty": {
+                            "ready": "40 ready!",
+                            "Set": "40 all set! Fire away.",
+                            "locked": "25 locked!"
+                        }
+                    },
+                    "multiple_found": [
+                        "Tracking multiple targets.",
+                        "Nail those guys.",
+                        "Targets moving",
+                        "Enemy personnel on the move.",
+                        "Movement.",
+                        "Multiple targets."
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Allegiance",
+            "killstreaks": {
+                "nuke": {
+                    "accepted": "This is Watchtower. Passcode accepted. Beginning launch sequence."
+                },
+                "adv_uav": {
+                    "copy": [
+                        "Copy, advanced UAV on approach. Beginning radar sweep."
+                    ],
+                    "fuel": [
+                        "Be adviced, advanced UAV is out of fuel, returning to base."
+                    ]
+                },
+                "gunship": {
+                    "copy": [
+                        "Rhino 2-3 on station. Death from above.",
+                        "Rhino 2-2 arriving now. Transferring fire control.",
+                        "Rhino 2-1 arriving on station. Fire control is yours."
+                    ],
+                    "fuel": [
+                        "Fuel too low, out of time. Returning to base.",
+                        "We are redlining on fuel. Good luck, my friends.",
+                        "Fuel tanks are dry. We are heading back to base."
+                    ],
+                    "found_one": [
+                        "Hit them!",
+                        "Spotted the runner!",
+                        "I've got one running.",
+                        "Eyes on target!",
+                        "Target's in the open."
+                    ],
+                    "ammo": {
+                        "fourty": {
+                            "locked": "40 locked!",
+                            "set": "40 set! Fire away.",
+                            "ready": "40 ready!"
+                        },
+                        "twenty_five": {
+                            "locked": "25 locked!",
+                            "set": "25 set! Fire away.",
+                            "ready": "25 ready!"
+                        },
+                        "one_hundred_five": {
+                            "locked": "105 locked!",
+                            "set": "105 set! Fire away.",
+                            "ready": "105 ready!"
+                        }
+                    },
+                    "multiple_found": [
+                        "Movement!",
+                        "Multiple targets.",
+                        "Enemy infantry on the move.",
+                        "Target's in the open.",
+                        "Multiple contacts below.",
+                        "Tracking multiple targets."
+                    ],
+                    "enemy_hit": [
+                        "Enemy missile incoming!",
+                        "Incoming missile!",
+                        "Enemy missile locked!"
+                    ],
+                    "after_hit": {
+                        "general": [
+                            "Target intact, adjust your fire.",
+                            "Shots mistery attack.",
+                            "Movement detected, hit them again.",
+                            "Nothing left.",
+                            "Direct hit!",
+                            "Good kill!",
+                            "Not bad!",
+                            "Nice one. Good hit!"
+                        ],
+                        "flares": [
+                            "Flares away!",
+                            "Flares deployed!"
+                        ]
+                    },
+                    "engage": [
+                        "Clear to engage!",
+                        "Open fire.",
+                        "Weapons free.",
+                        "Engage!",
+                        "You are cleared to engage!"
+                    ],
+                    "down": {
+                        "general": [
+                            "Agh, going down. Brace for impact!",
+                            "We're taking damage. Find the shooters! They are trying to shoot us down.",
+                            "We're taking fire up here.",
+                            "Damage critical. We are going down. Sir, again. We are going down.",
+                            "System failure. We are losing altitude. I repeat, we are losing altitude!",
+                            "Alarm! We are hit- Going down."
+                        ],
+                        "ground": [
+                            "Rocket to command. We are taking fire from the ground."
+                        ]
+                    }
+                },
+                "support_helo": {
+                    "copy": [
+                        "Vanguad 2-3 on station. Weapons ready.",
+                        "Vanguard 2-2 on station. Weapons ready.",
+                        "Vanguard 2-1 on station. Weapons ready."
+                    ],
+                    "fuel": [
+                        "This is Vanguard two, we are out of fuel. Returning to base."
+                    ],
+                    "no_target": [
+                        "Negative visual on target, resuming patrol.",
+                        "Lost visual. Coming around for another run."
+                    ],
+                    "resume": [
+                        "Vanguard 2 resuming patrol."
+                    ],
+                    "down": [
+                        "They are taking us up. We can't take this.",
+                        "We are taking fire up here."
+                    ],
+                    "downed": [
+                        "Damage critical. I can't keep her airborne.",
+                        "We're hit, going down. I repeat, going down.",
+                        "unknown"
+                    ],
+                    "after_fire": [
+                        "Flash deployed",
+                        "Enemy locked on. Flares away.",
+                        "One exposed. Engaging.",
+                        "Target spotted. Moving to engage.",
+                        "Visual on target, engaging."
+                    ]
+                },
+                "chopper_gunner": {
+                    "copy": [
+                        "Thunder 1-3 is in the AO.",
+                        "Thunder 1-2 is now in station.",
+                        "Thunder 1-1 arriving on station."
+                    ],
+                    "fuel": [
+                        "This is Thunder, we need to refuel. I wish you luck. Keep firing."
+                    ],
+                    "continue": [
+                        "Keep firing.",
+                        "Continue to engage.",
+                        "Cleared to engage",
+                        ""
+                    ],
+                    "missile_locked": [
+                        "Enemy missile locked!",
+                        "Enemy locked on!",
+                        "Missile inbound!"
+                    ],
+                    "after_hit": {
+                        "general": [
+                            "Ah, good one.",
+                            "До свидания",
+                            "You got them.",
+                            "Rest in peace.",
+                            "Good work! Keep staking them up.",
+                            "Trying shooting.",
+                            "They never saw it coming.",
+                            "Good kill, good kill.",
+                            "Direct hit!",
+                            "Good shot!",
+                            "Target destroyed.",
+                            "Got them.",
+                            "Hit confirmed!"
+                        ],
+                        "multiple": [
+                            "That was a whole group.",
+                            "Multiple KIAs."
+                        ],
+                        "single": [
+                            "That's a kill.",
+                            "One KIA"
+                        ]
+                    },
+                    "enemy_hit": [
+                        "We can't take much far!",
+                        "We are hit. We are hit!",
+                        "We are taking fire, clear them up!"
+                    ],
+                    "flares": [
+                        "Flares away.",
+                        "Flares deployed."
+                    ]
+                }
+            }
+        }
+    ]
+}

@@ -3,9 +3,7 @@
   "version": "0.0.4",
   "description": "The first Call of Duty roleplay Discord bot.",
   "main": "src/index.js",
-  "engines": {
-    "node": "12.x"
-  },
+  
   "scripts": {
     "start": "node src/index.js"
   },

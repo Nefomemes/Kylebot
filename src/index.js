@@ -101,6 +101,7 @@ client.on('ready', () => {
 client.on('error', err => {
 	console.err(err);
 });
+<<<<<<< HEAD
  try {
 
 await require("./handlers/registerEvents")();
@@ -111,6 +112,12 @@ await require("./handlers/registerCommands")();
 	 console.warn(e);
  }
 
+=======
+
+require("./handlers/registerCommands")();
+require("./handlers/registerEvents")();
+require("./handlers/registerSuperCommands")();
+>>>>>>> origin/dev
 
 client.login();
 })()
