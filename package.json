@@ -18,7 +18,7 @@
     "cheerio": "^1.0.0-rc.3",
     "discord.js": "^12.5.1",
     "express": "^4.17.1",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "minimist": "^1.2.5",
     "mongodb": "^3.6.2",
     "mri": "^1.1.6",
