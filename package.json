@@ -3,7 +3,6 @@
   "version": "0.0.4",
   "description": "The first Call of Duty roleplay Discord bot.",
   "main": "src/index.js",
-  
   "scripts": {
     "start": "node src/index.js"
   },
@@ -28,5 +27,8 @@
     "shell-quote": "^1.7.2",
     "underscore": "^1.12.1",
     "xml2js": "^0.4.23"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0"
   }
 }
