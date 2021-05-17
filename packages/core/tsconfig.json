@@ -1,0 +1,11 @@
+{
+    "compilerOptions":{
+        "alwaysStrict": true,
+        "noImplicitAny": false,
+        "allowUnreachableCode": false,
+        "inlineSourceMap": true,
+	"allowJs": true
+    },
+    "include":["./src/"],
+
+}
