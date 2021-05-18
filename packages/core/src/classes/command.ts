@@ -1,15 +1,14 @@
-import type { PermissionString } from 'discord.js';
 
-export type CommandType = {
+import type { FortressPermissionString } from "../types/permission";
+import type { mriOptions } from "../types/mri/options";
+import type { Context } from "./context";
+export class Command {
 	run: (ctx: Context) => any;
-
 	id: string;
-
 	alias?: Array<string>;
-
 	description?: string;
-
-	permissionNeeded?: Array<PermissionString>;
-
+	permissionNeeded?: Array<FortressPermissionString>;
+	botPermissionNeeded?: Array<FortressPermissionString>;
+	argv: mriOptions;
 
 }
