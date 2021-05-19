@@ -1,10 +1,14 @@
 import { Client } from 'discord.js';
-import { Router } from './router';
+import { Plugin } from './plugin';
 import type { Command } from './command';
 export class FortressClient extends Client {
-	use(){
-
+	use(plugin: Plugin){
+		  if(typeof plugin === "string"){
+			  import()
+		  }
 	}
 
-	commands: Array<Command> = [];
+	plugins: Array<Plugin>;
+
+	commands: Array<Plugin> = [];
 }
